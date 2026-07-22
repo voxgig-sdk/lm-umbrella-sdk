@@ -1,0 +1,67 @@
+# BasicPermissionDatabaseFlow
+
+main: kit: flow: BasicPermissionDatabaseFlow:
+{
+  entity: "permission_database",
+  kind: "basic",
+  name: "BasicPermissionDatabaseFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "permission_database_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      data: {
+        database_id: "database01"
+      }
+
+      input: {
+        ref: "permission_database_ref01",
+        srcdatavar: "permission_database_ref01_data",
+        suffix: "_up0",
+        textfield: "description"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-permission_database_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "permission_database_ref01",
+        srcdatavar: "permission_database_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        database_id: "database01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-permission_database_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPermissionDatabaseFlow"
+}

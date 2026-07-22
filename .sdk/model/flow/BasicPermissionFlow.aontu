@@ -1,0 +1,33 @@
+# BasicPermissionFlow
+
+main: kit: flow: BasicPermissionFlow:
+{
+  entity: "permission",
+  kind: "basic",
+  name: "BasicPermissionFlow",
+  step: [
+    {
+      data: {
+        database_id: "database01"
+      }
+
+      input: {
+        ref: "permission_ref01",
+        srcdatavar: "permission_ref01_data",
+        suffix: "_up0",
+        textfield: "msisdn"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-permission_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPermissionFlow"
+}

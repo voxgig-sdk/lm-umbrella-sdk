@@ -1,0 +1,174 @@
+# Entity: import_status
+
+main: kit: entity: import_status: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "error"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "import_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "msisdn"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "permissions_inserted"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "permissions_updated"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "status"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "import_status"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: false
+                kind: "query"
+                name: "skip_import_on_error"
+                orig: "skip_import_on_error"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/public/database/{id}/permission/bulk"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "permission"
+            "bulk"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+              "skip_import_on_error"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "import_id"
+                orig: "import_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/{id}/permission/bulk/status"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "permission"
+            "bulk"
+            "status"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+              "import_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "database"
+      ]
+    ]
+  }
+
+
+
+}

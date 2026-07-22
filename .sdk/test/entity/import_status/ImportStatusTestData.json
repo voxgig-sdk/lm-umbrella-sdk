@@ -1,0 +1,48 @@
+{
+  "existing": {
+    "import_status": {
+      "IMPORT_STATUS00": {
+        "error": [],
+        "import_id": "IMPORT01",
+        "msisdn": "s3e",
+        "permissions_inserted": "s3f",
+        "permissions_updated": "s40",
+        "status": "s41",
+        "database_id": "DATABASE01",
+        "id": "IMPORT_STATUS00"
+      },
+      "IMPORT_STATUS01": {
+        "error": [],
+        "import_id": "IMPORT01",
+        "msisdn": "s7a",
+        "permissions_inserted": "s7b",
+        "permissions_updated": "s7c",
+        "status": "s7d",
+        "database_id": "DATABASE01",
+        "id": "IMPORT_STATUS01"
+      },
+      "IMPORT_STATUS02": {
+        "error": [],
+        "import_id": "IMPORT01",
+        "msisdn": "sb6",
+        "permissions_inserted": "sb7",
+        "permissions_updated": "sb8",
+        "status": "sb9",
+        "database_id": "DATABASE01",
+        "id": "IMPORT_STATUS02"
+      }
+    }
+  },
+  "new": {
+    "import_status": {
+      "import_status_ref01": {
+        "error": [],
+        "import_id": "IMPORT01",
+        "msisdn": "sf2",
+        "permissions_inserted": "sf3",
+        "permissions_updated": "sf4",
+        "status": "sf5"
+      }
+    }
+  }
+}

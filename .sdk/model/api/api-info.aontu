@@ -1,0 +1,42 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: `Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.
+
+The Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.
+
+Requests must be authenticated using an \`apiKey\`, available in the Umbrella portal.
+
+**Terminology**
+* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. \`45XXXXXXXX\` for Denmark).
+* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.
+* *Permission* — An MSISDN entry that can be linked to metadata.
+* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.
+* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.
+
+**Internal errors**
+
+A \`500 Internal Server Error\` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.`
+      security: {
+        in: "query"
+        name: "apiKey"
+        prefix: ""
+        scheme: "apiKey"
+        type: "apiKey"
+      }
+      servers: [
+        {
+          url: "https://permission.m2go.dk/permission/api"
+        }
+      ]
+      summary: "Welcome to the Umbrella Permission API."
+      title: "Permission Public API"
+      version: "2.0"
+      website: "https://permission.m2go.dk"
+    }
+  }
+}
+

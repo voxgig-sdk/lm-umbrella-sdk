@@ -1,0 +1,32 @@
+{
+  "existing": {
+    "permission": {
+      "PERMISSION00": {
+        "empty": true,
+        "msisdn": "s15",
+        "database_id": "DATABASE01",
+        "id": "PERMISSION00"
+      },
+      "PERMISSION01": {
+        "empty": true,
+        "msisdn": "s29",
+        "database_id": "DATABASE01",
+        "id": "PERMISSION01"
+      },
+      "PERMISSION02": {
+        "empty": true,
+        "msisdn": "s3d",
+        "database_id": "DATABASE01",
+        "id": "PERMISSION02"
+      }
+    }
+  },
+  "new": {
+    "permission": {
+      "permission_ref01": {
+        "empty": true,
+        "msisdn": "s51"
+      }
+    }
+  }
+}

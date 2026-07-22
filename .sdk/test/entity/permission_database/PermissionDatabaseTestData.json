@@ -1,0 +1,56 @@
+{
+  "existing": {
+    "permission_database": {
+      "PERMISSION_DATABASE00": {
+        "customer_id": "CUSTOMER01",
+        "delete_on_optout": false,
+        "description": "s5c",
+        "hook": [],
+        "id": "PERMISSION_DATABASE00",
+        "name": "s5f",
+        "route": [],
+        "sender_alia": "s61",
+        "service_id": "SERVICE01",
+        "database_id": "DATABASE01"
+      },
+      "PERMISSION_DATABASE01": {
+        "customer_id": "CUSTOMER01",
+        "delete_on_optout": false,
+        "description": "sb6",
+        "hook": [],
+        "id": "PERMISSION_DATABASE01",
+        "name": "sb9",
+        "route": [],
+        "sender_alia": "sbb",
+        "service_id": "SERVICE01",
+        "database_id": "DATABASE01"
+      },
+      "PERMISSION_DATABASE02": {
+        "customer_id": "CUSTOMER01",
+        "delete_on_optout": false,
+        "description": "s110",
+        "hook": [],
+        "id": "PERMISSION_DATABASE02",
+        "name": "s113",
+        "route": [],
+        "sender_alia": "s115",
+        "service_id": "SERVICE01",
+        "database_id": "DATABASE01"
+      }
+    }
+  },
+  "new": {
+    "permission_database": {
+      "permission_database_ref01": {
+        "customer_id": "CUSTOMER01",
+        "delete_on_optout": false,
+        "description": "s16a",
+        "hook": [],
+        "name": "s16d",
+        "route": [],
+        "sender_alia": "s16f",
+        "service_id": "SERVICE01"
+      }
+    }
+  }
+}

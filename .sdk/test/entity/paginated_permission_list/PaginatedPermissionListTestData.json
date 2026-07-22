@@ -1,0 +1,88 @@
+{
+  "existing": {
+    "paginated_permission_list": {
+      "PAGINATED_PERMISSION_LIST00": {
+        "ascending": true,
+        "column": [],
+        "end_row": "sa2",
+        "group": [],
+        "metadata": [],
+        "msisdn_list": [],
+        "only_active": true,
+        "page": "sa7",
+        "permission": [],
+        "quick_filter_text": "sa9",
+        "sort": "saa",
+        "source": [],
+        "start_row": "sac",
+        "total_active": "sad",
+        "total_element": "sae",
+        "total_page": "saf",
+        "database_id": "DATABASE01",
+        "id": "PAGINATED_PERMISSION_LIST00"
+      },
+      "PAGINATED_PERMISSION_LIST01": {
+        "ascending": true,
+        "column": [],
+        "end_row": "s142",
+        "group": [],
+        "metadata": [],
+        "msisdn_list": [],
+        "only_active": true,
+        "page": "s147",
+        "permission": [],
+        "quick_filter_text": "s149",
+        "sort": "s14a",
+        "source": [],
+        "start_row": "s14c",
+        "total_active": "s14d",
+        "total_element": "s14e",
+        "total_page": "s14f",
+        "database_id": "DATABASE01",
+        "id": "PAGINATED_PERMISSION_LIST01"
+      },
+      "PAGINATED_PERMISSION_LIST02": {
+        "ascending": true,
+        "column": [],
+        "end_row": "s1e2",
+        "group": [],
+        "metadata": [],
+        "msisdn_list": [],
+        "only_active": true,
+        "page": "s1e7",
+        "permission": [],
+        "quick_filter_text": "s1e9",
+        "sort": "s1ea",
+        "source": [],
+        "start_row": "s1ec",
+        "total_active": "s1ed",
+        "total_element": "s1ee",
+        "total_page": "s1ef",
+        "database_id": "DATABASE01",
+        "id": "PAGINATED_PERMISSION_LIST02"
+      }
+    }
+  },
+  "new": {
+    "paginated_permission_list": {
+      "paginated_permission_list_ref01": {
+        "ascending": true,
+        "column": [],
+        "end_row": "s282",
+        "group": [],
+        "metadata": [],
+        "msisdn_list": [],
+        "only_active": true,
+        "page": "s287",
+        "permission": [],
+        "quick_filter_text": "s289",
+        "sort": "s28a",
+        "source": [],
+        "start_row": "s28c",
+        "total_active": "s28d",
+        "total_element": "s28e",
+        "total_page": "s28f"
+      }
+    }
+  }
+}

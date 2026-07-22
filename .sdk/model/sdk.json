@@ -1,0 +1,2379 @@
+{
+  "def": "umbrella-openapi.json",
+  "main": {
+    "def": {
+      "desc": ""
+    },
+    "kit": {
+      "config": {
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ],
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "database": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [],
+          "name": "database",
+          "op": {
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "database_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "DELETE",
+                  "orig": "/public/database/{id}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{id}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "flat_permission": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "empty",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "msisdn",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "flat_permission",
+          "op": {
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "msisdn",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/{id}/permission/{msisdn}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id",
+                      "msisdn": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "database"
+              ]
+            ]
+          }
+        },
+        "flattened_permission": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "active",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "empty",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "msisdn",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "source",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "flattened_permission",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "msisdn",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "POST",
+                  "orig": "/public/database/{id}/permission/{msisdn}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id",
+                      "msisdn": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/{id}/permission/list",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "list"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/{id}/permission/query",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "query"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "database"
+              ]
+            ]
+          }
+        },
+        "import_status": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "error",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "import_id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "msisdn",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "permissions_inserted",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "permissions_updated",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "status",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "import_status",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": false,
+                        "kind": "query",
+                        "name": "skip_import_on_error",
+                        "orig": "skip_import_on_error",
+                        "reqd": false,
+                        "type": "`$BOOLEAN`"
+                      }
+                    ]
+                  },
+                  "method": "POST",
+                  "orig": "/public/database/{id}/permission/bulk",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "bulk"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "skip_import_on_error"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "import_id",
+                        "orig": "import_id",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/{id}/permission/bulk/status",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "bulk",
+                    "status"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "import_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "database"
+              ]
+            ]
+          }
+        },
+        "metadata": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "content",
+              "req": false,
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "created",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "database_id",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "key",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "label",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "multi_value",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "type",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "updated",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "metadata",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "key",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "POST",
+                  "orig": "/public/database/{id}/metadata/{key}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "metadata",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id",
+                      "key": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "POST",
+                  "orig": "/public/database/{id}/metadata",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "metadata"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/{id}/metadata",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "metadata"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "key",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/{id}/metadata/{key}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "metadata",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id",
+                      "key": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "update": {
+              "input": "data",
+              "name": "update",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "key",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "PUT",
+                  "orig": "/public/database/{id}/metadata/{key}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "metadata",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id",
+                      "key": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "database"
+              ]
+            ]
+          }
+        },
+        "paginated_permission_list": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "ascending",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "column",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "end_row",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "group",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "metadata",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "msisdn_list",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "only_active",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "page",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "permission",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "quick_filter_text",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "sort",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "source",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "start_row",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "total_active",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "total_element",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "total_page",
+              "req": false,
+              "type": "`$INTEGER`"
+            }
+          ],
+          "name": "paginated_permission_list",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "POST",
+                  "orig": "/public/database/{id}/permission/paged/list",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "paged",
+                    "list"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "database"
+              ]
+            ]
+          }
+        },
+        "permission": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "empty",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "msisdn",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "permission",
+          "op": {
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "msisdn",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "DELETE",
+                  "orig": "/public/database/{id}/permission/{msisdn}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id",
+                      "msisdn": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "msisdn",
+                        "orig": "msisdn",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "DELETE",
+                  "orig": "/public/database/{id}/permission/permanent/{msisdn}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "permanent",
+                    "{msisdn}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "msisdn"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "update": {
+              "input": "data",
+              "name": "update",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "msisdn",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "PUT",
+                  "orig": "/public/database/{id}/permission/{msisdn}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{database_id}",
+                    "permission",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "database_id",
+                      "msisdn": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "database"
+              ],
+              [
+                "database",
+                "permanent"
+              ]
+            ]
+          }
+        },
+        "permission_database": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "customer_id",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "delete_on_optout",
+              "req": false,
+              "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "description",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "hook",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "name",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "route",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "sender_alia",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "service_id",
+              "req": false,
+              "type": "`$INTEGER`"
+            }
+          ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "permission_database",
+          "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/list",
+                  "parts": [
+                    "public",
+                    "database",
+                    "list"
+                  ],
+                  "select": {
+                    "exist": [
+                      "api_key"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "database_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/public/database/{id}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{id}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "update": {
+              "input": "data",
+              "name": "update",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "database_id",
+                        "orig": "database_id",
+                        "reqd": true,
+                        "type": "`$INTEGER`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "PUT",
+                  "orig": "/public/database/{id}",
+                  "parts": [
+                    "public",
+                    "database",
+                    "{id}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "database_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        }
+      },
+      "feature": {
+        "test": {
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
+              "await": false
+            }
+          },
+          "name": "test",
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1"
+        }
+      },
+      "flow": {
+        "BasicDatabaseFlow": {
+          "active": true,
+          "entity": "database",
+          "key$": "BasicDatabaseFlow",
+          "kind": "basic",
+          "name": "BasicDatabaseFlow",
+          "param": {},
+          "step": []
+        },
+        "BasicFlatPermissionFlow": {
+          "active": true,
+          "entity": "flat_permission",
+          "key$": "BasicFlatPermissionFlow",
+          "kind": "basic",
+          "name": "BasicFlatPermissionFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "flat_permission_ref01",
+                "srcdatavar": "flat_permission_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "database_id": "database01",
+                "id": "flat_permission01"
+              },
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-flat_permission_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicFlattenedPermissionFlow": {
+          "active": true,
+          "entity": "flattened_permission",
+          "key$": "BasicFlattenedPermissionFlow",
+          "kind": "basic",
+          "name": "BasicFlattenedPermissionFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "flattened_permission_ref01"
+              },
+              "match": {
+                "database_id": "database01",
+                "msisdn": "msisdn01"
+              },
+              "op": "create",
+              "spec": [],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {
+                "database_id": "database01"
+              },
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "flattened_permission_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "flattened_permission_ref01",
+                "srcdatavar": "flattened_permission_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "flattened_permission01"
+              },
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-flattened_permission_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicImportStatusFlow": {
+          "active": true,
+          "entity": "import_status",
+          "key$": "BasicImportStatusFlow",
+          "kind": "basic",
+          "name": "BasicImportStatusFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "import_status_ref01"
+              },
+              "match": {
+                "database_id": "database01"
+              },
+              "op": "create",
+              "spec": [],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {
+                "database_id": "database01"
+              },
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "import_status_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicMetadataFlow": {
+          "active": true,
+          "entity": "metadata",
+          "key$": "BasicMetadataFlow",
+          "kind": "basic",
+          "name": "BasicMetadataFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "metadata_ref01"
+              },
+              "match": {
+                "database_id": "database01"
+              },
+              "op": "create",
+              "spec": [],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {
+                "database_id": "database01"
+              },
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "metadata_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "active": true,
+              "data": {
+                "database_id": "database01"
+              },
+              "input": {
+                "ref": "metadata_ref01",
+                "srcdatavar": "metadata_ref01_data",
+                "suffix": "_up0",
+                "textfield": "created"
+              },
+              "match": {},
+              "op": "update",
+              "spec": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-metadata_ref01"
+                  }
+                }
+              ],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "metadata_ref01",
+                "srcdatavar": "metadata_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "database_id": "database01",
+                "id": "metadata01"
+              },
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-metadata_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicPaginatedPermissionListFlow": {
+          "active": true,
+          "entity": "paginated_permission_list",
+          "key$": "BasicPaginatedPermissionListFlow",
+          "kind": "basic",
+          "name": "BasicPaginatedPermissionListFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "paginated_permission_list_ref01"
+              },
+              "match": {
+                "database_id": "database01"
+              },
+              "op": "create",
+              "spec": [],
+              "valid": []
+            }
+          ]
+        },
+        "BasicPermissionDatabaseFlow": {
+          "active": true,
+          "entity": "permission_database",
+          "key$": "BasicPermissionDatabaseFlow",
+          "kind": "basic",
+          "name": "BasicPermissionDatabaseFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "permission_database_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "active": true,
+              "data": {
+                "database_id": "database01"
+              },
+              "input": {
+                "ref": "permission_database_ref01",
+                "srcdatavar": "permission_database_ref01_data",
+                "suffix": "_up0",
+                "textfield": "description"
+              },
+              "match": {},
+              "op": "update",
+              "spec": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-permission_database_ref01"
+                  }
+                }
+              ],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "permission_database_ref01",
+                "srcdatavar": "permission_database_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "database_id": "database01"
+              },
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-permission_database_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicPermissionFlow": {
+          "active": true,
+          "entity": "permission",
+          "key$": "BasicPermissionFlow",
+          "kind": "basic",
+          "name": "BasicPermissionFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {
+                "database_id": "database01"
+              },
+              "input": {
+                "ref": "permission_ref01",
+                "srcdatavar": "permission_ref01_data",
+                "suffix": "_up0",
+                "textfield": "msisdn"
+              },
+              "match": {},
+              "op": "update",
+              "spec": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-permission_ref01"
+                  }
+                }
+              ],
+              "valid": []
+            }
+          ]
+        }
+      },
+      "info": {
+        "description": "Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.\n\nThe Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.\n\nRequests must be authenticated using an `apiKey`, available in the Umbrella portal.\n\n**Terminology**\n* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. `45XXXXXXXX` for Denmark).\n* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.\n* *Permission* — An MSISDN entry that can be linked to metadata.\n* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.\n* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.\n\n**Internal errors**\n\nA `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.",
+        "security": {
+          "in": "query",
+          "name": "apiKey",
+          "prefix": "",
+          "scheme": "apiKey",
+          "type": "apiKey"
+        },
+        "servers": [
+          {
+            "url": "https://permission.m2go.dk/permission/api"
+          }
+        ],
+        "summary": "Welcome to the Umbrella Permission API.",
+        "title": "Permission Public API",
+        "version": "2.0",
+        "website": "https://permission.m2go.dk"
+      },
+      "option": {},
+      "target": {
+        "go": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "go",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "go-cli",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            }
+          },
+          "title": "Go CLI"
+        },
+        "go-mcp": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "go-mcp",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            }
+          },
+          "title": "Go MCP server"
+        },
+        "lua": {
+          "active": true,
+          "comment": {
+            "line": "--"
+          },
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.5"
+            }
+          },
+          "ext": "lua",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "lua",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "luarocks",
+              "package": "",
+              "state": "pending",
+              "url": "https://luarocks.org",
+              "vault": {
+                "alias": "luarocks",
+                "env": "LUAROCKS_API_KEY",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Lua"
+        },
+        "php": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "php",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "php",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "packagist",
+              "package": "",
+              "state": "pending",
+              "url": "https://packagist.org",
+              "vault": {
+                "alias": "packagist",
+                "env": "PACKAGIST_API_TOKEN",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "PHP"
+        },
+        "py": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "requests": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.33"
+            }
+          },
+          "ext": "py",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "py",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "pypi",
+              "package": "",
+              "state": "pending",
+              "url": "https://pypi.org",
+              "vault": {
+                "alias": "pypi",
+                "env": "",
+                "recipe": "pypi"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "json": {
+              "active": true,
+              "kind": "prod",
+              "version": "0"
+            },
+            "voxgig-struct": {
+              "active": true,
+              "kind": "prod",
+              "version": "0.0.10"
+            }
+          },
+          "ext": "rb",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "rb",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "rubygems",
+              "package": "",
+              "state": "pending",
+              "url": "https://rubygems.org",
+              "vault": {
+                "alias": "gem",
+                "env": "",
+                "recipe": "gem"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "module": {
+            "name": "lm-umbrella"
+          },
+          "name": "ts",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "npm",
+              "package": "",
+              "state": "pending",
+              "url": "https://registry.npmjs.org",
+              "vault": {
+                "alias": "npm",
+                "env": "",
+                "recipe": "npm"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "title": "TypeScript"
+        }
+      }
+    }
+  },
+  "name": "lm-umbrella",
+  "origin": "voxgig-sdk"
+}

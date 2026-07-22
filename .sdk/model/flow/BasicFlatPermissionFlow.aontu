@@ -1,0 +1,33 @@
+# BasicFlatPermissionFlow
+
+main: kit: flow: BasicFlatPermissionFlow:
+{
+  entity: "flat_permission",
+  kind: "basic",
+  name: "BasicFlatPermissionFlow",
+  step: [
+    {
+      input: {
+        ref: "flat_permission_ref01",
+        srcdatavar: "flat_permission_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        database_id: "database01",
+        id: "flat_permission01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-flat_permission_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicFlatPermissionFlow"
+}

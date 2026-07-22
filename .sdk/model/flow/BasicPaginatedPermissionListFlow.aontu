@@ -1,0 +1,22 @@
+# BasicPaginatedPermissionListFlow
+
+main: kit: flow: BasicPaginatedPermissionListFlow:
+{
+  entity: "paginated_permission_list",
+  kind: "basic",
+  name: "BasicPaginatedPermissionListFlow",
+  step: [
+    {
+      input: {
+        ref: "paginated_permission_list_ref01"
+      }
+
+      match: {
+        database_id: "database01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicPaginatedPermissionListFlow"
+}

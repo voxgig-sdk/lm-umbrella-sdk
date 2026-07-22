@@ -1,0 +1,156 @@
+# Entity: paginated_permission_list
+
+main: kit: entity: paginated_permission_list: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "ascending"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "column"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "end_row"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "group"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "metadata"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "msisdn_list"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "only_active"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "page"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "permission"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "quick_filter_text"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "sort"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "source"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "start_row"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "total_active"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "total_element"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "total_page"
+      req: false
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "paginated_permission_list"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/public/database/{id}/permission/paged/list"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "permission"
+            "paged"
+            "list"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "database"
+      ]
+    ]
+  }
+
+
+
+}

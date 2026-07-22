@@ -1,0 +1,57 @@
+# Entity: database
+
+main: kit: entity: database: {
+
+  alias: field: {}
+
+  name: "database"
+  op: {
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "database_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/public/database/{id}"
+          parts: [
+            "public"
+            "database"
+            "{id}"
+          ]
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

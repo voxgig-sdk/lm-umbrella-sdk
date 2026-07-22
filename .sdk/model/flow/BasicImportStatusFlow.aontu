@@ -1,0 +1,38 @@
+# BasicImportStatusFlow
+
+main: kit: flow: BasicImportStatusFlow:
+{
+  entity: "import_status",
+  kind: "basic",
+  name: "BasicImportStatusFlow",
+  step: [
+    {
+      input: {
+        ref: "import_status_ref01"
+      }
+
+      match: {
+        database_id: "database01"
+      }
+
+      op: "create"
+    }
+
+    {
+      match: {
+        database_id: "database01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "import_status_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicImportStatusFlow"
+}

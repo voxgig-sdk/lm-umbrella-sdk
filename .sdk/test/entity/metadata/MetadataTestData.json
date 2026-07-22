@@ -1,0 +1,53 @@
+{
+  "existing": {
+    "metadata": {
+      "METADATA00": {
+        "content": {},
+        "created": "s51",
+        "database_id": "DATABASE01",
+        "key": "s53",
+        "label": "s54",
+        "multi_value": false,
+        "type": "s56",
+        "updated": "s57",
+        "id": "METADATA00"
+      },
+      "METADATA01": {
+        "content": {},
+        "created": "sa1",
+        "database_id": "DATABASE01",
+        "key": "sa3",
+        "label": "sa4",
+        "multi_value": false,
+        "type": "sa6",
+        "updated": "sa7",
+        "id": "METADATA01"
+      },
+      "METADATA02": {
+        "content": {},
+        "created": "sf1",
+        "database_id": "DATABASE01",
+        "key": "sf3",
+        "label": "sf4",
+        "multi_value": false,
+        "type": "sf6",
+        "updated": "sf7",
+        "id": "METADATA02"
+      }
+    }
+  },
+  "new": {
+    "metadata": {
+      "metadata_ref01": {
+        "content": {},
+        "created": "s141",
+        "database_id": "DATABASE01",
+        "key": "s143",
+        "label": "s144",
+        "multi_value": false,
+        "type": "s146",
+        "updated": "s147"
+      }
+    }
+  }
+}

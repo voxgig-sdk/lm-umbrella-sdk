@@ -1,0 +1,94 @@
+# Entity: flat_permission
+
+main: kit: entity: flat_permission: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "empty"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "msisdn"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "flat_permission"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "id"
+                orig: "msisdn"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/{id}/permission/{msisdn}"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "permission"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+              msisdn: "id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "database"
+      ]
+    ]
+  }
+
+
+
+}

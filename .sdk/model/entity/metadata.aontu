@@ -1,0 +1,339 @@
+# Entity: metadata
+
+main: kit: entity: metadata: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "content"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "created"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "database_id"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "key"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "label"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "multi_value"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "type"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "updated"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "metadata"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "id"
+                orig: "key"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/public/database/{id}/metadata/{key}"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "metadata"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+              key: "id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/public/database/{id}/metadata"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "metadata"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/{id}/metadata"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "metadata"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "id"
+                orig: "key"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/{id}/metadata/{key}"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "metadata"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+              key: "id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "id"
+                orig: "key"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PUT"
+          orig: "/public/database/{id}/metadata/{key}"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "metadata"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+              key: "id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "database"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,40 @@
+{
+  "existing": {
+    "flattened_permission": {
+      "FLATTENED_PERMISSION00": {
+        "active": true,
+        "empty": false,
+        "msisdn": "s2a",
+        "source": "s2b",
+        "database_id": "DATABASE01",
+        "id": "FLATTENED_PERMISSION00"
+      },
+      "FLATTENED_PERMISSION01": {
+        "active": true,
+        "empty": false,
+        "msisdn": "s52",
+        "source": "s53",
+        "database_id": "DATABASE01",
+        "id": "FLATTENED_PERMISSION01"
+      },
+      "FLATTENED_PERMISSION02": {
+        "active": true,
+        "empty": false,
+        "msisdn": "s7a",
+        "source": "s7b",
+        "database_id": "DATABASE01",
+        "id": "FLATTENED_PERMISSION02"
+      }
+    }
+  },
+  "new": {
+    "flattened_permission": {
+      "flattened_permission_ref01": {
+        "active": true,
+        "empty": false,
+        "msisdn": "sa2",
+        "source": "sa3"
+      }
+    }
+  }
+}

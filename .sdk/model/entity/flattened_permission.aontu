@@ -1,0 +1,196 @@
+# Entity: flattened_permission
+
+main: kit: entity: flattened_permission: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "active"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "empty"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "msisdn"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "source"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "flattened_permission"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "id"
+                orig: "msisdn"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/public/database/{id}/permission/{msisdn}"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "permission"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+              msisdn: "id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/{id}/permission/list"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "permission"
+            "list"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+            }
+          }
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/{id}/permission/query"
+          parts: [
+            "public"
+            "database"
+            "{database_id}"
+            "permission"
+            "query"
+          ]
+          rename: {
+            param: {
+              id: "database_id"
+            }
+          }
+          select: {
+            exist: [
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "database"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,188 @@
+# Entity: permission_database
+
+main: kit: entity: permission_database: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "customer_id"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "delete_on_optout"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "description"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "hook"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "route"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "sender_alia"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "service_id"
+      req: false
+      type: "`$INTEGER`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "permission_database"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/list"
+          parts: [
+            "public"
+            "database"
+            "list"
+          ]
+          select: {
+            exist: [
+              "api_key"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "database_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/public/database/{id}"
+          parts: [
+            "public"
+            "database"
+            "{id}"
+          ]
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "database_id"
+                orig: "database_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PUT"
+          orig: "/public/database/{id}"
+          parts: [
+            "public"
+            "database"
+            "{id}"
+          ]
+          select: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

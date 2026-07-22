@@ -1,0 +1,94 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 8
+  metrics: count: path: 11
+  metrics: count: method: 19
+
+  entity: database: {
+    path: "/public/database/{id}": {
+      op: remove: method: *DELETE
+    }
+  }
+
+  entity: flat_permission: {
+    path: "/public/database/{id}/permission/{msisdn}": {
+      rename: param: "id": *"database_id"
+      rename: param: "msisdn": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: flattened_permission: {
+    path: "/public/database/{id}/permission/list": {
+      rename: param: "id": *"database_id"
+      op: list: method: *GET
+    }
+    path: "/public/database/{id}/permission/query": {
+      rename: param: "id": *"database_id"
+      op: load: method: *GET
+    }
+    path: "/public/database/{id}/permission/{msisdn}": {
+      rename: param: "id": *"database_id"
+      rename: param: "msisdn": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: import_status: {
+    path: "/public/database/{id}/permission/bulk": {
+      rename: param: "id": *"database_id"
+      op: create: method: *POST
+    }
+    path: "/public/database/{id}/permission/bulk/status": {
+      rename: param: "id": *"database_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: metadata: {
+    path: "/public/database/{id}/metadata": {
+      rename: param: "id": *"database_id"
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/public/database/{id}/metadata/{key}": {
+      rename: param: "id": *"database_id"
+      rename: param: "key": *"id"
+      op: create: method: *POST
+      op: load: method: *GET
+      op: update: method: *PUT
+    }
+  }
+
+  entity: paginated_permission_list: {
+    path: "/public/database/{id}/permission/paged/list": {
+      rename: param: "id": *"database_id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: permission: {
+    path: "/public/database/{id}/permission/permanent/{msisdn}": {
+      rename: param: "id": *"database_id"
+      op: remove: method: *DELETE
+    }
+    path: "/public/database/{id}/permission/{msisdn}": {
+      rename: param: "id": *"database_id"
+      rename: param: "msisdn": *"id"
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+  }
+
+  entity: permission_database: {
+    path: "/public/database/list": {
+      op: list: method: *GET
+    }
+    path: "/public/database/{id}": {
+      op: load: method: *GET
+      op: update: method: *PUT
+    }
+  }
+
+}

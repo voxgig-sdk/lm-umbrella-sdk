@@ -1,0 +1,84 @@
+# BasicMetadataFlow
+
+main: kit: flow: BasicMetadataFlow:
+{
+  entity: "metadata",
+  kind: "basic",
+  name: "BasicMetadataFlow",
+  step: [
+    {
+      input: {
+        ref: "metadata_ref01"
+      }
+
+      match: {
+        database_id: "database01"
+      }
+
+      op: "create"
+    }
+
+    {
+      match: {
+        database_id: "database01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "metadata_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      data: {
+        database_id: "database01"
+      }
+
+      input: {
+        ref: "metadata_ref01",
+        srcdatavar: "metadata_ref01_data",
+        suffix: "_up0",
+        textfield: "created"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-metadata_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "metadata_ref01",
+        srcdatavar: "metadata_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        database_id: "database01",
+        id: "metadata01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-metadata_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicMetadataFlow"
+}

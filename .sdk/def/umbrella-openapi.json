@@ -1,0 +1,1471 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Permission Public API",
+    "description" : "Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.\n\nThe Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.\n\nRequests must be authenticated using an `apiKey`, available in the Umbrella portal.\n\n**Terminology**\n* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. `45XXXXXXXX` for Denmark).\n* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.\n* *Permission* — An MSISDN entry that can be linked to metadata.\n* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.\n* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.\n\n**Internal errors**\n\nA `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.",
+    "version" : "2.0"
+  },
+  "servers" : [ {
+    "url" : "https://permission.m2go.dk/permission/api"
+  } ],
+  "security" : [ {
+    "apiKey" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Database",
+    "description" : "Database methods provide access to the underlying permission database, which contains information on how to unsubscribe from the database."
+  }, {
+    "name" : "Metadata",
+    "description" : "Metadata methods can create and edit metadata for a permission database. This should be done, before metadata is added to a permission."
+  }, {
+    "name" : "Permission",
+    "description" : "Permission methods can be used to get a list of all permissions (at once or in batches), and to add, update or delete (i.e. deactivate) permissions. All operations on specific permissions use `MSISDN` as key."
+  } ],
+  "paths" : {
+    "/public/database/{id}" : {
+      "get" : {
+        "tags" : [ "Database" ],
+        "summary" : "Find database by ID",
+        "description" : "Gets data for one specific database",
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "Database ID",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PermissionDatabase"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Database" ],
+        "summary" : "Update database by ID",
+        "description" : "Updates a database",
+        "operationId" : "update",
+        "parameters" : [ {
+          "name" : "Database ID",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PermissionDatabase"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PermissionDatabase"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "404" : {
+            "description" : "The database could not be found"
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Database" ],
+        "summary" : "Delete database by ID",
+        "description" : "Deletes a database",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "Database ID",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation"
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "404" : {
+            "description" : "The database could not be found"
+          }
+        }
+      }
+    },
+    "/public/database/list" : {
+      "get" : {
+        "tags" : [ "Database" ],
+        "summary" : "List available databases",
+        "description" : "Gets all available database",
+        "operationId" : "list",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/PermissionDatabase"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/database/{id}/metadata/{key}" : {
+      "get" : {
+        "tags" : [ "Metadata" ],
+        "description" : "Get metadata by key",
+        "operationId" : "get_1",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Metadata"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "404" : {
+            "description" : "Metadata not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Metadata" ],
+        "description" : "Update metadata by key",
+        "operationId" : "update_1",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Metadata"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Metadata"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "404" : {
+            "description" : "Metadata not found"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Metadata" ],
+        "description" : "Delete metadata by key",
+        "operationId" : "delete_1",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "404" : {
+            "description" : "Metadata not found"
+          }
+        }
+      }
+    },
+    "/public/database/{id}/metadata" : {
+      "get" : {
+        "tags" : [ "Metadata" ],
+        "description" : "List metadata for database",
+        "operationId" : "list_1",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Metadata"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "404" : {
+            "description" : "Metadata not found"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Metadata" ],
+        "description" : "Add metadata to database",
+        "operationId" : "save",
+        "parameters" : [ {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Metadata"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Metadata"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Metadata not found"
+          }
+        }
+      }
+    },
+    "/public/database/{id}/permission/bulk" : {
+      "post" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Bulk import (add/update)",
+        "operationId" : "bulk",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "skipImportOnError",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/FlatPermission"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImportStatus"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          }
+        }
+      }
+    },
+    "/public/database/{id}/permission/{msisdn}" : {
+      "get" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Get permission by MSISDN",
+        "operationId" : "get_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "msisdn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlatPermission"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Permission was not found"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Update permission by MSISDN",
+        "description" : "Updates permissions for specific msisdn",
+        "operationId" : "update_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "msisdn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "msisdn" : {
+                    "type" : "string"
+                  },
+                  "empty" : {
+                    "type" : "boolean"
+                  }
+                },
+                "additionalProperties" : {
+                  "type" : "object"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation"
+          },
+          "404" : {
+            "description" : "Permission was not found"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Add permission",
+        "operationId" : "save_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "msisdn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "msisdn" : {
+                    "type" : "string"
+                  },
+                  "empty" : {
+                    "type" : "boolean"
+                  }
+                },
+                "additionalProperties" : {
+                  "type" : "object"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlattenedPermission"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Permission was not found"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Delete permission by MSISDN",
+        "description" : "Note that \"delete\" means that the permission is deactivated. It will not be deleted from the database.",
+        "operationId" : "deactivate",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "msisdn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation"
+          },
+          "404" : {
+            "description" : "Permission was not found"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/database/{id}/permission/permanent/{msisdn}" : {
+      "delete" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Permanently delete permission by MSISDN",
+        "operationId" : "delete_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "msisdn",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation"
+          },
+          "404" : {
+            "description" : "Permission was not found"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/database/{id}/permission/paged/list" : {
+      "post" : {
+        "tags" : [ "Permission" ],
+        "summary" : "List page of permissions in database",
+        "description" : "Paged list",
+        "operationId" : "list_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Segmentation"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PaginatedPermissionList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/database/{id}/permission/list" : {
+      "get" : {
+        "tags" : [ "Permission" ],
+        "summary" : "List all permissions in database",
+        "description" : "Non-paged list",
+        "operationId" : "permissionList",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/FlattenedPermission"
+                  }
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "The database could not be found"
+          }
+        }
+      }
+    },
+    "/public/database/{id}/permission/query" : {
+      "get" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Add/update permission using query parameters",
+        "description" : "Default parameters are msisdn, active (true or false), apiKey and source. Metadata can be added using keyname.",
+        "operationId" : "saveByParameters",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/FlattenedPermission"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Permission was not found"
+          },
+          "401" : {
+            "description" : "The request is not allowed"
+          }
+        }
+      }
+    },
+    "/public/database/{id}/permission/bulk/status" : {
+      "get" : {
+        "tags" : [ "Permission" ],
+        "summary" : "Get status of bulk import",
+        "operationId" : "status",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "importId",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "apiKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImportStatus"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "One or more parameters missing or invalid",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidationResult"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Import not found"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Keyword" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "internal database id of the route",
+            "format" : "int32"
+          },
+          "permissionDatabaseId" : {
+            "type" : "integer",
+            "description" : "id of the database it belongs to",
+            "format" : "int32"
+          },
+          "routeId" : {
+            "type" : "integer",
+            "description" : "the route the keyword is configured on",
+            "format" : "int32"
+          },
+          "keyword" : {
+            "type" : "string",
+            "description" : "keyword for the route"
+          },
+          "extra" : {
+            "type" : "string",
+            "description" : "extra word (second word in the sms) for unsubscribing (empty or null means all)"
+          }
+        },
+        "description" : "This represent an unsubscription route for a database"
+      },
+      "PermissionDatabase" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "serviceId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "customerId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "senderAlias" : {
+            "type" : "string"
+          },
+          "deleteOnOptout" : {
+            "type" : "boolean"
+          },
+          "routes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/UnsubscribeRouteDto"
+            }
+          },
+          "hooks" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/SimpleWebhookDto"
+            }
+          }
+        }
+      },
+      "SimpleWebhookDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "hookId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "hookName" : {
+            "type" : "string"
+          },
+          "hookKey" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "enabled" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "UnsubscribeRouteDto" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "channel" : {
+            "type" : "string"
+          },
+          "keywords" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Keyword"
+            }
+          },
+          "unsubscriptionText" : {
+            "type" : "string"
+          },
+          "optoutFooterEnabled" : {
+            "type" : "boolean"
+          },
+          "optoutFooterText" : {
+            "type" : "string"
+          },
+          "optoutFooterPageText" : {
+            "type" : "string"
+          },
+          "optoutFooterPageButton" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ValidationError" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string",
+            "description" : "human friendly error message"
+          },
+          "code" : {
+            "type" : "string",
+            "description" : "code for error"
+          },
+          "properties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string",
+              "description" : "relevant properties for error"
+            },
+            "description" : "relevant properties for error"
+          }
+        },
+        "description" : "represents an error"
+      },
+      "ValidationResult" : {
+        "type" : "object",
+        "properties" : {
+          "errors" : {
+            "type" : "array",
+            "description" : "list of errors after validation",
+            "items" : {
+              "$ref" : "#/components/schemas/ValidationError"
+            }
+          }
+        },
+        "description" : "result of a validation"
+      },
+      "Metadata" : {
+        "type" : "object",
+        "properties" : {
+          "databaseId" : {
+            "type" : "integer",
+            "description" : "id of the database",
+            "format" : "int32"
+          },
+          "key" : {
+            "type" : "string",
+            "description" : "key for the field (used for the value internally - cannot be changed after creation)"
+          },
+          "label" : {
+            "type" : "string",
+            "description" : "label for the field (used for displaying in the interface)"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "the type of field",
+            "enum" : [ "INTEGER", "TEXT", "ENUMERATION", "BOOLEAN", "DATE", "INTEGER,TEXT,ENUMERATION" ]
+          },
+          "contents" : {
+            "$ref" : "#/components/schemas/MetadataContents"
+          },
+          "created" : {
+            "type" : "string",
+            "description" : "created date of the field",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "updated" : {
+            "type" : "string",
+            "description" : "deletion date of the field",
+            "format" : "date-time",
+            "readOnly" : true
+          },
+          "multiValue" : {
+            "type" : "boolean",
+            "description" : "if the field is a multi value field",
+            "readOnly" : true
+          }
+        },
+        "description" : "This represents a metadata field of a permission database"
+      },
+      "MetadataContents" : {
+        "type" : "object",
+        "properties" : {
+          "rangeStart" : {
+            "type" : "integer",
+            "description" : "start on range for validation on INTEGER field",
+            "format" : "int32"
+          },
+          "rangeEnd" : {
+            "type" : "integer",
+            "description" : "end on range for validation on INTEGER field",
+            "format" : "int32"
+          },
+          "values" : {
+            "type" : "array",
+            "description" : "Possible enumeration of values for ENUMERATION field",
+            "items" : {
+              "type" : "string",
+              "description" : "Possible enumeration of values for ENUMERATION field"
+            }
+          },
+          "validation" : {
+            "type" : "string",
+            "description" : "type of validation on TEXT field",
+            "enum" : [ "NONE", "EMAIL" ]
+          }
+        },
+        "description" : "Contains extra info for a field"
+      },
+      "ImportError" : {
+        "type" : "object",
+        "properties" : {
+          "msisdn" : {
+            "type" : "string"
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "Import errors (List of ImportError)"
+      },
+      "ImportStatus" : {
+        "type" : "object",
+        "properties" : {
+          "importId" : {
+            "type" : "string",
+            "description" : "Import id"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)"
+          },
+          "permissionsInserted" : {
+            "type" : "integer",
+            "description" : "Number of permissions inserted into database",
+            "format" : "int32"
+          },
+          "permissionsUpdated" : {
+            "type" : "integer",
+            "description" : "Number of permissions updated in database",
+            "format" : "int32"
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "Import errors (List of ImportError)",
+            "items" : {
+              "$ref" : "#/components/schemas/ImportError"
+            }
+          }
+        },
+        "description" : "Use this model to get the import id and get the status of the import"
+      },
+      "FlatPermission" : {
+        "type" : "object",
+        "properties" : {
+          "msisdn" : {
+            "type" : "string"
+          },
+          "empty" : {
+            "type" : "boolean"
+          }
+        },
+        "additionalProperties" : {
+          "type" : "object"
+        }
+      },
+      "MetadataDto" : {
+        "type" : "object",
+        "properties" : {
+          "field" : {
+            "type" : "string"
+          },
+          "headerName" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "INTEGER", "TEXT", "ENUMERATION", "BOOLEAN", "DATE" ]
+          },
+          "multiValue" : {
+            "type" : "boolean"
+          },
+          "contents" : {
+            "$ref" : "#/components/schemas/MetadataContents"
+          },
+          "visible" : {
+            "type" : "boolean"
+          },
+          "pinned" : {
+            "type" : "boolean"
+          },
+          "cellRenderer" : {
+            "type" : "string"
+          }
+        },
+        "description" : "the column data"
+      },
+      "PaginatedPermissionList" : {
+        "type" : "object",
+        "properties" : {
+          "page" : {
+            "type" : "integer",
+            "description" : "page number",
+            "format" : "int32"
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "description" : "total number of pages",
+            "format" : "int32"
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "description" : "total number of permissions",
+            "format" : "int32"
+          },
+          "totalActive" : {
+            "type" : "integer",
+            "description" : "total number of active permissions",
+            "format" : "int32"
+          },
+          "permissions" : {
+            "type" : "array",
+            "description" : "the permissions for the page",
+            "items" : {
+              "$ref" : "#/components/schemas/FlatPermission"
+            }
+          },
+          "sources" : {
+            "type" : "array",
+            "description" : "the possible sources for the database",
+            "items" : {
+              "type" : "string",
+              "description" : "the possible sources for the database"
+            }
+          },
+          "columns" : {
+            "type" : "array",
+            "description" : "the column data",
+            "items" : {
+              "$ref" : "#/components/schemas/MetadataDto"
+            }
+          }
+        },
+        "description" : "Container for a page in a list of permissions"
+      },
+      "Group" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "operation" : {
+            "type" : "string"
+          },
+          "groups" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Group"
+            }
+          },
+          "metadata" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Rules"
+            }
+          }
+        }
+      },
+      "Rule" : {
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "object"
+          },
+          "value2" : {
+            "type" : "object"
+          },
+          "op" : {
+            "type" : "string",
+            "enum" : [ "EQUALS", "RANGE", "NONE", "ONE_OF", "ALL_OF", "NONE_OF", "IS_EMPTY", "IS_NOT_EMPTY", "SETDIFF", "AMOUNT", "PERCENTAGE", "DAY_OF_YEAR_TODAY", "DAY_OF_WEEK", "DAYS_AGO", "DAYS_UNTIL", "DAYS_WITHIN" ]
+          }
+        }
+      },
+      "Rules" : {
+        "type" : "object",
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "rules" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Rule"
+            }
+          }
+        }
+      },
+      "Segmentation" : {
+        "type" : "object",
+        "properties" : {
+          "startRow" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "endRow" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quickFilterText" : {
+            "type" : "string"
+          },
+          "sources" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "metadata" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Rules"
+            }
+          },
+          "sort" : {
+            "type" : "string"
+          },
+          "groups" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Group"
+            }
+          },
+          "msisdnList" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "ascending" : {
+            "type" : "boolean"
+          },
+          "onlyActive" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "FlattenedPermission" : {
+        "type" : "object",
+        "properties" : {
+          "msisdn" : {
+            "type" : "string",
+            "description" : "phone number"
+          },
+          "active" : {
+            "type" : "boolean",
+            "description" : "if permission is active in the database"
+          },
+          "source" : {
+            "type" : "string",
+            "description" : "comma separated list of sources"
+          }
+        },
+        "description" : "This class represents a permission - there are three special fields: msisdn, actice and source. Each metadata field can be added as a field of this object - with its value - so if you e.g. have a metadate field with name as key the flattened permission will look *like*: \n\n```javascript\n{ \"msisdn\": \"4531503823\",\n  \"active\": true,\n  \"source\": \"source1,source2\",\n  \"name\": \"Erik\"\n}\n```"
+      }
+    },
+    "securitySchemes" : {
+      "apiKey" : {
+        "type" : "apiKey",
+        "name" : "apiKey",
+        "in" : "query"
+      }
+    }
+  }
+}

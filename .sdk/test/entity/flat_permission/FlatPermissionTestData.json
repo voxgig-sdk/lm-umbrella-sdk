@@ -1,0 +1,32 @@
+{
+  "existing": {
+    "flat_permission": {
+      "FLAT_PERMISSION00": {
+        "empty": true,
+        "msisdn": "s15",
+        "database_id": "DATABASE01",
+        "id": "FLAT_PERMISSION00"
+      },
+      "FLAT_PERMISSION01": {
+        "empty": true,
+        "msisdn": "s29",
+        "database_id": "DATABASE01",
+        "id": "FLAT_PERMISSION01"
+      },
+      "FLAT_PERMISSION02": {
+        "empty": true,
+        "msisdn": "s3d",
+        "database_id": "DATABASE01",
+        "id": "FLAT_PERMISSION02"
+      }
+    }
+  },
+  "new": {
+    "flat_permission": {
+      "flat_permission_ref01": {
+        "empty": true,
+        "msisdn": "s51"
+      }
+    }
+  }
+}
