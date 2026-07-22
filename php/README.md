@@ -62,7 +62,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $flatpermission = $client->FlatPermission()->load(["id" => "example_id"]);
+    $flatpermission = $client->FlatPermission()->load(["database_id" => 1, "id" => "example_id"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -138,7 +138,7 @@ $client = LmUmbrellaSDK::test([
 ]);
 
 // Entity ops return the bare mock record (throws on error).
-$flatpermission = $client->FlatPermission()->load(["id" => "test01"]);
+$flatpermission = $client->FlatPermission()->load(["id" => "test01", "database_id" => 1]);
 print_r($flatpermission);
 ```
 
@@ -736,7 +736,7 @@ stores the returned data and match criteria internally.
 
 ```php
 $flatpermission = $client->FlatPermission();
-$flatpermission->load(["id" => "example_id"]);
+$flatpermission->load(["database_id" => 1, "id" => "example_id"]);
 
 // $flatpermission->data_get() now returns the flatpermission data from the last load
 // $flatpermission->match_get() returns the last match criteria

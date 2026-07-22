@@ -59,7 +59,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local flatpermission, err = client:FlatPermission():load({ id = "example_id" })
+local flatpermission, err = client:FlatPermission():load({ database_id = 1, id = "example_id" })
 if err then error(err) end
 ```
 
@@ -117,7 +117,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:FlatPermission():load({ id = "test01" })
+local result, err = client:FlatPermission():load({ id = "test01", database_id = 1 })
 -- result is the returned data; err is set on failure
 ```
 
@@ -707,7 +707,7 @@ stores the returned data and match criteria internally.
 
 ```lua
 local flatpermission = client:FlatPermission()
-flatpermission:load({ id = "example_id" })
+flatpermission:load({ database_id = 1, id = "example_id" })
 
 -- flatpermission:data_get() now returns the flatpermission data from the last load
 -- flatpermission:match_get() returns the last match criteria

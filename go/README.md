@@ -69,7 +69,7 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-flatpermission, err := client.FlatPermission(nil).Load(map[string]any{"id": "example_id"}, nil)
+flatpermission, err := client.FlatPermission(nil).Load(map[string]any{"database_id": 1, "id": "example_id"}, nil)
 if err != nil {
     // handle err
     return
@@ -139,7 +139,7 @@ Create a mock client for unit testing — no server required:
 client := sdk.Test()
 
 flatPermission, err := client.FlatPermission(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+    map[string]any{"id": "test01", "database_id": 1}, nil,
 )
 if err != nil {
     panic(err)
@@ -777,7 +777,7 @@ stores the returned data and match criteria internally.
 
 ```go
 flatpermission := client.FlatPermission(nil)
-flatpermission.Load(map[string]any{"id": "example_id"}, nil)
+flatpermission.Load(map[string]any{"database_id": 1, "id": "example_id"}, nil)
 
 // flatpermission.Data() now returns the flatpermission data from the last load
 // flatpermission.Match() returns the last match criteria

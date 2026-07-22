@@ -66,7 +66,7 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    flatpermission = client.FlatPermission().load({"id": "example_id"})
+    flatpermission = client.FlatPermission().load({"database_id": 1, "id": "example_id"})
     print(flatpermission)
 except Exception as err:
     print(f"load failed: {err}")
@@ -134,7 +134,7 @@ Create a mock client for unit testing — no server required:
 client = LmUmbrellaSDK.test()
 
 # Entity ops return the bare record and raise on error.
-flatpermission = client.FlatPermission().load({"id": "test01"})
+flatpermission = client.FlatPermission().load({"id": "test01", "database_id": 1})
 # flatpermission contains the mock response record
 ```
 
@@ -720,7 +720,7 @@ stores the returned data and match criteria internally.
 
 ```python
 flatpermission = client.FlatPermission()
-flatpermission.load({"id": "example_id"})
+flatpermission.load({"database_id": 1, "id": "example_id"})
 
 # flatpermission.data_get() now returns the flatpermission data from the last load
 # flatpermission.match_get() returns the last match criteria

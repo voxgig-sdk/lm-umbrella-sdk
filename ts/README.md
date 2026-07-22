@@ -68,7 +68,7 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const flatpermission = await client.FlatPermission().load({ id: "example_id" })
+  const flatpermission = await client.FlatPermission().load({ database_id: 1, id: "example_id" })
   console.log(flatpermission)
 } catch (err) {
   console.error('load failed:', err)
@@ -135,7 +135,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = LmUmbrellaSDK.test()
 
-const flatpermission = await client.FlatPermission().load({ id: 'test01' })
+const flatpermission = await client.FlatPermission().load({ id: 'test01', database_id: 1 })
 // flatpermission is a bare entity populated with mock response data
 console.log(flatpermission)
 ```
@@ -155,7 +155,7 @@ Entity instances remember their last match and data:
 const entity = client.FlatPermission()
 
 // First call runs the operation and stores its result
-await entity.load({ id: 'example' })
+await entity.load({ id: 'example', database_id: 1 })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -767,7 +767,7 @@ calls on the same instance can rely on this state.
 
 ```ts
 const flatpermission = client.FlatPermission()
-await flatpermission.load({ id: "example_id" })
+await flatpermission.load({ database_id: 1, id: "example_id" })
 
 // flatpermission.data() now returns the flatpermission data from the last `load`
 // flatpermission.match() returns { id: "example_id" }
