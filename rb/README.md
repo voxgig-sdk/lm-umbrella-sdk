@@ -38,7 +38,7 @@ FlatPermission is nested under database, so provide the `database_id`.
 
 ```ruby
 begin
-  # load returns the bare FlatPermission record (raises on error).
+  # load returns the ENTITY — call data_get for the FlatPermission record (raises on error).
   flatpermission = client.FlatPermission.load({ "database_id" => 1, "id" => "example_id" })
   puts flatpermission
 rescue => err
@@ -60,9 +60,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  flatpermission = client.FlatPermission.load({ "database_id" => 1, "id" => "example_id" })
+  importstatuss = client.ImportStatus.list()
 rescue => err
-  warn "load failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -123,17 +123,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = LmUmbrellaSDK.test({
-  "entity" => { "flatpermission" => { "test01" => { "id" => "test01" } } },
-})
+client = LmUmbrellaSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-flatpermission = client.FlatPermission.load({ "id" => "test01", "database_id" => 1 })
-puts flatpermission
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+importstatus = client.ImportStatus.list()
+puts importstatus
 ```
 
 ### Use a custom fetch function
@@ -294,11 +292,11 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `error` |  |
-| `import_id` |  |
+| `errors` |  |
+| `importId` |  |
 | `msisdn` |  |
-| `permissions_inserted` |  |
-| `permissions_updated` |  |
+| `permissionsInserted` |  |
+| `permissionsUpdated` |  |
 | `status` |  |
 
 Operations: Create, List.
@@ -309,14 +307,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `content` |  |
+| `contents` |  |
 | `created` |  |
-| `database_id` |  |
+| `databaseId` |  |
 | `key` |  |
 | `label` |  |
-| `multi_value` |  |
+| `multiValue` |  |
+| `rangeEnd` |  |
+| `rangeStart` |  |
 | `type` |  |
 | `updated` |  |
+| `validation` |  |
+| `values` |  |
 
 Operations: Create, List, Load, Update.
 
@@ -327,21 +329,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `ascending` |  |
-| `column` |  |
-| `end_row` |  |
-| `group` |  |
+| `columns` |  |
+| `endRow` |  |
+| `groups` |  |
 | `metadata` |  |
-| `msisdn_list` |  |
-| `only_active` |  |
+| `msisdnList` |  |
+| `onlyActive` |  |
 | `page` |  |
-| `permission` |  |
-| `quick_filter_text` |  |
+| `permissions` |  |
+| `quickFilterText` |  |
 | `sort` |  |
-| `source` |  |
-| `start_row` |  |
-| `total_active` |  |
-| `total_element` |  |
-| `total_page` |  |
+| `sources` |  |
+| `startRow` |  |
+| `totalActive` |  |
+| `totalElements` |  |
+| `totalPages` |  |
 
 Operations: Create.
 
@@ -362,15 +364,15 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `customer_id` |  |
-| `delete_on_optout` |  |
+| `customerId` |  |
+| `deleteOnOptout` |  |
 | `description` |  |
-| `hook` |  |
+| `hooks` |  |
 | `id` |  |
 | `name` |  |
-| `route` |  |
-| `sender_alia` |  |
-| `service_id` |  |
+| `routes` |  |
+| `senderAlias` |  |
+| `serviceId` |  |
 
 Operations: List, Load, Update.
 
@@ -412,7 +414,7 @@ Create an instance: `flat_permission = client.FlatPermission`
 #### Example: Load
 
 ```ruby
-# load returns the bare FlatPermission record (raises on error).
+# load returns the ENTITY — call data_get for the FlatPermission record (raises on error).
 flat_permission = client.FlatPermission.load({ "id" => "flat_permission_id", "database_id" => 1 })
 ```
 
@@ -441,7 +443,7 @@ Create an instance: `flattened_permission = client.FlattenedPermission`
 #### Example: Load
 
 ```ruby
-# load returns the bare FlattenedPermission record (raises on error).
+# load returns the ENTITY — call data_get for the FlattenedPermission record (raises on error).
 flattened_permission = client.FlattenedPermission.load({ "database_id" => 1 })
 ```
 
@@ -477,11 +479,11 @@ Create an instance: `import_status = client.ImportStatus`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error` | `Array` |  |
-| `import_id` | `String` |  |
+| `errors` | `Array` |  |
+| `importId` | `String` |  |
 | `msisdn` | `String` |  |
-| `permissions_inserted` | `Integer` |  |
-| `permissions_updated` | `Integer` |  |
+| `permissionsInserted` | `Integer` |  |
+| `permissionsUpdated` | `Integer` |  |
 | `status` | `String` |  |
 
 #### Example: List
@@ -517,19 +519,23 @@ Create an instance: `metadata = client.Metadata`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `content` | `Hash` |  |
+| `contents` | `Hash` |  |
 | `created` | `String` |  |
-| `database_id` | `Integer` |  |
+| `databaseId` | `Integer` |  |
 | `key` | `String` |  |
 | `label` | `String` |  |
-| `multi_value` | `Boolean` |  |
+| `multiValue` | `Boolean` |  |
+| `rangeEnd` | `Integer` |  |
+| `rangeStart` | `Integer` |  |
 | `type` | `String` |  |
 | `updated` | `String` |  |
+| `validation` | `String` |  |
+| `values` | `Array` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Metadata record (raises on error).
+# load returns the ENTITY — call data_get for the Metadata record (raises on error).
 metadata = client.Metadata.load({ "id" => "metadata_id", "database_id" => 1 })
 ```
 
@@ -564,21 +570,21 @@ Create an instance: `paginated_permission_list = client.PaginatedPermissionList`
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `Boolean` |  |
-| `column` | `Array` |  |
-| `end_row` | `Integer` |  |
-| `group` | `Array` |  |
+| `columns` | `Array` |  |
+| `endRow` | `Integer` |  |
+| `groups` | `Array` |  |
 | `metadata` | `Array` |  |
-| `msisdn_list` | `Array` |  |
-| `only_active` | `Boolean` |  |
+| `msisdnList` | `Array` |  |
+| `onlyActive` | `Boolean` |  |
 | `page` | `Integer` |  |
-| `permission` | `Array` |  |
-| `quick_filter_text` | `String` |  |
+| `permissions` | `Array` |  |
+| `quickFilterText` | `String` |  |
 | `sort` | `String` |  |
-| `source` | `Array` |  |
-| `start_row` | `Integer` |  |
-| `total_active` | `Integer` |  |
-| `total_element` | `Integer` |  |
-| `total_page` | `Integer` |  |
+| `sources` | `Array` |  |
+| `startRow` | `Integer` |  |
+| `totalActive` | `Integer` |  |
+| `totalElements` | `Integer` |  |
+| `totalPages` | `Integer` |  |
 
 #### Example: Create
 
@@ -624,20 +630,20 @@ Create an instance: `permission_database = client.PermissionDatabase`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `customer_id` | `Integer` |  |
-| `delete_on_optout` | `Boolean` |  |
+| `customerId` | `Integer` |  |
+| `deleteOnOptout` | `Boolean` |  |
 | `description` | `String` |  |
-| `hook` | `Array` |  |
+| `hooks` | `Array` |  |
 | `id` | `Integer` |  |
 | `name` | `String` |  |
-| `route` | `Array` |  |
-| `sender_alia` | `String` |  |
-| `service_id` | `Integer` |  |
+| `routes` | `Array` |  |
+| `senderAlias` | `String` |  |
+| `serviceId` | `Integer` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare PermissionDatabase record (raises on error).
+# load returns the ENTITY — call data_get for the PermissionDatabase record (raises on error).
 permission_database = client.PermissionDatabase.load({ "database_id" => 1 })
 ```
 
@@ -721,15 +727,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-flatpermission = client.FlatPermission
-flatpermission.load({ "database_id" => 1, "id" => "example_id" })
+importstatus = client.ImportStatus
+importstatus.list()
 
-# flatpermission.data_get now returns the flatpermission data from the last load
-# flatpermission.match_get returns the last match criteria
+# importstatus.data_get now returns the importstatus data from the last list
+# importstatus.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

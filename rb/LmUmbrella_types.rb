@@ -93,37 +93,53 @@ FlattenedPermissionListMatch = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] active
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] empty
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] msisdn
+#   @return [String, nil]
+#
+# @!attribute [rw] source
+#   @return [String, nil]
 FlattenedPermissionCreateData = Struct.new(
   :database_id,
   :id,
+  :active,
+  :empty,
+  :msisdn,
+  :source,
   keyword_init: true
 )
 
 # ImportStatus entity data model.
 #
-# @!attribute [rw] error
+# @!attribute [rw] errors
 #   @return [Array, nil]
 #
-# @!attribute [rw] import_id
+# @!attribute [rw] importId
 #   @return [String, nil]
 #
 # @!attribute [rw] msisdn
 #   @return [String, nil]
 #
-# @!attribute [rw] permissions_inserted
+# @!attribute [rw] permissionsInserted
 #   @return [Integer, nil]
 #
-# @!attribute [rw] permissions_updated
+# @!attribute [rw] permissionsUpdated
 #   @return [Integer, nil]
 #
 # @!attribute [rw] status
 #   @return [String, nil]
 ImportStatus = Struct.new(
-  :error,
-  :import_id,
+  :errors,
+  :importId,
   :msisdn,
-  :permissions_inserted,
-  :permissions_updated,
+  :permissionsInserted,
+  :permissionsUpdated,
   :status,
   keyword_init: true
 )
@@ -141,20 +157,44 @@ ImportStatusListMatch = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] errors
+#   @return [Array, nil]
+#
+# @!attribute [rw] importId
+#   @return [String, nil]
+#
+# @!attribute [rw] msisdn
+#   @return [String, nil]
+#
+# @!attribute [rw] permissionsInserted
+#   @return [Integer, nil]
+#
+# @!attribute [rw] permissionsUpdated
+#   @return [Integer, nil]
+#
+# @!attribute [rw] status
+#   @return [String, nil]
 ImportStatusCreateData = Struct.new(
   :database_id,
+  :errors,
+  :importId,
+  :msisdn,
+  :permissionsInserted,
+  :permissionsUpdated,
+  :status,
   keyword_init: true
 )
 
 # Metadata entity data model.
 #
-# @!attribute [rw] content
+# @!attribute [rw] contents
 #   @return [Hash, nil]
 #
 # @!attribute [rw] created
 #   @return [String, nil]
 #
-# @!attribute [rw] database_id
+# @!attribute [rw] databaseId
 #   @return [Integer, nil]
 #
 # @!attribute [rw] key
@@ -163,23 +203,39 @@ ImportStatusCreateData = Struct.new(
 # @!attribute [rw] label
 #   @return [String, nil]
 #
-# @!attribute [rw] multi_value
+# @!attribute [rw] multiValue
 #   @return [Boolean, nil]
+#
+# @!attribute [rw] rangeEnd
+#   @return [Integer, nil]
+#
+# @!attribute [rw] rangeStart
+#   @return [Integer, nil]
 #
 # @!attribute [rw] type
 #   @return [String, nil]
 #
 # @!attribute [rw] updated
 #   @return [String, nil]
+#
+# @!attribute [rw] validation
+#   @return [String, nil]
+#
+# @!attribute [rw] values
+#   @return [Array, nil]
 Metadata = Struct.new(
-  :content,
+  :contents,
   :created,
-  :database_id,
+  :databaseId,
   :key,
   :label,
-  :multi_value,
+  :multiValue,
+  :rangeEnd,
+  :rangeStart,
   :type,
   :updated,
+  :validation,
+  :values,
   keyword_init: true
 )
 
@@ -212,9 +268,57 @@ MetadataListMatch = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String, nil]
+#
+# @!attribute [rw] contents
+#   @return [Hash, nil]
+#
+# @!attribute [rw] created
+#   @return [String, nil]
+#
+# @!attribute [rw] databaseId
+#   @return [Integer, nil]
+#
+# @!attribute [rw] key
+#   @return [String, nil]
+#
+# @!attribute [rw] label
+#   @return [String, nil]
+#
+# @!attribute [rw] multiValue
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] rangeEnd
+#   @return [Integer, nil]
+#
+# @!attribute [rw] rangeStart
+#   @return [Integer, nil]
+#
+# @!attribute [rw] type
+#   @return [String, nil]
+#
+# @!attribute [rw] updated
+#   @return [String, nil]
+#
+# @!attribute [rw] validation
+#   @return [String, nil]
+#
+# @!attribute [rw] values
+#   @return [Array, nil]
 MetadataCreateData = Struct.new(
   :database_id,
   :id,
+  :contents,
+  :created,
+  :databaseId,
+  :key,
+  :label,
+  :multiValue,
+  :rangeEnd,
+  :rangeStart,
+  :type,
+  :updated,
+  :validation,
+  :values,
   keyword_init: true
 )
 
@@ -225,9 +329,57 @@ MetadataCreateData = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] contents
+#   @return [Hash, nil]
+#
+# @!attribute [rw] created
+#   @return [String, nil]
+#
+# @!attribute [rw] databaseId
+#   @return [Integer, nil]
+#
+# @!attribute [rw] key
+#   @return [String, nil]
+#
+# @!attribute [rw] label
+#   @return [String, nil]
+#
+# @!attribute [rw] multiValue
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] rangeEnd
+#   @return [Integer, nil]
+#
+# @!attribute [rw] rangeStart
+#   @return [Integer, nil]
+#
+# @!attribute [rw] type
+#   @return [String, nil]
+#
+# @!attribute [rw] updated
+#   @return [String, nil]
+#
+# @!attribute [rw] validation
+#   @return [String, nil]
+#
+# @!attribute [rw] values
+#   @return [Array, nil]
 MetadataUpdateData = Struct.new(
   :database_id,
   :id,
+  :contents,
+  :created,
+  :databaseId,
+  :key,
+  :label,
+  :multiValue,
+  :rangeEnd,
+  :rangeStart,
+  :type,
+  :updated,
+  :validation,
+  :values,
   keyword_init: true
 )
 
@@ -236,67 +388,67 @@ MetadataUpdateData = Struct.new(
 # @!attribute [rw] ascending
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] column
+# @!attribute [rw] columns
 #   @return [Array, nil]
 #
-# @!attribute [rw] end_row
+# @!attribute [rw] endRow
 #   @return [Integer, nil]
 #
-# @!attribute [rw] group
+# @!attribute [rw] groups
 #   @return [Array, nil]
 #
 # @!attribute [rw] metadata
 #   @return [Array, nil]
 #
-# @!attribute [rw] msisdn_list
+# @!attribute [rw] msisdnList
 #   @return [Array, nil]
 #
-# @!attribute [rw] only_active
+# @!attribute [rw] onlyActive
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] page
 #   @return [Integer, nil]
 #
-# @!attribute [rw] permission
+# @!attribute [rw] permissions
 #   @return [Array, nil]
 #
-# @!attribute [rw] quick_filter_text
+# @!attribute [rw] quickFilterText
 #   @return [String, nil]
 #
 # @!attribute [rw] sort
 #   @return [String, nil]
 #
-# @!attribute [rw] source
+# @!attribute [rw] sources
 #   @return [Array, nil]
 #
-# @!attribute [rw] start_row
+# @!attribute [rw] startRow
 #   @return [Integer, nil]
 #
-# @!attribute [rw] total_active
+# @!attribute [rw] totalActive
 #   @return [Integer, nil]
 #
-# @!attribute [rw] total_element
+# @!attribute [rw] totalElements
 #   @return [Integer, nil]
 #
-# @!attribute [rw] total_page
+# @!attribute [rw] totalPages
 #   @return [Integer, nil]
 PaginatedPermissionList = Struct.new(
   :ascending,
-  :column,
-  :end_row,
-  :group,
+  :columns,
+  :endRow,
+  :groups,
   :metadata,
-  :msisdn_list,
-  :only_active,
+  :msisdnList,
+  :onlyActive,
   :page,
-  :permission,
-  :quick_filter_text,
+  :permissions,
+  :quickFilterText,
   :sort,
-  :source,
-  :start_row,
-  :total_active,
-  :total_element,
-  :total_page,
+  :sources,
+  :startRow,
+  :totalActive,
+  :totalElements,
+  :totalPages,
   keyword_init: true
 )
 
@@ -304,8 +456,72 @@ PaginatedPermissionList = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] ascending
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] columns
+#   @return [Array, nil]
+#
+# @!attribute [rw] endRow
+#   @return [Integer, nil]
+#
+# @!attribute [rw] groups
+#   @return [Array, nil]
+#
+# @!attribute [rw] metadata
+#   @return [Array, nil]
+#
+# @!attribute [rw] msisdnList
+#   @return [Array, nil]
+#
+# @!attribute [rw] onlyActive
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] permissions
+#   @return [Array, nil]
+#
+# @!attribute [rw] quickFilterText
+#   @return [String, nil]
+#
+# @!attribute [rw] sort
+#   @return [String, nil]
+#
+# @!attribute [rw] sources
+#   @return [Array, nil]
+#
+# @!attribute [rw] startRow
+#   @return [Integer, nil]
+#
+# @!attribute [rw] totalActive
+#   @return [Integer, nil]
+#
+# @!attribute [rw] totalElements
+#   @return [Integer, nil]
+#
+# @!attribute [rw] totalPages
+#   @return [Integer, nil]
 PaginatedPermissionListCreateData = Struct.new(
   :database_id,
+  :ascending,
+  :columns,
+  :endRow,
+  :groups,
+  :metadata,
+  :msisdnList,
+  :onlyActive,
+  :page,
+  :permissions,
+  :quickFilterText,
+  :sort,
+  :sources,
+  :startRow,
+  :totalActive,
+  :totalElements,
+  :totalPages,
   keyword_init: true
 )
 
@@ -329,9 +545,17 @@ Permission = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] empty
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] msisdn
+#   @return [String, nil]
 PermissionUpdateData = Struct.new(
   :database_id,
   :id,
+  :empty,
+  :msisdn,
   keyword_init: true
 )
 
@@ -354,16 +578,16 @@ PermissionRemoveMatch = Struct.new(
 
 # PermissionDatabase entity data model.
 #
-# @!attribute [rw] customer_id
+# @!attribute [rw] customerId
 #   @return [Integer, nil]
 #
-# @!attribute [rw] delete_on_optout
+# @!attribute [rw] deleteOnOptout
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] description
 #   @return [String, nil]
 #
-# @!attribute [rw] hook
+# @!attribute [rw] hooks
 #   @return [Array, nil]
 #
 # @!attribute [rw] id
@@ -372,24 +596,24 @@ PermissionRemoveMatch = Struct.new(
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] route
+# @!attribute [rw] routes
 #   @return [Array, nil]
 #
-# @!attribute [rw] sender_alia
+# @!attribute [rw] senderAlias
 #   @return [String, nil]
 #
-# @!attribute [rw] service_id
+# @!attribute [rw] serviceId
 #   @return [Integer, nil]
 PermissionDatabase = Struct.new(
-  :customer_id,
-  :delete_on_optout,
+  :customerId,
+  :deleteOnOptout,
   :description,
-  :hook,
+  :hooks,
   :id,
   :name,
-  :route,
-  :sender_alia,
-  :service_id,
+  :routes,
+  :senderAlias,
+  :serviceId,
   keyword_init: true
 )
 
@@ -404,16 +628,16 @@ PermissionDatabaseLoadMatch = Struct.new(
 
 # Request payload for PermissionDatabase#list.
 #
-# @!attribute [rw] customer_id
+# @!attribute [rw] customerId
 #   @return [Integer, nil]
 #
-# @!attribute [rw] delete_on_optout
+# @!attribute [rw] deleteOnOptout
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] description
 #   @return [String, nil]
 #
-# @!attribute [rw] hook
+# @!attribute [rw] hooks
 #   @return [Array, nil]
 #
 # @!attribute [rw] id
@@ -422,24 +646,24 @@ PermissionDatabaseLoadMatch = Struct.new(
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] route
+# @!attribute [rw] routes
 #   @return [Array, nil]
 #
-# @!attribute [rw] sender_alia
+# @!attribute [rw] senderAlias
 #   @return [String, nil]
 #
-# @!attribute [rw] service_id
+# @!attribute [rw] serviceId
 #   @return [Integer, nil]
 PermissionDatabaseListMatch = Struct.new(
-  :customer_id,
-  :delete_on_optout,
+  :customerId,
+  :deleteOnOptout,
   :description,
-  :hook,
+  :hooks,
   :id,
   :name,
-  :route,
-  :sender_alia,
-  :service_id,
+  :routes,
+  :senderAlias,
+  :serviceId,
   keyword_init: true
 )
 
@@ -447,8 +671,44 @@ PermissionDatabaseListMatch = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] customerId
+#   @return [Integer, nil]
+#
+# @!attribute [rw] deleteOnOptout
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] description
+#   @return [String, nil]
+#
+# @!attribute [rw] hooks
+#   @return [Array, nil]
+#
+# @!attribute [rw] id
+#   @return [Integer, nil]
+#
+# @!attribute [rw] name
+#   @return [String, nil]
+#
+# @!attribute [rw] routes
+#   @return [Array, nil]
+#
+# @!attribute [rw] senderAlias
+#   @return [String, nil]
+#
+# @!attribute [rw] serviceId
+#   @return [Integer, nil]
 PermissionDatabaseUpdateData = Struct.new(
   :database_id,
+  :customerId,
+  :deleteOnOptout,
+  :description,
+  :hooks,
+  :id,
+  :name,
+  :routes,
+  :senderAlias,
+  :serviceId,
   keyword_init: true
 )
 

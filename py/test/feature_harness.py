@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import LmUmbrellaControl
-from core.error import LmUmbrellaError
-from core.result import LmUmbrellaResult
-from core.spec import LmUmbrellaSpec
+from lmumbrella_sdk.config import make_config
+from lmumbrella_sdk.features import _make_feature
+from lmumbrella_sdk.core.control import LmUmbrellaControl
+from lmumbrella_sdk.core.error import LmUmbrellaError
+from lmumbrella_sdk.core.result import LmUmbrellaResult
+from lmumbrella_sdk.core.spec import LmUmbrellaSpec
 
 
 # True when this SDK was generated with the named feature.

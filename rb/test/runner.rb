@@ -23,8 +23,8 @@ module LmUmbrellaTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("LMUMBRELLA_TEST_LIVE")
-    override = getenv("LMUMBRELLA_TEST_OVERRIDE")
+    live = getenv("LM_UMBRELLA_TEST_LIVE")
+    override = getenv("LM_UMBRELLA_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module LmUmbrellaTestRunner
       end
     end
 
-    explain = getenv("LMUMBRELLA_TEST_EXPLAIN")
-    m["LMUMBRELLA_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("LM_UMBRELLA_TEST_EXPLAIN")
+    m["LM_UMBRELLA_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

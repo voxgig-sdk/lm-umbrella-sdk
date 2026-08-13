@@ -305,11 +305,11 @@ fmt.Println(importStatus.GetName()) // "import_status"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `error` | `[]any` | No |  |
-| `import_id` | `string` | No |  |
+| `errors` | `[]any` | No |  |
+| `importId` | `string` | No |  |
 | `msisdn` | `string` | No |  |
-| `permissions_inserted` | `int` | No |  |
-| `permissions_updated` | `int` | No |  |
+| `permissionsInserted` | `int` | No |  |
+| `permissionsUpdated` | `int` | No |  |
 | `status` | `string` | No |  |
 
 ### Operations
@@ -375,14 +375,18 @@ fmt.Println(metadata.GetName()) // "metadata"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `content` | `map[string]any` | No |  |
+| `contents` | `map[string]any` | No |  |
 | `created` | `string` | No |  |
-| `database_id` | `int` | No |  |
+| `databaseId` | `int` | No |  |
 | `key` | `string` | No |  |
 | `label` | `string` | No |  |
-| `multi_value` | `bool` | No |  |
+| `multiValue` | `bool` | No |  |
+| `rangeEnd` | `int` | No |  |
+| `rangeStart` | `int` | No |  |
 | `type` | `string` | No |  |
 | `updated` | `string` | No |  |
+| `validation` | `string` | No |  |
+| `values` | `[]any` | No |  |
 
 ### Operations
 
@@ -476,21 +480,21 @@ fmt.Println(paginatedPermissionList.GetName()) // "paginated_permission_list"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `bool` | No |  |
-| `column` | `[]any` | No |  |
-| `end_row` | `int` | No |  |
-| `group` | `[]any` | No |  |
+| `columns` | `[]any` | No |  |
+| `endRow` | `int` | No |  |
+| `groups` | `[]any` | No |  |
 | `metadata` | `[]any` | No |  |
-| `msisdn_list` | `[]any` | No |  |
-| `only_active` | `bool` | No |  |
+| `msisdnList` | `[]any` | No |  |
+| `onlyActive` | `bool` | No |  |
 | `page` | `int` | No |  |
-| `permission` | `[]any` | No |  |
-| `quick_filter_text` | `string` | No |  |
+| `permissions` | `[]any` | No |  |
+| `quickFilterText` | `string` | No |  |
 | `sort` | `string` | No |  |
-| `source` | `[]any` | No |  |
-| `start_row` | `int` | No |  |
-| `total_active` | `int` | No |  |
-| `total_element` | `int` | No |  |
-| `total_page` | `int` | No |  |
+| `sources` | `[]any` | No |  |
+| `startRow` | `int` | No |  |
+| `totalActive` | `int` | No |  |
+| `totalElements` | `int` | No |  |
+| `totalPages` | `int` | No |  |
 
 ### Operations
 
@@ -611,15 +615,15 @@ fmt.Println(permissionDatabase.GetName()) // "permission_database"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `customer_id` | `int` | No |  |
-| `delete_on_optout` | `bool` | No |  |
+| `customerId` | `int` | No |  |
+| `deleteOnOptout` | `bool` | No |  |
 | `description` | `string` | No |  |
-| `hook` | `[]any` | No |  |
+| `hooks` | `[]any` | No |  |
 | `id` | `int` | No |  |
 | `name` | `string` | No |  |
-| `route` | `[]any` | No |  |
-| `sender_alia` | `string` | No |  |
-| `service_id` | `int` | No |  |
+| `routes` | `[]any` | No |  |
+| `senderAlias` | `string` | No |  |
+| `serviceId` | `int` | No |  |
 
 ### Operations
 

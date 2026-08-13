@@ -26,8 +26,8 @@ import {
 describe('PermissionEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LMUMBRELLA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LM_UMBRELLA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LmUmbrellaSDK.test()
@@ -67,7 +67,7 @@ describe('PermissionEntity', async () => {
     const permission_ref01_markdef_up0 = { name: 'msisdn', value: 'Mark01-permission_ref01_' + setup.now }
     ;(permission_ref01_data_up0 as any)[permission_ref01_markdef_up0.name] = permission_ref01_markdef_up0.value
 
-    const permission_ref01_resdata_up0 = await permission_ref01_ent.update(permission_ref01_data_up0)
+    const permission_ref01_resdata_up0 = (await permission_ref01_ent.update(permission_ref01_data_up0)).data()
     assert(null != permission_ref01_resdata_up0)
 
     assert((permission_ref01_resdata_up0 as any)[permission_ref01_markdef_up0.name] === permission_ref01_markdef_up0.value)

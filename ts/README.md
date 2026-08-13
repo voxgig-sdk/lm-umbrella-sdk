@@ -68,10 +68,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const flatpermission = await client.FlatPermission().load({ database_id: 1, id: "example_id" })
-  console.log(flatpermission)
+  const importstatuss = await client.ImportStatus().list()
+  console.log(importstatuss)
 } catch (err) {
-  console.error('load failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
@@ -135,9 +135,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = LmUmbrellaSDK.test()
 
-const flatpermission = await client.FlatPermission().load({ id: 'test01', database_id: 1 })
-// flatpermission is a bare entity populated with mock response data
-console.log(flatpermission)
+const importstatus = await client.ImportStatus().list()
+// importstatus is the entity, populated with mock response data
+// — call importstatus.data() for the record itself
+console.log(importstatus)
 ```
 
 You can also use the instance method:
@@ -152,10 +153,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.FlatPermission()
+const entity = client.ImportStatus()
 
 // First call runs the operation and stores its result
-await entity.load({ id: 'example', database_id: 1 })
+await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -350,11 +351,11 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `error` |  |
-| `import_id` |  |
+| `errors` |  |
+| `importId` |  |
 | `msisdn` |  |
-| `permissions_inserted` |  |
-| `permissions_updated` |  |
+| `permissionsInserted` |  |
+| `permissionsUpdated` |  |
 | `status` |  |
 
 Operations: create, list.
@@ -365,14 +366,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `content` |  |
+| `contents` |  |
 | `created` |  |
-| `database_id` |  |
+| `databaseId` |  |
 | `key` |  |
 | `label` |  |
-| `multi_value` |  |
+| `multiValue` |  |
+| `rangeEnd` |  |
+| `rangeStart` |  |
 | `type` |  |
 | `updated` |  |
+| `validation` |  |
+| `values` |  |
 
 Operations: create, list, load, update.
 
@@ -383,21 +388,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `ascending` |  |
-| `column` |  |
-| `end_row` |  |
-| `group` |  |
+| `columns` |  |
+| `endRow` |  |
+| `groups` |  |
 | `metadata` |  |
-| `msisdn_list` |  |
-| `only_active` |  |
+| `msisdnList` |  |
+| `onlyActive` |  |
 | `page` |  |
-| `permission` |  |
-| `quick_filter_text` |  |
+| `permissions` |  |
+| `quickFilterText` |  |
 | `sort` |  |
-| `source` |  |
-| `start_row` |  |
-| `total_active` |  |
-| `total_element` |  |
-| `total_page` |  |
+| `sources` |  |
+| `startRow` |  |
+| `totalActive` |  |
+| `totalElements` |  |
+| `totalPages` |  |
 
 Operations: create.
 
@@ -418,15 +423,15 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `customer_id` |  |
-| `delete_on_optout` |  |
+| `customerId` |  |
+| `deleteOnOptout` |  |
 | `description` |  |
-| `hook` |  |
+| `hooks` |  |
 | `id` |  |
 | `name` |  |
-| `route` |  |
-| `sender_alia` |  |
-| `service_id` |  |
+| `routes` |  |
+| `senderAlias` |  |
+| `serviceId` |  |
 
 Operations: list, load, update.
 
@@ -502,7 +507,7 @@ const flattened_permission = await client.FlattenedPermission().load({ database_
 #### Example: List
 
 ```ts
-const flattened_permissions = await client.FlattenedPermission().list()
+const flattened_permissions = await client.FlattenedPermission().list({ database_id: 1 })
 ```
 
 #### Example: Create
@@ -530,17 +535,17 @@ Create an instance: `const import_status = client.ImportStatus()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error` | `any[]` |  |
-| `import_id` | `string` |  |
+| `errors` | `any[]` |  |
+| `importId` | `string` |  |
 | `msisdn` | `string` |  |
-| `permissions_inserted` | `number` |  |
-| `permissions_updated` | `number` |  |
+| `permissionsInserted` | `number` |  |
+| `permissionsUpdated` | `number` |  |
 | `status` | `string` |  |
 
 #### Example: List
 
 ```ts
-const import_statuss = await client.ImportStatus().list()
+const import_statuss = await client.ImportStatus().list({ database_id: 1 })
 ```
 
 #### Example: Create
@@ -569,14 +574,18 @@ Create an instance: `const metadata = client.Metadata()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `content` | `Record<string, any>` |  |
+| `contents` | `Record<string, any>` |  |
 | `created` | `string` |  |
-| `database_id` | `number` |  |
+| `databaseId` | `number` |  |
 | `key` | `string` |  |
 | `label` | `string` |  |
-| `multi_value` | `boolean` |  |
+| `multiValue` | `boolean` |  |
+| `rangeEnd` | `number` |  |
+| `rangeStart` | `number` |  |
 | `type` | `string` |  |
 | `updated` | `string` |  |
+| `validation` | `string` |  |
+| `values` | `any[]` |  |
 
 #### Example: Load
 
@@ -587,7 +596,7 @@ const metadata = await client.Metadata().load({ id: 'metadata_id', database_id: 
 #### Example: List
 
 ```ts
-const metadatas = await client.Metadata().list()
+const metadatas = await client.Metadata().list({ database_id: 1 })
 ```
 
 #### Example: Create
@@ -614,21 +623,21 @@ Create an instance: `const paginated_permission_list = client.PaginatedPermissio
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `boolean` |  |
-| `column` | `any[]` |  |
-| `end_row` | `number` |  |
-| `group` | `any[]` |  |
+| `columns` | `any[]` |  |
+| `endRow` | `number` |  |
+| `groups` | `any[]` |  |
 | `metadata` | `any[]` |  |
-| `msisdn_list` | `any[]` |  |
-| `only_active` | `boolean` |  |
+| `msisdnList` | `any[]` |  |
+| `onlyActive` | `boolean` |  |
 | `page` | `number` |  |
-| `permission` | `any[]` |  |
-| `quick_filter_text` | `string` |  |
+| `permissions` | `any[]` |  |
+| `quickFilterText` | `string` |  |
 | `sort` | `string` |  |
-| `source` | `any[]` |  |
-| `start_row` | `number` |  |
-| `total_active` | `number` |  |
-| `total_element` | `number` |  |
-| `total_page` | `number` |  |
+| `sources` | `any[]` |  |
+| `startRow` | `number` |  |
+| `totalActive` | `number` |  |
+| `totalElements` | `number` |  |
+| `totalPages` | `number` |  |
 
 #### Example: Create
 
@@ -674,15 +683,15 @@ Create an instance: `const permission_database = client.PermissionDatabase()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `customer_id` | `number` |  |
-| `delete_on_optout` | `boolean` |  |
+| `customerId` | `number` |  |
+| `deleteOnOptout` | `boolean` |  |
 | `description` | `string` |  |
-| `hook` | `any[]` |  |
+| `hooks` | `any[]` |  |
 | `id` | `number` |  |
 | `name` | `string` |  |
-| `route` | `any[]` |  |
-| `sender_alia` | `string` |  |
-| `service_id` | `number` |  |
+| `routes` | `any[]` |  |
+| `senderAlias` | `string` |  |
+| `serviceId` | `number` |  |
 
 #### Example: Load
 
@@ -761,16 +770,16 @@ import { LmUmbrellaSDK } from '@voxgig-sdk/lm-umbrella'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const flatpermission = client.FlatPermission()
-await flatpermission.load({ database_id: 1, id: "example_id" })
+const importstatus = client.ImportStatus()
+await importstatus.list()
 
-// flatpermission.data() now returns the flatpermission data from the last `load`
-// flatpermission.match() returns { id: "example_id" }
+// importstatus.data() now returns the importstatus data from the last `list`
+// importstatus.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

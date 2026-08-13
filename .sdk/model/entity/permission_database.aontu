@@ -6,12 +6,12 @@ main: kit: entity: permission_database: {
 
   fields: [
     {
-      name: "customer_id"
+      name: "customerId"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "delete_on_optout"
+      name: "deleteOnOptout"
       req: false
       type: "`$BOOLEAN`"
     }
@@ -21,7 +21,7 @@ main: kit: entity: permission_database: {
       type: "`$STRING`"
     }
     {
-      name: "hook"
+      name: "hooks"
       req: false
       type: "`$ARRAY`"
     }
@@ -36,17 +36,17 @@ main: kit: entity: permission_database: {
       type: "`$STRING`"
     }
     {
-      name: "route"
+      name: "routes"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "sender_alia"
+      name: "senderAlias"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "service_id"
+      name: "serviceId"
       req: false
       type: "`$INTEGER`"
     }

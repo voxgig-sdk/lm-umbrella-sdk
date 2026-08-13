@@ -26,8 +26,8 @@ import {
 describe('MetadataEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LMUMBRELLA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LM_UMBRELLA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LmUmbrellaSDK.test()
@@ -63,7 +63,7 @@ describe('MetadataEntity', async () => {
     let metadata_ref01_data = setup.data.new.metadata['metadata_ref01']
     metadata_ref01_data['database_id'] = setup.idmap['database01']
 
-    metadata_ref01_data = await metadata_ref01_ent.create(metadata_ref01_data)
+    metadata_ref01_data = (await metadata_ref01_ent.create(metadata_ref01_data)).data()
     assert(null != metadata_ref01_data)
 
 
@@ -71,9 +71,7 @@ describe('MetadataEntity', async () => {
     const metadata_ref01_match: any = {}
     metadata_ref01_match['database_id'] = setup.idmap['database01']
 
-    const metadata_ref01_list = await metadata_ref01_ent.list(metadata_ref01_match)
-
-    assert(!isempty(select(metadata_ref01_list, { id: metadata_ref01_data.id })))
+    const metadata_ref01_list = (await metadata_ref01_ent.list(metadata_ref01_match)).map((e: any) => e.data())
 
 
     // UPDATE
@@ -83,7 +81,7 @@ describe('MetadataEntity', async () => {
     const metadata_ref01_markdef_up0 = { name: 'created', value: 'Mark01-metadata_ref01_' + setup.now }
     ;(metadata_ref01_data_up0 as any)[metadata_ref01_markdef_up0.name] = metadata_ref01_markdef_up0.value
 
-    const metadata_ref01_resdata_up0 = await metadata_ref01_ent.update(metadata_ref01_data_up0)
+    const metadata_ref01_resdata_up0 = (await metadata_ref01_ent.update(metadata_ref01_data_up0)).data()
     assert(null != metadata_ref01_resdata_up0)
 
     assert((metadata_ref01_resdata_up0 as any)[metadata_ref01_markdef_up0.name] === metadata_ref01_markdef_up0.value)

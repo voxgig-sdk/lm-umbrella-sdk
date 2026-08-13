@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from lmumbrella_sdk.utility.voxgig_struct import voxgig_struct as vs
 from lmumbrella_sdk import LmUmbrellaSDK
-from core import helpers
+from lmumbrella_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -36,7 +36,7 @@ class TestPaginatedPermissionListEntity:
         # without an *_ENTID env override, those IDs hit the live API and 4xx.
         if setup.get("synthetic_only"):
             pytest.skip("live entity test uses synthetic IDs from fixture — "
-                        "set LMUMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID JSON to run live")
+                        "set LM_UMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID JSON to run live")
         client = setup["client"]
 
         # CREATE
@@ -45,7 +45,7 @@ class TestPaginatedPermissionListEntity:
             vs.getpath(setup["data"], "new.paginated_permission_list"), "paginated_permission_list_ref01"))
         paginated_permission_list_ref01_data["database_id"] = setup["idmap"]["database01"]
 
-        paginated_permission_list_ref01_data = helpers.to_map(paginated_permission_list_ref01_ent.create(paginated_permission_list_ref01_data, None))
+        paginated_permission_list_ref01_data = helpers.to_map(runner.entity_data(paginated_permission_list_ref01_ent.create(paginated_permission_list_ref01_data, None)))
         assert paginated_permission_list_ref01_data is not None
 
 
@@ -79,37 +79,37 @@ def _paginated_permission_list_basic_setup(extra):
     # mode is on without a real override, the basic test runs against synthetic
     # IDs from the fixture and 4xx's. We surface this so the test can skip.
     _entid_env_raw = os.environ.get(
-        "LMUMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID")
+        "LM_UMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID")
     _idmap_overridden = _entid_env_raw is not None and _entid_env_raw.strip().startswith("{")
 
     env = runner.env_override({
-        "LMUMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID": idmap,
-        "LMUMBRELLA_TEST_LIVE": "FALSE",
-        "LMUMBRELLA_TEST_EXPLAIN": "FALSE",
-        "LMUMBRELLA_APIKEY": "NONE",
+        "LM_UMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID": idmap,
+        "LM_UMBRELLA_TEST_LIVE": "FALSE",
+        "LM_UMBRELLA_TEST_EXPLAIN": "FALSE",
+        "LM_UMBRELLA_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
-        env.get("LMUMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID"))
+        env.get("LM_UMBRELLA_TEST_PAGINATED_PERMISSION_LIST_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
 
-    if env.get("LMUMBRELLA_TEST_LIVE") == "TRUE":
+    if env.get("LM_UMBRELLA_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("LMUMBRELLA_APIKEY"),
+                "apikey": env.get("LM_UMBRELLA_APIKEY"),
             },
             extra or {},
         ])
         client = LmUmbrellaSDK(helpers.to_map(merged_opts))
 
-    _live = env.get("LMUMBRELLA_TEST_LIVE") == "TRUE"
+    _live = env.get("LM_UMBRELLA_TEST_LIVE") == "TRUE"
     return {
         "client": client,
         "data": entity_data,
         "idmap": idmap_resolved,
         "env": env,
-        "explain": env.get("LMUMBRELLA_TEST_EXPLAIN") == "TRUE",
+        "explain": env.get("LM_UMBRELLA_TEST_EXPLAIN") == "TRUE",
         "live": _live,
         "synthetic_only": _live and not _idmap_overridden,
         "now": int(time.time() * 1000),

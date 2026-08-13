@@ -26,8 +26,8 @@ import {
 describe('FlatPermissionEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LMUMBRELLA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LM_UMBRELLA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LmUmbrellaSDK.test()

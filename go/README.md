@@ -69,12 +69,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-flatpermission, err := client.FlatPermission(nil).Load(map[string]any{"database_id": 1, "id": "example_id"}, nil)
+importstatuss, err := client.ImportStatus(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = flatpermission
+_ = importstatuss
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -138,13 +138,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-flatPermission, err := client.FlatPermission(nil).Load(
-    map[string]any{"id": "test01", "database_id": 1}, nil,
+importStatus, err := client.ImportStatus(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(flatPermission) // the returned mock data
+fmt.Println(importStatus) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -308,11 +308,11 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `"error"` |  |
-| `"import_id"` |  |
+| `"errors"` |  |
+| `"importId"` |  |
 | `"msisdn"` |  |
-| `"permissions_inserted"` |  |
-| `"permissions_updated"` |  |
+| `"permissionsInserted"` |  |
+| `"permissionsUpdated"` |  |
 | `"status"` |  |
 
 Operations: Create, List.
@@ -323,14 +323,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `"content"` |  |
+| `"contents"` |  |
 | `"created"` |  |
-| `"database_id"` |  |
+| `"databaseId"` |  |
 | `"key"` |  |
 | `"label"` |  |
-| `"multi_value"` |  |
+| `"multiValue"` |  |
+| `"rangeEnd"` |  |
+| `"rangeStart"` |  |
 | `"type"` |  |
 | `"updated"` |  |
+| `"validation"` |  |
+| `"values"` |  |
 
 Operations: Create, List, Load, Update.
 
@@ -341,21 +345,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `"ascending"` |  |
-| `"column"` |  |
-| `"end_row"` |  |
-| `"group"` |  |
+| `"columns"` |  |
+| `"endRow"` |  |
+| `"groups"` |  |
 | `"metadata"` |  |
-| `"msisdn_list"` |  |
-| `"only_active"` |  |
+| `"msisdnList"` |  |
+| `"onlyActive"` |  |
 | `"page"` |  |
-| `"permission"` |  |
-| `"quick_filter_text"` |  |
+| `"permissions"` |  |
+| `"quickFilterText"` |  |
 | `"sort"` |  |
-| `"source"` |  |
-| `"start_row"` |  |
-| `"total_active"` |  |
-| `"total_element"` |  |
-| `"total_page"` |  |
+| `"sources"` |  |
+| `"startRow"` |  |
+| `"totalActive"` |  |
+| `"totalElements"` |  |
+| `"totalPages"` |  |
 
 Operations: Create.
 
@@ -376,15 +380,15 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `"customer_id"` |  |
-| `"delete_on_optout"` |  |
+| `"customerId"` |  |
+| `"deleteOnOptout"` |  |
 | `"description"` |  |
-| `"hook"` |  |
+| `"hooks"` |  |
 | `"id"` |  |
 | `"name"` |  |
-| `"route"` |  |
-| `"sender_alia"` |  |
-| `"service_id"` |  |
+| `"routes"` |  |
+| `"senderAlias"` |  |
+| `"serviceId"` |  |
 
 Operations: List, Load, Update.
 
@@ -504,11 +508,11 @@ Create an instance: `importStatus := client.ImportStatus(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error` | `[]any` |  |
-| `import_id` | `string` |  |
+| `errors` | `[]any` |  |
+| `importId` | `string` |  |
 | `msisdn` | `string` |  |
-| `permissions_inserted` | `int` |  |
-| `permissions_updated` | `int` |  |
+| `permissionsInserted` | `int` |  |
+| `permissionsUpdated` | `int` |  |
 | `status` | `string` |  |
 
 #### Example: List
@@ -551,14 +555,18 @@ Create an instance: `metadata := client.Metadata(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `content` | `map[string]any` |  |
+| `contents` | `map[string]any` |  |
 | `created` | `string` |  |
-| `database_id` | `int` |  |
+| `databaseId` | `int` |  |
 | `key` | `string` |  |
 | `label` | `string` |  |
-| `multi_value` | `bool` |  |
+| `multiValue` | `bool` |  |
+| `rangeEnd` | `int` |  |
+| `rangeStart` | `int` |  |
 | `type` | `string` |  |
 | `updated` | `string` |  |
+| `validation` | `string` |  |
+| `values` | `[]any` |  |
 
 #### Example: Load
 
@@ -608,21 +616,21 @@ Create an instance: `paginatedPermissionList := client.PaginatedPermissionList(n
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `bool` |  |
-| `column` | `[]any` |  |
-| `end_row` | `int` |  |
-| `group` | `[]any` |  |
+| `columns` | `[]any` |  |
+| `endRow` | `int` |  |
+| `groups` | `[]any` |  |
 | `metadata` | `[]any` |  |
-| `msisdn_list` | `[]any` |  |
-| `only_active` | `bool` |  |
+| `msisdnList` | `[]any` |  |
+| `onlyActive` | `bool` |  |
 | `page` | `int` |  |
-| `permission` | `[]any` |  |
-| `quick_filter_text` | `string` |  |
+| `permissions` | `[]any` |  |
+| `quickFilterText` | `string` |  |
 | `sort` | `string` |  |
-| `source` | `[]any` |  |
-| `start_row` | `int` |  |
-| `total_active` | `int` |  |
-| `total_element` | `int` |  |
-| `total_page` | `int` |  |
+| `sources` | `[]any` |  |
+| `startRow` | `int` |  |
+| `totalActive` | `int` |  |
+| `totalElements` | `int` |  |
+| `totalPages` | `int` |  |
 
 #### Example: Create
 
@@ -672,15 +680,15 @@ Create an instance: `permissionDatabase := client.PermissionDatabase(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `customer_id` | `int` |  |
-| `delete_on_optout` | `bool` |  |
+| `customerId` | `int` |  |
+| `deleteOnOptout` | `bool` |  |
 | `description` | `string` |  |
-| `hook` | `[]any` |  |
+| `hooks` | `[]any` |  |
 | `id` | `int` |  |
 | `name` | `string` |  |
-| `route` | `[]any` |  |
-| `sender_alia` | `string` |  |
-| `service_id` | `int` |  |
+| `routes` | `[]any` |  |
+| `senderAlias` | `string` |  |
+| `serviceId` | `int` |  |
 
 #### Example: Load
 
@@ -772,15 +780,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-flatpermission := client.FlatPermission(nil)
-flatpermission.Load(map[string]any{"database_id": 1, "id": "example_id"}, nil)
+importstatus := client.ImportStatus(nil)
+importstatus.List(nil, nil)
 
-// flatpermission.Data() now returns the flatpermission data from the last load
-// flatpermission.Match() returns the last match criteria
+// importstatus.Data() now returns the importstatus data from the last list
+// importstatus.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

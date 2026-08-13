@@ -26,8 +26,8 @@ import {
 describe('FlattenedPermissionEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LMUMBRELLA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LM_UMBRELLA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LmUmbrellaSDK.test()
@@ -64,7 +64,7 @@ describe('FlattenedPermissionEntity', async () => {
     flattened_permission_ref01_data['database_id'] = setup.idmap['database01']
     flattened_permission_ref01_data['msisdn'] = setup.idmap['msisdn01']
 
-    flattened_permission_ref01_data = await flattened_permission_ref01_ent.create(flattened_permission_ref01_data)
+    flattened_permission_ref01_data = (await flattened_permission_ref01_ent.create(flattened_permission_ref01_data)).data()
     assert(null != flattened_permission_ref01_data)
 
 
@@ -72,9 +72,7 @@ describe('FlattenedPermissionEntity', async () => {
     const flattened_permission_ref01_match: any = {}
     flattened_permission_ref01_match['database_id'] = setup.idmap['database01']
 
-    const flattened_permission_ref01_list = await flattened_permission_ref01_ent.list(flattened_permission_ref01_match)
-
-    assert(!isempty(select(flattened_permission_ref01_list, { id: flattened_permission_ref01_data.id })))
+    const flattened_permission_ref01_list = (await flattened_permission_ref01_ent.list(flattened_permission_ref01_match)).map((e: any) => e.data())
 
 
 

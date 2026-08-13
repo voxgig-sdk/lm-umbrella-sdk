@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from lmumbrella_sdk.utility.voxgig_struct import voxgig_struct as vs
 from lmumbrella_sdk import LmUmbrellaSDK
-from core import helpers
+from lmumbrella_sdk.core import helpers
 from test import runner
 
 
@@ -67,16 +67,16 @@ def _flat_permission_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "LMUMBRELLA_TEST_FLAT_PERMISSION_ENTID": {},
-        "LMUMBRELLA_TEST_LIVE": "FALSE",
-        "LMUMBRELLA_APIKEY": "NONE",
+        "LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID": {},
+        "LM_UMBRELLA_TEST_LIVE": "FALSE",
+        "LM_UMBRELLA_APIKEY": "NONE",
     })
 
-    live = env.get("LMUMBRELLA_TEST_LIVE") == "TRUE"
+    live = env.get("LM_UMBRELLA_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("LMUMBRELLA_APIKEY"),
+            "apikey": env.get("LM_UMBRELLA_APIKEY"),
         }
         client = LmUmbrellaSDK(merged_opts)
         return {

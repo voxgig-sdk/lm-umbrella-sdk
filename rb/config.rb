@@ -66,6 +66,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/public/database/{id}",
                   "parts" => [
@@ -150,6 +151,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/{id}/permission/{msisdn}",
                   "parts" => [
@@ -261,6 +263,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/public/database/{id}/permission/{msisdn}",
                   "parts" => [
@@ -321,6 +324,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/{id}/permission/list",
                   "parts" => [
@@ -369,6 +373,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/{id}/permission/query",
                   "parts" => [
@@ -410,14 +415,14 @@ module LmUmbrellaConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "error",
+              "name" => "errors",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 0,
             },
             {
               "active" => true,
-              "name" => "import_id",
+              "name" => "importId",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 1,
@@ -431,14 +436,14 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "permissions_inserted",
+              "name" => "permissionsInserted",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 3,
             },
             {
               "active" => true,
-              "name" => "permissions_updated",
+              "name" => "permissionsUpdated",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 4,
@@ -491,6 +496,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/public/database/{id}/permission/bulk",
                   "parts" => [
@@ -558,6 +564,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/{id}/permission/bulk/status",
                   "parts" => [
@@ -602,7 +609,7 @@ module LmUmbrellaConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "content",
+              "name" => "contents",
               "req" => false,
               "type" => "`$OBJECT`",
               "index$" => 0,
@@ -616,7 +623,7 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "database_id",
+              "name" => "databaseId",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 2,
@@ -637,24 +644,52 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "multi_value",
+              "name" => "multiValue",
               "req" => false,
               "type" => "`$BOOLEAN`",
               "index$" => 5,
             },
             {
               "active" => true,
+              "name" => "rangeEnd",
+              "req" => false,
+              "type" => "`$INTEGER`",
+              "index$" => 6,
+            },
+            {
+              "active" => true,
+              "name" => "rangeStart",
+              "req" => false,
+              "type" => "`$INTEGER`",
+              "index$" => 7,
+            },
+            {
+              "active" => true,
               "name" => "type",
               "req" => false,
               "type" => "`$STRING`",
-              "index$" => 6,
+              "index$" => 8,
             },
             {
               "active" => true,
               "name" => "updated",
               "req" => false,
               "type" => "`$STRING`",
-              "index$" => 7,
+              "index$" => 9,
+            },
+            {
+              "active" => true,
+              "name" => "validation",
+              "req" => false,
+              "type" => "`$STRING`",
+              "index$" => 10,
+            },
+            {
+              "active" => true,
+              "name" => "values",
+              "req" => false,
+              "type" => "`$ARRAY`",
+              "index$" => 11,
             },
           ],
           "name" => "metadata",
@@ -697,6 +732,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/public/database/{id}/metadata/{key}",
                   "parts" => [
@@ -750,6 +786,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/public/database/{id}/metadata",
                   "parts" => [
@@ -807,6 +844,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/{id}/metadata",
                   "parts" => [
@@ -873,6 +911,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/{id}/metadata/{key}",
                   "parts" => [
@@ -942,6 +981,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "PUT",
                   "orig" => "/public/database/{id}/metadata/{key}",
                   "parts" => [
@@ -993,21 +1033,21 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "column",
+              "name" => "columns",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 1,
             },
             {
               "active" => true,
-              "name" => "end_row",
+              "name" => "endRow",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 2,
             },
             {
               "active" => true,
-              "name" => "group",
+              "name" => "groups",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 3,
@@ -1021,14 +1061,14 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "msisdn_list",
+              "name" => "msisdnList",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 5,
             },
             {
               "active" => true,
-              "name" => "only_active",
+              "name" => "onlyActive",
               "req" => false,
               "type" => "`$BOOLEAN`",
               "index$" => 6,
@@ -1042,14 +1082,14 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "permission",
+              "name" => "permissions",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 8,
             },
             {
               "active" => true,
-              "name" => "quick_filter_text",
+              "name" => "quickFilterText",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 9,
@@ -1063,35 +1103,35 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "source",
+              "name" => "sources",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 11,
             },
             {
               "active" => true,
-              "name" => "start_row",
+              "name" => "startRow",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 12,
             },
             {
               "active" => true,
-              "name" => "total_active",
+              "name" => "totalActive",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 13,
             },
             {
               "active" => true,
-              "name" => "total_element",
+              "name" => "totalElements",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 14,
             },
             {
               "active" => true,
-              "name" => "total_page",
+              "name" => "totalPages",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 15,
@@ -1128,6 +1168,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/public/database/{id}/permission/paged/list",
                   "parts" => [
@@ -1224,6 +1265,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/public/database/{id}/permission/{msisdn}",
                   "parts" => [
@@ -1286,6 +1328,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/public/database/{id}/permission/permanent/{msisdn}",
                   "parts" => [
@@ -1355,6 +1398,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "PUT",
                   "orig" => "/public/database/{id}/permission/{msisdn}",
                   "parts" => [
@@ -1403,14 +1447,14 @@ module LmUmbrellaConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "customer_id",
+              "name" => "customerId",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 0,
             },
             {
               "active" => true,
-              "name" => "delete_on_optout",
+              "name" => "deleteOnOptout",
               "req" => false,
               "type" => "`$BOOLEAN`",
               "index$" => 1,
@@ -1424,7 +1468,7 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "hook",
+              "name" => "hooks",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 3,
@@ -1445,21 +1489,21 @@ module LmUmbrellaConfig
             },
             {
               "active" => true,
-              "name" => "route",
+              "name" => "routes",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 6,
             },
             {
               "active" => true,
-              "name" => "sender_alia",
+              "name" => "senderAlias",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 7,
             },
             {
               "active" => true,
-              "name" => "service_id",
+              "name" => "serviceId",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 8,
@@ -1485,6 +1529,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/list",
                   "parts" => [
@@ -1535,6 +1580,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/public/database/{id}",
                   "parts" => [
@@ -1586,6 +1632,7 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "PUT",
                   "orig" => "/public/database/{id}",
                   "parts" => [

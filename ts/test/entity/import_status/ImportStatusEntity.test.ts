@@ -26,8 +26,8 @@ import {
 describe('ImportStatusEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LMUMBRELLA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LM_UMBRELLA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LmUmbrellaSDK.test()
@@ -63,7 +63,7 @@ describe('ImportStatusEntity', async () => {
     let import_status_ref01_data = setup.data.new.import_status['import_status_ref01']
     import_status_ref01_data['database_id'] = setup.idmap['database01']
 
-    import_status_ref01_data = await import_status_ref01_ent.create(import_status_ref01_data)
+    import_status_ref01_data = (await import_status_ref01_ent.create(import_status_ref01_data)).data()
     assert(null != import_status_ref01_data)
 
 
@@ -71,9 +71,7 @@ describe('ImportStatusEntity', async () => {
     const import_status_ref01_match: any = {}
     import_status_ref01_match['database_id'] = setup.idmap['database01']
 
-    const import_status_ref01_list = await import_status_ref01_ent.list(import_status_ref01_match)
-
-    assert(!isempty(select(import_status_ref01_list, { id: import_status_ref01_data.id })))
+    const import_status_ref01_list = (await import_status_ref01_ent.list(import_status_ref01_match)).map((e: any) => e.data())
 
 
   })

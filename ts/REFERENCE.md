@@ -319,7 +319,7 @@ const result = await client.FlattenedPermission().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.FlattenedPermission().list()
+const results = await client.FlattenedPermission().list({ database_id: 1 })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -368,11 +368,11 @@ const import_status = client.ImportStatus()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `error` | `any[]` | No |  |
-| `import_id` | `string` | No |  |
+| `errors` | `any[]` | No |  |
+| `importId` | `string` | No |  |
 | `msisdn` | `string` | No |  |
-| `permissions_inserted` | `number` | No |  |
-| `permissions_updated` | `number` | No |  |
+| `permissionsInserted` | `number` | No |  |
+| `permissionsUpdated` | `number` | No |  |
 | `status` | `string` | No |  |
 
 ### Operations
@@ -392,7 +392,7 @@ const result = await client.ImportStatus().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.ImportStatus().list()
+const results = await client.ImportStatus().list({ database_id: 1 })
 ```
 
 ### Common Methods
@@ -433,14 +433,18 @@ const metadata = client.Metadata()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `content` | `Record<string, any>` | No |  |
+| `contents` | `Record<string, any>` | No |  |
 | `created` | `string` | No |  |
-| `database_id` | `number` | No |  |
+| `databaseId` | `number` | No |  |
 | `key` | `string` | No |  |
 | `label` | `string` | No |  |
-| `multi_value` | `boolean` | No |  |
+| `multiValue` | `boolean` | No |  |
+| `rangeEnd` | `number` | No |  |
+| `rangeStart` | `number` | No |  |
 | `type` | `string` | No |  |
 | `updated` | `string` | No |  |
+| `validation` | `string` | No |  |
+| `values` | `any[]` | No |  |
 
 ### Operations
 
@@ -459,7 +463,7 @@ const result = await client.Metadata().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Metadata().list()
+const results = await client.Metadata().list({ database_id: 1 })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -521,21 +525,21 @@ const paginated_permission_list = client.PaginatedPermissionList()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `boolean` | No |  |
-| `column` | `any[]` | No |  |
-| `end_row` | `number` | No |  |
-| `group` | `any[]` | No |  |
+| `columns` | `any[]` | No |  |
+| `endRow` | `number` | No |  |
+| `groups` | `any[]` | No |  |
 | `metadata` | `any[]` | No |  |
-| `msisdn_list` | `any[]` | No |  |
-| `only_active` | `boolean` | No |  |
+| `msisdnList` | `any[]` | No |  |
+| `onlyActive` | `boolean` | No |  |
 | `page` | `number` | No |  |
-| `permission` | `any[]` | No |  |
-| `quick_filter_text` | `string` | No |  |
+| `permissions` | `any[]` | No |  |
+| `quickFilterText` | `string` | No |  |
 | `sort` | `string` | No |  |
-| `source` | `any[]` | No |  |
-| `start_row` | `number` | No |  |
-| `total_active` | `number` | No |  |
-| `total_element` | `number` | No |  |
-| `total_page` | `number` | No |  |
+| `sources` | `any[]` | No |  |
+| `startRow` | `number` | No |  |
+| `totalActive` | `number` | No |  |
+| `totalElements` | `number` | No |  |
+| `totalPages` | `number` | No |  |
 
 ### Operations
 
@@ -650,15 +654,15 @@ const permission_database = client.PermissionDatabase()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `customer_id` | `number` | No |  |
-| `delete_on_optout` | `boolean` | No |  |
+| `customerId` | `number` | No |  |
+| `deleteOnOptout` | `boolean` | No |  |
 | `description` | `string` | No |  |
-| `hook` | `any[]` | No |  |
+| `hooks` | `any[]` | No |  |
 | `id` | `number` | No |  |
 | `name` | `string` | No |  |
-| `route` | `any[]` | No |  |
-| `sender_alia` | `string` | No |  |
-| `service_id` | `number` | No |  |
+| `routes` | `any[]` | No |  |
+| `senderAlias` | `string` | No |  |
+| `serviceId` | `number` | No |  |
 
 ### Operations
 

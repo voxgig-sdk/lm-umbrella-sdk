@@ -153,8 +153,29 @@ class LmUmbrellaSDK {
   }
 
 
+  // Raw endpoint access is operator-controllable, like every entity op.
+  // Blocking it means denying BOTH the 'direct' and 'graphql' tokens, since
+  // either one reaches the same endpoint.
   async direct(fetchargs?: any) {
+    if (!this._options.allow.op.includes('direct')) {
+      return {
+        ok: false,
+        err: new Error('LmUmbrellaSDK: direct: operation not allowed by' +
+          ' SDK option allow.op value: "' + this._options.allow.op + '"'),
+      }
+    }
+
+    return this._rawRequest(fetchargs)
+  }
+
+
+  // Ungated request path shared by direct() and graphql(), each of which
+  // checks its own allow.op token first. Private, rather than a flag on
+  // fetchargs: a caller-supplied marker would let anyone opt straight back
+  // out of the gate by passing it.
+  async _rawRequest(fetchargs?: any) {
     const utility = this._utility
+
     const fetcher = utility.fetcher
     const makeContext = utility.makeContext
 
@@ -215,59 +236,129 @@ class LmUmbrellaSDK {
 
 
 
+  // Raw GraphQL access: the pressure valve that makes the generated
+  // surface's deliberate omissions (per-call selection sets, typed filter
+  // builders, batching, subscriptions) livable — the whole schema stays
+  // reachable.
+  //
+  // Thin wrapper over the same prepare/fetch path `direct` uses, with the
+  // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
+  // HTTP 200 as a top-level `errors` array, so status alone would report a
+  // failed query as ok.
+  //
+  // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
+  // ratelimit or paging features apply.
+  async graphql(query: string, variables?: any, ctrl?: any) {
+    const options = this._options
+
+    if (!options.allow.op.includes('graphql')) {
+      return {
+        ok: false,
+        err: new Error('LmUmbrellaSDK: graphql: operation not allowed by' +
+          ' SDK option allow.op value: "' + options.allow.op + '"'),
+      }
+    }
+
+    const res: any = await this._rawRequest({
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: { query, variables: variables || {} },
+      ctrl,
+    })
+
+    if (res instanceof Error) {
+      return res
+    }
+
+    // Errors are read BEFORE any status check: a GraphQL parse or validation
+    // failure comes back as HTTP 400 carrying the standard { errors: [...] }
+    // body, and the raw path represents a non-2xx as { ok: false } with no
+    // err — so returning early on status would discard the server's own
+    // diagnostics, which are the only useful part of that response.
+    const errors = null == res.data ? undefined : res.data.errors
+
+    if (null != errors && Array.isArray(errors) && 0 < errors.length) {
+      const first = errors[0] || {}
+      const err: any = new Error('LmUmbrellaSDK: graphql: ' +
+        (first.message || 'graphql error'))
+      err.graphql = errors
+      return { ok: false, status: res.status, headers: res.headers, err, data: res.data }
+    }
+
+    return res
+  }
+
+
+
   // Entity access: `client.Database().list()` / `client.Database().load({ id })`.
-  Database(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Database(entopts?: Record<string, any>) {
     const self = this
-    return new DatabaseEntity(self,data)
+    return new DatabaseEntity(self, entopts)
   }
 
 
   // Entity access: `client.FlatPermission().list()` / `client.FlatPermission().load({ id })`.
-  FlatPermission(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  FlatPermission(entopts?: Record<string, any>) {
     const self = this
-    return new FlatPermissionEntity(self,data)
+    return new FlatPermissionEntity(self, entopts)
   }
 
 
   // Entity access: `client.FlattenedPermission().list()` / `client.FlattenedPermission().load({ id })`.
-  FlattenedPermission(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  FlattenedPermission(entopts?: Record<string, any>) {
     const self = this
-    return new FlattenedPermissionEntity(self,data)
+    return new FlattenedPermissionEntity(self, entopts)
   }
 
 
   // Entity access: `client.ImportStatus().list()` / `client.ImportStatus().load({ id })`.
-  ImportStatus(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  ImportStatus(entopts?: Record<string, any>) {
     const self = this
-    return new ImportStatusEntity(self,data)
+    return new ImportStatusEntity(self, entopts)
   }
 
 
   // Entity access: `client.Metadata().list()` / `client.Metadata().load({ id })`.
-  Metadata(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Metadata(entopts?: Record<string, any>) {
     const self = this
-    return new MetadataEntity(self,data)
+    return new MetadataEntity(self, entopts)
   }
 
 
   // Entity access: `client.PaginatedPermissionList().list()` / `client.PaginatedPermissionList().load({ id })`.
-  PaginatedPermissionList(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  PaginatedPermissionList(entopts?: Record<string, any>) {
     const self = this
-    return new PaginatedPermissionListEntity(self,data)
+    return new PaginatedPermissionListEntity(self, entopts)
   }
 
 
   // Entity access: `client.Permission().list()` / `client.Permission().load({ id })`.
-  Permission(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Permission(entopts?: Record<string, any>) {
     const self = this
-    return new PermissionEntity(self,data)
+    return new PermissionEntity(self, entopts)
   }
 
 
   // Entity access: `client.PermissionDatabase().list()` / `client.PermissionDatabase().load({ id })`.
-  PermissionDatabase(data?: any) {
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  PermissionDatabase(entopts?: Record<string, any>) {
     const self = this
-    return new PermissionDatabaseEntity(self,data)
+    return new PermissionDatabaseEntity(self, entopts)
   }
 
 

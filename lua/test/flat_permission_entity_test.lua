@@ -29,7 +29,7 @@ describe("FlatPermissionEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set LMUMBRELLA_TEST_FLAT_PERMISSION_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -84,39 +84,39 @@ function flat_permission_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("LMUMBRELLA_TEST_FLAT_PERMISSION_ENTID")
+  local entid_env_raw = os.getenv("LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["LMUMBRELLA_TEST_FLAT_PERMISSION_ENTID"] = idmap,
-    ["LMUMBRELLA_TEST_LIVE"] = "FALSE",
-    ["LMUMBRELLA_TEST_EXPLAIN"] = "FALSE",
-    ["LMUMBRELLA_APIKEY"] = "NONE",
+    ["LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID"] = idmap,
+    ["LM_UMBRELLA_TEST_LIVE"] = "FALSE",
+    ["LM_UMBRELLA_TEST_EXPLAIN"] = "FALSE",
+    ["LM_UMBRELLA_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["LMUMBRELLA_TEST_FLAT_PERMISSION_ENTID"])
+    env["LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["LMUMBRELLA_TEST_LIVE"] == "TRUE" then
+  if env["LM_UMBRELLA_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["LMUMBRELLA_APIKEY"],
+        apikey = env["LM_UMBRELLA_APIKEY"],
       },
       extra or {},
     })
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["LMUMBRELLA_TEST_LIVE"] == "TRUE"
+  local live = env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["LMUMBRELLA_TEST_EXPLAIN"] == "TRUE",
+    explain = env["LM_UMBRELLA_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

@@ -65,6 +65,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "DELETE",
 								"orig": "/public/database/{id}",
 								"parts": []any{
@@ -85,7 +86,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "remove",
 					},
 				},
 				"relations": map[string]any{
@@ -149,6 +149,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/{msisdn}",
 								"parts": []any{
@@ -178,7 +179,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -260,6 +260,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/permission/{msisdn}",
 								"parts": []any{
@@ -289,7 +290,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -320,6 +320,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/list",
 								"parts": []any{
@@ -347,7 +348,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -368,6 +368,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/query",
 								"parts": []any{
@@ -394,7 +395,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -409,14 +409,14 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "error",
+						"name": "errors",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 0,
 					},
 					map[string]any{
 						"active": true,
-						"name": "import_id",
+						"name": "importId",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
@@ -430,14 +430,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "permissions_inserted",
+						"name": "permissionsInserted",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 3,
 					},
 					map[string]any{
 						"active": true,
-						"name": "permissions_updated",
+						"name": "permissionsUpdated",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 4,
@@ -490,6 +490,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/permission/bulk",
 								"parts": []any{
@@ -518,7 +519,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -557,6 +557,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/bulk/status",
 								"parts": []any{
@@ -586,7 +587,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -601,7 +601,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "content",
+						"name": "contents",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 0,
@@ -615,7 +615,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "database_id",
+						"name": "databaseId",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 2,
@@ -636,24 +636,52 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "multi_value",
+						"name": "multiValue",
 						"req": false,
 						"type": "`$BOOLEAN`",
 						"index$": 5,
 					},
 					map[string]any{
 						"active": true,
+						"name": "rangeEnd",
+						"req": false,
+						"type": "`$INTEGER`",
+						"index$": 6,
+					},
+					map[string]any{
+						"active": true,
+						"name": "rangeStart",
+						"req": false,
+						"type": "`$INTEGER`",
+						"index$": 7,
+					},
+					map[string]any{
+						"active": true,
 						"name": "type",
 						"req": false,
 						"type": "`$STRING`",
-						"index$": 6,
+						"index$": 8,
 					},
 					map[string]any{
 						"active": true,
 						"name": "updated",
 						"req": false,
 						"type": "`$STRING`",
-						"index$": 7,
+						"index$": 9,
+					},
+					map[string]any{
+						"active": true,
+						"name": "validation",
+						"req": false,
+						"type": "`$STRING`",
+						"index$": 10,
+					},
+					map[string]any{
+						"active": true,
+						"name": "values",
+						"req": false,
+						"type": "`$ARRAY`",
+						"index$": 11,
 					},
 				},
 				"name": "metadata",
@@ -696,6 +724,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/metadata/{key}",
 								"parts": []any{
@@ -749,6 +778,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/metadata",
 								"parts": []any{
@@ -775,7 +805,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -806,6 +835,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/metadata",
 								"parts": []any{
@@ -832,7 +862,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -872,6 +901,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/metadata/{key}",
 								"parts": []any{
@@ -901,7 +931,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 					"update": map[string]any{
 						"input": "data",
@@ -941,6 +970,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "PUT",
 								"orig": "/public/database/{id}/metadata/{key}",
 								"parts": []any{
@@ -970,7 +1000,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "update",
 					},
 				},
 				"relations": map[string]any{
@@ -992,21 +1021,21 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "column",
+						"name": "columns",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 1,
 					},
 					map[string]any{
 						"active": true,
-						"name": "end_row",
+						"name": "endRow",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 2,
 					},
 					map[string]any{
 						"active": true,
-						"name": "group",
+						"name": "groups",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 3,
@@ -1020,14 +1049,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "msisdn_list",
+						"name": "msisdnList",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 5,
 					},
 					map[string]any{
 						"active": true,
-						"name": "only_active",
+						"name": "onlyActive",
 						"req": false,
 						"type": "`$BOOLEAN`",
 						"index$": 6,
@@ -1041,14 +1070,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "permission",
+						"name": "permissions",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 8,
 					},
 					map[string]any{
 						"active": true,
-						"name": "quick_filter_text",
+						"name": "quickFilterText",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 9,
@@ -1062,35 +1091,35 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "source",
+						"name": "sources",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 11,
 					},
 					map[string]any{
 						"active": true,
-						"name": "start_row",
+						"name": "startRow",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 12,
 					},
 					map[string]any{
 						"active": true,
-						"name": "total_active",
+						"name": "totalActive",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 13,
 					},
 					map[string]any{
 						"active": true,
-						"name": "total_element",
+						"name": "totalElements",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 14,
 					},
 					map[string]any{
 						"active": true,
-						"name": "total_page",
+						"name": "totalPages",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 15,
@@ -1127,6 +1156,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/permission/paged/list",
 								"parts": []any{
@@ -1155,7 +1185,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 				},
 				"relations": map[string]any{
@@ -1223,6 +1252,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "DELETE",
 								"orig": "/public/database/{id}/permission/{msisdn}",
 								"parts": []any{
@@ -1285,6 +1315,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "DELETE",
 								"orig": "/public/database/{id}/permission/permanent/{msisdn}",
 								"parts": []any{
@@ -1314,7 +1345,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "remove",
 					},
 					"update": map[string]any{
 						"input": "data",
@@ -1354,6 +1384,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "PUT",
 								"orig": "/public/database/{id}/permission/{msisdn}",
 								"parts": []any{
@@ -1383,7 +1414,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "update",
 					},
 				},
 				"relations": map[string]any{
@@ -1402,14 +1432,14 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "customer_id",
+						"name": "customerId",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 0,
 					},
 					map[string]any{
 						"active": true,
-						"name": "delete_on_optout",
+						"name": "deleteOnOptout",
 						"req": false,
 						"type": "`$BOOLEAN`",
 						"index$": 1,
@@ -1423,7 +1453,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "hook",
+						"name": "hooks",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 3,
@@ -1444,21 +1474,21 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "route",
+						"name": "routes",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 6,
 					},
 					map[string]any{
 						"active": true,
-						"name": "sender_alia",
+						"name": "senderAlias",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 7,
 					},
 					map[string]any{
 						"active": true,
-						"name": "service_id",
+						"name": "serviceId",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 8,
@@ -1484,6 +1514,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/list",
 								"parts": []any{
@@ -1503,7 +1534,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -1534,6 +1564,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}",
 								"parts": []any{
@@ -1554,7 +1585,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 					"update": map[string]any{
 						"input": "data",
@@ -1585,6 +1615,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "PUT",
 								"orig": "/public/database/{id}",
 								"parts": []any{
@@ -1605,7 +1636,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "update",
 					},
 				},
 				"relations": map[string]any{

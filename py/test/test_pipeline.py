@@ -16,11 +16,11 @@
 import pytest
 
 from lmumbrella_sdk import LmUmbrellaSDK
-from core.error import LmUmbrellaError
-from core.result import LmUmbrellaResult
-from core.response import LmUmbrellaResponse
-from core.spec import LmUmbrellaSpec
-from feature.base_feature import LmUmbrellaBaseFeature
+from lmumbrella_sdk.core.error import LmUmbrellaError
+from lmumbrella_sdk.core.result import LmUmbrellaResult
+from lmumbrella_sdk.core.response import LmUmbrellaResponse
+from lmumbrella_sdk.core.spec import LmUmbrellaSpec
+from lmumbrella_sdk.feature.base_feature import LmUmbrellaBaseFeature
 
 
 def _client():

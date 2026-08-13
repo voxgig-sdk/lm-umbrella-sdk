@@ -111,16 +111,16 @@ function permission_database_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "LMUMBRELLA_TEST_PERMISSION_DATABASE_ENTID" => [],
-        "LMUMBRELLA_TEST_LIVE" => "FALSE",
-        "LMUMBRELLA_APIKEY" => "NONE",
+        "LM_UMBRELLA_TEST_PERMISSION_DATABASE_ENTID" => [],
+        "LM_UMBRELLA_TEST_LIVE" => "FALSE",
+        "LM_UMBRELLA_APIKEY" => "NONE",
     ]);
 
-    $live = $env["LMUMBRELLA_TEST_LIVE"] === "TRUE";
+    $live = $env["LM_UMBRELLA_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["LMUMBRELLA_APIKEY"],
+            "apikey" => $env["LM_UMBRELLA_APIKEY"],
         ];
         $client = new LmUmbrellaSDK($merged_opts);
         return [

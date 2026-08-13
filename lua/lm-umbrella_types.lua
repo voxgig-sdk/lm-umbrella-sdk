@@ -34,13 +34,17 @@
 ---@class FlattenedPermissionCreateData
 ---@field database_id number
 ---@field id string
+---@field active? boolean
+---@field empty? boolean
+---@field msisdn? string
+---@field source? string
 
 ---@class ImportStatus
----@field error? table
----@field import_id? string
+---@field errors? table
+---@field importId? string
 ---@field msisdn? string
----@field permissions_inserted? number
----@field permissions_updated? number
+---@field permissionsInserted? number
+---@field permissionsUpdated? number
 ---@field status? string
 
 ---@class ImportStatusListMatch
@@ -48,16 +52,26 @@
 
 ---@class ImportStatusCreateData
 ---@field database_id number
+---@field errors? table
+---@field importId? string
+---@field msisdn? string
+---@field permissionsInserted? number
+---@field permissionsUpdated? number
+---@field status? string
 
 ---@class Metadata
----@field content? table
+---@field contents? table
 ---@field created? string
----@field database_id? number
+---@field databaseId? number
 ---@field key? string
 ---@field label? string
----@field multi_value? boolean
+---@field multiValue? boolean
+---@field rangeEnd? number
+---@field rangeStart? number
 ---@field type? string
 ---@field updated? string
+---@field validation? string
+---@field values? table
 
 ---@class MetadataLoadMatch
 ---@field database_id number
@@ -69,31 +83,71 @@
 ---@class MetadataCreateData
 ---@field database_id number
 ---@field id? string
+---@field contents? table
+---@field created? string
+---@field databaseId? number
+---@field key? string
+---@field label? string
+---@field multiValue? boolean
+---@field rangeEnd? number
+---@field rangeStart? number
+---@field type? string
+---@field updated? string
+---@field validation? string
+---@field values? table
 
 ---@class MetadataUpdateData
 ---@field database_id number
 ---@field id string
+---@field contents? table
+---@field created? string
+---@field databaseId? number
+---@field key? string
+---@field label? string
+---@field multiValue? boolean
+---@field rangeEnd? number
+---@field rangeStart? number
+---@field type? string
+---@field updated? string
+---@field validation? string
+---@field values? table
 
 ---@class PaginatedPermissionList
 ---@field ascending? boolean
----@field column? table
----@field end_row? number
----@field group? table
+---@field columns? table
+---@field endRow? number
+---@field groups? table
 ---@field metadata? table
----@field msisdn_list? table
----@field only_active? boolean
+---@field msisdnList? table
+---@field onlyActive? boolean
 ---@field page? number
----@field permission? table
----@field quick_filter_text? string
+---@field permissions? table
+---@field quickFilterText? string
 ---@field sort? string
----@field source? table
----@field start_row? number
----@field total_active? number
----@field total_element? number
----@field total_page? number
+---@field sources? table
+---@field startRow? number
+---@field totalActive? number
+---@field totalElements? number
+---@field totalPages? number
 
 ---@class PaginatedPermissionListCreateData
 ---@field database_id number
+---@field ascending? boolean
+---@field columns? table
+---@field endRow? number
+---@field groups? table
+---@field metadata? table
+---@field msisdnList? table
+---@field onlyActive? boolean
+---@field page? number
+---@field permissions? table
+---@field quickFilterText? string
+---@field sort? string
+---@field sources? table
+---@field startRow? number
+---@field totalActive? number
+---@field totalElements? number
+---@field totalPages? number
 
 ---@class Permission
 ---@field empty? boolean
@@ -102,6 +156,8 @@
 ---@class PermissionUpdateData
 ---@field database_id number
 ---@field id string
+---@field empty? boolean
+---@field msisdn? string
 
 ---@class PermissionRemoveMatch
 ---@field database_id number
@@ -109,32 +165,41 @@
 ---@field msisdn? string
 
 ---@class PermissionDatabase
----@field customer_id? number
----@field delete_on_optout? boolean
+---@field customerId? number
+---@field deleteOnOptout? boolean
 ---@field description? string
----@field hook? table
+---@field hooks? table
 ---@field id? number
 ---@field name? string
----@field route? table
----@field sender_alia? string
----@field service_id? number
+---@field routes? table
+---@field senderAlias? string
+---@field serviceId? number
 
 ---@class PermissionDatabaseLoadMatch
 ---@field database_id number
 
 ---@class PermissionDatabaseListMatch
----@field customer_id? number
----@field delete_on_optout? boolean
+---@field customerId? number
+---@field deleteOnOptout? boolean
 ---@field description? string
----@field hook? table
+---@field hooks? table
 ---@field id? number
 ---@field name? string
----@field route? table
----@field sender_alia? string
----@field service_id? number
+---@field routes? table
+---@field senderAlias? string
+---@field serviceId? number
 
 ---@class PermissionDatabaseUpdateData
 ---@field database_id number
+---@field customerId? number
+---@field deleteOnOptout? boolean
+---@field description? string
+---@field hooks? table
+---@field id? number
+---@field name? string
+---@field routes? table
+---@field senderAlias? string
+---@field serviceId? number
 
 local M = {}
 

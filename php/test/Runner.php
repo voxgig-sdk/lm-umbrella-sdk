@@ -43,8 +43,8 @@ class LmUmbrellaTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('LMUMBRELLA_TEST_LIVE');
-        $override = self::getenv('LMUMBRELLA_TEST_OVERRIDE');
+        $live = self::getenv('LM_UMBRELLA_TEST_LIVE');
+        $override = self::getenv('LM_UMBRELLA_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class LmUmbrellaTestRunner
             }
         }
 
-        $explain = self::getenv('LMUMBRELLA_TEST_EXPLAIN');
+        $explain = self::getenv('LM_UMBRELLA_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['LMUMBRELLA_TEST_EXPLAIN'] = $explain;
+            $m['LM_UMBRELLA_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

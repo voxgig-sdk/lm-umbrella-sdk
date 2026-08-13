@@ -11,17 +11,17 @@ main: kit: entity: paginated_permission_list: {
       type: "`$BOOLEAN`"
     }
     {
-      name: "column"
+      name: "columns"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "end_row"
+      name: "endRow"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "group"
+      name: "groups"
       req: false
       type: "`$ARRAY`"
     }
@@ -31,12 +31,12 @@ main: kit: entity: paginated_permission_list: {
       type: "`$ARRAY`"
     }
     {
-      name: "msisdn_list"
+      name: "msisdnList"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "only_active"
+      name: "onlyActive"
       req: false
       type: "`$BOOLEAN`"
     }
@@ -46,12 +46,12 @@ main: kit: entity: paginated_permission_list: {
       type: "`$INTEGER`"
     }
     {
-      name: "permission"
+      name: "permissions"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "quick_filter_text"
+      name: "quickFilterText"
       req: false
       type: "`$STRING`"
     }
@@ -61,27 +61,27 @@ main: kit: entity: paginated_permission_list: {
       type: "`$STRING`"
     }
     {
-      name: "source"
+      name: "sources"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "start_row"
+      name: "startRow"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "total_active"
+      name: "totalActive"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "total_element"
+      name: "totalElements"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "total_page"
+      name: "totalPages"
       req: false
       type: "`$INTEGER`"
     }

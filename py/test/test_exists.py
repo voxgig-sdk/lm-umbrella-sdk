@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# LmUmbrella SDK exists test
 
 import pytest
 from lmumbrella_sdk import LmUmbrellaSDK

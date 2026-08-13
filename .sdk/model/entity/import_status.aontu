@@ -6,12 +6,12 @@ main: kit: entity: import_status: {
 
   fields: [
     {
-      name: "error"
+      name: "errors"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "import_id"
+      name: "importId"
       req: false
       type: "`$STRING`"
     }
@@ -21,12 +21,12 @@ main: kit: entity: import_status: {
       type: "`$STRING`"
     }
     {
-      name: "permissions_inserted"
+      name: "permissionsInserted"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "permissions_updated"
+      name: "permissionsUpdated"
       req: false
       type: "`$INTEGER`"
     }

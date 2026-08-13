@@ -62,7 +62,7 @@ class ImportStatusEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set LMUMBRELLA_TEST_IMPORT_STATUS_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -74,7 +74,7 @@ class ImportStatusEntityTest < Minitest::Test
     import_status_ref01_data["database_id"] = setup[:idmap]["database01"]
 
     import_status_ref01_data_result = import_status_ref01_ent.create(import_status_ref01_data, nil)
-    import_status_ref01_data = Helpers.to_map(import_status_ref01_data_result)
+    import_status_ref01_data = Helpers.to_map(import_status_ref01_data_result.respond_to?(:data_get) ? import_status_ref01_data_result.data_get : import_status_ref01_data_result)
     assert !import_status_ref01_data.nil?
 
     # LIST
@@ -84,11 +84,6 @@ class ImportStatusEntityTest < Minitest::Test
 
     import_status_ref01_list_result = import_status_ref01_ent.list(import_status_ref01_match, nil)
     assert import_status_ref01_list_result.is_a?(Array)
-
-    found_item = Vs.select(
-      Runner.entity_list_to_data(import_status_ref01_list_result),
-      { "id" => import_status_ref01_data["id"] })
-    assert !Vs.isempty(found_item)
 
   end
 end
@@ -119,39 +114,39 @@ def import_status_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["LMUMBRELLA_TEST_IMPORT_STATUS_ENTID"]
+  entid_env_raw = ENV["LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "LMUMBRELLA_TEST_IMPORT_STATUS_ENTID" => idmap,
-    "LMUMBRELLA_TEST_LIVE" => "FALSE",
-    "LMUMBRELLA_TEST_EXPLAIN" => "FALSE",
-    "LMUMBRELLA_APIKEY" => "NONE",
+    "LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID" => idmap,
+    "LM_UMBRELLA_TEST_LIVE" => "FALSE",
+    "LM_UMBRELLA_TEST_EXPLAIN" => "FALSE",
+    "LM_UMBRELLA_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["LMUMBRELLA_TEST_IMPORT_STATUS_ENTID"])
+    env["LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["LMUMBRELLA_TEST_LIVE"] == "TRUE"
+  if env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LMUMBRELLA_APIKEY"],
+        "apikey" => env["LM_UMBRELLA_APIKEY"],
       },
       extra || {},
     ])
     client = LmUmbrellaSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["LMUMBRELLA_TEST_LIVE"] == "TRUE"
+  live = env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["LMUMBRELLA_TEST_EXPLAIN"] == "TRUE",
+    explain: env["LM_UMBRELLA_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

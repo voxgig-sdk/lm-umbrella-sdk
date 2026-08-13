@@ -42,7 +42,7 @@ client = LmUmbrellaSDK({
 ### 3. Load a flatpermission
 
 FlatPermission is nested under database, so provide the `database_id`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -66,10 +66,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    flatpermission = client.FlatPermission().load({"database_id": 1, "id": "example_id"})
-    print(flatpermission)
+    importstatuss = client.ImportStatus().list()
+    print(importstatuss)
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -133,9 +133,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = LmUmbrellaSDK.test()
 
-# Entity ops return the bare record and raise on error.
-flatpermission = client.FlatPermission().load({"id": "test01", "database_id": 1})
-# flatpermission contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+importstatus = client.ImportStatus().list()
+# importstatus contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -242,7 +243,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -297,11 +298,11 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `error` |  |
-| `import_id` |  |
+| `errors` |  |
+| `importId` |  |
 | `msisdn` |  |
-| `permissions_inserted` |  |
-| `permissions_updated` |  |
+| `permissionsInserted` |  |
+| `permissionsUpdated` |  |
 | `status` |  |
 
 Operations: Create, List.
@@ -312,14 +313,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `content` |  |
+| `contents` |  |
 | `created` |  |
-| `database_id` |  |
+| `databaseId` |  |
 | `key` |  |
 | `label` |  |
-| `multi_value` |  |
+| `multiValue` |  |
+| `rangeEnd` |  |
+| `rangeStart` |  |
 | `type` |  |
 | `updated` |  |
+| `validation` |  |
+| `values` |  |
 
 Operations: Create, List, Load, Update.
 
@@ -330,21 +335,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `ascending` |  |
-| `column` |  |
-| `end_row` |  |
-| `group` |  |
+| `columns` |  |
+| `endRow` |  |
+| `groups` |  |
 | `metadata` |  |
-| `msisdn_list` |  |
-| `only_active` |  |
+| `msisdnList` |  |
+| `onlyActive` |  |
 | `page` |  |
-| `permission` |  |
-| `quick_filter_text` |  |
+| `permissions` |  |
+| `quickFilterText` |  |
 | `sort` |  |
-| `source` |  |
-| `start_row` |  |
-| `total_active` |  |
-| `total_element` |  |
-| `total_page` |  |
+| `sources` |  |
+| `startRow` |  |
+| `totalActive` |  |
+| `totalElements` |  |
+| `totalPages` |  |
 
 Operations: Create.
 
@@ -365,15 +370,15 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `customer_id` |  |
-| `delete_on_optout` |  |
+| `customerId` |  |
+| `deleteOnOptout` |  |
 | `description` |  |
-| `hook` |  |
+| `hooks` |  |
 | `id` |  |
 | `name` |  |
-| `route` |  |
-| `sender_alia` |  |
-| `service_id` |  |
+| `routes` |  |
+| `senderAlias` |  |
+| `serviceId` |  |
 
 Operations: List, Load, Update.
 
@@ -449,7 +454,7 @@ flattened_permission = client.FlattenedPermission().load({"database_id": 1})
 #### Example: List
 
 ```python
-flattened_permissions = client.FlattenedPermission().list()
+flattened_permissions = client.FlattenedPermission().list({"database_id": 1})
 ```
 
 #### Example: Create
@@ -477,17 +482,17 @@ Create an instance: `import_status = client.ImportStatus()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error` | `list` |  |
-| `import_id` | `str` |  |
+| `errors` | `list` |  |
+| `importId` | `str` |  |
 | `msisdn` | `str` |  |
-| `permissions_inserted` | `int` |  |
-| `permissions_updated` | `int` |  |
+| `permissionsInserted` | `int` |  |
+| `permissionsUpdated` | `int` |  |
 | `status` | `str` |  |
 
 #### Example: List
 
 ```python
-import_statuss = client.ImportStatus().list()
+import_statuss = client.ImportStatus().list({"database_id": 1})
 ```
 
 #### Example: Create
@@ -516,14 +521,18 @@ Create an instance: `metadata = client.Metadata()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `content` | `dict` |  |
+| `contents` | `dict` |  |
 | `created` | `str` |  |
-| `database_id` | `int` |  |
+| `databaseId` | `int` |  |
 | `key` | `str` |  |
 | `label` | `str` |  |
-| `multi_value` | `bool` |  |
+| `multiValue` | `bool` |  |
+| `rangeEnd` | `int` |  |
+| `rangeStart` | `int` |  |
 | `type` | `str` |  |
 | `updated` | `str` |  |
+| `validation` | `str` |  |
+| `values` | `list` |  |
 
 #### Example: Load
 
@@ -534,7 +543,7 @@ metadata = client.Metadata().load({"id": "metadata_id", "database_id": 1})
 #### Example: List
 
 ```python
-metadatas = client.Metadata().list()
+metadatas = client.Metadata().list({"database_id": 1})
 ```
 
 #### Example: Create
@@ -561,21 +570,21 @@ Create an instance: `paginated_permission_list = client.PaginatedPermissionList(
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `bool` |  |
-| `column` | `list` |  |
-| `end_row` | `int` |  |
-| `group` | `list` |  |
+| `columns` | `list` |  |
+| `endRow` | `int` |  |
+| `groups` | `list` |  |
 | `metadata` | `list` |  |
-| `msisdn_list` | `list` |  |
-| `only_active` | `bool` |  |
+| `msisdnList` | `list` |  |
+| `onlyActive` | `bool` |  |
 | `page` | `int` |  |
-| `permission` | `list` |  |
-| `quick_filter_text` | `str` |  |
+| `permissions` | `list` |  |
+| `quickFilterText` | `str` |  |
 | `sort` | `str` |  |
-| `source` | `list` |  |
-| `start_row` | `int` |  |
-| `total_active` | `int` |  |
-| `total_element` | `int` |  |
-| `total_page` | `int` |  |
+| `sources` | `list` |  |
+| `startRow` | `int` |  |
+| `totalActive` | `int` |  |
+| `totalElements` | `int` |  |
+| `totalPages` | `int` |  |
 
 #### Example: Create
 
@@ -621,15 +630,15 @@ Create an instance: `permission_database = client.PermissionDatabase()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `customer_id` | `int` |  |
-| `delete_on_optout` | `bool` |  |
+| `customerId` | `int` |  |
+| `deleteOnOptout` | `bool` |  |
 | `description` | `str` |  |
-| `hook` | `list` |  |
+| `hooks` | `list` |  |
 | `id` | `int` |  |
 | `name` | `str` |  |
-| `route` | `list` |  |
-| `sender_alia` | `str` |  |
-| `service_id` | `int` |  |
+| `routes` | `list` |  |
+| `senderAlias` | `str` |  |
+| `serviceId` | `int` |  |
 
 #### Example: Load
 
@@ -715,15 +724,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-flatpermission = client.FlatPermission()
-flatpermission.load({"database_id": 1, "id": "example_id"})
+importstatus = client.ImportStatus()
+importstatus.list()
 
-# flatpermission.data_get() now returns the flatpermission data from the last load
-# flatpermission.match_get() returns the last match criteria
+# importstatus.data_get() now returns the importstatus data from the last list
+# importstatus.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

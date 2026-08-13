@@ -26,8 +26,8 @@ import {
 describe('PaginatedPermissionListEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LMUMBRELLA_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LM_UMBRELLA_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LmUmbrellaSDK.test()
@@ -63,7 +63,7 @@ describe('PaginatedPermissionListEntity', async () => {
     let paginated_permission_list_ref01_data = setup.data.new.paginated_permission_list['paginated_permission_list_ref01']
     paginated_permission_list_ref01_data['database_id'] = setup.idmap['database01']
 
-    paginated_permission_list_ref01_data = await paginated_permission_list_ref01_ent.create(paginated_permission_list_ref01_data)
+    paginated_permission_list_ref01_data = (await paginated_permission_list_ref01_ent.create(paginated_permission_list_ref01_data)).data()
     assert(null != paginated_permission_list_ref01_data)
 
 

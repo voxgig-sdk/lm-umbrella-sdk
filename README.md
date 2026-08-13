@@ -35,18 +35,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = LmUmbrellaSDK.test()
-const flatpermission = await client.FlatPermission().load({ id: 'test01', database_id: 1 })
-// flatpermission is a bare FlatPermission populated with mock data
-console.log(flatpermission)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = LmUmbrellaSDK.test({
+  entity: {
+    import_status: {
+      test01: { id: 'test01', database_id: 1 },
+    },
+  },
+})
+const importstatuss = await client.ImportStatus().list()
+// importstatuss is an array of ImportStatus entities, populated with mock data
+// — call importstatuss[0].data() for the record itself
+console.log(importstatuss)
 ```
 
 ### Python
 
 ```python
 client = LmUmbrellaSDK.test()
-flatpermission = client.FlatPermission().load({"id": "test01", "database_id": 1})
-print(flatpermission)
+importstatuss = client.ImportStatus().list()
+print(importstatuss)
 ```
 
 ### PHP
@@ -54,17 +63,17 @@ print(flatpermission)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = LmUmbrellaSDK::test([
-    "entity" => ["flatpermission" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["importstatus" => ["test01" => []]],
 ]);
-$flatpermission = $client->FlatPermission()->load(["id" => "test01", "database_id" => 1]);
+$importstatuss = $client->ImportStatus()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.FlatPermission(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+result, err := client.ImportStatus(nil).List(
+    nil, nil,
 )
 ```
 
@@ -73,16 +82,16 @@ result, err := client.FlatPermission(nil).Load(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = LmUmbrellaSDK.test({
-  "entity" => { "flatpermission" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "importstatus" => { "test01" => {} } },
 })
-flatpermission = client.FlatPermission.load({ "id" => "test01", "database_id" => 1 })
+importstatuss = client.ImportStatus.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:FlatPermission():load({ id = "test01", database_id = 1 })
+local results, err = client:ImportStatus():list()
 ```
 
 ## Packages
@@ -158,9 +167,9 @@ The API exposes 8 entities:
 | --- | --- | --- |
 | **Database** | The Database entity (remove). | `/public/database/{id}` |
 | **FlatPermission** | The FlatPermission entity (load). | `/public/database/{id}/permission/{msisdn}` |
-| **FlattenedPermission** | The FlattenedPermission entity (create, list, load). | `/public/database/{id}/permission/{msisdn}` |
-| **ImportStatus** | The ImportStatus entity (create, list). | `/public/database/{id}/permission/bulk` |
-| **Metadata** | The Metadata entity (create, list, load, update). | `/public/database/{id}/metadata/{key}` |
+| **FlattenedPermission** | The FlattenedPermission entity (create, list, load). | `/public/database/{id}/permission/list` |
+| **ImportStatus** | The ImportStatus entity (create, list). | `/public/database/{id}/permission/bulk/status` |
+| **Metadata** | The Metadata entity (create, list, load, update). | `/public/database/{id}/metadata` |
 | **PaginatedPermissionList** | The PaginatedPermissionList entity (create). | `/public/database/{id}/permission/paged/list` |
 | **Permission** | The Permission entity (remove, update). | `/public/database/{id}/permission/{msisdn}` |
 | **PermissionDatabase** | The PermissionDatabase entity (list, load, update). | `/public/database/list` |
@@ -352,6 +361,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://permission.m2go.dk/permission/api](https://permission.m2go.dk/permission/api)
 

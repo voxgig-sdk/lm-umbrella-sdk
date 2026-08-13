@@ -128,16 +128,16 @@ def flattened_permission_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "LMUMBRELLA_TEST_FLATTENED_PERMISSION_ENTID" => {},
-    "LMUMBRELLA_TEST_LIVE" => "FALSE",
-    "LMUMBRELLA_APIKEY" => "NONE",
+    "LM_UMBRELLA_TEST_FLATTENED_PERMISSION_ENTID" => {},
+    "LM_UMBRELLA_TEST_LIVE" => "FALSE",
+    "LM_UMBRELLA_APIKEY" => "NONE",
   })
 
-  live = env["LMUMBRELLA_TEST_LIVE"] == "TRUE"
+  live = env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["LMUMBRELLA_APIKEY"],
+      "apikey" => env["LM_UMBRELLA_APIKEY"],
     }
     client = LmUmbrellaSDK.new(merged_opts)
     return {

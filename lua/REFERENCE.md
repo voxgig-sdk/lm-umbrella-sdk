@@ -292,11 +292,11 @@ local import_status = client:ImportStatus(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `error` | `table` | No |  |
-| `import_id` | `string` | No |  |
+| `errors` | `table` | No |  |
+| `importId` | `string` | No |  |
 | `msisdn` | `string` | No |  |
-| `permissions_inserted` | `number` | No |  |
-| `permissions_updated` | `number` | No |  |
+| `permissionsInserted` | `number` | No |  |
+| `permissionsUpdated` | `number` | No |  |
 | `status` | `string` | No |  |
 
 ### Operations
@@ -359,14 +359,18 @@ local metadata = client:Metadata(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `content` | `table` | No |  |
+| `contents` | `table` | No |  |
 | `created` | `string` | No |  |
-| `database_id` | `number` | No |  |
+| `databaseId` | `number` | No |  |
 | `key` | `string` | No |  |
 | `label` | `string` | No |  |
-| `multi_value` | `boolean` | No |  |
+| `multiValue` | `boolean` | No |  |
+| `rangeEnd` | `number` | No |  |
+| `rangeStart` | `number` | No |  |
 | `type` | `string` | No |  |
 | `updated` | `string` | No |  |
+| `validation` | `string` | No |  |
+| `values` | `table` | No |  |
 
 ### Operations
 
@@ -449,21 +453,21 @@ local paginated_permission_list = client:PaginatedPermissionList(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `boolean` | No |  |
-| `column` | `table` | No |  |
-| `end_row` | `number` | No |  |
-| `group` | `table` | No |  |
+| `columns` | `table` | No |  |
+| `endRow` | `number` | No |  |
+| `groups` | `table` | No |  |
 | `metadata` | `table` | No |  |
-| `msisdn_list` | `table` | No |  |
-| `only_active` | `boolean` | No |  |
+| `msisdnList` | `table` | No |  |
+| `onlyActive` | `boolean` | No |  |
 | `page` | `number` | No |  |
-| `permission` | `table` | No |  |
-| `quick_filter_text` | `string` | No |  |
+| `permissions` | `table` | No |  |
+| `quickFilterText` | `string` | No |  |
 | `sort` | `string` | No |  |
-| `source` | `table` | No |  |
-| `start_row` | `number` | No |  |
-| `total_active` | `number` | No |  |
-| `total_element` | `number` | No |  |
-| `total_page` | `number` | No |  |
+| `sources` | `table` | No |  |
+| `startRow` | `number` | No |  |
+| `totalActive` | `number` | No |  |
+| `totalElements` | `number` | No |  |
+| `totalPages` | `number` | No |  |
 
 ### Operations
 
@@ -582,15 +586,15 @@ local permission_database = client:PermissionDatabase(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `customer_id` | `number` | No |  |
-| `delete_on_optout` | `boolean` | No |  |
+| `customerId` | `number` | No |  |
+| `deleteOnOptout` | `boolean` | No |  |
 | `description` | `string` | No |  |
-| `hook` | `table` | No |  |
+| `hooks` | `table` | No |  |
 | `id` | `number` | No |  |
 | `name` | `string` | No |  |
-| `route` | `table` | No |  |
-| `sender_alia` | `string` | No |  |
-| `service_id` | `number` | No |  |
+| `routes` | `table` | No |  |
+| `senderAlias` | `string` | No |  |
+| `serviceId` | `number` | No |  |
 
 ### Operations
 

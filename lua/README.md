@@ -59,7 +59,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local flatpermission, err = client:FlatPermission():load({ database_id = 1, id = "example_id" })
+local importstatuss, err = client:ImportStatus():list()
 if err then error(err) end
 ```
 
@@ -117,7 +117,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:FlatPermission():load({ id = "test01", database_id = 1 })
+local result, err = client:ImportStatus():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -237,9 +237,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local database, err = client:Database():load()
+    local flat_permission, err = client:FlatPermission():load({ id = "example_id" })
     if err then error(err) end
-    -- database is the loaded record
+    -- flat_permission is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -283,11 +283,11 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `error` |  |
-| `import_id` |  |
+| `errors` |  |
+| `importId` |  |
 | `msisdn` |  |
-| `permissions_inserted` |  |
-| `permissions_updated` |  |
+| `permissionsInserted` |  |
+| `permissionsUpdated` |  |
 | `status` |  |
 
 Operations: Create, List.
@@ -298,14 +298,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `content` |  |
+| `contents` |  |
 | `created` |  |
-| `database_id` |  |
+| `databaseId` |  |
 | `key` |  |
 | `label` |  |
-| `multi_value` |  |
+| `multiValue` |  |
+| `rangeEnd` |  |
+| `rangeStart` |  |
 | `type` |  |
 | `updated` |  |
+| `validation` |  |
+| `values` |  |
 
 Operations: Create, List, Load, Update.
 
@@ -316,21 +320,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `ascending` |  |
-| `column` |  |
-| `end_row` |  |
-| `group` |  |
+| `columns` |  |
+| `endRow` |  |
+| `groups` |  |
 | `metadata` |  |
-| `msisdn_list` |  |
-| `only_active` |  |
+| `msisdnList` |  |
+| `onlyActive` |  |
 | `page` |  |
-| `permission` |  |
-| `quick_filter_text` |  |
+| `permissions` |  |
+| `quickFilterText` |  |
 | `sort` |  |
-| `source` |  |
-| `start_row` |  |
-| `total_active` |  |
-| `total_element` |  |
-| `total_page` |  |
+| `sources` |  |
+| `startRow` |  |
+| `totalActive` |  |
+| `totalElements` |  |
+| `totalPages` |  |
 
 Operations: Create.
 
@@ -351,15 +355,15 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `customer_id` |  |
-| `delete_on_optout` |  |
+| `customerId` |  |
+| `deleteOnOptout` |  |
 | `description` |  |
-| `hook` |  |
+| `hooks` |  |
 | `id` |  |
 | `name` |  |
-| `route` |  |
-| `sender_alia` |  |
-| `service_id` |  |
+| `routes` |  |
+| `senderAlias` |  |
+| `serviceId` |  |
 
 Operations: List, Load, Update.
 
@@ -463,11 +467,11 @@ Create an instance: `local import_status = client:ImportStatus(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error` | `table` |  |
-| `import_id` | `string` |  |
+| `errors` | `table` |  |
+| `importId` | `string` |  |
 | `msisdn` | `string` |  |
-| `permissions_inserted` | `number` |  |
-| `permissions_updated` | `number` |  |
+| `permissionsInserted` | `number` |  |
+| `permissionsUpdated` | `number` |  |
 | `status` | `string` |  |
 
 #### Example: List
@@ -502,14 +506,18 @@ Create an instance: `local metadata = client:Metadata(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `content` | `table` |  |
+| `contents` | `table` |  |
 | `created` | `string` |  |
-| `database_id` | `number` |  |
+| `databaseId` | `number` |  |
 | `key` | `string` |  |
 | `label` | `string` |  |
-| `multi_value` | `boolean` |  |
+| `multiValue` | `boolean` |  |
+| `rangeEnd` | `number` |  |
+| `rangeStart` | `number` |  |
 | `type` | `string` |  |
 | `updated` | `string` |  |
+| `validation` | `string` |  |
+| `values` | `table` |  |
 
 #### Example: Load
 
@@ -547,21 +555,21 @@ Create an instance: `local paginated_permission_list = client:PaginatedPermissio
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `boolean` |  |
-| `column` | `table` |  |
-| `end_row` | `number` |  |
-| `group` | `table` |  |
+| `columns` | `table` |  |
+| `endRow` | `number` |  |
+| `groups` | `table` |  |
 | `metadata` | `table` |  |
-| `msisdn_list` | `table` |  |
-| `only_active` | `boolean` |  |
+| `msisdnList` | `table` |  |
+| `onlyActive` | `boolean` |  |
 | `page` | `number` |  |
-| `permission` | `table` |  |
-| `quick_filter_text` | `string` |  |
+| `permissions` | `table` |  |
+| `quickFilterText` | `string` |  |
 | `sort` | `string` |  |
-| `source` | `table` |  |
-| `start_row` | `number` |  |
-| `total_active` | `number` |  |
-| `total_element` | `number` |  |
-| `total_page` | `number` |  |
+| `sources` | `table` |  |
+| `startRow` | `number` |  |
+| `totalActive` | `number` |  |
+| `totalElements` | `number` |  |
+| `totalPages` | `number` |  |
 
 #### Example: Create
 
@@ -607,15 +615,15 @@ Create an instance: `local permission_database = client:PermissionDatabase(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `customer_id` | `number` |  |
-| `delete_on_optout` | `boolean` |  |
+| `customerId` | `number` |  |
+| `deleteOnOptout` | `boolean` |  |
 | `description` | `string` |  |
-| `hook` | `table` |  |
+| `hooks` | `table` |  |
 | `id` | `number` |  |
 | `name` | `string` |  |
-| `route` | `table` |  |
-| `sender_alia` | `string` |  |
-| `service_id` | `number` |  |
+| `routes` | `table` |  |
+| `senderAlias` | `string` |  |
+| `serviceId` | `number` |  |
 
 #### Example: Load
 
@@ -702,15 +710,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local flatpermission = client:FlatPermission()
-flatpermission:load({ database_id = 1, id = "example_id" })
+local importstatus = client:ImportStatus()
+importstatus:list()
 
--- flatpermission:data_get() now returns the flatpermission data from the last load
--- flatpermission:match_get() returns the last match criteria
+-- importstatus:data_get() now returns the importstatus data from the last list
+-- importstatus:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

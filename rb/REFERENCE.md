@@ -295,11 +295,11 @@ import_status = client.ImportStatus
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `error` | `Array` | No |  |
-| `import_id` | `String` | No |  |
+| `errors` | `Array` | No |  |
+| `importId` | `String` | No |  |
 | `msisdn` | `String` | No |  |
-| `permissions_inserted` | `Integer` | No |  |
-| `permissions_updated` | `Integer` | No |  |
+| `permissionsInserted` | `Integer` | No |  |
+| `permissionsUpdated` | `Integer` | No |  |
 | `status` | `String` | No |  |
 
 ### Operations
@@ -362,14 +362,18 @@ metadata = client.Metadata
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `content` | `Hash` | No |  |
+| `contents` | `Hash` | No |  |
 | `created` | `String` | No |  |
-| `database_id` | `Integer` | No |  |
+| `databaseId` | `Integer` | No |  |
 | `key` | `String` | No |  |
 | `label` | `String` | No |  |
-| `multi_value` | `Boolean` | No |  |
+| `multiValue` | `Boolean` | No |  |
+| `rangeEnd` | `Integer` | No |  |
+| `rangeStart` | `Integer` | No |  |
 | `type` | `String` | No |  |
 | `updated` | `String` | No |  |
+| `validation` | `String` | No |  |
+| `values` | `Array` | No |  |
 
 ### Operations
 
@@ -452,21 +456,21 @@ paginated_permission_list = client.PaginatedPermissionList
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `Boolean` | No |  |
-| `column` | `Array` | No |  |
-| `end_row` | `Integer` | No |  |
-| `group` | `Array` | No |  |
+| `columns` | `Array` | No |  |
+| `endRow` | `Integer` | No |  |
+| `groups` | `Array` | No |  |
 | `metadata` | `Array` | No |  |
-| `msisdn_list` | `Array` | No |  |
-| `only_active` | `Boolean` | No |  |
+| `msisdnList` | `Array` | No |  |
+| `onlyActive` | `Boolean` | No |  |
 | `page` | `Integer` | No |  |
-| `permission` | `Array` | No |  |
-| `quick_filter_text` | `String` | No |  |
+| `permissions` | `Array` | No |  |
+| `quickFilterText` | `String` | No |  |
 | `sort` | `String` | No |  |
-| `source` | `Array` | No |  |
-| `start_row` | `Integer` | No |  |
-| `total_active` | `Integer` | No |  |
-| `total_element` | `Integer` | No |  |
-| `total_page` | `Integer` | No |  |
+| `sources` | `Array` | No |  |
+| `startRow` | `Integer` | No |  |
+| `totalActive` | `Integer` | No |  |
+| `totalElements` | `Integer` | No |  |
+| `totalPages` | `Integer` | No |  |
 
 ### Operations
 
@@ -585,15 +589,15 @@ permission_database = client.PermissionDatabase
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `customer_id` | `Integer` | No |  |
-| `delete_on_optout` | `Boolean` | No |  |
+| `customerId` | `Integer` | No |  |
+| `deleteOnOptout` | `Boolean` | No |  |
 | `description` | `String` | No |  |
-| `hook` | `Array` | No |  |
+| `hooks` | `Array` | No |  |
 | `id` | `Integer` | No |  |
 | `name` | `String` | No |  |
-| `route` | `Array` | No |  |
-| `sender_alia` | `String` | No |  |
-| `service_id` | `Integer` | No |  |
+| `routes` | `Array` | No |  |
+| `senderAlias` | `String` | No |  |
+| `serviceId` | `Integer` | No |  |
 
 ### Operations
 

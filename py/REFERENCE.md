@@ -236,7 +236,7 @@ result = client.FlattenedPermission().create({
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.FlattenedPermission().list()
+results = client.FlattenedPermission().list({"database_id": 1})
 for flattened_permission in results:
     print(flattened_permission)
 ```
@@ -288,11 +288,11 @@ import_status = client.ImportStatus()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `error` | `list` | No |  |
-| `import_id` | `str` | No |  |
+| `errors` | `list` | No |  |
+| `importId` | `str` | No |  |
 | `msisdn` | `str` | No |  |
-| `permissions_inserted` | `int` | No |  |
-| `permissions_updated` | `int` | No |  |
+| `permissionsInserted` | `int` | No |  |
+| `permissionsUpdated` | `int` | No |  |
 | `status` | `str` | No |  |
 
 ### Operations
@@ -312,7 +312,7 @@ result = client.ImportStatus().create({
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.ImportStatus().list()
+results = client.ImportStatus().list({"database_id": 1})
 for import_status in results:
     print(import_status)
 ```
@@ -356,14 +356,18 @@ metadata = client.Metadata()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `content` | `dict` | No |  |
+| `contents` | `dict` | No |  |
 | `created` | `str` | No |  |
-| `database_id` | `int` | No |  |
+| `databaseId` | `int` | No |  |
 | `key` | `str` | No |  |
 | `label` | `str` | No |  |
-| `multi_value` | `bool` | No |  |
+| `multiValue` | `bool` | No |  |
+| `rangeEnd` | `int` | No |  |
+| `rangeStart` | `int` | No |  |
 | `type` | `str` | No |  |
 | `updated` | `str` | No |  |
+| `validation` | `str` | No |  |
+| `values` | `list` | No |  |
 
 ### Operations
 
@@ -382,7 +386,7 @@ result = client.Metadata().create({
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Metadata().list()
+results = client.Metadata().list({"database_id": 1})
 for metadata in results:
     print(metadata)
 ```
@@ -447,21 +451,21 @@ paginated_permission_list = client.PaginatedPermissionList()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `bool` | No |  |
-| `column` | `list` | No |  |
-| `end_row` | `int` | No |  |
-| `group` | `list` | No |  |
+| `columns` | `list` | No |  |
+| `endRow` | `int` | No |  |
+| `groups` | `list` | No |  |
 | `metadata` | `list` | No |  |
-| `msisdn_list` | `list` | No |  |
-| `only_active` | `bool` | No |  |
+| `msisdnList` | `list` | No |  |
+| `onlyActive` | `bool` | No |  |
 | `page` | `int` | No |  |
-| `permission` | `list` | No |  |
-| `quick_filter_text` | `str` | No |  |
+| `permissions` | `list` | No |  |
+| `quickFilterText` | `str` | No |  |
 | `sort` | `str` | No |  |
-| `source` | `list` | No |  |
-| `start_row` | `int` | No |  |
-| `total_active` | `int` | No |  |
-| `total_element` | `int` | No |  |
-| `total_page` | `int` | No |  |
+| `sources` | `list` | No |  |
+| `startRow` | `int` | No |  |
+| `totalActive` | `int` | No |  |
+| `totalElements` | `int` | No |  |
+| `totalPages` | `int` | No |  |
 
 ### Operations
 
@@ -578,15 +582,15 @@ permission_database = client.PermissionDatabase()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `customer_id` | `int` | No |  |
-| `delete_on_optout` | `bool` | No |  |
+| `customerId` | `int` | No |  |
+| `deleteOnOptout` | `bool` | No |  |
 | `description` | `str` | No |  |
-| `hook` | `list` | No |  |
+| `hooks` | `list` | No |  |
 | `id` | `int` | No |  |
 | `name` | `str` | No |  |
-| `route` | `list` | No |  |
-| `sender_alia` | `str` | No |  |
-| `service_id` | `int` | No |  |
+| `routes` | `list` | No |  |
+| `senderAlias` | `str` | No |  |
+| `serviceId` | `int` | No |  |
 
 ### Operations
 

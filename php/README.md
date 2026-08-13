@@ -39,7 +39,7 @@ FlatPermission is nested under database, so provide the `database_id`.
 
 ```php
 try {
-    // load() returns the bare FlatPermission record (throws on error).
+    // load() returns the ENTITY — call data_get() for the FlatPermission record (throws on error).
     $flatpermission = $client->FlatPermission()->load(["database_id" => 1, "id" => "example_id"]);
     print_r($flatpermission);
 } catch (\Throwable $err) {
@@ -62,7 +62,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $flatpermission = $client->FlatPermission()->load(["database_id" => 1, "id" => "example_id"]);
+    $importstatuss = $client->ImportStatus()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -129,17 +129,15 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = LmUmbrellaSDK::test([
-    "entity" => ["flatpermission" => ["test01" => ["id" => "test01"]]],
-]);
+$client = LmUmbrellaSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$flatpermission = $client->FlatPermission()->load(["id" => "test01", "database_id" => 1]);
-print_r($flatpermission);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$importstatus = $client->ImportStatus()->list();
+print_r($importstatus);
 ```
 
 ### Use a custom fetch function
@@ -249,7 +247,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -304,11 +302,11 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `error` |  |
-| `import_id` |  |
+| `errors` |  |
+| `importId` |  |
 | `msisdn` |  |
-| `permissions_inserted` |  |
-| `permissions_updated` |  |
+| `permissionsInserted` |  |
+| `permissionsUpdated` |  |
 | `status` |  |
 
 Operations: Create, List.
@@ -319,14 +317,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `content` |  |
+| `contents` |  |
 | `created` |  |
-| `database_id` |  |
+| `databaseId` |  |
 | `key` |  |
 | `label` |  |
-| `multi_value` |  |
+| `multiValue` |  |
+| `rangeEnd` |  |
+| `rangeStart` |  |
 | `type` |  |
 | `updated` |  |
+| `validation` |  |
+| `values` |  |
 
 Operations: Create, List, Load, Update.
 
@@ -337,21 +339,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `ascending` |  |
-| `column` |  |
-| `end_row` |  |
-| `group` |  |
+| `columns` |  |
+| `endRow` |  |
+| `groups` |  |
 | `metadata` |  |
-| `msisdn_list` |  |
-| `only_active` |  |
+| `msisdnList` |  |
+| `onlyActive` |  |
 | `page` |  |
-| `permission` |  |
-| `quick_filter_text` |  |
+| `permissions` |  |
+| `quickFilterText` |  |
 | `sort` |  |
-| `source` |  |
-| `start_row` |  |
-| `total_active` |  |
-| `total_element` |  |
-| `total_page` |  |
+| `sources` |  |
+| `startRow` |  |
+| `totalActive` |  |
+| `totalElements` |  |
+| `totalPages` |  |
 
 Operations: Create.
 
@@ -372,15 +374,15 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `customer_id` |  |
-| `delete_on_optout` |  |
+| `customerId` |  |
+| `deleteOnOptout` |  |
 | `description` |  |
-| `hook` |  |
+| `hooks` |  |
 | `id` |  |
 | `name` |  |
-| `route` |  |
-| `sender_alia` |  |
-| `service_id` |  |
+| `routes` |  |
+| `senderAlias` |  |
+| `serviceId` |  |
 
 Operations: List, Load, Update.
 
@@ -422,7 +424,7 @@ Create an instance: `$flat_permission = $client->FlatPermission();`
 #### Example: Load
 
 ```php
-// load() returns the bare FlatPermission record (throws on error).
+// load() returns the ENTITY — call data_get() for the FlatPermission record (throws on error).
 $flat_permission = $client->FlatPermission()->load(["id" => "flat_permission_id", "database_id" => 1]);
 ```
 
@@ -451,7 +453,7 @@ Create an instance: `$flattened_permission = $client->FlattenedPermission();`
 #### Example: Load
 
 ```php
-// load() returns the bare FlattenedPermission record (throws on error).
+// load() returns the ENTITY — call data_get() for the FlattenedPermission record (throws on error).
 $flattened_permission = $client->FlattenedPermission()->load(["database_id" => 1]);
 ```
 
@@ -487,11 +489,11 @@ Create an instance: `$import_status = $client->ImportStatus();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `error` | `array` |  |
-| `import_id` | `string` |  |
+| `errors` | `array` |  |
+| `importId` | `string` |  |
 | `msisdn` | `string` |  |
-| `permissions_inserted` | `int` |  |
-| `permissions_updated` | `int` |  |
+| `permissionsInserted` | `int` |  |
+| `permissionsUpdated` | `int` |  |
 | `status` | `string` |  |
 
 #### Example: List
@@ -527,19 +529,23 @@ Create an instance: `$metadata = $client->Metadata();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `content` | `array` |  |
+| `contents` | `array` |  |
 | `created` | `string` |  |
-| `database_id` | `int` |  |
+| `databaseId` | `int` |  |
 | `key` | `string` |  |
 | `label` | `string` |  |
-| `multi_value` | `bool` |  |
+| `multiValue` | `bool` |  |
+| `rangeEnd` | `int` |  |
+| `rangeStart` | `int` |  |
 | `type` | `string` |  |
 | `updated` | `string` |  |
+| `validation` | `string` |  |
+| `values` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Metadata record (throws on error).
+// load() returns the ENTITY — call data_get() for the Metadata record (throws on error).
 $metadata = $client->Metadata()->load(["id" => "metadata_id", "database_id" => 1]);
 ```
 
@@ -574,21 +580,21 @@ Create an instance: `$paginated_permission_list = $client->PaginatedPermissionLi
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `bool` |  |
-| `column` | `array` |  |
-| `end_row` | `int` |  |
-| `group` | `array` |  |
+| `columns` | `array` |  |
+| `endRow` | `int` |  |
+| `groups` | `array` |  |
 | `metadata` | `array` |  |
-| `msisdn_list` | `array` |  |
-| `only_active` | `bool` |  |
+| `msisdnList` | `array` |  |
+| `onlyActive` | `bool` |  |
 | `page` | `int` |  |
-| `permission` | `array` |  |
-| `quick_filter_text` | `string` |  |
+| `permissions` | `array` |  |
+| `quickFilterText` | `string` |  |
 | `sort` | `string` |  |
-| `source` | `array` |  |
-| `start_row` | `int` |  |
-| `total_active` | `int` |  |
-| `total_element` | `int` |  |
-| `total_page` | `int` |  |
+| `sources` | `array` |  |
+| `startRow` | `int` |  |
+| `totalActive` | `int` |  |
+| `totalElements` | `int` |  |
+| `totalPages` | `int` |  |
 
 #### Example: Create
 
@@ -634,20 +640,20 @@ Create an instance: `$permission_database = $client->PermissionDatabase();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `customer_id` | `int` |  |
-| `delete_on_optout` | `bool` |  |
+| `customerId` | `int` |  |
+| `deleteOnOptout` | `bool` |  |
 | `description` | `string` |  |
-| `hook` | `array` |  |
+| `hooks` | `array` |  |
 | `id` | `int` |  |
 | `name` | `string` |  |
-| `route` | `array` |  |
-| `sender_alia` | `string` |  |
-| `service_id` | `int` |  |
+| `routes` | `array` |  |
+| `senderAlias` | `string` |  |
+| `serviceId` | `int` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare PermissionDatabase record (throws on error).
+// load() returns the ENTITY — call data_get() for the PermissionDatabase record (throws on error).
 $permission_database = $client->PermissionDatabase()->load(["database_id" => 1]);
 ```
 
@@ -731,15 +737,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$flatpermission = $client->FlatPermission();
-$flatpermission->load(["database_id" => 1, "id" => "example_id"]);
+$importstatus = $client->ImportStatus();
+$importstatus->list();
 
-// $flatpermission->data_get() now returns the flatpermission data from the last load
-// $flatpermission->match_get() returns the last match criteria
+// $importstatus->data_get() now returns the importstatus data from the last list
+// $importstatus->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

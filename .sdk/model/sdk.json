@@ -5,6 +5,10 @@
       "desc": ""
     },
     "kit": {
+      "author": {
+        "name": "",
+        "url": ""
+      },
       "config": {
         "docs_order": [
           "ts",
@@ -18,6 +22,7 @@
           "content-type": "application/json"
         }
       },
+      "contributor": {},
       "entity": {
         "database": {
           "active": true,
@@ -55,6 +60,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "DELETE",
                   "orig": "/public/database/{id}",
                   "parts": [
@@ -137,6 +143,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/{msisdn}",
                   "parts": [
@@ -244,6 +251,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/permission/{msisdn}",
                   "parts": [
@@ -301,6 +309,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/list",
                   "parts": [
@@ -346,6 +355,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/query",
                   "parts": [
@@ -389,13 +399,13 @@
           "fields": [
             {
               "active": true,
-              "name": "error",
+              "name": "errors",
               "req": false,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "import_id",
+              "name": "importId",
               "req": false,
               "type": "`$STRING`"
             },
@@ -407,13 +417,13 @@
             },
             {
               "active": true,
-              "name": "permissions_inserted",
+              "name": "permissionsInserted",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "permissions_updated",
+              "name": "permissionsUpdated",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -463,6 +473,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/permission/bulk",
                   "parts": [
@@ -527,6 +538,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/bulk/status",
                   "parts": [
@@ -573,7 +585,7 @@
           "fields": [
             {
               "active": true,
-              "name": "content",
+              "name": "contents",
               "req": false,
               "type": "`$OBJECT`"
             },
@@ -585,7 +597,7 @@
             },
             {
               "active": true,
-              "name": "database_id",
+              "name": "databaseId",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -603,9 +615,21 @@
             },
             {
               "active": true,
-              "name": "multi_value",
+              "name": "multiValue",
               "req": false,
               "type": "`$BOOLEAN`"
+            },
+            {
+              "active": true,
+              "name": "rangeEnd",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "rangeStart",
+              "req": false,
+              "type": "`$INTEGER`"
             },
             {
               "active": true,
@@ -618,6 +642,18 @@
               "name": "updated",
               "req": false,
               "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "validation",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "values",
+              "req": false,
+              "type": "`$ARRAY`"
             }
           ],
           "name": "metadata",
@@ -658,6 +694,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/metadata/{key}",
                   "parts": [
@@ -709,6 +746,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/metadata",
                   "parts": [
@@ -763,6 +801,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/metadata",
                   "parts": [
@@ -825,6 +864,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/metadata/{key}",
                   "parts": [
@@ -890,6 +930,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/public/database/{id}/metadata/{key}",
                   "parts": [
@@ -942,19 +983,19 @@
             },
             {
               "active": true,
-              "name": "column",
+              "name": "columns",
               "req": false,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "end_row",
+              "name": "endRow",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "group",
+              "name": "groups",
               "req": false,
               "type": "`$ARRAY`"
             },
@@ -966,13 +1007,13 @@
             },
             {
               "active": true,
-              "name": "msisdn_list",
+              "name": "msisdnList",
               "req": false,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "only_active",
+              "name": "onlyActive",
               "req": false,
               "type": "`$BOOLEAN`"
             },
@@ -984,13 +1025,13 @@
             },
             {
               "active": true,
-              "name": "permission",
+              "name": "permissions",
               "req": false,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "quick_filter_text",
+              "name": "quickFilterText",
               "req": false,
               "type": "`$STRING`"
             },
@@ -1002,31 +1043,31 @@
             },
             {
               "active": true,
-              "name": "source",
+              "name": "sources",
               "req": false,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "start_row",
+              "name": "startRow",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "total_active",
+              "name": "totalActive",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "total_element",
+              "name": "totalElements",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "total_page",
+              "name": "totalPages",
               "req": false,
               "type": "`$INTEGER`"
             }
@@ -1061,6 +1102,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/permission/paged/list",
                   "parts": [
@@ -1155,6 +1197,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "DELETE",
                   "orig": "/public/database/{id}/permission/{msisdn}",
                   "parts": [
@@ -1214,6 +1257,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "DELETE",
                   "orig": "/public/database/{id}/permission/permanent/{msisdn}",
                   "parts": [
@@ -1279,6 +1323,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/public/database/{id}/permission/{msisdn}",
                   "parts": [
@@ -1329,13 +1374,13 @@
           "fields": [
             {
               "active": true,
-              "name": "customer_id",
+              "name": "customerId",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "delete_on_optout",
+              "name": "deleteOnOptout",
               "req": false,
               "type": "`$BOOLEAN`"
             },
@@ -1347,7 +1392,7 @@
             },
             {
               "active": true,
-              "name": "hook",
+              "name": "hooks",
               "req": false,
               "type": "`$ARRAY`"
             },
@@ -1365,19 +1410,19 @@
             },
             {
               "active": true,
-              "name": "route",
+              "name": "routes",
               "req": false,
               "type": "`$ARRAY`"
             },
             {
               "active": true,
-              "name": "sender_alia",
+              "name": "senderAlias",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
-              "name": "service_id",
+              "name": "serviceId",
               "req": false,
               "type": "`$INTEGER`"
             }
@@ -1406,6 +1451,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/list",
                   "parts": [
@@ -1453,6 +1499,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}",
                   "parts": [
@@ -1501,6 +1548,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PUT",
                   "orig": "/public/database/{id}",
                   "parts": [
@@ -2003,18 +2051,41 @@
         "website": "https://permission.m2go.dk"
       },
       "option": {},
+      "repo": {
+        "host": "github.com",
+        "path": ""
+      },
       "target": {
         "go": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [
+              "test/feature_test.go"
+            ],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "go",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2036,22 +2107,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Golang"
         },
         "go-cli": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "go-cli",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -2090,21 +2179,39 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go CLI"
         },
         "go-mcp": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "go-mcp",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -2143,12 +2250,17 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go MCP server"
         },
         "lua": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "--"
           },
@@ -2160,10 +2272,23 @@
             }
           },
           "ext": "lua",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "lua",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2185,22 +2310,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Lua"
         },
         "php": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "php",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "php",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2222,13 +2365,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "PHP"
         },
         "py": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -2240,10 +2388,23 @@
             }
           },
           "ext": "py",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "py",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2265,13 +2426,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Python"
         },
         "rb": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -2288,10 +2454,23 @@
             }
           },
           "ext": "rb",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "rb",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2313,13 +2492,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Ruby"
         },
         "ts": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
@@ -2342,10 +2526,23 @@
             }
           },
           "ext": "ts",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "lm-umbrella"
+            "goversion": "",
+            "name": "lm-umbrella",
+            "package": "",
+            "path": ""
           },
           "name": "ts",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2367,9 +2564,17 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "TypeScript"
+        }
+      },
+      "test": {
+        "live": {
+          "app": false,
+          "base": "",
+          "strict": false
         }
       }
     }

@@ -6,7 +6,7 @@ main: kit: entity: metadata: {
 
   fields: [
     {
-      name: "content"
+      name: "contents"
       req: false
       type: "`$OBJECT`"
     }
@@ -16,7 +16,7 @@ main: kit: entity: metadata: {
       type: "`$STRING`"
     }
     {
-      name: "database_id"
+      name: "databaseId"
       req: false
       type: "`$INTEGER`"
     }
@@ -31,9 +31,19 @@ main: kit: entity: metadata: {
       type: "`$STRING`"
     }
     {
-      name: "multi_value"
+      name: "multiValue"
       req: false
       type: "`$BOOLEAN`"
+    }
+    {
+      name: "rangeEnd"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "rangeStart"
+      req: false
+      type: "`$INTEGER`"
     }
     {
       name: "type"
@@ -44,6 +54,16 @@ main: kit: entity: metadata: {
       name: "updated"
       req: false
       type: "`$STRING`"
+    }
+    {
+      name: "validation"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "values"
+      req: false
+      type: "`$ARRAY`"
     }
   ]
 

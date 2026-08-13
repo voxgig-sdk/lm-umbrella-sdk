@@ -105,16 +105,16 @@ function permission_database_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["LMUMBRELLA_TEST_PERMISSION_DATABASE_ENTID"] = {},
-    ["LMUMBRELLA_TEST_LIVE"] = "FALSE",
-    ["LMUMBRELLA_APIKEY"] = "NONE",
+    ["LM_UMBRELLA_TEST_PERMISSION_DATABASE_ENTID"] = {},
+    ["LM_UMBRELLA_TEST_LIVE"] = "FALSE",
+    ["LM_UMBRELLA_APIKEY"] = "NONE",
   })
 
-  local live = env["LMUMBRELLA_TEST_LIVE"] == "TRUE"
+  local live = env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["LMUMBRELLA_APIKEY"],
+      apikey = env["LM_UMBRELLA_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

@@ -294,11 +294,11 @@ $import_status = $client->ImportStatus();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `error` | `array` | No |  |
-| `import_id` | `string` | No |  |
+| `errors` | `array` | No |  |
+| `importId` | `string` | No |  |
 | `msisdn` | `string` | No |  |
-| `permissions_inserted` | `int` | No |  |
-| `permissions_updated` | `int` | No |  |
+| `permissionsInserted` | `int` | No |  |
+| `permissionsUpdated` | `int` | No |  |
 | `status` | `string` | No |  |
 
 ### Operations
@@ -361,14 +361,18 @@ $metadata = $client->Metadata();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `content` | `array` | No |  |
+| `contents` | `array` | No |  |
 | `created` | `string` | No |  |
-| `database_id` | `int` | No |  |
+| `databaseId` | `int` | No |  |
 | `key` | `string` | No |  |
 | `label` | `string` | No |  |
-| `multi_value` | `bool` | No |  |
+| `multiValue` | `bool` | No |  |
+| `rangeEnd` | `int` | No |  |
+| `rangeStart` | `int` | No |  |
 | `type` | `string` | No |  |
 | `updated` | `string` | No |  |
+| `validation` | `string` | No |  |
+| `values` | `array` | No |  |
 
 ### Operations
 
@@ -451,21 +455,21 @@ $paginated_permission_list = $client->PaginatedPermissionList();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `bool` | No |  |
-| `column` | `array` | No |  |
-| `end_row` | `int` | No |  |
-| `group` | `array` | No |  |
+| `columns` | `array` | No |  |
+| `endRow` | `int` | No |  |
+| `groups` | `array` | No |  |
 | `metadata` | `array` | No |  |
-| `msisdn_list` | `array` | No |  |
-| `only_active` | `bool` | No |  |
+| `msisdnList` | `array` | No |  |
+| `onlyActive` | `bool` | No |  |
 | `page` | `int` | No |  |
-| `permission` | `array` | No |  |
-| `quick_filter_text` | `string` | No |  |
+| `permissions` | `array` | No |  |
+| `quickFilterText` | `string` | No |  |
 | `sort` | `string` | No |  |
-| `source` | `array` | No |  |
-| `start_row` | `int` | No |  |
-| `total_active` | `int` | No |  |
-| `total_element` | `int` | No |  |
-| `total_page` | `int` | No |  |
+| `sources` | `array` | No |  |
+| `startRow` | `int` | No |  |
+| `totalActive` | `int` | No |  |
+| `totalElements` | `int` | No |  |
+| `totalPages` | `int` | No |  |
 
 ### Operations
 
@@ -584,15 +588,15 @@ $permission_database = $client->PermissionDatabase();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `customer_id` | `int` | No |  |
-| `delete_on_optout` | `bool` | No |  |
+| `customerId` | `int` | No |  |
+| `deleteOnOptout` | `bool` | No |  |
 | `description` | `string` | No |  |
-| `hook` | `array` | No |  |
+| `hooks` | `array` | No |  |
 | `id` | `int` | No |  |
 | `name` | `string` | No |  |
-| `route` | `array` | No |  |
-| `sender_alia` | `string` | No |  |
-| `service_id` | `int` | No |  |
+| `routes` | `array` | No |  |
+| `senderAlias` | `string` | No |  |
+| `serviceId` | `int` | No |  |
 
 ### Operations
 
