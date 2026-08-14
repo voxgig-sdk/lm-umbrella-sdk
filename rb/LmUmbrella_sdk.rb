@@ -28,7 +28,7 @@ class LmUmbrellaSDK
     utility = LmUmbrellaUtility.new
     @_utility = utility
 
-    config = LmUmbrellaConfig.make_config
+    config = LmUmbrellaConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

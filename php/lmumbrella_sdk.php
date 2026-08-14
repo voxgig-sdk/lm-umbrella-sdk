@@ -40,7 +40,7 @@ class LmUmbrellaSDK
         $utility = new LmUmbrellaUtility();
         $this->_utility = $utility;
 
-        $config = LmUmbrellaConfig::make_config();
+        $config = LmUmbrellaConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
