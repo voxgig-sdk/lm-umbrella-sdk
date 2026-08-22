@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "LmUmbrella",
+      slug = "lm-umbrella",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -176,6 +179,7 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "active",
+            ["short"] = "if permission is active in the database",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -184,10 +188,12 @@ local function make_config()
           },
           {
             ["name"] = "msisdn",
+            ["short"] = "phone number",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "source",
+            ["short"] = "comma separated list of sources",
             ["type"] = "`$STRING`",
           },
         },
@@ -362,10 +368,12 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "errors",
+            ["short"] = "Import errors (List of ImportError)",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "importId",
+            ["short"] = "Import id",
             ["type"] = "`$STRING`",
           },
           {
@@ -374,14 +382,17 @@ local function make_config()
           },
           {
             ["name"] = "permissionsInserted",
+            ["short"] = "Number of permissions inserted into database",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "permissionsUpdated",
+            ["short"] = "Number of permissions updated in database",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "status",
+            ["short"] = "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)",
             ["type"] = "`$STRING`",
           },
         },
@@ -520,50 +531,62 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "contents",
+            ["short"] = "Contains extra info for a field",
             ["type"] = "`$OBJECT`",
           },
           {
             ["name"] = "created",
+            ["short"] = "created date of the field",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "databaseId",
+            ["short"] = "id of the database",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "key",
+            ["short"] = "key for the field (used for the value internally - cannot be changed after creation)",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "label",
+            ["short"] = "label for the field (used for displaying in the interface)",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "multiValue",
+            ["short"] = "if the field is a multi value field",
             ["type"] = "`$BOOLEAN`",
           },
           {
             ["name"] = "rangeEnd",
+            ["short"] = "end on range for validation on INTEGER field",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "rangeStart",
+            ["short"] = "start on range for validation on INTEGER field",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "type",
+            ["short"] = "the type of field",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "updated",
+            ["short"] = "deletion date of the field",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "validation",
+            ["short"] = "type of validation on TEXT field",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "values",
+            ["short"] = "Possible enumeration of values for ENUMERATION field",
             ["type"] = "`$ARRAY`",
           },
         },
@@ -865,6 +888,7 @@ local function make_config()
           },
           {
             ["name"] = "columns",
+            ["short"] = "the column data",
             ["type"] = "`$ARRAY`",
           },
           {
@@ -889,10 +913,12 @@ local function make_config()
           },
           {
             ["name"] = "page",
+            ["short"] = "page number",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "permissions",
+            ["short"] = "the permissions for the page",
             ["type"] = "`$ARRAY`",
           },
           {
@@ -905,6 +931,7 @@ local function make_config()
           },
           {
             ["name"] = "sources",
+            ["short"] = "the possible sources for the database",
             ["type"] = "`$ARRAY`",
           },
           {
@@ -913,14 +940,17 @@ local function make_config()
           },
           {
             ["name"] = "totalActive",
+            ["short"] = "total number of active permissions",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "totalElements",
+            ["short"] = "total number of permissions",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "totalPages",
+            ["short"] = "total number of pages",
             ["type"] = "`$INTEGER`",
           },
         },

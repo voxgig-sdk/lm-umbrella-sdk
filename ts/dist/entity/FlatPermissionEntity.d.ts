@@ -5,6 +5,6 @@ import type { FlatPermission, FlatPermissionLoadMatch } from '../LmUmbrellaTypes
 declare class FlatPermissionEntity extends LmUmbrellaEntityBase<FlatPermission> {
     constructor(client: LmUmbrellaSDK, entopts: any);
     make(this: FlatPermissionEntity): FlatPermissionEntity;
-    load(this: any, reqmatch?: FlatPermissionLoadMatch, ctrl?: Control): Promise<FlatPermission>;
+    load(this: any, reqmatch?: FlatPermissionLoadMatch, ctrl?: Control): Promise<FlatPermissionEntity>;
 }
 export { FlatPermissionEntity };

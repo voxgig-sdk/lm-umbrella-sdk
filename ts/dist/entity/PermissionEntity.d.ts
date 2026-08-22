@@ -5,7 +5,7 @@ import type { Permission, PermissionUpdateData, PermissionRemoveMatch } from '..
 declare class PermissionEntity extends LmUmbrellaEntityBase<Permission> {
     constructor(client: LmUmbrellaSDK, entopts: any);
     make(this: PermissionEntity): PermissionEntity;
-    update(this: any, reqdata?: PermissionUpdateData, ctrl?: Control): Promise<Permission>;
-    remove(this: any, reqmatch?: PermissionRemoveMatch, ctrl?: Control): Promise<Permission>;
+    update(this: any, reqdata?: PermissionUpdateData, ctrl?: Control): Promise<PermissionEntity>;
+    remove(this: any, reqmatch?: PermissionRemoveMatch, ctrl?: Control): Promise<PermissionEntity>;
 }
 export { PermissionEntity };

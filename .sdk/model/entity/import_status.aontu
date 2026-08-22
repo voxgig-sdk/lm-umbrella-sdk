@@ -8,11 +8,13 @@ main: kit: entity: import_status: {
     {
       name: "errors"
       req: false
+      short: "Import errors (List of ImportError)"
       type: "`$ARRAY`"
     }
     {
       name: "importId"
       req: false
+      short: "Import id"
       type: "`$STRING`"
     }
     {
@@ -23,16 +25,19 @@ main: kit: entity: import_status: {
     {
       name: "permissionsInserted"
       req: false
+      short: "Number of permissions inserted into database"
       type: "`$INTEGER`"
     }
     {
       name: "permissionsUpdated"
       req: false
+      short: "Number of permissions updated in database"
       type: "`$INTEGER`"
     }
     {
       name: "status"
       req: false
+      short: "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)"
       type: "`$STRING`"
     }
   ]

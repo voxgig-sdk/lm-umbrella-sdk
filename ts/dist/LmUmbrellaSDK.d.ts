@@ -37,14 +37,28 @@ declare class LmUmbrellaSDK {
         headers?: undefined;
         data?: undefined;
     }>;
-    Database(data?: any): DatabaseEntity;
-    FlatPermission(data?: any): FlatPermissionEntity;
-    FlattenedPermission(data?: any): FlattenedPermissionEntity;
-    ImportStatus(data?: any): ImportStatusEntity;
-    Metadata(data?: any): MetadataEntity;
-    PaginatedPermissionList(data?: any): PaginatedPermissionListEntity;
-    Permission(data?: any): PermissionEntity;
-    PermissionDatabase(data?: any): PermissionDatabaseEntity;
+    _rawRequest(fetchargs?: any): Promise<Error | {
+        ok: boolean;
+        status: number;
+        headers: any;
+        data: any;
+        err?: undefined;
+    } | {
+        ok: boolean;
+        err: any;
+        status?: undefined;
+        headers?: undefined;
+        data?: undefined;
+    }>;
+    graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
+    Database(entopts?: Record<string, any>): DatabaseEntity;
+    FlatPermission(entopts?: Record<string, any>): FlatPermissionEntity;
+    FlattenedPermission(entopts?: Record<string, any>): FlattenedPermissionEntity;
+    ImportStatus(entopts?: Record<string, any>): ImportStatusEntity;
+    Metadata(entopts?: Record<string, any>): MetadataEntity;
+    PaginatedPermissionList(entopts?: Record<string, any>): PaginatedPermissionListEntity;
+    Permission(entopts?: Record<string, any>): PermissionEntity;
+    PermissionDatabase(entopts?: Record<string, any>): PermissionDatabaseEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): LmUmbrellaSDK;
     tester(testopts?: any, sdkopts?: any): LmUmbrellaSDK;
     toJSON(): {

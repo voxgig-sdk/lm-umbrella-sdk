@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "LmUmbrella",
+			"slug": "lm-umbrella",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -180,6 +183,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "active",
+						"short": "if permission is active in the database",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -188,10 +192,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "msisdn",
+						"short": "phone number",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "source",
+						"short": "comma separated list of sources",
 						"type": "`$STRING`",
 					},
 				},
@@ -366,10 +372,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "errors",
+						"short": "Import errors (List of ImportError)",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "importId",
+						"short": "Import id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -378,14 +386,17 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "permissionsInserted",
+						"short": "Number of permissions inserted into database",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "permissionsUpdated",
+						"short": "Number of permissions updated in database",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "status",
+						"short": "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)",
 						"type": "`$STRING`",
 					},
 				},
@@ -524,50 +535,62 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "contents",
+						"short": "Contains extra info for a field",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "created",
+						"short": "created date of the field",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "databaseId",
+						"short": "id of the database",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "key",
+						"short": "key for the field (used for the value internally - cannot be changed after creation)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "label",
+						"short": "label for the field (used for displaying in the interface)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "multiValue",
+						"short": "if the field is a multi value field",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "rangeEnd",
+						"short": "end on range for validation on INTEGER field",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "rangeStart",
+						"short": "start on range for validation on INTEGER field",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "type",
+						"short": "the type of field",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "updated",
+						"short": "deletion date of the field",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "validation",
+						"short": "type of validation on TEXT field",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "values",
+						"short": "Possible enumeration of values for ENUMERATION field",
 						"type": "`$ARRAY`",
 					},
 				},
@@ -869,6 +892,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "columns",
+						"short": "the column data",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
@@ -893,10 +917,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "page",
+						"short": "page number",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "permissions",
+						"short": "the permissions for the page",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
@@ -909,6 +935,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "sources",
+						"short": "the possible sources for the database",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
@@ -917,14 +944,17 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "totalActive",
+						"short": "total number of active permissions",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "totalElements",
+						"short": "total number of permissions",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "totalPages",
+						"short": "total number of pages",
 						"type": "`$INTEGER`",
 					},
 				},

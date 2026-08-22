@@ -221,10 +221,10 @@ flattened_permission = client.FlattenedPermission
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `active` | `Boolean` | No |  |
+| `active` | `Boolean` | No | if permission is active in the database |
 | `empty` | `Boolean` | No |  |
-| `msisdn` | `String` | No |  |
-| `source` | `String` | No |  |
+| `msisdn` | `String` | No | phone number |
+| `source` | `String` | No | comma separated list of sources |
 
 ### Operations
 
@@ -295,12 +295,12 @@ import_status = client.ImportStatus
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `errors` | `Array` | No |  |
-| `importId` | `String` | No |  |
+| `errors` | `Array` | No | Import errors (List of ImportError) |
+| `importId` | `String` | No | Import id |
 | `msisdn` | `String` | No |  |
-| `permissionsInserted` | `Integer` | No |  |
-| `permissionsUpdated` | `Integer` | No |  |
-| `status` | `String` | No |  |
+| `permissionsInserted` | `Integer` | No | Number of permissions inserted into database |
+| `permissionsUpdated` | `Integer` | No | Number of permissions updated in database |
+| `status` | `String` | No | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 ### Operations
 
@@ -362,18 +362,18 @@ metadata = client.Metadata
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contents` | `Hash` | No |  |
-| `created` | `String` | No |  |
-| `databaseId` | `Integer` | No |  |
-| `key` | `String` | No |  |
-| `label` | `String` | No |  |
-| `multiValue` | `Boolean` | No |  |
-| `rangeEnd` | `Integer` | No |  |
-| `rangeStart` | `Integer` | No |  |
-| `type` | `String` | No |  |
-| `updated` | `String` | No |  |
-| `validation` | `String` | No |  |
-| `values` | `Array` | No |  |
+| `contents` | `Hash` | No | Contains extra info for a field |
+| `created` | `String` | No | created date of the field |
+| `databaseId` | `Integer` | No | id of the database |
+| `key` | `String` | No | key for the field (used for the value internally - cannot be changed after creation) |
+| `label` | `String` | No | label for the field (used for displaying in the interface) |
+| `multiValue` | `Boolean` | No | if the field is a multi value field |
+| `rangeEnd` | `Integer` | No | end on range for validation on INTEGER field |
+| `rangeStart` | `Integer` | No | start on range for validation on INTEGER field |
+| `type` | `String` | No | the type of field |
+| `updated` | `String` | No | deletion date of the field |
+| `validation` | `String` | No | type of validation on TEXT field |
+| `values` | `Array` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -456,21 +456,21 @@ paginated_permission_list = client.PaginatedPermissionList
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `Boolean` | No |  |
-| `columns` | `Array` | No |  |
+| `columns` | `Array` | No | the column data |
 | `endRow` | `Integer` | No |  |
 | `groups` | `Array` | No |  |
 | `metadata` | `Array` | No |  |
 | `msisdnList` | `Array` | No |  |
 | `onlyActive` | `Boolean` | No |  |
-| `page` | `Integer` | No |  |
-| `permissions` | `Array` | No |  |
+| `page` | `Integer` | No | page number |
+| `permissions` | `Array` | No | the permissions for the page |
 | `quickFilterText` | `String` | No |  |
 | `sort` | `String` | No |  |
-| `sources` | `Array` | No |  |
+| `sources` | `Array` | No | the possible sources for the database |
 | `startRow` | `Integer` | No |  |
-| `totalActive` | `Integer` | No |  |
-| `totalElements` | `Integer` | No |  |
-| `totalPages` | `Integer` | No |  |
+| `totalActive` | `Integer` | No | total number of active permissions |
+| `totalElements` | `Integer` | No | total number of permissions |
+| `totalPages` | `Integer` | No | total number of pages |
 
 ### Operations
 

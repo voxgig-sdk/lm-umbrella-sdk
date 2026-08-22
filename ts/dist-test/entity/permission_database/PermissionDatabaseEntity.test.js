@@ -46,8 +46,8 @@ const __1 = require("../../..");
 const utility_1 = require("../../utility");
 (0, node_test_1.describe)('PermissionDatabaseEntity', async () => {
     // Per-test live pacing. Delay is read from sdk-test-control.json's
-    // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LMUMBRELLA_TEST_LIVE'));
+    // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LM_UMBRELLA_TEST_LIVE'));
     (0, node_test_1.test)('instance', async () => {
         const testsdk = __1.LmUmbrellaSDK.test();
         const ent = testsdk.PermissionDatabase();
@@ -75,20 +75,20 @@ const utility_1 = require("../../utility");
         // LIST
         const permission_database_ref01_ent = client.PermissionDatabase();
         const permission_database_ref01_match = {};
-        const permission_database_ref01_list = await permission_database_ref01_ent.list(permission_database_ref01_match);
+        const permission_database_ref01_list = (await permission_database_ref01_ent.list(permission_database_ref01_match)).map((e) => e.data());
         // UPDATE
         const permission_database_ref01_data_up0 = {};
         permission_database_ref01_data_up0.id = permission_database_ref01_data.id;
         permission_database_ref01_data_up0['database_id'] = setup.idmap['database_id'];
         const permission_database_ref01_markdef_up0 = { name: 'description', value: 'Mark01-permission_database_ref01_' + setup.now };
         permission_database_ref01_data_up0[permission_database_ref01_markdef_up0.name] = permission_database_ref01_markdef_up0.value;
-        const permission_database_ref01_resdata_up0 = await permission_database_ref01_ent.update(permission_database_ref01_data_up0);
+        const permission_database_ref01_resdata_up0 = (await permission_database_ref01_ent.update(permission_database_ref01_data_up0)).data();
         (0, node_assert_1.default)(permission_database_ref01_resdata_up0.id === permission_database_ref01_data_up0.id);
         (0, node_assert_1.default)(permission_database_ref01_resdata_up0[permission_database_ref01_markdef_up0.name] === permission_database_ref01_markdef_up0.value);
         // LOAD
         const permission_database_ref01_match_dt0 = {};
         permission_database_ref01_match_dt0.id = permission_database_ref01_data.id;
-        const permission_database_ref01_data_dt0 = await permission_database_ref01_ent.load(permission_database_ref01_match_dt0);
+        const permission_database_ref01_data_dt0 = (await permission_database_ref01_ent.load(permission_database_ref01_match_dt0)).data();
         (0, node_assert_1.default)(permission_database_ref01_data_dt0.id === permission_database_ref01_data.id);
     });
 });

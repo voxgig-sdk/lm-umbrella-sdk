@@ -12,8 +12,17 @@ class Config {
         // TODO: errors etc
         return fi;
     }
+    // False for a feature added at runtime via options.extend (station's
+    // adopt path) - the constructor uses this to skip makeFeature for names
+    // no generated class backs.
+    hasFeature(fn) {
+        return null != FEATURE_CLASS[fn];
+    }
     main = {
-        name: 'ProjectName',
+        name: 'LmUmbrella',
+        slug: "lm-umbrella",
+        version: "0.0.1",
+        target: "ts",
     };
     feature = {
         test: {
@@ -23,7 +32,7 @@ class Config {
         },
     };
     options = {
-        base: 'https://permission.m2go.dk/permission/api',
+        base: "https://permission.m2go.dk/permission/api",
         auth: {
             prefix: '',
         },
@@ -51,30 +60,26 @@ class Config {
                     "name": "remove",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "database_id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "DELETE",
                             "orig": "/public/database/{id}",
                             "parts": [
@@ -91,11 +96,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "remove"
+                    ]
                 }
             },
             "relations": {
@@ -105,18 +108,12 @@ class Config {
         "flat_permission": {
             "fields": [
                 {
-                    "active": true,
                     "name": "empty",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 0
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
                     "name": "msisdn",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                 }
             ],
             "name": "flat_permission",
@@ -126,39 +123,33 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "msisdn",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/{id}/permission/{msisdn}",
                             "parts": [
@@ -184,11 +175,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "load"
+                    ]
                 }
             },
             "relations": {
@@ -202,32 +191,23 @@ class Config {
         "flattened_permission": {
             "fields": [
                 {
-                    "active": true,
                     "name": "active",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 0
+                    "short": "if permission is active in the database",
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
                     "name": "empty",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 1
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
                     "name": "msisdn",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 2
+                    "short": "phone number",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
                     "name": "source",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 3
+                    "short": "comma separated list of sources",
+                    "type": "`$STRING`"
                 }
             ],
             "name": "flattened_permission",
@@ -237,39 +217,33 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "msisdn",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "POST",
                             "orig": "/public/database/{id}/permission/{msisdn}",
                             "parts": [
@@ -295,41 +269,35 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "create"
+                    ]
                 },
                 "list": {
                     "input": "data",
                     "name": "list",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/{id}/permission/list",
                             "parts": [
@@ -353,31 +321,27 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "list"
+                    ]
                 },
                 "load": {
                     "input": "data",
                     "name": "load",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/{id}/permission/query",
                             "parts": [
@@ -400,11 +364,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "load"
+                    ]
                 }
             },
             "relations": {
@@ -418,46 +380,33 @@ class Config {
         "import_status": {
             "fields": [
                 {
-                    "active": true,
-                    "name": "error",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 0
+                    "name": "errors",
+                    "short": "Import errors (List of ImportError)",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
-                    "name": "import_id",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "name": "importId",
+                    "short": "Import id",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
                     "name": "msisdn",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 2
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "permissions_inserted",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 3
+                    "name": "permissionsInserted",
+                    "short": "Number of permissions inserted into database",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
-                    "name": "permissions_updated",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 4
+                    "name": "permissionsUpdated",
+                    "short": "Number of permissions updated in database",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
                     "name": "status",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 5
+                    "short": "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)",
+                    "type": "`$STRING`"
                 }
             ],
             "name": "import_status",
@@ -467,39 +416,33 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     },
                                     {
-                                        "active": true,
                                         "example": false,
                                         "kind": "query",
                                         "name": "skip_import_on_error",
                                         "orig": "skip_import_on_error",
-                                        "reqd": false,
                                         "type": "`$BOOLEAN`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "POST",
                             "orig": "/public/database/{id}/permission/bulk",
                             "parts": [
@@ -524,49 +467,41 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "create"
+                    ]
                 },
                 "list": {
                     "input": "data",
                     "name": "list",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "import_id",
                                         "orig": "import_id",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/{id}/permission/bulk/status",
                             "parts": [
@@ -592,11 +527,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "list"
+                    ]
                 }
             },
             "relations": {
@@ -610,60 +543,64 @@ class Config {
         "metadata": {
             "fields": [
                 {
-                    "active": true,
-                    "name": "content",
-                    "req": false,
-                    "type": "`$OBJECT`",
-                    "index$": 0
+                    "name": "contents",
+                    "short": "Contains extra info for a field",
+                    "type": "`$OBJECT`"
                 },
                 {
-                    "active": true,
                     "name": "created",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "short": "created date of the field",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "database_id",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 2
+                    "name": "databaseId",
+                    "short": "id of the database",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
                     "name": "key",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 3
+                    "short": "key for the field (used for the value internally - cannot be changed after creation)",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
                     "name": "label",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 4
+                    "short": "label for the field (used for displaying in the interface)",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "multi_value",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 5
+                    "name": "multiValue",
+                    "short": "if the field is a multi value field",
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
+                    "name": "rangeEnd",
+                    "short": "end on range for validation on INTEGER field",
+                    "type": "`$INTEGER`"
+                },
+                {
+                    "name": "rangeStart",
+                    "short": "start on range for validation on INTEGER field",
+                    "type": "`$INTEGER`"
+                },
+                {
                     "name": "type",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 6
+                    "short": "the type of field",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
                     "name": "updated",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 7
+                    "short": "deletion date of the field",
+                    "type": "`$STRING`"
+                },
+                {
+                    "name": "validation",
+                    "short": "type of validation on TEXT field",
+                    "type": "`$STRING`"
+                },
+                {
+                    "name": "values",
+                    "short": "Possible enumeration of values for ENUMERATION field",
+                    "type": "`$ARRAY`"
                 }
             ],
             "name": "metadata",
@@ -673,39 +610,33 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "key",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "POST",
                             "orig": "/public/database/{id}/metadata/{key}",
                             "parts": [
@@ -731,34 +662,29 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         },
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "POST",
                             "orig": "/public/database/{id}/metadata",
                             "parts": [
@@ -781,41 +707,35 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 1
+                            }
                         }
-                    ],
-                    "key$": "create"
+                    ]
                 },
                 "list": {
                     "input": "data",
                     "name": "list",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/{id}/metadata",
                             "parts": [
@@ -838,50 +758,42 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "list"
+                    ]
                 },
                 "load": {
                     "input": "data",
                     "name": "load",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "key",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/{id}/metadata/{key}",
                             "parts": [
@@ -907,50 +819,42 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "load"
+                    ]
                 },
                 "update": {
                     "input": "data",
                     "name": "update",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "key",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "PUT",
                             "orig": "/public/database/{id}/metadata/{key}",
                             "parts": [
@@ -976,11 +880,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "update"
+                    ]
                 }
             },
             "relations": {
@@ -994,116 +896,75 @@ class Config {
         "paginated_permission_list": {
             "fields": [
                 {
-                    "active": true,
                     "name": "ascending",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 0
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
-                    "name": "column",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 1
+                    "name": "columns",
+                    "short": "the column data",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
-                    "name": "end_row",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 2
+                    "name": "endRow",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
-                    "name": "group",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 3
+                    "name": "groups",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
                     "name": "metadata",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 4
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
-                    "name": "msisdn_list",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 5
+                    "name": "msisdnList",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
-                    "name": "only_active",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 6
+                    "name": "onlyActive",
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
                     "name": "page",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 7
+                    "short": "page number",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
-                    "name": "permission",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 8
+                    "name": "permissions",
+                    "short": "the permissions for the page",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
-                    "name": "quick_filter_text",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 9
+                    "name": "quickFilterText",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
                     "name": "sort",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 10
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "source",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 11
+                    "name": "sources",
+                    "short": "the possible sources for the database",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
-                    "name": "start_row",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 12
+                    "name": "startRow",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
-                    "name": "total_active",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 13
+                    "name": "totalActive",
+                    "short": "total number of active permissions",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
-                    "name": "total_element",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 14
+                    "name": "totalElements",
+                    "short": "total number of permissions",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
-                    "name": "total_page",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 15
+                    "name": "totalPages",
+                    "short": "total number of pages",
+                    "type": "`$INTEGER`"
                 }
             ],
             "name": "paginated_permission_list",
@@ -1113,30 +974,26 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "POST",
                             "orig": "/public/database/{id}/permission/paged/list",
                             "parts": [
@@ -1161,11 +1018,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "create"
+                    ]
                 }
             },
             "relations": {
@@ -1179,18 +1034,12 @@ class Config {
         "permission": {
             "fields": [
                 {
-                    "active": true,
                     "name": "empty",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 0
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
                     "name": "msisdn",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 1
+                    "type": "`$STRING`"
                 }
             ],
             "name": "permission",
@@ -1200,39 +1049,33 @@ class Config {
                     "name": "remove",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "msisdn",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "DELETE",
                             "orig": "/public/database/{id}/permission/{msisdn}",
                             "parts": [
@@ -1258,43 +1101,36 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         },
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "msisdn",
                                         "orig": "msisdn",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "DELETE",
                             "orig": "/public/database/{id}/permission/permanent/{msisdn}",
                             "parts": [
@@ -1320,50 +1156,42 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 1
+                            }
                         }
-                    ],
-                    "key$": "remove"
+                    ]
                 },
                 "update": {
                     "input": "data",
                     "name": "update",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     },
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "id",
                                         "orig": "msisdn",
                                         "reqd": true,
-                                        "type": "`$STRING`",
-                                        "index$": 1
+                                        "type": "`$STRING`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "PUT",
                             "orig": "/public/database/{id}/permission/{msisdn}",
                             "parts": [
@@ -1389,11 +1217,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "update"
+                    ]
                 }
             },
             "relations": {
@@ -1411,67 +1237,40 @@ class Config {
         "permission_database": {
             "fields": [
                 {
-                    "active": true,
-                    "name": "customer_id",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 0
+                    "name": "customerId",
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
-                    "name": "delete_on_optout",
-                    "req": false,
-                    "type": "`$BOOLEAN`",
-                    "index$": 1
+                    "name": "deleteOnOptout",
+                    "type": "`$BOOLEAN`"
                 },
                 {
-                    "active": true,
                     "name": "description",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 2
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "hook",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 3
+                    "name": "hooks",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
                     "name": "id",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 4
+                    "type": "`$INTEGER`"
                 },
                 {
-                    "active": true,
                     "name": "name",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 5
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "route",
-                    "req": false,
-                    "type": "`$ARRAY`",
-                    "index$": 6
+                    "name": "routes",
+                    "type": "`$ARRAY`"
                 },
                 {
-                    "active": true,
-                    "name": "sender_alia",
-                    "req": false,
-                    "type": "`$STRING`",
-                    "index$": 7
+                    "name": "senderAlias",
+                    "type": "`$STRING`"
                 },
                 {
-                    "active": true,
-                    "name": "service_id",
-                    "req": false,
-                    "type": "`$INTEGER`",
-                    "index$": 8
+                    "name": "serviceId",
+                    "type": "`$INTEGER`"
                 }
             ],
             "name": "permission_database",
@@ -1481,19 +1280,17 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/list",
                             "parts": [
@@ -1509,41 +1306,35 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "list"
+                    ]
                 },
                 "load": {
                     "input": "data",
                     "name": "load",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "database_id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "GET",
                             "orig": "/public/database/{id}",
                             "parts": [
@@ -1560,41 +1351,35 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "load"
+                    ]
                 },
                 "update": {
                     "input": "data",
                     "name": "update",
                     "points": [
                         {
-                            "active": true,
                             "args": {
                                 "params": [
                                     {
-                                        "active": true,
                                         "kind": "param",
                                         "name": "database_id",
                                         "orig": "database_id",
                                         "reqd": true,
-                                        "type": "`$INTEGER`",
-                                        "index$": 0
+                                        "type": "`$INTEGER`"
                                     }
                                 ],
                                 "query": [
                                     {
-                                        "active": true,
                                         "kind": "query",
                                         "name": "api_key",
                                         "orig": "api_key",
-                                        "reqd": false,
                                         "type": "`$STRING`"
                                     }
                                 ]
                             },
+                            "kind": "http",
                             "method": "PUT",
                             "orig": "/public/database/{id}",
                             "parts": [
@@ -1611,11 +1396,9 @@ class Config {
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
-                            },
-                            "index$": 0
+                            }
                         }
-                    ],
-                    "key$": "update"
+                    ]
                 }
             },
             "relations": {

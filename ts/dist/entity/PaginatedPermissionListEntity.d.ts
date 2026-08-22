@@ -5,6 +5,6 @@ import type { PaginatedPermissionList, PaginatedPermissionListCreateData } from 
 declare class PaginatedPermissionListEntity extends LmUmbrellaEntityBase<PaginatedPermissionList> {
     constructor(client: LmUmbrellaSDK, entopts: any);
     make(this: PaginatedPermissionListEntity): PaginatedPermissionListEntity;
-    create(this: any, reqdata?: PaginatedPermissionListCreateData, ctrl?: Control): Promise<PaginatedPermissionList>;
+    create(this: any, reqdata?: PaginatedPermissionListCreateData, ctrl?: Control): Promise<PaginatedPermissionListEntity>;
 }
 export { PaginatedPermissionListEntity };

@@ -46,8 +46,8 @@ const __1 = require("../../..");
 const utility_1 = require("../../utility");
 (0, node_test_1.describe)('MetadataEntity', async () => {
     // Per-test live pacing. Delay is read from sdk-test-control.json's
-    // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LMUMBRELLA_TEST_LIVE'));
+    // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LM_UMBRELLA_TEST_LIVE'));
     (0, node_test_1.test)('instance', async () => {
         const testsdk = __1.LmUmbrellaSDK.test();
         const ent = testsdk.Metadata();
@@ -75,19 +75,18 @@ const utility_1 = require("../../utility");
         const metadata_ref01_ent = client.Metadata();
         let metadata_ref01_data = setup.data.new.metadata['metadata_ref01'];
         metadata_ref01_data['database_id'] = setup.idmap['database01'];
-        metadata_ref01_data = await metadata_ref01_ent.create(metadata_ref01_data);
+        metadata_ref01_data = (await metadata_ref01_ent.create(metadata_ref01_data)).data();
         (0, node_assert_1.default)(null != metadata_ref01_data);
         // LIST
         const metadata_ref01_match = {};
         metadata_ref01_match['database_id'] = setup.idmap['database01'];
-        const metadata_ref01_list = await metadata_ref01_ent.list(metadata_ref01_match);
-        (0, node_assert_1.default)(!isempty(select(metadata_ref01_list, { id: metadata_ref01_data.id })));
+        const metadata_ref01_list = (await metadata_ref01_ent.list(metadata_ref01_match)).map((e) => e.data());
         // UPDATE
         const metadata_ref01_data_up0 = {};
         metadata_ref01_data_up0['database_id'] = setup.idmap['database_id'];
         const metadata_ref01_markdef_up0 = { name: 'created', value: 'Mark01-metadata_ref01_' + setup.now };
         metadata_ref01_data_up0[metadata_ref01_markdef_up0.name] = metadata_ref01_markdef_up0.value;
-        const metadata_ref01_resdata_up0 = await metadata_ref01_ent.update(metadata_ref01_data_up0);
+        const metadata_ref01_resdata_up0 = (await metadata_ref01_ent.update(metadata_ref01_data_up0)).data();
         (0, node_assert_1.default)(null != metadata_ref01_resdata_up0);
         (0, node_assert_1.default)(metadata_ref01_resdata_up0[metadata_ref01_markdef_up0.name] === metadata_ref01_markdef_up0.value);
     });

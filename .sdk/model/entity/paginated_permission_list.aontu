@@ -13,6 +13,7 @@ main: kit: entity: paginated_permission_list: {
     {
       name: "columns"
       req: false
+      short: "the column data"
       type: "`$ARRAY`"
     }
     {
@@ -43,11 +44,13 @@ main: kit: entity: paginated_permission_list: {
     {
       name: "page"
       req: false
+      short: "page number"
       type: "`$INTEGER`"
     }
     {
       name: "permissions"
       req: false
+      short: "the permissions for the page"
       type: "`$ARRAY`"
     }
     {
@@ -63,6 +66,7 @@ main: kit: entity: paginated_permission_list: {
     {
       name: "sources"
       req: false
+      short: "the possible sources for the database"
       type: "`$ARRAY`"
     }
     {
@@ -73,16 +77,19 @@ main: kit: entity: paginated_permission_list: {
     {
       name: "totalActive"
       req: false
+      short: "total number of active permissions"
       type: "`$INTEGER`"
     }
     {
       name: "totalElements"
       req: false
+      short: "total number of permissions"
       type: "`$INTEGER`"
     }
     {
       name: "totalPages"
       req: false
+      short: "total number of pages"
       type: "`$INTEGER`"
     }
   ]

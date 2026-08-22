@@ -49,17 +49,24 @@ class LmUmbrellaSDK {
         // the `test` feature installs the base mock transport and the transport
         // features (retry/cache/netsim/proxy/ratelimit) wrap whatever is current,
         // so `test` must be added before them to sit at the base of the chain.
+        const extend = this._options.extend || [];
         const featureorder = getpath(this._options, '__derived__.featureorder') || [];
         for (const fname of featureorder) {
             const fopts = this._options.feature[fname] || {};
             if (fopts.active) {
+                // An active name with no generated class is legal when an
+                // extend-supplied instance carries that name (station's adopt
+                // path): the instance is added below, positioned by its own
+                // __after__ entry, so skip it here rather than fail construction.
+                if (!this._rootctx.config.hasFeature(fname) &&
+                    extend.some((f) => fname === f.name)) {
+                    continue;
+                }
                 featureAdd(this._rootctx, this._rootctx.config.makeFeature(fname));
             }
         }
-        if (null != this._options.extend) {
-            for (let f of this._options.extend) {
-                featureAdd(this._rootctx, f);
-            }
+        for (let f of extend) {
+            featureAdd(this._rootctx, f);
         }
         for (let f of this._features) {
             featureInit(this._rootctx, f);
@@ -112,7 +119,24 @@ class LmUmbrellaSDK {
         }
         return makeFetchDef(ctx);
     }
+    // Raw endpoint access is operator-controllable, like every entity op.
+    // Blocking it means denying BOTH the 'direct' and 'graphql' tokens, since
+    // either one reaches the same endpoint.
     async direct(fetchargs) {
+        if (!this._options.allow.op.includes('direct')) {
+            return {
+                ok: false,
+                err: new Error('LmUmbrellaSDK: direct: operation not allowed by' +
+                    ' SDK option allow.op value: "' + this._options.allow.op + '"'),
+            };
+        }
+        return this._rawRequest(fetchargs);
+    }
+    // Ungated request path shared by direct() and graphql(), each of which
+    // checks its own allow.op token first. Private, rather than a flag on
+    // fetchargs: a caller-supplied marker would let anyone opt straight back
+    // out of the gate by passing it.
+    async _rawRequest(fetchargs) {
         const utility = this._utility;
         const fetcher = utility.fetcher;
         const makeContext = utility.makeContext;
@@ -163,45 +187,106 @@ class LmUmbrellaSDK {
             return { ok: false, err };
         }
     }
+    // Raw GraphQL access: the pressure valve that makes the generated
+    // surface's deliberate omissions (per-call selection sets, typed filter
+    // builders, batching, subscriptions) livable — the whole schema stays
+    // reachable.
+    //
+    // Thin wrapper over the same prepare/fetch path `direct` uses, with the
+    // one thing raw `direct` cannot do for GraphQL: a GraphQL failure rides
+    // HTTP 200 as a top-level `errors` array, so status alone would report a
+    // failed query as ok.
+    //
+    // NOTE: like `direct`, this bypasses the feature pipeline — no retry,
+    // ratelimit or paging features apply.
+    async graphql(query, variables, ctrl) {
+        const options = this._options;
+        if (!options.allow.op.includes('graphql')) {
+            return {
+                ok: false,
+                err: new Error('LmUmbrellaSDK: graphql: operation not allowed by' +
+                    ' SDK option allow.op value: "' + options.allow.op + '"'),
+            };
+        }
+        const res = await this._rawRequest({
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: { query, variables: variables || {} },
+            ctrl,
+        });
+        if (res instanceof Error) {
+            return res;
+        }
+        // Errors are read BEFORE any status check: a GraphQL parse or validation
+        // failure comes back as HTTP 400 carrying the standard { errors: [...] }
+        // body, and the raw path represents a non-2xx as { ok: false } with no
+        // err — so returning early on status would discard the server's own
+        // diagnostics, which are the only useful part of that response.
+        const errors = null == res.data ? undefined : res.data.errors;
+        if (null != errors && Array.isArray(errors) && 0 < errors.length) {
+            const first = errors[0] || {};
+            const err = new Error('LmUmbrellaSDK: graphql: ' +
+                (first.message || 'graphql error'));
+            err.graphql = errors;
+            return { ok: false, status: res.status, headers: res.headers, err, data: res.data };
+        }
+        return res;
+    }
     // Entity access: `client.Database().list()` / `client.Database().load({ id })`.
-    Database(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Database(entopts) {
         const self = this;
-        return new DatabaseEntity_1.DatabaseEntity(self, data);
+        return new DatabaseEntity_1.DatabaseEntity(self, entopts);
     }
     // Entity access: `client.FlatPermission().list()` / `client.FlatPermission().load({ id })`.
-    FlatPermission(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    FlatPermission(entopts) {
         const self = this;
-        return new FlatPermissionEntity_1.FlatPermissionEntity(self, data);
+        return new FlatPermissionEntity_1.FlatPermissionEntity(self, entopts);
     }
     // Entity access: `client.FlattenedPermission().list()` / `client.FlattenedPermission().load({ id })`.
-    FlattenedPermission(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    FlattenedPermission(entopts) {
         const self = this;
-        return new FlattenedPermissionEntity_1.FlattenedPermissionEntity(self, data);
+        return new FlattenedPermissionEntity_1.FlattenedPermissionEntity(self, entopts);
     }
     // Entity access: `client.ImportStatus().list()` / `client.ImportStatus().load({ id })`.
-    ImportStatus(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    ImportStatus(entopts) {
         const self = this;
-        return new ImportStatusEntity_1.ImportStatusEntity(self, data);
+        return new ImportStatusEntity_1.ImportStatusEntity(self, entopts);
     }
     // Entity access: `client.Metadata().list()` / `client.Metadata().load({ id })`.
-    Metadata(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Metadata(entopts) {
         const self = this;
-        return new MetadataEntity_1.MetadataEntity(self, data);
+        return new MetadataEntity_1.MetadataEntity(self, entopts);
     }
     // Entity access: `client.PaginatedPermissionList().list()` / `client.PaginatedPermissionList().load({ id })`.
-    PaginatedPermissionList(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    PaginatedPermissionList(entopts) {
         const self = this;
-        return new PaginatedPermissionListEntity_1.PaginatedPermissionListEntity(self, data);
+        return new PaginatedPermissionListEntity_1.PaginatedPermissionListEntity(self, entopts);
     }
     // Entity access: `client.Permission().list()` / `client.Permission().load({ id })`.
-    Permission(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Permission(entopts) {
         const self = this;
-        return new PermissionEntity_1.PermissionEntity(self, data);
+        return new PermissionEntity_1.PermissionEntity(self, entopts);
     }
     // Entity access: `client.PermissionDatabase().list()` / `client.PermissionDatabase().load({ id })`.
-    PermissionDatabase(data) {
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    PermissionDatabase(entopts) {
         const self = this;
-        return new PermissionDatabaseEntity_1.PermissionDatabaseEntity(self, data);
+        return new PermissionDatabaseEntity_1.PermissionDatabaseEntity(self, entopts);
     }
     static test(testoptsarg, sdkoptsarg) {
         const struct = stdutil.struct;

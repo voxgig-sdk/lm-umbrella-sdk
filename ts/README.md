@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -338,10 +338,10 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `active` |  |
+| `active` | if permission is active in the database |
 | `empty` |  |
-| `msisdn` |  |
-| `source` |  |
+| `msisdn` | phone number |
+| `source` | comma separated list of sources |
 
 Operations: create, list, load.
 
@@ -351,12 +351,12 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `errors` |  |
-| `importId` |  |
+| `errors` | Import errors (List of ImportError) |
+| `importId` | Import id |
 | `msisdn` |  |
-| `permissionsInserted` |  |
-| `permissionsUpdated` |  |
-| `status` |  |
+| `permissionsInserted` | Number of permissions inserted into database |
+| `permissionsUpdated` | Number of permissions updated in database |
+| `status` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 Operations: create, list.
 
@@ -366,18 +366,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `contents` |  |
-| `created` |  |
-| `databaseId` |  |
-| `key` |  |
-| `label` |  |
-| `multiValue` |  |
-| `rangeEnd` |  |
-| `rangeStart` |  |
-| `type` |  |
-| `updated` |  |
-| `validation` |  |
-| `values` |  |
+| `contents` | Contains extra info for a field |
+| `created` | created date of the field |
+| `databaseId` | id of the database |
+| `key` | key for the field (used for the value internally - cannot be changed after creation) |
+| `label` | label for the field (used for displaying in the interface) |
+| `multiValue` | if the field is a multi value field |
+| `rangeEnd` | end on range for validation on INTEGER field |
+| `rangeStart` | start on range for validation on INTEGER field |
+| `type` | the type of field |
+| `updated` | deletion date of the field |
+| `validation` | type of validation on TEXT field |
+| `values` | Possible enumeration of values for ENUMERATION field |
 
 Operations: create, list, load, update.
 
@@ -388,21 +388,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `ascending` |  |
-| `columns` |  |
+| `columns` | the column data |
 | `endRow` |  |
 | `groups` |  |
 | `metadata` |  |
 | `msisdnList` |  |
 | `onlyActive` |  |
-| `page` |  |
-| `permissions` |  |
+| `page` | page number |
+| `permissions` | the permissions for the page |
 | `quickFilterText` |  |
 | `sort` |  |
-| `sources` |  |
+| `sources` | the possible sources for the database |
 | `startRow` |  |
-| `totalActive` |  |
-| `totalElements` |  |
-| `totalPages` |  |
+| `totalActive` | total number of active permissions |
+| `totalElements` | total number of permissions |
+| `totalPages` | total number of pages |
 
 Operations: create.
 
@@ -493,10 +493,10 @@ Create an instance: `const flattened_permission = client.FlattenedPermission()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `active` | `boolean` |  |
+| `active` | `boolean` | if permission is active in the database |
 | `empty` | `boolean` |  |
-| `msisdn` | `string` |  |
-| `source` | `string` |  |
+| `msisdn` | `string` | phone number |
+| `source` | `string` | comma separated list of sources |
 
 #### Example: Load
 
@@ -535,12 +535,12 @@ Create an instance: `const import_status = client.ImportStatus()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `errors` | `any[]` |  |
-| `importId` | `string` |  |
+| `errors` | `any[]` | Import errors (List of ImportError) |
+| `importId` | `string` | Import id |
 | `msisdn` | `string` |  |
-| `permissionsInserted` | `number` |  |
-| `permissionsUpdated` | `number` |  |
-| `status` | `string` |  |
+| `permissionsInserted` | `number` | Number of permissions inserted into database |
+| `permissionsUpdated` | `number` | Number of permissions updated in database |
+| `status` | `string` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 #### Example: List
 
@@ -574,18 +574,18 @@ Create an instance: `const metadata = client.Metadata()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `contents` | `Record<string, any>` |  |
-| `created` | `string` |  |
-| `databaseId` | `number` |  |
-| `key` | `string` |  |
-| `label` | `string` |  |
-| `multiValue` | `boolean` |  |
-| `rangeEnd` | `number` |  |
-| `rangeStart` | `number` |  |
-| `type` | `string` |  |
-| `updated` | `string` |  |
-| `validation` | `string` |  |
-| `values` | `any[]` |  |
+| `contents` | `Record<string, any>` | Contains extra info for a field |
+| `created` | `string` | created date of the field |
+| `databaseId` | `number` | id of the database |
+| `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
+| `label` | `string` | label for the field (used for displaying in the interface) |
+| `multiValue` | `boolean` | if the field is a multi value field |
+| `rangeEnd` | `number` | end on range for validation on INTEGER field |
+| `rangeStart` | `number` | start on range for validation on INTEGER field |
+| `type` | `string` | the type of field |
+| `updated` | `string` | deletion date of the field |
+| `validation` | `string` | type of validation on TEXT field |
+| `values` | `any[]` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -623,21 +623,21 @@ Create an instance: `const paginated_permission_list = client.PaginatedPermissio
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `boolean` |  |
-| `columns` | `any[]` |  |
+| `columns` | `any[]` | the column data |
 | `endRow` | `number` |  |
 | `groups` | `any[]` |  |
 | `metadata` | `any[]` |  |
 | `msisdnList` | `any[]` |  |
 | `onlyActive` | `boolean` |  |
-| `page` | `number` |  |
-| `permissions` | `any[]` |  |
+| `page` | `number` | page number |
+| `permissions` | `any[]` | the permissions for the page |
 | `quickFilterText` | `string` |  |
 | `sort` | `string` |  |
-| `sources` | `any[]` |  |
+| `sources` | `any[]` | the possible sources for the database |
 | `startRow` | `number` |  |
-| `totalActive` | `number` |  |
-| `totalElements` | `number` |  |
-| `totalPages` | `number` |  |
+| `totalActive` | `number` | total number of active permissions |
+| `totalElements` | `number` | total number of permissions |
+| `totalPages` | `number` | total number of pages |
 
 #### Example: Create
 

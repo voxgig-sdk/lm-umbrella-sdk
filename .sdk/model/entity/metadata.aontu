@@ -8,61 +8,73 @@ main: kit: entity: metadata: {
     {
       name: "contents"
       req: false
+      short: "Contains extra info for a field"
       type: "`$OBJECT`"
     }
     {
       name: "created"
       req: false
+      short: "created date of the field"
       type: "`$STRING`"
     }
     {
       name: "databaseId"
       req: false
+      short: "id of the database"
       type: "`$INTEGER`"
     }
     {
       name: "key"
       req: false
+      short: "key for the field (used for the value internally - cannot be changed after creation)"
       type: "`$STRING`"
     }
     {
       name: "label"
       req: false
+      short: "label for the field (used for displaying in the interface)"
       type: "`$STRING`"
     }
     {
       name: "multiValue"
       req: false
+      short: "if the field is a multi value field"
       type: "`$BOOLEAN`"
     }
     {
       name: "rangeEnd"
       req: false
+      short: "end on range for validation on INTEGER field"
       type: "`$INTEGER`"
     }
     {
       name: "rangeStart"
       req: false
+      short: "start on range for validation on INTEGER field"
       type: "`$INTEGER`"
     }
     {
       name: "type"
       req: false
+      short: "the type of field"
       type: "`$STRING`"
     }
     {
       name: "updated"
       req: false
+      short: "deletion date of the field"
       type: "`$STRING`"
     }
     {
       name: "validation"
       req: false
+      short: "type of validation on TEXT field"
       type: "`$STRING`"
     }
     {
       name: "values"
       req: false
+      short: "Possible enumeration of values for ENUMERATION field"
       type: "`$ARRAY`"
     }
   ]

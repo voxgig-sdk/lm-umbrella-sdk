@@ -5,8 +5,8 @@ import type { PermissionDatabase, PermissionDatabaseLoadMatch, PermissionDatabas
 declare class PermissionDatabaseEntity extends LmUmbrellaEntityBase<PermissionDatabase> {
     constructor(client: LmUmbrellaSDK, entopts: any);
     make(this: PermissionDatabaseEntity): PermissionDatabaseEntity;
-    load(this: any, reqmatch?: PermissionDatabaseLoadMatch, ctrl?: Control): Promise<PermissionDatabase>;
-    list(this: any, reqmatch?: PermissionDatabaseListMatch, ctrl?: Control): Promise<PermissionDatabase[]>;
-    update(this: any, reqdata?: PermissionDatabaseUpdateData, ctrl?: Control): Promise<PermissionDatabase>;
+    load(this: any, reqmatch?: PermissionDatabaseLoadMatch, ctrl?: Control): Promise<PermissionDatabaseEntity>;
+    list(this: any, reqmatch?: PermissionDatabaseListMatch, ctrl?: Control): Promise<PermissionDatabaseEntity[]>;
+    update(this: any, reqdata?: PermissionDatabaseUpdateData, ctrl?: Control): Promise<PermissionDatabaseEntity>;
 }
 export { PermissionDatabaseEntity };

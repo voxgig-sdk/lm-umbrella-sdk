@@ -5,8 +5,8 @@ import type { FlattenedPermission, FlattenedPermissionLoadMatch, FlattenedPermis
 declare class FlattenedPermissionEntity extends LmUmbrellaEntityBase<FlattenedPermission> {
     constructor(client: LmUmbrellaSDK, entopts: any);
     make(this: FlattenedPermissionEntity): FlattenedPermissionEntity;
-    load(this: any, reqmatch?: FlattenedPermissionLoadMatch, ctrl?: Control): Promise<FlattenedPermission>;
-    list(this: any, reqmatch?: FlattenedPermissionListMatch, ctrl?: Control): Promise<FlattenedPermission[]>;
-    create(this: any, reqdata?: FlattenedPermissionCreateData, ctrl?: Control): Promise<FlattenedPermission>;
+    load(this: any, reqmatch?: FlattenedPermissionLoadMatch, ctrl?: Control): Promise<FlattenedPermissionEntity>;
+    list(this: any, reqmatch?: FlattenedPermissionListMatch, ctrl?: Control): Promise<FlattenedPermissionEntity[]>;
+    create(this: any, reqdata?: FlattenedPermissionCreateData, ctrl?: Control): Promise<FlattenedPermissionEntity>;
 }
 export { FlattenedPermissionEntity };

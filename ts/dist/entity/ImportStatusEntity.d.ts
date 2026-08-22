@@ -5,7 +5,7 @@ import type { ImportStatus, ImportStatusListMatch, ImportStatusCreateData } from
 declare class ImportStatusEntity extends LmUmbrellaEntityBase<ImportStatus> {
     constructor(client: LmUmbrellaSDK, entopts: any);
     make(this: ImportStatusEntity): ImportStatusEntity;
-    list(this: any, reqmatch?: ImportStatusListMatch, ctrl?: Control): Promise<ImportStatus[]>;
-    create(this: any, reqdata?: ImportStatusCreateData, ctrl?: Control): Promise<ImportStatus>;
+    list(this: any, reqmatch?: ImportStatusListMatch, ctrl?: Control): Promise<ImportStatusEntity[]>;
+    create(this: any, reqdata?: ImportStatusCreateData, ctrl?: Control): Promise<ImportStatusEntity>;
 }
 export { ImportStatusEntity };

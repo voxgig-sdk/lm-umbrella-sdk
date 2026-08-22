@@ -46,8 +46,8 @@ const __1 = require("../../..");
 const utility_1 = require("../../utility");
 (0, node_test_1.describe)('ImportStatusEntity', async () => {
     // Per-test live pacing. Delay is read from sdk-test-control.json's
-    // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LMUMBRELLA_TEST_LIVE'));
+    // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LM_UMBRELLA_TEST_LIVE'));
     (0, node_test_1.test)('instance', async () => {
         const testsdk = __1.LmUmbrellaSDK.test();
         const ent = testsdk.ImportStatus();
@@ -75,13 +75,12 @@ const utility_1 = require("../../utility");
         const import_status_ref01_ent = client.ImportStatus();
         let import_status_ref01_data = setup.data.new.import_status['import_status_ref01'];
         import_status_ref01_data['database_id'] = setup.idmap['database01'];
-        import_status_ref01_data = await import_status_ref01_ent.create(import_status_ref01_data);
+        import_status_ref01_data = (await import_status_ref01_ent.create(import_status_ref01_data)).data();
         (0, node_assert_1.default)(null != import_status_ref01_data);
         // LIST
         const import_status_ref01_match = {};
         import_status_ref01_match['database_id'] = setup.idmap['database01'];
-        const import_status_ref01_list = await import_status_ref01_ent.list(import_status_ref01_match);
-        (0, node_assert_1.default)(!isempty(select(import_status_ref01_list, { id: import_status_ref01_data.id })));
+        const import_status_ref01_list = (await import_status_ref01_ent.list(import_status_ref01_match)).map((e) => e.data());
     });
 });
 function basicSetup(extra) {

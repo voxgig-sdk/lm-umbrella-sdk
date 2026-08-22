@@ -6,7 +6,7 @@ The Golang SDK for the LmUmbrella API — an entity-oriented client using standa
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Database(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -295,10 +295,10 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `"active"` |  |
+| `"active"` | if permission is active in the database |
 | `"empty"` |  |
-| `"msisdn"` |  |
-| `"source"` |  |
+| `"msisdn"` | phone number |
+| `"source"` | comma separated list of sources |
 
 Operations: Create, List, Load.
 
@@ -308,12 +308,12 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `"errors"` |  |
-| `"importId"` |  |
+| `"errors"` | Import errors (List of ImportError) |
+| `"importId"` | Import id |
 | `"msisdn"` |  |
-| `"permissionsInserted"` |  |
-| `"permissionsUpdated"` |  |
-| `"status"` |  |
+| `"permissionsInserted"` | Number of permissions inserted into database |
+| `"permissionsUpdated"` | Number of permissions updated in database |
+| `"status"` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 Operations: Create, List.
 
@@ -323,18 +323,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `"contents"` |  |
-| `"created"` |  |
-| `"databaseId"` |  |
-| `"key"` |  |
-| `"label"` |  |
-| `"multiValue"` |  |
-| `"rangeEnd"` |  |
-| `"rangeStart"` |  |
-| `"type"` |  |
-| `"updated"` |  |
-| `"validation"` |  |
-| `"values"` |  |
+| `"contents"` | Contains extra info for a field |
+| `"created"` | created date of the field |
+| `"databaseId"` | id of the database |
+| `"key"` | key for the field (used for the value internally - cannot be changed after creation) |
+| `"label"` | label for the field (used for displaying in the interface) |
+| `"multiValue"` | if the field is a multi value field |
+| `"rangeEnd"` | end on range for validation on INTEGER field |
+| `"rangeStart"` | start on range for validation on INTEGER field |
+| `"type"` | the type of field |
+| `"updated"` | deletion date of the field |
+| `"validation"` | type of validation on TEXT field |
+| `"values"` | Possible enumeration of values for ENUMERATION field |
 
 Operations: Create, List, Load, Update.
 
@@ -345,21 +345,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `"ascending"` |  |
-| `"columns"` |  |
+| `"columns"` | the column data |
 | `"endRow"` |  |
 | `"groups"` |  |
 | `"metadata"` |  |
 | `"msisdnList"` |  |
 | `"onlyActive"` |  |
-| `"page"` |  |
-| `"permissions"` |  |
+| `"page"` | page number |
+| `"permissions"` | the permissions for the page |
 | `"quickFilterText"` |  |
 | `"sort"` |  |
-| `"sources"` |  |
+| `"sources"` | the possible sources for the database |
 | `"startRow"` |  |
-| `"totalActive"` |  |
-| `"totalElements"` |  |
-| `"totalPages"` |  |
+| `"totalActive"` | total number of active permissions |
+| `"totalElements"` | total number of permissions |
+| `"totalPages"` | total number of pages |
 
 Operations: Create.
 
@@ -454,10 +454,10 @@ Create an instance: `flattenedPermission := client.FlattenedPermission(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `active` | `bool` |  |
+| `active` | `bool` | if permission is active in the database |
 | `empty` | `bool` |  |
-| `msisdn` | `string` |  |
-| `source` | `string` |  |
+| `msisdn` | `string` | phone number |
+| `source` | `string` | comma separated list of sources |
 
 #### Example: Load
 
@@ -508,12 +508,12 @@ Create an instance: `importStatus := client.ImportStatus(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `errors` | `[]any` |  |
-| `importId` | `string` |  |
+| `errors` | `[]any` | Import errors (List of ImportError) |
+| `importId` | `string` | Import id |
 | `msisdn` | `string` |  |
-| `permissionsInserted` | `int` |  |
-| `permissionsUpdated` | `int` |  |
-| `status` | `string` |  |
+| `permissionsInserted` | `int` | Number of permissions inserted into database |
+| `permissionsUpdated` | `int` | Number of permissions updated in database |
+| `status` | `string` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 #### Example: List
 
@@ -555,18 +555,18 @@ Create an instance: `metadata := client.Metadata(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `contents` | `map[string]any` |  |
-| `created` | `string` |  |
-| `databaseId` | `int` |  |
-| `key` | `string` |  |
-| `label` | `string` |  |
-| `multiValue` | `bool` |  |
-| `rangeEnd` | `int` |  |
-| `rangeStart` | `int` |  |
-| `type` | `string` |  |
-| `updated` | `string` |  |
-| `validation` | `string` |  |
-| `values` | `[]any` |  |
+| `contents` | `map[string]any` | Contains extra info for a field |
+| `created` | `string` | created date of the field |
+| `databaseId` | `int` | id of the database |
+| `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
+| `label` | `string` | label for the field (used for displaying in the interface) |
+| `multiValue` | `bool` | if the field is a multi value field |
+| `rangeEnd` | `int` | end on range for validation on INTEGER field |
+| `rangeStart` | `int` | start on range for validation on INTEGER field |
+| `type` | `string` | the type of field |
+| `updated` | `string` | deletion date of the field |
+| `validation` | `string` | type of validation on TEXT field |
+| `values` | `[]any` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -616,21 +616,21 @@ Create an instance: `paginatedPermissionList := client.PaginatedPermissionList(n
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `bool` |  |
-| `columns` | `[]any` |  |
+| `columns` | `[]any` | the column data |
 | `endRow` | `int` |  |
 | `groups` | `[]any` |  |
 | `metadata` | `[]any` |  |
 | `msisdnList` | `[]any` |  |
 | `onlyActive` | `bool` |  |
-| `page` | `int` |  |
-| `permissions` | `[]any` |  |
+| `page` | `int` | page number |
+| `permissions` | `[]any` | the permissions for the page |
 | `quickFilterText` | `string` |  |
 | `sort` | `string` |  |
-| `sources` | `[]any` |  |
+| `sources` | `[]any` | the possible sources for the database |
 | `startRow` | `int` |  |
-| `totalActive` | `int` |  |
-| `totalElements` | `int` |  |
-| `totalPages` | `int` |  |
+| `totalActive` | `int` | total number of active permissions |
+| `totalElements` | `int` | total number of permissions |
+| `totalPages` | `int` | total number of pages |
 
 #### Example: Create
 

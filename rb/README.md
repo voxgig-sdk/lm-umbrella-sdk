@@ -279,10 +279,10 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `active` |  |
+| `active` | if permission is active in the database |
 | `empty` |  |
-| `msisdn` |  |
-| `source` |  |
+| `msisdn` | phone number |
+| `source` | comma separated list of sources |
 
 Operations: Create, List, Load.
 
@@ -292,12 +292,12 @@ API path: `/public/database/{id}/permission/{msisdn}`
 
 | Field | Description |
 | --- | --- |
-| `errors` |  |
-| `importId` |  |
+| `errors` | Import errors (List of ImportError) |
+| `importId` | Import id |
 | `msisdn` |  |
-| `permissionsInserted` |  |
-| `permissionsUpdated` |  |
-| `status` |  |
+| `permissionsInserted` | Number of permissions inserted into database |
+| `permissionsUpdated` | Number of permissions updated in database |
+| `status` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 Operations: Create, List.
 
@@ -307,18 +307,18 @@ API path: `/public/database/{id}/permission/bulk`
 
 | Field | Description |
 | --- | --- |
-| `contents` |  |
-| `created` |  |
-| `databaseId` |  |
-| `key` |  |
-| `label` |  |
-| `multiValue` |  |
-| `rangeEnd` |  |
-| `rangeStart` |  |
-| `type` |  |
-| `updated` |  |
-| `validation` |  |
-| `values` |  |
+| `contents` | Contains extra info for a field |
+| `created` | created date of the field |
+| `databaseId` | id of the database |
+| `key` | key for the field (used for the value internally - cannot be changed after creation) |
+| `label` | label for the field (used for displaying in the interface) |
+| `multiValue` | if the field is a multi value field |
+| `rangeEnd` | end on range for validation on INTEGER field |
+| `rangeStart` | start on range for validation on INTEGER field |
+| `type` | the type of field |
+| `updated` | deletion date of the field |
+| `validation` | type of validation on TEXT field |
+| `values` | Possible enumeration of values for ENUMERATION field |
 
 Operations: Create, List, Load, Update.
 
@@ -329,21 +329,21 @@ API path: `/public/database/{id}/metadata/{key}`
 | Field | Description |
 | --- | --- |
 | `ascending` |  |
-| `columns` |  |
+| `columns` | the column data |
 | `endRow` |  |
 | `groups` |  |
 | `metadata` |  |
 | `msisdnList` |  |
 | `onlyActive` |  |
-| `page` |  |
-| `permissions` |  |
+| `page` | page number |
+| `permissions` | the permissions for the page |
 | `quickFilterText` |  |
 | `sort` |  |
-| `sources` |  |
+| `sources` | the possible sources for the database |
 | `startRow` |  |
-| `totalActive` |  |
-| `totalElements` |  |
-| `totalPages` |  |
+| `totalActive` | total number of active permissions |
+| `totalElements` | total number of permissions |
+| `totalPages` | total number of pages |
 
 Operations: Create.
 
@@ -435,10 +435,10 @@ Create an instance: `flattened_permission = client.FlattenedPermission`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `active` | `Boolean` |  |
+| `active` | `Boolean` | if permission is active in the database |
 | `empty` | `Boolean` |  |
-| `msisdn` | `String` |  |
-| `source` | `String` |  |
+| `msisdn` | `String` | phone number |
+| `source` | `String` | comma separated list of sources |
 
 #### Example: Load
 
@@ -479,12 +479,12 @@ Create an instance: `import_status = client.ImportStatus`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `errors` | `Array` |  |
-| `importId` | `String` |  |
+| `errors` | `Array` | Import errors (List of ImportError) |
+| `importId` | `String` | Import id |
 | `msisdn` | `String` |  |
-| `permissionsInserted` | `Integer` |  |
-| `permissionsUpdated` | `Integer` |  |
-| `status` | `String` |  |
+| `permissionsInserted` | `Integer` | Number of permissions inserted into database |
+| `permissionsUpdated` | `Integer` | Number of permissions updated in database |
+| `status` | `String` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 #### Example: List
 
@@ -519,18 +519,18 @@ Create an instance: `metadata = client.Metadata`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `contents` | `Hash` |  |
-| `created` | `String` |  |
-| `databaseId` | `Integer` |  |
-| `key` | `String` |  |
-| `label` | `String` |  |
-| `multiValue` | `Boolean` |  |
-| `rangeEnd` | `Integer` |  |
-| `rangeStart` | `Integer` |  |
-| `type` | `String` |  |
-| `updated` | `String` |  |
-| `validation` | `String` |  |
-| `values` | `Array` |  |
+| `contents` | `Hash` | Contains extra info for a field |
+| `created` | `String` | created date of the field |
+| `databaseId` | `Integer` | id of the database |
+| `key` | `String` | key for the field (used for the value internally - cannot be changed after creation) |
+| `label` | `String` | label for the field (used for displaying in the interface) |
+| `multiValue` | `Boolean` | if the field is a multi value field |
+| `rangeEnd` | `Integer` | end on range for validation on INTEGER field |
+| `rangeStart` | `Integer` | start on range for validation on INTEGER field |
+| `type` | `String` | the type of field |
+| `updated` | `String` | deletion date of the field |
+| `validation` | `String` | type of validation on TEXT field |
+| `values` | `Array` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -570,21 +570,21 @@ Create an instance: `paginated_permission_list = client.PaginatedPermissionList`
 | Field | Type | Description |
 | --- | --- | --- |
 | `ascending` | `Boolean` |  |
-| `columns` | `Array` |  |
+| `columns` | `Array` | the column data |
 | `endRow` | `Integer` |  |
 | `groups` | `Array` |  |
 | `metadata` | `Array` |  |
 | `msisdnList` | `Array` |  |
 | `onlyActive` | `Boolean` |  |
-| `page` | `Integer` |  |
-| `permissions` | `Array` |  |
+| `page` | `Integer` | page number |
+| `permissions` | `Array` | the permissions for the page |
 | `quickFilterText` | `String` |  |
 | `sort` | `String` |  |
-| `sources` | `Array` |  |
+| `sources` | `Array` | the possible sources for the database |
 | `startRow` | `Integer` |  |
-| `totalActive` | `Integer` |  |
-| `totalElements` | `Integer` |  |
-| `totalPages` | `Integer` |  |
+| `totalActive` | `Integer` | total number of active permissions |
+| `totalElements` | `Integer` | total number of permissions |
+| `totalPages` | `Integer` | total number of pages |
 
 #### Example: Create
 

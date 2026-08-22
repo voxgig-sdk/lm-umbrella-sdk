@@ -11,10 +11,14 @@ const __1 = require("../../..");
 const utility_1 = require("../../utility");
 (0, node_test_1.describe)('PermissionDatabaseDirect', async () => {
     // Per-test live pacing. Delay is read from sdk-test-control.json's
-    // `test.live.delayMs`; only sleeps when LMUMBRELLA_TEST_LIVE=TRUE.
-    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LMUMBRELLA_TEST_LIVE'));
+    // `test.live.delayMs`; only sleeps when LM_UMBRELLA_TEST_LIVE=TRUE.
+    (0, node_test_1.afterEach)((0, utility_1.liveDelay)('LM_UMBRELLA_TEST_LIVE'));
     (0, node_test_1.test)('direct-exists', async () => {
         const sdk = new __1.LmUmbrellaSDK({
+            // Concrete base: a live construction must satisfy any server
+            // variables a templated base URL declares; overriding base with a
+            // literal (as the direct flow tests do) sidesteps the requirement.
+            base: 'http://localhost:8080',
             system: { fetch: async () => ({}) }
         });
         (0, node_assert_1.default)('function' === typeof sdk.direct);
@@ -111,16 +115,16 @@ const utility_1 = require("../../utility");
 function directSetup(mockres) {
     const calls = [];
     const env = (0, utility_1.envOverride)({
-        'LMUMBRELLA_TEST_PERMISSION_DATABASE_ENTID': {},
-        'LMUMBRELLA_TEST_LIVE': 'FALSE',
-        'LMUMBRELLA_APIKEY': 'NONE',
+        'LM_UMBRELLA_TEST_PERMISSION_DATABASE_ENTID': {},
+        'LM_UMBRELLA_TEST_LIVE': 'FALSE',
+        'LM_UMBRELLA_APIKEY': 'NONE',
     });
-    const live = 'TRUE' === env.LMUMBRELLA_TEST_LIVE;
+    const live = 'TRUE' === env.LM_UMBRELLA_TEST_LIVE;
     if (live) {
         const client = new __1.LmUmbrellaSDK({
-            apikey: env.LMUMBRELLA_APIKEY,
+            apikey: env.LM_UMBRELLA_APIKEY,
         });
-        let idmap = env['LMUMBRELLA_TEST_PERMISSION_DATABASE_ENTID'];
+        let idmap = env['LM_UMBRELLA_TEST_PERMISSION_DATABASE_ENTID'];
         if ('string' === typeof idmap && idmap.startsWith('{')) {
             idmap = JSON.parse(idmap);
         }

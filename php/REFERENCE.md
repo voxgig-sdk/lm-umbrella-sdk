@@ -220,10 +220,10 @@ $flattened_permission = $client->FlattenedPermission();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `active` | `bool` | No |  |
+| `active` | `bool` | No | if permission is active in the database |
 | `empty` | `bool` | No |  |
-| `msisdn` | `string` | No |  |
-| `source` | `string` | No |  |
+| `msisdn` | `string` | No | phone number |
+| `source` | `string` | No | comma separated list of sources |
 
 ### Operations
 
@@ -294,12 +294,12 @@ $import_status = $client->ImportStatus();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `errors` | `array` | No |  |
-| `importId` | `string` | No |  |
+| `errors` | `array` | No | Import errors (List of ImportError) |
+| `importId` | `string` | No | Import id |
 | `msisdn` | `string` | No |  |
-| `permissionsInserted` | `int` | No |  |
-| `permissionsUpdated` | `int` | No |  |
-| `status` | `string` | No |  |
+| `permissionsInserted` | `int` | No | Number of permissions inserted into database |
+| `permissionsUpdated` | `int` | No | Number of permissions updated in database |
+| `status` | `string` | No | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
 
 ### Operations
 
@@ -361,18 +361,18 @@ $metadata = $client->Metadata();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `contents` | `array` | No |  |
-| `created` | `string` | No |  |
-| `databaseId` | `int` | No |  |
-| `key` | `string` | No |  |
-| `label` | `string` | No |  |
-| `multiValue` | `bool` | No |  |
-| `rangeEnd` | `int` | No |  |
-| `rangeStart` | `int` | No |  |
-| `type` | `string` | No |  |
-| `updated` | `string` | No |  |
-| `validation` | `string` | No |  |
-| `values` | `array` | No |  |
+| `contents` | `array` | No | Contains extra info for a field |
+| `created` | `string` | No | created date of the field |
+| `databaseId` | `int` | No | id of the database |
+| `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
+| `label` | `string` | No | label for the field (used for displaying in the interface) |
+| `multiValue` | `bool` | No | if the field is a multi value field |
+| `rangeEnd` | `int` | No | end on range for validation on INTEGER field |
+| `rangeStart` | `int` | No | start on range for validation on INTEGER field |
+| `type` | `string` | No | the type of field |
+| `updated` | `string` | No | deletion date of the field |
+| `validation` | `string` | No | type of validation on TEXT field |
+| `values` | `array` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -455,21 +455,21 @@ $paginated_permission_list = $client->PaginatedPermissionList();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `ascending` | `bool` | No |  |
-| `columns` | `array` | No |  |
+| `columns` | `array` | No | the column data |
 | `endRow` | `int` | No |  |
 | `groups` | `array` | No |  |
 | `metadata` | `array` | No |  |
 | `msisdnList` | `array` | No |  |
 | `onlyActive` | `bool` | No |  |
-| `page` | `int` | No |  |
-| `permissions` | `array` | No |  |
+| `page` | `int` | No | page number |
+| `permissions` | `array` | No | the permissions for the page |
 | `quickFilterText` | `string` | No |  |
 | `sort` | `string` | No |  |
-| `sources` | `array` | No |  |
+| `sources` | `array` | No | the possible sources for the database |
 | `startRow` | `int` | No |  |
-| `totalActive` | `int` | No |  |
-| `totalElements` | `int` | No |  |
-| `totalPages` | `int` | No |  |
+| `totalActive` | `int` | No | total number of active permissions |
+| `totalElements` | `int` | No | total number of permissions |
+| `totalPages` | `int` | No | total number of pages |
 
 ### Operations
 

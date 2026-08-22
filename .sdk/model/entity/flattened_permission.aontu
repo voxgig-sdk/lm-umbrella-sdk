@@ -8,6 +8,7 @@ main: kit: entity: flattened_permission: {
     {
       name: "active"
       req: false
+      short: "if permission is active in the database"
       type: "`$BOOLEAN`"
     }
     {
@@ -18,11 +19,13 @@ main: kit: entity: flattened_permission: {
     {
       name: "msisdn"
       req: false
+      short: "phone number"
       type: "`$STRING`"
     }
     {
       name: "source"
       req: false
+      short: "comma separated list of sources"
       type: "`$STRING`"
     }
   ]

@@ -20,9 +20,11 @@
         ],
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "repr": "auto"
       },
       "contributor": {},
+      "docs": {},
       "entity": {
         "database": {
           "active": true,
@@ -192,6 +194,7 @@
               "active": true,
               "name": "active",
               "req": false,
+              "short": "if permission is active in the database",
               "type": "`$BOOLEAN`"
             },
             {
@@ -204,12 +207,14 @@
               "active": true,
               "name": "msisdn",
               "req": false,
+              "short": "phone number",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "source",
               "req": false,
+              "short": "comma separated list of sources",
               "type": "`$STRING`"
             }
           ],
@@ -401,12 +406,14 @@
               "active": true,
               "name": "errors",
               "req": false,
+              "short": "Import errors (List of ImportError)",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "importId",
               "req": false,
+              "short": "Import id",
               "type": "`$STRING`"
             },
             {
@@ -419,18 +426,21 @@
               "active": true,
               "name": "permissionsInserted",
               "req": false,
+              "short": "Number of permissions inserted into database",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "permissionsUpdated",
               "req": false,
+              "short": "Number of permissions updated in database",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "status",
               "req": false,
+              "short": "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)",
               "type": "`$STRING`"
             }
           ],
@@ -587,72 +597,84 @@
               "active": true,
               "name": "contents",
               "req": false,
+              "short": "Contains extra info for a field",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "created",
               "req": false,
+              "short": "created date of the field",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "databaseId",
               "req": false,
+              "short": "id of the database",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "key",
               "req": false,
+              "short": "key for the field (used for the value internally - cannot be changed after creation)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "label",
               "req": false,
+              "short": "label for the field (used for displaying in the interface)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "multiValue",
               "req": false,
+              "short": "if the field is a multi value field",
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
               "name": "rangeEnd",
               "req": false,
+              "short": "end on range for validation on INTEGER field",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "rangeStart",
               "req": false,
+              "short": "start on range for validation on INTEGER field",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "type",
               "req": false,
+              "short": "the type of field",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "updated",
               "req": false,
+              "short": "deletion date of the field",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "validation",
               "req": false,
+              "short": "type of validation on TEXT field",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "values",
               "req": false,
+              "short": "Possible enumeration of values for ENUMERATION field",
               "type": "`$ARRAY`"
             }
           ],
@@ -985,6 +1007,7 @@
               "active": true,
               "name": "columns",
               "req": false,
+              "short": "the column data",
               "type": "`$ARRAY`"
             },
             {
@@ -1021,12 +1044,14 @@
               "active": true,
               "name": "page",
               "req": false,
+              "short": "page number",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "permissions",
               "req": false,
+              "short": "the permissions for the page",
               "type": "`$ARRAY`"
             },
             {
@@ -1045,6 +1070,7 @@
               "active": true,
               "name": "sources",
               "req": false,
+              "short": "the possible sources for the database",
               "type": "`$ARRAY`"
             },
             {
@@ -1057,18 +1083,21 @@
               "active": true,
               "name": "totalActive",
               "req": false,
+              "short": "total number of active permissions",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "totalElements",
               "req": false,
+              "short": "total number of permissions",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "totalPages",
               "req": false,
+              "short": "total number of pages",
               "type": "`$INTEGER`"
             }
           ],
@@ -1578,6 +1607,7 @@
       "feature": {
         "test": {
           "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
@@ -1638,6 +1668,8 @@
             }
           },
           "name": "test",
+          "origname": "",
+          "package": "@voxgig/sdkgen",
           "target": {
             "go": {
               "deps": {}
@@ -2062,6 +2094,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2080,12 +2113,14 @@
             "path": ""
           },
           "name": "go",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2119,6 +2154,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2135,12 +2171,14 @@
             "path": ""
           },
           "name": "go-cli",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "phase": {
             "agentguide": {
               "active": false
@@ -2190,6 +2228,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2206,12 +2245,14 @@
             "path": ""
           },
           "name": "go-mcp",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "phase": {
             "agentguide": {
               "active": false
@@ -2261,6 +2302,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "--"
           },
@@ -2283,12 +2325,14 @@
             "path": ""
           },
           "name": "lua",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2322,6 +2366,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
           },
@@ -2338,12 +2383,14 @@
             "path": ""
           },
           "name": "php",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2377,6 +2424,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "#"
           },
@@ -2399,12 +2447,14 @@
             "path": ""
           },
           "name": "py",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2438,6 +2488,7 @@
             "name": "",
             "url": ""
           },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "#"
           },
@@ -2465,12 +2516,14 @@
             "path": ""
           },
           "name": "rb",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,
@@ -2537,12 +2590,14 @@
             "path": ""
           },
           "name": "ts",
+          "origname": "",
           "output": {
             "adopt": false,
             "path": "",
             "repo": "",
             "sdkrel": ""
           },
+          "package": "@voxgig/sdkgen",
           "publish": {
             "registry": {
               "active": false,

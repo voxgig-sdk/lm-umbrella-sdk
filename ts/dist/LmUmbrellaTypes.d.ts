@@ -26,13 +26,17 @@ export interface FlattenedPermissionListMatch {
 export interface FlattenedPermissionCreateData {
     database_id: number;
     id: string;
+    active?: boolean;
+    empty?: boolean;
+    msisdn?: string;
+    source?: string;
 }
 export interface ImportStatus {
-    error?: any[];
-    import_id?: string;
+    errors?: any[];
+    importId?: string;
     msisdn?: string;
-    permissions_inserted?: number;
-    permissions_updated?: number;
+    permissionsInserted?: number;
+    permissionsUpdated?: number;
     status?: string;
 }
 export interface ImportStatusListMatch {
@@ -40,16 +44,26 @@ export interface ImportStatusListMatch {
 }
 export interface ImportStatusCreateData {
     database_id: number;
+    errors?: any[];
+    importId?: string;
+    msisdn?: string;
+    permissionsInserted?: number;
+    permissionsUpdated?: number;
+    status?: string;
 }
 export interface Metadata {
-    content?: Record<string, any>;
+    contents?: Record<string, any>;
     created?: string;
-    database_id?: number;
+    databaseId?: number;
     key?: string;
     label?: string;
-    multi_value?: boolean;
+    multiValue?: boolean;
+    rangeEnd?: number;
+    rangeStart?: number;
     type?: string;
     updated?: string;
+    validation?: string;
+    values?: any[];
 }
 export interface MetadataLoadMatch {
     database_id: number;
@@ -61,31 +75,71 @@ export interface MetadataListMatch {
 export interface MetadataCreateData {
     database_id: number;
     id?: string;
+    contents?: Record<string, any>;
+    created?: string;
+    databaseId?: number;
+    key?: string;
+    label?: string;
+    multiValue?: boolean;
+    rangeEnd?: number;
+    rangeStart?: number;
+    type?: string;
+    updated?: string;
+    validation?: string;
+    values?: any[];
 }
 export interface MetadataUpdateData {
     database_id: number;
     id: string;
+    contents?: Record<string, any>;
+    created?: string;
+    databaseId?: number;
+    key?: string;
+    label?: string;
+    multiValue?: boolean;
+    rangeEnd?: number;
+    rangeStart?: number;
+    type?: string;
+    updated?: string;
+    validation?: string;
+    values?: any[];
 }
 export interface PaginatedPermissionList {
     ascending?: boolean;
-    column?: any[];
-    end_row?: number;
-    group?: any[];
+    columns?: any[];
+    endRow?: number;
+    groups?: any[];
     metadata?: any[];
-    msisdn_list?: any[];
-    only_active?: boolean;
+    msisdnList?: any[];
+    onlyActive?: boolean;
     page?: number;
-    permission?: any[];
-    quick_filter_text?: string;
+    permissions?: any[];
+    quickFilterText?: string;
     sort?: string;
-    source?: any[];
-    start_row?: number;
-    total_active?: number;
-    total_element?: number;
-    total_page?: number;
+    sources?: any[];
+    startRow?: number;
+    totalActive?: number;
+    totalElements?: number;
+    totalPages?: number;
 }
 export interface PaginatedPermissionListCreateData {
     database_id: number;
+    ascending?: boolean;
+    columns?: any[];
+    endRow?: number;
+    groups?: any[];
+    metadata?: any[];
+    msisdnList?: any[];
+    onlyActive?: boolean;
+    page?: number;
+    permissions?: any[];
+    quickFilterText?: string;
+    sort?: string;
+    sources?: any[];
+    startRow?: number;
+    totalActive?: number;
+    totalElements?: number;
+    totalPages?: number;
 }
 export interface Permission {
     empty?: boolean;
@@ -94,6 +148,8 @@ export interface Permission {
 export interface PermissionUpdateData {
     database_id: number;
     id: string;
+    empty?: boolean;
+    msisdn?: string;
 }
 export interface PermissionRemoveMatch {
     database_id: number;
@@ -101,30 +157,39 @@ export interface PermissionRemoveMatch {
     msisdn?: string;
 }
 export interface PermissionDatabase {
-    customer_id?: number;
-    delete_on_optout?: boolean;
+    customerId?: number;
+    deleteOnOptout?: boolean;
     description?: string;
-    hook?: any[];
+    hooks?: any[];
     id?: number;
     name?: string;
-    route?: any[];
-    sender_alia?: string;
-    service_id?: number;
+    routes?: any[];
+    senderAlias?: string;
+    serviceId?: number;
 }
 export interface PermissionDatabaseLoadMatch {
     database_id: number;
 }
 export interface PermissionDatabaseListMatch {
-    customer_id?: number;
-    delete_on_optout?: boolean;
+    customerId?: number;
+    deleteOnOptout?: boolean;
     description?: string;
-    hook?: any[];
+    hooks?: any[];
     id?: number;
     name?: string;
-    route?: any[];
-    sender_alia?: string;
-    service_id?: number;
+    routes?: any[];
+    senderAlias?: string;
+    serviceId?: number;
 }
 export interface PermissionDatabaseUpdateData {
     database_id: number;
+    customerId?: number;
+    deleteOnOptout?: boolean;
+    description?: string;
+    hooks?: any[];
+    id?: number;
+    name?: string;
+    routes?: any[];
+    senderAlias?: string;
+    serviceId?: number;
 }

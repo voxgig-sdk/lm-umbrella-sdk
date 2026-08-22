@@ -5,6 +5,6 @@ import type { Database, DatabaseRemoveMatch } from '../LmUmbrellaTypes';
 declare class DatabaseEntity extends LmUmbrellaEntityBase<Database> {
     constructor(client: LmUmbrellaSDK, entopts: any);
     make(this: DatabaseEntity): DatabaseEntity;
-    remove(this: any, reqmatch?: DatabaseRemoveMatch, ctrl?: Control): Promise<Database>;
+    remove(this: any, reqmatch?: DatabaseRemoveMatch, ctrl?: Control): Promise<DatabaseEntity>;
 }
 export { DatabaseEntity };
