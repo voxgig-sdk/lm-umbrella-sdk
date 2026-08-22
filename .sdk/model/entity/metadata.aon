@@ -181,7 +181,7 @@ main: kit: entity: metadata: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.contents`"
           }
         }
       ]
@@ -291,7 +291,7 @@ main: kit: entity: metadata: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.contents`"
           }
         }
       ]
@@ -351,7 +351,7 @@ main: kit: entity: metadata: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.contents`"
           }
         }
       ]

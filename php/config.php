@@ -34,7 +34,7 @@ class LmUmbrellaConfig
             "main" => [
                 "name" => "LmUmbrella",
                 "slug" => "lm-umbrella",
-                "version" => "0.0.1",
+                "version" => "0.1.1",
                 "target" => "php",
             ],
             "feature" => [
@@ -539,7 +539,7 @@ class LmUmbrellaConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.errors`',
                   ],
                 ],
               ],
@@ -719,7 +719,7 @@ class LmUmbrellaConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.contents`',
                   ],
                 ],
               ],
@@ -831,7 +831,7 @@ class LmUmbrellaConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.contents`',
                   ],
                 ],
               ],
@@ -892,7 +892,7 @@ class LmUmbrellaConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.contents`',
                   ],
                 ],
               ],

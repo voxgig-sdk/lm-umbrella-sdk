@@ -20,7 +20,7 @@ module LmUmbrellaConfig
       "main" => {
         "name" => "LmUmbrella",
         "slug" => "lm-umbrella",
-        "version" => "0.0.1",
+        "version" => "0.1.1",
         "target" => "rb",
       },
       "feature" => {
@@ -525,7 +525,7 @@ module LmUmbrellaConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.errors`",
                   },
                 },
               ],
@@ -705,7 +705,7 @@ module LmUmbrellaConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.contents`",
                   },
                 },
               ],
@@ -817,7 +817,7 @@ module LmUmbrellaConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.contents`",
                   },
                 },
               ],
@@ -878,7 +878,7 @@ module LmUmbrellaConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.contents`",
                   },
                 },
               ],

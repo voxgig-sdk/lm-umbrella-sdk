@@ -29,7 +29,7 @@ def make_config():
         "main": {
             "name": "LmUmbrella",
             "slug": "lm-umbrella",
-            "version": "0.0.1",
+            "version": "0.1.1",
             "target": "py",
         },
         "feature": {
@@ -534,7 +534,7 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body`",
+                  "res": "`body.errors`",
                 },
               },
             ],
@@ -714,7 +714,7 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body`",
+                  "res": "`body.contents`",
                 },
               },
             ],
@@ -826,7 +826,7 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body`",
+                  "res": "`body.contents`",
                 },
               },
             ],
@@ -887,7 +887,7 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body`",
+                  "res": "`body.contents`",
                 },
               },
             ],

@@ -159,7 +159,7 @@ main: kit: entity: import_status: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.errors`"
           }
         }
       ]

@@ -30,7 +30,7 @@ class Config {
   main = {
     name: 'LmUmbrella',
         slug: "lm-umbrella",
-    version: "0.0.1",
+    version: "0.1.1",
     target: "ts",
 
   }
@@ -563,7 +563,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.errors`"
               }
             }
           ]
@@ -743,7 +743,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.contents`"
               }
             }
           ]
@@ -855,7 +855,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.contents`"
               }
             }
           ]
@@ -916,7 +916,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.contents`"
               }
             }
           ]
