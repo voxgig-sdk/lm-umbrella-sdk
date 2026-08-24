@@ -1,15 +1,6 @@
 {
-  "NAME": "LM-UMBRELLA",
-  "Name": "LmUmbrella",
   "def": "umbrella-openapi.json",
   "main": {
-    "api": {
-      "entity": {},
-      "guide": {}
-    },
-    "custom": {
-      "plurals": {}
-    },
     "def": {
       "desc": ""
     },
@@ -2644,8 +2635,5 @@
     }
   },
   "name": "lm-umbrella",
-  "name-": "lm-umbrella",
-  "name_": "lm_umbrella",
-  "name__orig": "lm-umbrella",
   "origin": "voxgig-sdk"
 }
