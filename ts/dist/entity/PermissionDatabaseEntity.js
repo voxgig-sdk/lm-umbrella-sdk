@@ -15,7 +15,9 @@ class PermissionDatabaseEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBa
     }
     async load(reqmatch, ctrl) {
         const utility = this._utility;
-        const { makeContext, done, error, featureHook, makePoint, makeRequest, makeResponse, makeResult, makeSpec, } = utility;
+        const { makeContext, done, 
+        // The registry name is `makeError`; `error` is the local alias.
+        makeError: error, featureHook, makePoint, makeRequest, makeResponse, makeResult, makeSpec, } = utility;
         let fres = undefined;
         let ctx = makeContext({
             opname: 'load',
@@ -104,7 +106,9 @@ class PermissionDatabaseEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBa
     }
     async list(reqmatch, ctrl) {
         const utility = this._utility;
-        const { makeContext, done, error, featureHook, makePoint, makeRequest, makeResponse, makeResult, makeSpec, } = utility;
+        const { makeContext, done, 
+        // The registry name is `makeError`; `error` is the local alias.
+        makeError: error, featureHook, makePoint, makeRequest, makeResponse, makeResult, makeSpec, } = utility;
         let fres = undefined;
         let ctx = makeContext({
             opname: 'list',
@@ -183,7 +187,9 @@ class PermissionDatabaseEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBa
     }
     async update(reqdata, ctrl) {
         const utility = this._utility;
-        const { makeContext, done, error, featureHook, makePoint, makeRequest, makeResponse, makeResult, makeSpec, } = utility;
+        const { makeContext, done, 
+        // The registry name is `makeError`; `error` is the local alias.
+        makeError: error, featureHook, makePoint, makeRequest, makeResponse, makeResult, makeSpec, } = utility;
         let fres = undefined;
         let ctx = makeContext({
             opname: 'update',

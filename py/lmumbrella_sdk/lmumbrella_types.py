@@ -26,6 +26,7 @@ class DatabaseRemoveMatch(TypedDict):
 
 class FlatPermission(TypedDict, total=False):
     empty: bool
+    id: str
     msisdn: str
 
 
@@ -37,6 +38,7 @@ class FlatPermissionLoadMatch(TypedDict):
 class FlattenedPermission(TypedDict, total=False):
     active: bool
     empty: bool
+    id: str
     msisdn: str
     source: str
 
@@ -91,6 +93,7 @@ class Metadata(TypedDict, total=False):
     contents: dict
     created: str
     databaseId: int
+    id: str
     key: str
     label: str
     multiValue: bool
@@ -195,6 +198,7 @@ class PaginatedPermissionListCreateData(PaginatedPermissionListCreateDataRequire
 
 class Permission(TypedDict, total=False):
     empty: bool
+    id: str
     msisdn: str
 
 

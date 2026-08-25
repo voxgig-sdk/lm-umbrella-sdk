@@ -3,21 +3,21 @@
     "flat_permission": {
       "FLAT_PERMISSION00": {
         "empty": true,
-        "msisdn": "s15",
-        "database_id": "DATABASE01",
-        "id": "FLAT_PERMISSION00"
+        "id": "FLAT_PERMISSION00",
+        "msisdn": "s20",
+        "database_id": "DATABASE01"
       },
       "FLAT_PERMISSION01": {
         "empty": true,
-        "msisdn": "s29",
-        "database_id": "DATABASE01",
-        "id": "FLAT_PERMISSION01"
+        "id": "FLAT_PERMISSION01",
+        "msisdn": "s3e",
+        "database_id": "DATABASE01"
       },
       "FLAT_PERMISSION02": {
         "empty": true,
-        "msisdn": "s3d",
-        "database_id": "DATABASE01",
-        "id": "FLAT_PERMISSION02"
+        "id": "FLAT_PERMISSION02",
+        "msisdn": "s5c",
+        "database_id": "DATABASE01"
       }
     }
   },
@@ -25,7 +25,7 @@
     "flat_permission": {
       "flat_permission_ref01": {
         "empty": true,
-        "msisdn": "s51"
+        "msisdn": "s7a"
       }
     }
   }

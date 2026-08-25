@@ -102,11 +102,21 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "msisdn",
               "req": false,
               "type": "`$STRING`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "flat_permission",
           "op": {
             "load": {
@@ -205,6 +215,12 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "msisdn",
               "req": false,
               "short": "phone number",
@@ -218,6 +234,10 @@
               "type": "`$STRING`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "flattened_permission",
           "op": {
             "create": {
@@ -616,6 +636,12 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "key",
               "req": false,
               "short": "key for the field (used for the value internally - cannot be changed after creation)",
@@ -678,6 +704,10 @@
               "type": "`$ARRAY`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "metadata",
           "op": {
             "create": {
@@ -1183,11 +1213,21 @@
             },
             {
               "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "msisdn",
               "req": false,
               "type": "`$STRING`"
             }
           ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "permission",
           "op": {
             "remove": {

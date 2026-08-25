@@ -246,6 +246,7 @@ const flat_permission = client.FlatPermission()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `boolean` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No |  |
 
 ### Operations
@@ -298,6 +299,7 @@ const flattened_permission = client.FlattenedPermission()
 | --- | --- | --- | --- |
 | `active` | `boolean` | No | if permission is active in the database |
 | `empty` | `boolean` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No | phone number |
 | `source` | `string` | No | comma separated list of sources |
 
@@ -436,6 +438,7 @@ const metadata = client.Metadata()
 | `contents` | `Record<string, any>` | No | Contains extra info for a field |
 | `created` | `string` | No | created date of the field |
 | `databaseId` | `number` | No | id of the database |
+| `id` | `string` | No |  |
 | `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | No | if the field is a multi value field |
@@ -592,6 +595,7 @@ const permission = client.Permission()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `boolean` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No |  |
 
 ### Operations

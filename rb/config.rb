@@ -112,6 +112,10 @@ module LmUmbrellaConfig
               "type" => "`$BOOLEAN`",
             },
             {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
+            {
               "name" => "msisdn",
               "type" => "`$STRING`",
             },
@@ -198,6 +202,10 @@ module LmUmbrellaConfig
             {
               "name" => "empty",
               "type" => "`$BOOLEAN`",
+            },
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
             },
             {
               "name" => "msisdn",
@@ -556,6 +564,10 @@ module LmUmbrellaConfig
               "name" => "databaseId",
               "short" => "id of the database",
               "type" => "`$INTEGER`",
+            },
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
             },
             {
               "name" => "key",
@@ -1036,6 +1048,10 @@ module LmUmbrellaConfig
             {
               "name" => "empty",
               "type" => "`$BOOLEAN`",
+            },
+            {
+              "name" => "id",
+              "type" => "`$STRING`",
             },
             {
               "name" => "msisdn",

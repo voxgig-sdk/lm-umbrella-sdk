@@ -45,6 +45,7 @@ describe("PermissionEntity", function()
     -- UPDATE
     local permission_ref01_ent = client:Permission(nil)
     local permission_ref01_data_up0_up = {
+      id = permission_ref01_data["id"],
       ["database_id"] = setup.idmap["database_id"],
     }
 
@@ -56,6 +57,7 @@ describe("PermissionEntity", function()
     assert.is_nil(err)
     local permission_ref01_resdata_up0 = helpers.to_map(type(permission_ref01_resdata_up0_result) == 'table' and permission_ref01_resdata_up0_result.data_get and permission_ref01_resdata_up0_result:data_get() or permission_ref01_resdata_up0_result)
     assert.is_not_nil(permission_ref01_resdata_up0)
+    assert.are.equal(permission_ref01_resdata_up0["id"], permission_ref01_data_up0_up["id"])
     assert.are.equal(permission_ref01_resdata_up0[permission_ref01_markdef_up0_name], permission_ref01_markdef_up0_value)
 
   end)

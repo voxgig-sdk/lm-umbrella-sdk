@@ -77,11 +77,17 @@ const utility_1 = require("../../utility");
         flattened_permission_ref01_data['database_id'] = setup.idmap['database01'];
         flattened_permission_ref01_data['msisdn'] = setup.idmap['msisdn01'];
         flattened_permission_ref01_data = (await flattened_permission_ref01_ent.create(flattened_permission_ref01_data)).data();
-        (0, node_assert_1.default)(null != flattened_permission_ref01_data);
+        (0, node_assert_1.default)(null != flattened_permission_ref01_data.id);
         // LIST
         const flattened_permission_ref01_match = {};
         flattened_permission_ref01_match['database_id'] = setup.idmap['database01'];
         const flattened_permission_ref01_list = (await flattened_permission_ref01_ent.list(flattened_permission_ref01_match)).map((e) => e.data());
+        (0, node_assert_1.default)(!isempty(select(flattened_permission_ref01_list, { id: flattened_permission_ref01_data.id })));
+        // LOAD
+        const flattened_permission_ref01_match_dt0 = {};
+        flattened_permission_ref01_match_dt0.id = flattened_permission_ref01_data.id;
+        const flattened_permission_ref01_data_dt0 = (await flattened_permission_ref01_ent.load(flattened_permission_ref01_match_dt0)).data();
+        (0, node_assert_1.default)(flattened_permission_ref01_data_dt0.id === flattened_permission_ref01_data.id);
     });
 });
 function basicSetup(extra) {

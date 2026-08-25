@@ -87,6 +87,7 @@ class FlattenedPermissionEntityTest extends TestCase
         $flattened_permission_ref01_data_result = $flattened_permission_ref01_ent->create($flattened_permission_ref01_data, null);
         $flattened_permission_ref01_data = Helpers::to_map(is_object($flattened_permission_ref01_data_result) && method_exists($flattened_permission_ref01_data_result, 'data_get') ? $flattened_permission_ref01_data_result->data_get() : $flattened_permission_ref01_data_result);
         $this->assertNotNull($flattened_permission_ref01_data);
+        $this->assertNotNull($flattened_permission_ref01_data["id"]);
 
         // LIST
         $flattened_permission_ref01_match = [
@@ -96,10 +97,19 @@ class FlattenedPermissionEntityTest extends TestCase
         $flattened_permission_ref01_list_result = $flattened_permission_ref01_ent->list($flattened_permission_ref01_match, null);
         $this->assertIsArray($flattened_permission_ref01_list_result);
 
+        $found_item = sdk_select(
+            Runner::entity_list_to_data($flattened_permission_ref01_list_result),
+            ["id" => $flattened_permission_ref01_data["id"]]);
+        $this->assertNotEmpty($found_item);
+
         // LOAD
-        $flattened_permission_ref01_match_dt0 = [];
+        $flattened_permission_ref01_match_dt0 = [
+            "id" => $flattened_permission_ref01_data["id"],
+        ];
         $flattened_permission_ref01_data_dt0_loaded = $flattened_permission_ref01_ent->load($flattened_permission_ref01_match_dt0, null);
-        $this->assertNotNull($flattened_permission_ref01_data_dt0_loaded);
+        $flattened_permission_ref01_data_dt0_load_result = Helpers::to_map(is_object($flattened_permission_ref01_data_dt0_loaded) && method_exists($flattened_permission_ref01_data_dt0_loaded, 'data_get') ? $flattened_permission_ref01_data_dt0_loaded->data_get() : $flattened_permission_ref01_data_dt0_loaded);
+        $this->assertNotNull($flattened_permission_ref01_data_dt0_load_result);
+        $this->assertEquals($flattened_permission_ref01_data_dt0_load_result["id"], $flattened_permission_ref01_data["id"]);
 
     }
 }

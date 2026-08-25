@@ -48,9 +48,13 @@ class FlatPermissionEntityTest extends TestCase
 
         // LOAD
         $flat_permission_ref01_ent = $client->FlatPermission(null);
-        $flat_permission_ref01_match_dt0 = [];
+        $flat_permission_ref01_match_dt0 = [
+            "id" => $flat_permission_ref01_data["id"],
+        ];
         $flat_permission_ref01_data_dt0_loaded = $flat_permission_ref01_ent->load($flat_permission_ref01_match_dt0, null);
-        $this->assertNotNull($flat_permission_ref01_data_dt0_loaded);
+        $flat_permission_ref01_data_dt0_load_result = Helpers::to_map(is_object($flat_permission_ref01_data_dt0_loaded) && method_exists($flat_permission_ref01_data_dt0_loaded, 'data_get') ? $flat_permission_ref01_data_dt0_loaded->data_get() : $flat_permission_ref01_data_dt0_loaded);
+        $this->assertNotNull($flat_permission_ref01_data_dt0_load_result);
+        $this->assertEquals($flat_permission_ref01_data_dt0_load_result["id"], $flat_permission_ref01_data["id"]);
 
     }
 }

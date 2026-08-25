@@ -328,6 +328,7 @@ API path: `/public/database/{id}`
 | Field | Description |
 | --- | --- |
 | `empty` |  |
+| `id` |  |
 | `msisdn` |  |
 
 Operations: load.
@@ -340,6 +341,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | --- | --- |
 | `active` | if permission is active in the database |
 | `empty` |  |
+| `id` |  |
 | `msisdn` | phone number |
 | `source` | comma separated list of sources |
 
@@ -369,6 +371,7 @@ API path: `/public/database/{id}/permission/bulk`
 | `contents` | Contains extra info for a field |
 | `created` | created date of the field |
 | `databaseId` | id of the database |
+| `id` |  |
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
@@ -413,6 +416,7 @@ API path: `/public/database/{id}/permission/paged/list`
 | Field | Description |
 | --- | --- |
 | `empty` |  |
+| `id` |  |
 | `msisdn` |  |
 
 Operations: remove, update.
@@ -468,6 +472,7 @@ Create an instance: `const flat_permission = client.FlatPermission()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `empty` | `boolean` |  |
+| `id` | `string` |  |
 | `msisdn` | `string` |  |
 
 #### Example: Load
@@ -495,6 +500,7 @@ Create an instance: `const flattened_permission = client.FlattenedPermission()`
 | --- | --- | --- |
 | `active` | `boolean` | if permission is active in the database |
 | `empty` | `boolean` |  |
+| `id` | `string` |  |
 | `msisdn` | `string` | phone number |
 | `source` | `string` | comma separated list of sources |
 
@@ -577,6 +583,7 @@ Create an instance: `const metadata = client.Metadata()`
 | `contents` | `Record<string, any>` | Contains extra info for a field |
 | `created` | `string` | created date of the field |
 | `databaseId` | `number` | id of the database |
+| `id` | `string` |  |
 | `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | if the field is a multi value field |
@@ -664,6 +671,7 @@ Create an instance: `const permission = client.Permission()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `empty` | `boolean` |  |
+| `id` | `string` |  |
 | `msisdn` | `string` |  |
 
 

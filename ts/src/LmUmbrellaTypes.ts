@@ -14,6 +14,7 @@ export interface DatabaseRemoveMatch {
 
 export interface FlatPermission {
   empty?: boolean
+  id?: string
   msisdn?: string
 }
 
@@ -25,6 +26,7 @@ export interface FlatPermissionLoadMatch {
 export interface FlattenedPermission {
   active?: boolean
   empty?: boolean
+  id?: string
   msisdn?: string
   source?: string
 }
@@ -73,6 +75,7 @@ export interface Metadata {
   contents?: Record<string, any>
   created?: string
   databaseId?: number
+  id?: string
   key?: string
   label?: string
   multiValue?: boolean
@@ -168,6 +171,7 @@ export interface PaginatedPermissionListCreateData {
 
 export interface Permission {
   empty?: boolean
+  id?: string
   msisdn?: string
 }
 

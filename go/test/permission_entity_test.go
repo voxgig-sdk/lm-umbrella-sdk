@@ -63,6 +63,7 @@ func TestPermissionEntity(t *testing.T) {
 		// UPDATE
 		permissionRef01Ent := client.Permission(nil)
 		permissionRef01DataUp0Up := map[string]any{
+			"id": permissionRef01Data["id"],
 			"database_id": setup.idmap["database_id"],
 		}
 
@@ -77,6 +78,9 @@ func TestPermissionEntity(t *testing.T) {
 		permissionRef01ResdataUp0 := core.ToMapAny(entityData(permissionRef01ResdataUp0Result))
 		if permissionRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
+		}
+		if permissionRef01ResdataUp0["id"] != permissionRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
 		}
 		if permissionRef01ResdataUp0[permissionRef01MarkdefUp0Name] != permissionRef01MarkdefUp0Value {
 			t.Fatalf("expected %s to be updated, got %v", permissionRef01MarkdefUp0Name, permissionRef01ResdataUp0[permissionRef01MarkdefUp0Name])

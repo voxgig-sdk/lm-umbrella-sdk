@@ -275,6 +275,7 @@ API path: `/public/database/{id}`
 | Field | Description |
 | --- | --- |
 | `empty` |  |
+| `id` |  |
 | `msisdn` |  |
 
 Operations: Load.
@@ -287,6 +288,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | --- | --- |
 | `active` | if permission is active in the database |
 | `empty` |  |
+| `id` |  |
 | `msisdn` | phone number |
 | `source` | comma separated list of sources |
 
@@ -316,6 +318,7 @@ API path: `/public/database/{id}/permission/bulk`
 | `contents` | Contains extra info for a field |
 | `created` | created date of the field |
 | `databaseId` | id of the database |
+| `id` |  |
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
@@ -360,6 +363,7 @@ API path: `/public/database/{id}/permission/paged/list`
 | Field | Description |
 | --- | --- |
 | `empty` |  |
+| `id` |  |
 | `msisdn` |  |
 
 Operations: Remove, Update.
@@ -415,6 +419,7 @@ Create an instance: `flat_permission = client.FlatPermission()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `empty` | `bool` |  |
+| `id` | `str` |  |
 | `msisdn` | `str` |  |
 
 #### Example: Load
@@ -442,6 +447,7 @@ Create an instance: `flattened_permission = client.FlattenedPermission()`
 | --- | --- | --- |
 | `active` | `bool` | if permission is active in the database |
 | `empty` | `bool` |  |
+| `id` | `str` |  |
 | `msisdn` | `str` | phone number |
 | `source` | `str` | comma separated list of sources |
 
@@ -524,6 +530,7 @@ Create an instance: `metadata = client.Metadata()`
 | `contents` | `dict` | Contains extra info for a field |
 | `created` | `str` | created date of the field |
 | `databaseId` | `int` | id of the database |
+| `id` | `str` |  |
 | `key` | `str` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `str` | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | if the field is a multi value field |
@@ -611,6 +618,7 @@ Create an instance: `permission = client.Permission()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `empty` | `bool` |  |
+| `id` | `str` |  |
 | `msisdn` | `str` |  |
 
 

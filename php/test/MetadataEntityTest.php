@@ -86,6 +86,7 @@ class MetadataEntityTest extends TestCase
         $metadata_ref01_data_result = $metadata_ref01_ent->create($metadata_ref01_data, null);
         $metadata_ref01_data = Helpers::to_map(is_object($metadata_ref01_data_result) && method_exists($metadata_ref01_data_result, 'data_get') ? $metadata_ref01_data_result->data_get() : $metadata_ref01_data_result);
         $this->assertNotNull($metadata_ref01_data);
+        $this->assertNotNull($metadata_ref01_data["id"]);
 
         // LIST
         $metadata_ref01_match = [
@@ -95,8 +96,14 @@ class MetadataEntityTest extends TestCase
         $metadata_ref01_list_result = $metadata_ref01_ent->list($metadata_ref01_match, null);
         $this->assertIsArray($metadata_ref01_list_result);
 
+        $found_item = sdk_select(
+            Runner::entity_list_to_data($metadata_ref01_list_result),
+            ["id" => $metadata_ref01_data["id"]]);
+        $this->assertNotEmpty($found_item);
+
         // UPDATE
         $metadata_ref01_data_up0_up = [
+            "id" => $metadata_ref01_data["id"],
             "database_id" => $setup["idmap"]["database_id"],
         ];
 
@@ -107,12 +114,17 @@ class MetadataEntityTest extends TestCase
         $metadata_ref01_resdata_up0_result = $metadata_ref01_ent->update($metadata_ref01_data_up0_up, null);
         $metadata_ref01_resdata_up0 = Helpers::to_map(is_object($metadata_ref01_resdata_up0_result) && method_exists($metadata_ref01_resdata_up0_result, 'data_get') ? $metadata_ref01_resdata_up0_result->data_get() : $metadata_ref01_resdata_up0_result);
         $this->assertNotNull($metadata_ref01_resdata_up0);
+        $this->assertEquals($metadata_ref01_resdata_up0["id"], $metadata_ref01_data_up0_up["id"]);
         $this->assertEquals($metadata_ref01_resdata_up0[$metadata_ref01_markdef_up0_name], $metadata_ref01_markdef_up0_value);
 
         // LOAD
-        $metadata_ref01_match_dt0 = [];
+        $metadata_ref01_match_dt0 = [
+            "id" => $metadata_ref01_data["id"],
+        ];
         $metadata_ref01_data_dt0_loaded = $metadata_ref01_ent->load($metadata_ref01_match_dt0, null);
-        $this->assertNotNull($metadata_ref01_data_dt0_loaded);
+        $metadata_ref01_data_dt0_load_result = Helpers::to_map(is_object($metadata_ref01_data_dt0_loaded) && method_exists($metadata_ref01_data_dt0_loaded, 'data_get') ? $metadata_ref01_data_dt0_loaded->data_get() : $metadata_ref01_data_dt0_loaded);
+        $this->assertNotNull($metadata_ref01_data_dt0_load_result);
+        $this->assertEquals($metadata_ref01_data_dt0_load_result["id"], $metadata_ref01_data["id"]);
 
     }
 }

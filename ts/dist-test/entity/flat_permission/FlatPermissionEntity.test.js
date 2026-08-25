@@ -72,9 +72,12 @@ const utility_1 = require("../../utility");
         const isempty = struct.isempty;
         const select = struct.select;
         let flat_permission_ref01_data = Object.values(setup.data.existing.flat_permission)[0];
-        // LOAD: skipped — no entity id field and load requires path params.
-        // Entity-var is declared here so later flow steps still compile.
+        // LOAD
         const flat_permission_ref01_ent = client.FlatPermission();
+        const flat_permission_ref01_match_dt0 = {};
+        flat_permission_ref01_match_dt0.id = flat_permission_ref01_data.id;
+        const flat_permission_ref01_data_dt0 = (await flat_permission_ref01_ent.load(flat_permission_ref01_match_dt0)).data();
+        (0, node_assert_1.default)(flat_permission_ref01_data_dt0.id === flat_permission_ref01_data.id);
     });
 });
 function basicSetup(extra) {

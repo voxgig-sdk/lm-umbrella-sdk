@@ -41,9 +41,13 @@ class FlatPermissionEntityTest < Minitest::Test
 
     # LOAD
     flat_permission_ref01_ent = client.FlatPermission(nil)
-    flat_permission_ref01_match_dt0 = {}
+    flat_permission_ref01_match_dt0 = {
+      "id" => flat_permission_ref01_data["id"],
+    }
     flat_permission_ref01_data_dt0_loaded = flat_permission_ref01_ent.load(flat_permission_ref01_match_dt0, nil)
-    assert !flat_permission_ref01_data_dt0_loaded.nil?
+    flat_permission_ref01_data_dt0_load_result = Helpers.to_map(flat_permission_ref01_data_dt0_loaded.respond_to?(:data_get) ? flat_permission_ref01_data_dt0_loaded.data_get : flat_permission_ref01_data_dt0_loaded)
+    assert !flat_permission_ref01_data_dt0_load_result.nil?
+    assert_equal flat_permission_ref01_data_dt0_load_result["id"], flat_permission_ref01_data["id"]
 
   end
 end

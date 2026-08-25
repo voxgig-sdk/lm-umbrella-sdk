@@ -76,6 +76,7 @@ class MetadataEntityTest < Minitest::Test
     metadata_ref01_data_result = metadata_ref01_ent.create(metadata_ref01_data, nil)
     metadata_ref01_data = Helpers.to_map(metadata_ref01_data_result.respond_to?(:data_get) ? metadata_ref01_data_result.data_get : metadata_ref01_data_result)
     assert !metadata_ref01_data.nil?
+    assert !metadata_ref01_data["id"].nil?
 
     # LIST
     metadata_ref01_match = {
@@ -85,8 +86,14 @@ class MetadataEntityTest < Minitest::Test
     metadata_ref01_list_result = metadata_ref01_ent.list(metadata_ref01_match, nil)
     assert metadata_ref01_list_result.is_a?(Array)
 
+    found_item = Vs.select(
+      Runner.entity_list_to_data(metadata_ref01_list_result),
+      { "id" => metadata_ref01_data["id"] })
+    assert !Vs.isempty(found_item)
+
     # UPDATE
     metadata_ref01_data_up0_up = {
+      "id" => metadata_ref01_data["id"],
       "database_id" => setup[:idmap]["database_id"],
     }
 
@@ -97,12 +104,17 @@ class MetadataEntityTest < Minitest::Test
     metadata_ref01_resdata_up0_result = metadata_ref01_ent.update(metadata_ref01_data_up0_up, nil)
     metadata_ref01_resdata_up0 = Helpers.to_map(metadata_ref01_resdata_up0_result.respond_to?(:data_get) ? metadata_ref01_resdata_up0_result.data_get : metadata_ref01_resdata_up0_result)
     assert !metadata_ref01_resdata_up0.nil?
+    assert_equal metadata_ref01_resdata_up0["id"], metadata_ref01_data_up0_up["id"]
     assert_equal metadata_ref01_resdata_up0[metadata_ref01_markdef_up0_name], metadata_ref01_markdef_up0_value
 
     # LOAD
-    metadata_ref01_match_dt0 = {}
+    metadata_ref01_match_dt0 = {
+      "id" => metadata_ref01_data["id"],
+    }
     metadata_ref01_data_dt0_loaded = metadata_ref01_ent.load(metadata_ref01_match_dt0, nil)
-    assert !metadata_ref01_data_dt0_loaded.nil?
+    metadata_ref01_data_dt0_load_result = Helpers.to_map(metadata_ref01_data_dt0_loaded.respond_to?(:data_get) ? metadata_ref01_data_dt0_loaded.data_get : metadata_ref01_data_dt0_loaded)
+    assert !metadata_ref01_data_dt0_load_result.nil?
+    assert_equal metadata_ref01_data_dt0_load_result["id"], metadata_ref01_data["id"]
 
   end
 end

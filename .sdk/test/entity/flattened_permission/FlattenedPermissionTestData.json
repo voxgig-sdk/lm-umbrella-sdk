@@ -4,26 +4,26 @@
       "FLATTENED_PERMISSION00": {
         "active": true,
         "empty": false,
-        "msisdn": "s2a",
-        "source": "s2b",
-        "database_id": "DATABASE01",
-        "id": "FLATTENED_PERMISSION00"
+        "id": "FLATTENED_PERMISSION00",
+        "msisdn": "s35",
+        "source": "s36",
+        "database_id": "DATABASE01"
       },
       "FLATTENED_PERMISSION01": {
         "active": true,
         "empty": false,
-        "msisdn": "s52",
-        "source": "s53",
-        "database_id": "DATABASE01",
-        "id": "FLATTENED_PERMISSION01"
+        "id": "FLATTENED_PERMISSION01",
+        "msisdn": "s67",
+        "source": "s68",
+        "database_id": "DATABASE01"
       },
       "FLATTENED_PERMISSION02": {
         "active": true,
         "empty": false,
-        "msisdn": "s7a",
-        "source": "s7b",
-        "database_id": "DATABASE01",
-        "id": "FLATTENED_PERMISSION02"
+        "id": "FLATTENED_PERMISSION02",
+        "msisdn": "s99",
+        "source": "s9a",
+        "database_id": "DATABASE01"
       }
     }
   },
@@ -32,8 +32,8 @@
       "flattened_permission_ref01": {
         "active": true,
         "empty": false,
-        "msisdn": "sa2",
-        "source": "sa3"
+        "msisdn": "scb",
+        "source": "scc"
       }
     }
   }

@@ -26,10 +26,14 @@ DatabaseRemoveMatch = Struct.new(
 # @!attribute [rw] empty
 #   @return [Boolean, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] msisdn
 #   @return [String, nil]
 FlatPermission = Struct.new(
   :empty,
+  :id,
   :msisdn,
   keyword_init: true
 )
@@ -55,6 +59,9 @@ FlatPermissionLoadMatch = Struct.new(
 # @!attribute [rw] empty
 #   @return [Boolean, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] msisdn
 #   @return [String, nil]
 #
@@ -63,6 +70,7 @@ FlatPermissionLoadMatch = Struct.new(
 FlattenedPermission = Struct.new(
   :active,
   :empty,
+  :id,
   :msisdn,
   :source,
   keyword_init: true
@@ -197,6 +205,9 @@ ImportStatusCreateData = Struct.new(
 # @!attribute [rw] databaseId
 #   @return [Integer, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] key
 #   @return [String, nil]
 #
@@ -227,6 +238,7 @@ Metadata = Struct.new(
   :contents,
   :created,
   :databaseId,
+  :id,
   :key,
   :label,
   :multiValue,
@@ -530,10 +542,14 @@ PaginatedPermissionListCreateData = Struct.new(
 # @!attribute [rw] empty
 #   @return [Boolean, nil]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] msisdn
 #   @return [String, nil]
 Permission = Struct.new(
   :empty,
+  :id,
   :msisdn,
   keyword_init: true
 )

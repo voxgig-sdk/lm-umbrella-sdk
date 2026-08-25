@@ -113,6 +113,10 @@ class Config {
                     "type": "`$BOOLEAN`"
                 },
                 {
+                    "name": "id",
+                    "type": "`$STRING`"
+                },
+                {
                     "name": "msisdn",
                     "type": "`$STRING`"
                 }
@@ -199,6 +203,10 @@ class Config {
                 {
                     "name": "empty",
                     "type": "`$BOOLEAN`"
+                },
+                {
+                    "name": "id",
+                    "type": "`$STRING`"
                 },
                 {
                     "name": "msisdn",
@@ -557,6 +565,10 @@ class Config {
                     "name": "databaseId",
                     "short": "id of the database",
                     "type": "`$INTEGER`"
+                },
+                {
+                    "name": "id",
+                    "type": "`$STRING`"
                 },
                 {
                     "name": "key",
@@ -1037,6 +1049,10 @@ class Config {
                 {
                     "name": "empty",
                     "type": "`$BOOLEAN`"
+                },
+                {
+                    "name": "id",
+                    "type": "`$STRING`"
                 },
                 {
                     "name": "msisdn",

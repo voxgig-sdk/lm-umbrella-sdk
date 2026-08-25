@@ -65,7 +65,7 @@ describe('FlattenedPermissionEntity', async () => {
     flattened_permission_ref01_data['msisdn'] = setup.idmap['msisdn01']
 
     flattened_permission_ref01_data = (await flattened_permission_ref01_ent.create(flattened_permission_ref01_data)).data()
-    assert(null != flattened_permission_ref01_data)
+    assert(null != flattened_permission_ref01_data.id)
 
 
     // LIST
@@ -74,6 +74,14 @@ describe('FlattenedPermissionEntity', async () => {
 
     const flattened_permission_ref01_list = (await flattened_permission_ref01_ent.list(flattened_permission_ref01_match)).map((e: any) => e.data())
 
+    assert(!isempty(select(flattened_permission_ref01_list, { id: flattened_permission_ref01_data.id })))
+
+
+    // LOAD
+    const flattened_permission_ref01_match_dt0: any = {}
+    flattened_permission_ref01_match_dt0.id = flattened_permission_ref01_data.id
+    const flattened_permission_ref01_data_dt0 = (await flattened_permission_ref01_ent.load(flattened_permission_ref01_match_dt0)).data()
+    assert(flattened_permission_ref01_data_dt0.id === flattened_permission_ref01_data.id)
 
 
   })

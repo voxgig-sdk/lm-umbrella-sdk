@@ -166,6 +166,7 @@ local flat_permission = client:FlatPermission(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `boolean` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No |  |
 
 ### Operations
@@ -220,6 +221,7 @@ local flattened_permission = client:FlattenedPermission(nil)
 | --- | --- | --- | --- |
 | `active` | `boolean` | No | if permission is active in the database |
 | `empty` | `boolean` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No | phone number |
 | `source` | `string` | No | comma separated list of sources |
 
@@ -362,6 +364,7 @@ local metadata = client:Metadata(nil)
 | `contents` | `table` | No | Contains extra info for a field |
 | `created` | `string` | No | created date of the field |
 | `databaseId` | `number` | No | id of the database |
+| `id` | `string` | No |  |
 | `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | No | if the field is a multi value field |
@@ -522,6 +525,7 @@ local permission = client:Permission(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `boolean` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No |  |
 
 ### Operations

@@ -81,6 +81,7 @@ class TestMetadataEntity:
 
         metadata_ref01_data = helpers.to_map(runner.entity_data(metadata_ref01_ent.create(metadata_ref01_data, None)))
         assert metadata_ref01_data is not None
+        assert metadata_ref01_data["id"] is not None
 
         # LIST
         metadata_ref01_match = {
@@ -90,8 +91,14 @@ class TestMetadataEntity:
         metadata_ref01_list_result = metadata_ref01_ent.list(metadata_ref01_match, None)
         assert isinstance(metadata_ref01_list_result, list)
 
+        found_item = vs.select(
+            runner.entity_list_to_data(metadata_ref01_list_result),
+            {"id": metadata_ref01_data["id"]})
+        assert not vs.isempty(found_item)
+
         # UPDATE
         metadata_ref01_data_up0_up = {
+            "id": metadata_ref01_data["id"],
             "database_id": setup["idmap"]["database_id"],
         }
 
@@ -101,12 +108,17 @@ class TestMetadataEntity:
 
         metadata_ref01_resdata_up0 = helpers.to_map(runner.entity_data(metadata_ref01_ent.update(metadata_ref01_data_up0_up, None)))
         assert metadata_ref01_resdata_up0 is not None
+        assert metadata_ref01_resdata_up0["id"] == metadata_ref01_data_up0_up["id"]
         assert metadata_ref01_resdata_up0[metadata_ref01_markdef_up0_name] == metadata_ref01_markdef_up0_value
 
         # LOAD
-        metadata_ref01_match_dt0 = {}
+        metadata_ref01_match_dt0 = {
+            "id": metadata_ref01_data["id"],
+        }
         metadata_ref01_data_dt0_loaded = metadata_ref01_ent.load(metadata_ref01_match_dt0, None)
-        assert metadata_ref01_data_dt0_loaded is not None
+        metadata_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(metadata_ref01_data_dt0_loaded))
+        assert metadata_ref01_data_dt0_load_result is not None
+        assert metadata_ref01_data_dt0_load_result["id"] == metadata_ref01_data["id"]
 
 
 

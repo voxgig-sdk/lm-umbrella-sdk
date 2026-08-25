@@ -112,6 +112,9 @@ func TestMetadataEntity(t *testing.T) {
 		if metadataRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
+		if metadataRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LIST
 		metadataRef01Match := map[string]any{
@@ -122,13 +125,19 @@ func TestMetadataEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		_, metadataRef01ListOk := metadataRef01ListResult.([]any)
+		metadataRef01List, metadataRef01ListOk := metadataRef01ListResult.([]any)
 		if !metadataRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", metadataRef01ListResult)
 		}
 
+		foundItem := vs.Select(entityListToData(metadataRef01List), map[string]any{"id": metadataRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
+		}
+
 		// UPDATE
 		metadataRef01DataUp0Up := map[string]any{
+			"id": metadataRef01Data["id"],
 			"database_id": setup.idmap["database_id"],
 		}
 
@@ -144,18 +153,27 @@ func TestMetadataEntity(t *testing.T) {
 		if metadataRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
+		if metadataRef01ResdataUp0["id"] != metadataRef01DataUp0Up["id"] {
+			t.Fatal("expected update result id to match")
+		}
 		if metadataRef01ResdataUp0[metadataRef01MarkdefUp0Name] != metadataRef01MarkdefUp0Value {
 			t.Fatalf("expected %s to be updated, got %v", metadataRef01MarkdefUp0Name, metadataRef01ResdataUp0[metadataRef01MarkdefUp0Name])
 		}
 
 		// LOAD
-		metadataRef01MatchDt0 := map[string]any{}
+		metadataRef01MatchDt0 := map[string]any{
+			"id": metadataRef01Data["id"],
+		}
 		metadataRef01DataDt0Loaded, err := metadataRef01Ent.Load(metadataRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if metadataRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		metadataRef01DataDt0LoadResult := core.ToMapAny(entityData(metadataRef01DataDt0Loaded))
+		if metadataRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if metadataRef01DataDt0LoadResult["id"] != metadataRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

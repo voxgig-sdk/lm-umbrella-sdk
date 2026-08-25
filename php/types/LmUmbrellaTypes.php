@@ -27,6 +27,7 @@ class DatabaseRemoveMatch
 class FlatPermission
 {
     public ?bool $empty = null;
+    public ?string $id = null;
     public ?string $msisdn = null;
 }
 
@@ -42,6 +43,7 @@ class FlattenedPermission
 {
     public ?bool $active = null;
     public ?bool $empty = null;
+    public ?string $id = null;
     public ?string $msisdn = null;
     public ?string $source = null;
 }
@@ -104,6 +106,7 @@ class Metadata
     public ?array $contents = null;
     public ?string $created = null;
     public ?int $databaseId = null;
+    public ?string $id = null;
     public ?string $key = null;
     public ?string $label = null;
     public ?bool $multiValue = null;
@@ -213,6 +216,7 @@ class PaginatedPermissionListCreateData
 class Permission
 {
     public ?bool $empty = null;
+    public ?string $id = null;
     public ?string $msisdn = null;
 }
 

@@ -86,6 +86,7 @@ describe("FlattenedPermissionEntity", function()
     assert.is_nil(err)
     flattened_permission_ref01_data = helpers.to_map(type(flattened_permission_ref01_data_result) == 'table' and flattened_permission_ref01_data_result.data_get and flattened_permission_ref01_data_result:data_get() or flattened_permission_ref01_data_result)
     assert.is_not_nil(flattened_permission_ref01_data)
+    assert.is_not_nil(flattened_permission_ref01_data["id"])
 
     -- LIST
     local flattened_permission_ref01_match = {
@@ -96,11 +97,20 @@ describe("FlattenedPermissionEntity", function()
     assert.is_nil(err)
     assert.is_table(flattened_permission_ref01_list_result)
 
+    local found_item = vs.select(
+      runner.entity_list_to_data(flattened_permission_ref01_list_result),
+      { id = flattened_permission_ref01_data["id"] })
+    assert.is_false(vs.isempty(found_item))
+
     -- LOAD
-    local flattened_permission_ref01_match_dt0 = {}
+    local flattened_permission_ref01_match_dt0 = {
+      id = flattened_permission_ref01_data["id"],
+    }
     local flattened_permission_ref01_data_dt0_loaded, err = flattened_permission_ref01_ent:load(flattened_permission_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(flattened_permission_ref01_data_dt0_loaded)
+    local flattened_permission_ref01_data_dt0_load_result = helpers.to_map(type(flattened_permission_ref01_data_dt0_loaded) == 'table' and flattened_permission_ref01_data_dt0_loaded.data_get and flattened_permission_ref01_data_dt0_loaded:data_get() or flattened_permission_ref01_data_dt0_loaded)
+    assert.is_not_nil(flattened_permission_ref01_data_dt0_load_result)
+    assert.are.equal(flattened_permission_ref01_data_dt0_load_result["id"], flattened_permission_ref01_data["id"])
 
   end)
 end)

@@ -349,11 +349,15 @@ declare class Config {
             };
         };
         metadata: {
-            fields: {
+            fields: ({
                 name: string;
                 short: string;
                 type: string;
-            }[];
+            } | {
+                name: string;
+                type: string;
+                short?: undefined;
+            })[];
             name: string;
             op: {
                 create: {

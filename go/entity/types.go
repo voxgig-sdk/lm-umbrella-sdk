@@ -24,6 +24,7 @@ type DatabaseRemoveMatch struct {
 // FlatPermission is the typed data model for the flat_permission entity.
 type FlatPermission struct {
 	Empty *bool `json:"empty,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
 }
 
@@ -37,6 +38,7 @@ type FlatPermissionLoadMatch struct {
 type FlattenedPermission struct {
 	Active *bool `json:"active,omitempty"`
 	Empty *bool `json:"empty,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
 	Source *string `json:"source,omitempty"`
 }
@@ -92,6 +94,7 @@ type Metadata struct {
 	Contents *map[string]any `json:"contents,omitempty"`
 	Created *string `json:"created,omitempty"`
 	DatabaseId *int `json:"databaseId,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Key *string `json:"key,omitempty"`
 	Label *string `json:"label,omitempty"`
 	MultiValue *bool `json:"multiValue,omitempty"`
@@ -194,6 +197,7 @@ type PaginatedPermissionListCreateData struct {
 // Permission is the typed data model for the permission entity.
 type Permission struct {
 	Empty *bool `json:"empty,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
 }
 

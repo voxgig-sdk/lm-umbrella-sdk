@@ -260,6 +260,7 @@ API path: `/public/database/{id}`
 | Field | Description |
 | --- | --- |
 | `empty` |  |
+| `id` |  |
 | `msisdn` |  |
 
 Operations: Load.
@@ -272,6 +273,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | --- | --- |
 | `active` | if permission is active in the database |
 | `empty` |  |
+| `id` |  |
 | `msisdn` | phone number |
 | `source` | comma separated list of sources |
 
@@ -301,6 +303,7 @@ API path: `/public/database/{id}/permission/bulk`
 | `contents` | Contains extra info for a field |
 | `created` | created date of the field |
 | `databaseId` | id of the database |
+| `id` |  |
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
@@ -345,6 +348,7 @@ API path: `/public/database/{id}/permission/paged/list`
 | Field | Description |
 | --- | --- |
 | `empty` |  |
+| `id` |  |
 | `msisdn` |  |
 
 Operations: Remove, Update.
@@ -400,6 +404,7 @@ Create an instance: `local flat_permission = client:FlatPermission(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `empty` | `boolean` |  |
+| `id` | `string` |  |
 | `msisdn` | `string` |  |
 
 #### Example: Load
@@ -427,6 +432,7 @@ Create an instance: `local flattened_permission = client:FlattenedPermission(nil
 | --- | --- | --- |
 | `active` | `boolean` | if permission is active in the database |
 | `empty` | `boolean` |  |
+| `id` | `string` |  |
 | `msisdn` | `string` | phone number |
 | `source` | `string` | comma separated list of sources |
 
@@ -509,6 +515,7 @@ Create an instance: `local metadata = client:Metadata(nil)`
 | `contents` | `table` | Contains extra info for a field |
 | `created` | `string` | created date of the field |
 | `databaseId` | `number` | id of the database |
+| `id` | `string` |  |
 | `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | if the field is a multi value field |
@@ -596,6 +603,7 @@ Create an instance: `local permission = client:Permission(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `empty` | `boolean` |  |
+| `id` | `string` |  |
 | `msisdn` | `string` |  |
 
 

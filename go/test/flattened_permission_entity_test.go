@@ -112,6 +112,9 @@ func TestFlattenedPermissionEntity(t *testing.T) {
 		if flattenedPermissionRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
+		if flattenedPermissionRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LIST
 		flattenedPermissionRef01Match := map[string]any{
@@ -122,19 +125,30 @@ func TestFlattenedPermissionEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("list failed: %v", err)
 		}
-		_, flattenedPermissionRef01ListOk := flattenedPermissionRef01ListResult.([]any)
+		flattenedPermissionRef01List, flattenedPermissionRef01ListOk := flattenedPermissionRef01ListResult.([]any)
 		if !flattenedPermissionRef01ListOk {
 			t.Fatalf("expected list result to be an array, got %T", flattenedPermissionRef01ListResult)
 		}
 
+		foundItem := vs.Select(entityListToData(flattenedPermissionRef01List), map[string]any{"id": flattenedPermissionRef01Data["id"]})
+		if vs.IsEmpty(foundItem) {
+			t.Fatal("expected to find created entity in list")
+		}
+
 		// LOAD
-		flattenedPermissionRef01MatchDt0 := map[string]any{}
+		flattenedPermissionRef01MatchDt0 := map[string]any{
+			"id": flattenedPermissionRef01Data["id"],
+		}
 		flattenedPermissionRef01DataDt0Loaded, err := flattenedPermissionRef01Ent.Load(flattenedPermissionRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if flattenedPermissionRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		flattenedPermissionRef01DataDt0LoadResult := core.ToMapAny(entityData(flattenedPermissionRef01DataDt0Loaded))
+		if flattenedPermissionRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if flattenedPermissionRef01DataDt0LoadResult["id"] != flattenedPermissionRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

@@ -100,6 +100,10 @@ local function make_config()
             ["type"] = "`$BOOLEAN`",
           },
           {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+          {
             ["name"] = "msisdn",
             ["type"] = "`$STRING`",
           },
@@ -186,6 +190,10 @@ local function make_config()
           {
             ["name"] = "empty",
             ["type"] = "`$BOOLEAN`",
+          },
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "msisdn",
@@ -544,6 +552,10 @@ local function make_config()
             ["name"] = "databaseId",
             ["short"] = "id of the database",
             ["type"] = "`$INTEGER`",
+          },
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "key",
@@ -1024,6 +1036,10 @@ local function make_config()
           {
             ["name"] = "empty",
             ["type"] = "`$BOOLEAN`",
+          },
+          {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "msisdn",

@@ -61,13 +61,19 @@ func TestFlatPermissionEntity(t *testing.T) {
 
 		// LOAD
 		flatPermissionRef01Ent := client.FlatPermission(nil)
-		flatPermissionRef01MatchDt0 := map[string]any{}
+		flatPermissionRef01MatchDt0 := map[string]any{
+			"id": flatPermissionRef01Data["id"],
+		}
 		flatPermissionRef01DataDt0Loaded, err := flatPermissionRef01Ent.Load(flatPermissionRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if flatPermissionRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		flatPermissionRef01DataDt0LoadResult := core.ToMapAny(entityData(flatPermissionRef01DataDt0Loaded))
+		if flatPermissionRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if flatPermissionRef01DataDt0LoadResult["id"] != flatPermissionRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

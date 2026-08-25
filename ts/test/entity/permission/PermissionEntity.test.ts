@@ -62,13 +62,14 @@ describe('PermissionEntity', async () => {
     // UPDATE
     const permission_ref01_ent = client.Permission()
     const permission_ref01_data_up0: any = {}
+    permission_ref01_data_up0.id = permission_ref01_data.id
     permission_ref01_data_up0 ['database_id'] = setup.idmap['database_id']
 
     const permission_ref01_markdef_up0 = { name: 'msisdn', value: 'Mark01-permission_ref01_' + setup.now }
     ;(permission_ref01_data_up0 as any)[permission_ref01_markdef_up0.name] = permission_ref01_markdef_up0.value
 
     const permission_ref01_resdata_up0 = (await permission_ref01_ent.update(permission_ref01_data_up0)).data()
-    assert(null != permission_ref01_resdata_up0)
+    assert(permission_ref01_resdata_up0.id === permission_ref01_data_up0.id)
 
     assert((permission_ref01_resdata_up0 as any)[permission_ref01_markdef_up0.name] === permission_ref01_markdef_up0.value)
 

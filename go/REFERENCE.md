@@ -173,6 +173,7 @@ fmt.Println(flatPermission.GetName()) // "flat_permission"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `bool` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No |  |
 
 ### Operations
@@ -226,6 +227,7 @@ fmt.Println(flattenedPermission.GetName()) // "flattened_permission"
 | --- | --- | --- | --- |
 | `active` | `bool` | No | if permission is active in the database |
 | `empty` | `bool` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No | phone number |
 | `source` | `string` | No | comma separated list of sources |
 
@@ -378,6 +380,7 @@ fmt.Println(metadata.GetName()) // "metadata"
 | `contents` | `map[string]any` | No | Contains extra info for a field |
 | `created` | `string` | No | created date of the field |
 | `databaseId` | `int` | No | id of the database |
+| `id` | `string` | No |  |
 | `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | No | if the field is a multi value field |
@@ -548,6 +551,7 @@ fmt.Println(permission.GetName()) // "permission"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `bool` | No |  |
+| `id` | `string` | No |  |
 | `msisdn` | `string` | No |  |
 
 ### Operations

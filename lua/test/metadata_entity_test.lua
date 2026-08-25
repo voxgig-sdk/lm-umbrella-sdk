@@ -85,6 +85,7 @@ describe("MetadataEntity", function()
     assert.is_nil(err)
     metadata_ref01_data = helpers.to_map(type(metadata_ref01_data_result) == 'table' and metadata_ref01_data_result.data_get and metadata_ref01_data_result:data_get() or metadata_ref01_data_result)
     assert.is_not_nil(metadata_ref01_data)
+    assert.is_not_nil(metadata_ref01_data["id"])
 
     -- LIST
     local metadata_ref01_match = {
@@ -95,8 +96,14 @@ describe("MetadataEntity", function()
     assert.is_nil(err)
     assert.is_table(metadata_ref01_list_result)
 
+    local found_item = vs.select(
+      runner.entity_list_to_data(metadata_ref01_list_result),
+      { id = metadata_ref01_data["id"] })
+    assert.is_false(vs.isempty(found_item))
+
     -- UPDATE
     local metadata_ref01_data_up0_up = {
+      id = metadata_ref01_data["id"],
       ["database_id"] = setup.idmap["database_id"],
     }
 
@@ -108,13 +115,18 @@ describe("MetadataEntity", function()
     assert.is_nil(err)
     local metadata_ref01_resdata_up0 = helpers.to_map(type(metadata_ref01_resdata_up0_result) == 'table' and metadata_ref01_resdata_up0_result.data_get and metadata_ref01_resdata_up0_result:data_get() or metadata_ref01_resdata_up0_result)
     assert.is_not_nil(metadata_ref01_resdata_up0)
+    assert.are.equal(metadata_ref01_resdata_up0["id"], metadata_ref01_data_up0_up["id"])
     assert.are.equal(metadata_ref01_resdata_up0[metadata_ref01_markdef_up0_name], metadata_ref01_markdef_up0_value)
 
     -- LOAD
-    local metadata_ref01_match_dt0 = {}
+    local metadata_ref01_match_dt0 = {
+      id = metadata_ref01_data["id"],
+    }
     local metadata_ref01_data_dt0_loaded, err = metadata_ref01_ent:load(metadata_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(metadata_ref01_data_dt0_loaded)
+    local metadata_ref01_data_dt0_load_result = helpers.to_map(type(metadata_ref01_data_dt0_loaded) == 'table' and metadata_ref01_data_dt0_loaded.data_get and metadata_ref01_data_dt0_loaded:data_get() or metadata_ref01_data_dt0_loaded)
+    assert.is_not_nil(metadata_ref01_data_dt0_load_result)
+    assert.are.equal(metadata_ref01_data_dt0_load_result["id"], metadata_ref01_data["id"])
 
   end)
 end)

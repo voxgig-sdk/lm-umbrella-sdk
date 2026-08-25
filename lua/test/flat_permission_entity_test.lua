@@ -44,10 +44,14 @@ describe("FlatPermissionEntity", function()
 
     -- LOAD
     local flat_permission_ref01_ent = client:FlatPermission(nil)
-    local flat_permission_ref01_match_dt0 = {}
+    local flat_permission_ref01_match_dt0 = {
+      id = flat_permission_ref01_data["id"],
+    }
     local flat_permission_ref01_data_dt0_loaded, err = flat_permission_ref01_ent:load(flat_permission_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(flat_permission_ref01_data_dt0_loaded)
+    local flat_permission_ref01_data_dt0_load_result = helpers.to_map(type(flat_permission_ref01_data_dt0_loaded) == 'table' and flat_permission_ref01_data_dt0_loaded.data_get and flat_permission_ref01_data_dt0_loaded:data_get() or flat_permission_ref01_data_dt0_loaded)
+    assert.is_not_nil(flat_permission_ref01_data_dt0_load_result)
+    assert.are.equal(flat_permission_ref01_data_dt0_load_result["id"], flat_permission_ref01_data["id"])
 
   end)
 end)

@@ -82,6 +82,7 @@ class TestFlattenedPermissionEntity:
 
         flattened_permission_ref01_data = helpers.to_map(runner.entity_data(flattened_permission_ref01_ent.create(flattened_permission_ref01_data, None)))
         assert flattened_permission_ref01_data is not None
+        assert flattened_permission_ref01_data["id"] is not None
 
         # LIST
         flattened_permission_ref01_match = {
@@ -91,10 +92,19 @@ class TestFlattenedPermissionEntity:
         flattened_permission_ref01_list_result = flattened_permission_ref01_ent.list(flattened_permission_ref01_match, None)
         assert isinstance(flattened_permission_ref01_list_result, list)
 
+        found_item = vs.select(
+            runner.entity_list_to_data(flattened_permission_ref01_list_result),
+            {"id": flattened_permission_ref01_data["id"]})
+        assert not vs.isempty(found_item)
+
         # LOAD
-        flattened_permission_ref01_match_dt0 = {}
+        flattened_permission_ref01_match_dt0 = {
+            "id": flattened_permission_ref01_data["id"],
+        }
         flattened_permission_ref01_data_dt0_loaded = flattened_permission_ref01_ent.load(flattened_permission_ref01_match_dt0, None)
-        assert flattened_permission_ref01_data_dt0_loaded is not None
+        flattened_permission_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(flattened_permission_ref01_data_dt0_loaded))
+        assert flattened_permission_ref01_data_dt0_load_result is not None
+        assert flattened_permission_ref01_data_dt0_load_result["id"] == flattened_permission_ref01_data["id"]
 
 
 

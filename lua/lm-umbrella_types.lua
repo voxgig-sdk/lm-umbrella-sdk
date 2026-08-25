@@ -13,6 +13,7 @@
 
 ---@class FlatPermission
 ---@field empty? boolean
+---@field id? string
 ---@field msisdn? string
 
 ---@class FlatPermissionLoadMatch
@@ -22,6 +23,7 @@
 ---@class FlattenedPermission
 ---@field active? boolean
 ---@field empty? boolean
+---@field id? string
 ---@field msisdn? string
 ---@field source? string
 
@@ -63,6 +65,7 @@
 ---@field contents? table
 ---@field created? string
 ---@field databaseId? number
+---@field id? string
 ---@field key? string
 ---@field label? string
 ---@field multiValue? boolean
@@ -151,6 +154,7 @@
 
 ---@class Permission
 ---@field empty? boolean
+---@field id? string
 ---@field msisdn? string
 
 ---@class PermissionUpdateData

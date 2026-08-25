@@ -59,9 +59,12 @@ describe('FlatPermissionEntity', async () => {
 
     let flat_permission_ref01_data = Object.values(setup.data.existing.flat_permission)[0] as any
 
-    // LOAD: skipped — no entity id field and load requires path params.
-    // Entity-var is declared here so later flow steps still compile.
+    // LOAD
     const flat_permission_ref01_ent = client.FlatPermission()
+    const flat_permission_ref01_match_dt0: any = {}
+    flat_permission_ref01_match_dt0.id = flat_permission_ref01_data.id
+    const flat_permission_ref01_data_dt0 = (await flat_permission_ref01_ent.load(flat_permission_ref01_match_dt0)).data()
+    assert(flat_permission_ref01_data_dt0.id === flat_permission_ref01_data.id)
 
 
   })

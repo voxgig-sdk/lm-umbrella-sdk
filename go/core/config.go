@@ -104,6 +104,10 @@ func MakeConfig() map[string]any {
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
+					},
+					map[string]any{
 						"name": "msisdn",
 						"type": "`$STRING`",
 					},
@@ -190,6 +194,10 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "empty",
 						"type": "`$BOOLEAN`",
+					},
+					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "msisdn",
@@ -548,6 +556,10 @@ func MakeConfig() map[string]any {
 						"name": "databaseId",
 						"short": "id of the database",
 						"type": "`$INTEGER`",
+					},
+					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "key",
@@ -1028,6 +1040,10 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "empty",
 						"type": "`$BOOLEAN`",
+					},
+					map[string]any{
+						"name": "id",
+						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "msisdn",

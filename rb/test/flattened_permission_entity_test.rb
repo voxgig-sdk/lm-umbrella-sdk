@@ -77,6 +77,7 @@ class FlattenedPermissionEntityTest < Minitest::Test
     flattened_permission_ref01_data_result = flattened_permission_ref01_ent.create(flattened_permission_ref01_data, nil)
     flattened_permission_ref01_data = Helpers.to_map(flattened_permission_ref01_data_result.respond_to?(:data_get) ? flattened_permission_ref01_data_result.data_get : flattened_permission_ref01_data_result)
     assert !flattened_permission_ref01_data.nil?
+    assert !flattened_permission_ref01_data["id"].nil?
 
     # LIST
     flattened_permission_ref01_match = {
@@ -86,10 +87,19 @@ class FlattenedPermissionEntityTest < Minitest::Test
     flattened_permission_ref01_list_result = flattened_permission_ref01_ent.list(flattened_permission_ref01_match, nil)
     assert flattened_permission_ref01_list_result.is_a?(Array)
 
+    found_item = Vs.select(
+      Runner.entity_list_to_data(flattened_permission_ref01_list_result),
+      { "id" => flattened_permission_ref01_data["id"] })
+    assert !Vs.isempty(found_item)
+
     # LOAD
-    flattened_permission_ref01_match_dt0 = {}
+    flattened_permission_ref01_match_dt0 = {
+      "id" => flattened_permission_ref01_data["id"],
+    }
     flattened_permission_ref01_data_dt0_loaded = flattened_permission_ref01_ent.load(flattened_permission_ref01_match_dt0, nil)
-    assert !flattened_permission_ref01_data_dt0_loaded.nil?
+    flattened_permission_ref01_data_dt0_load_result = Helpers.to_map(flattened_permission_ref01_data_dt0_loaded.respond_to?(:data_get) ? flattened_permission_ref01_data_dt0_loaded.data_get : flattened_permission_ref01_data_dt0_loaded)
+    assert !flattened_permission_ref01_data_dt0_load_result.nil?
+    assert_equal flattened_permission_ref01_data_dt0_load_result["id"], flattened_permission_ref01_data["id"]
 
   end
 end

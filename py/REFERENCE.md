@@ -162,6 +162,7 @@ flat_permission = client.FlatPermission()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `bool` | No |  |
+| `id` | `str` | No |  |
 | `msisdn` | `str` | No |  |
 
 ### Operations
@@ -215,6 +216,7 @@ flattened_permission = client.FlattenedPermission()
 | --- | --- | --- | --- |
 | `active` | `bool` | No | if permission is active in the database |
 | `empty` | `bool` | No |  |
+| `id` | `str` | No |  |
 | `msisdn` | `str` | No | phone number |
 | `source` | `str` | No | comma separated list of sources |
 
@@ -359,6 +361,7 @@ metadata = client.Metadata()
 | `contents` | `dict` | No | Contains extra info for a field |
 | `created` | `str` | No | created date of the field |
 | `databaseId` | `int` | No | id of the database |
+| `id` | `str` | No |  |
 | `key` | `str` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `str` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | No | if the field is a multi value field |
@@ -519,6 +522,7 @@ permission = client.Permission()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `empty` | `bool` | No |  |
+| `id` | `str` | No |  |
 | `msisdn` | `str` | No |  |
 
 ### Operations

@@ -76,19 +76,26 @@ const utility_1 = require("../../utility");
         let metadata_ref01_data = setup.data.new.metadata['metadata_ref01'];
         metadata_ref01_data['database_id'] = setup.idmap['database01'];
         metadata_ref01_data = (await metadata_ref01_ent.create(metadata_ref01_data)).data();
-        (0, node_assert_1.default)(null != metadata_ref01_data);
+        (0, node_assert_1.default)(null != metadata_ref01_data.id);
         // LIST
         const metadata_ref01_match = {};
         metadata_ref01_match['database_id'] = setup.idmap['database01'];
         const metadata_ref01_list = (await metadata_ref01_ent.list(metadata_ref01_match)).map((e) => e.data());
+        (0, node_assert_1.default)(!isempty(select(metadata_ref01_list, { id: metadata_ref01_data.id })));
         // UPDATE
         const metadata_ref01_data_up0 = {};
+        metadata_ref01_data_up0.id = metadata_ref01_data.id;
         metadata_ref01_data_up0['database_id'] = setup.idmap['database_id'];
         const metadata_ref01_markdef_up0 = { name: 'created', value: 'Mark01-metadata_ref01_' + setup.now };
         metadata_ref01_data_up0[metadata_ref01_markdef_up0.name] = metadata_ref01_markdef_up0.value;
         const metadata_ref01_resdata_up0 = (await metadata_ref01_ent.update(metadata_ref01_data_up0)).data();
-        (0, node_assert_1.default)(null != metadata_ref01_resdata_up0);
+        (0, node_assert_1.default)(metadata_ref01_resdata_up0.id === metadata_ref01_data_up0.id);
         (0, node_assert_1.default)(metadata_ref01_resdata_up0[metadata_ref01_markdef_up0.name] === metadata_ref01_markdef_up0.value);
+        // LOAD
+        const metadata_ref01_match_dt0 = {};
+        metadata_ref01_match_dt0.id = metadata_ref01_data.id;
+        const metadata_ref01_data_dt0 = (await metadata_ref01_ent.load(metadata_ref01_match_dt0)).data();
+        (0, node_assert_1.default)(metadata_ref01_data_dt0.id === metadata_ref01_data.id);
     });
 });
 function basicSetup(extra) {

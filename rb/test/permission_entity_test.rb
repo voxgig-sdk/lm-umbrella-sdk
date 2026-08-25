@@ -42,6 +42,7 @@ class PermissionEntityTest < Minitest::Test
     # UPDATE
     permission_ref01_ent = client.Permission(nil)
     permission_ref01_data_up0_up = {
+      "id" => permission_ref01_data["id"],
       "database_id" => setup[:idmap]["database_id"],
     }
 
@@ -52,6 +53,7 @@ class PermissionEntityTest < Minitest::Test
     permission_ref01_resdata_up0_result = permission_ref01_ent.update(permission_ref01_data_up0_up, nil)
     permission_ref01_resdata_up0 = Helpers.to_map(permission_ref01_resdata_up0_result.respond_to?(:data_get) ? permission_ref01_resdata_up0_result.data_get : permission_ref01_resdata_up0_result)
     assert !permission_ref01_resdata_up0.nil?
+    assert_equal permission_ref01_resdata_up0["id"], permission_ref01_data_up0_up["id"]
     assert_equal permission_ref01_resdata_up0[permission_ref01_markdef_up0_name], permission_ref01_markdef_up0_value
 
   end
