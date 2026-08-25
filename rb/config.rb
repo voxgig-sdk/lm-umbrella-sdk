@@ -28,6 +28,7 @@ module LmUmbrellaConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
