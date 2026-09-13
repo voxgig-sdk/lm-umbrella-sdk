@@ -23,12 +23,14 @@ main: kit: entity: import_status: {
       type: "`$STRING`"
     }
     {
+      format: "int32"
       name: "permissionsInserted"
       req: false
       short: "Number of permissions inserted into database"
       type: "`$INTEGER`"
     }
     {
+      format: "int32"
       name: "permissionsUpdated"
       req: false
       short: "Number of permissions updated in database"
@@ -78,18 +80,28 @@ main: kit: entity: import_status: {
           }
           method: "POST"
           orig: "/public/database/{id}/permission/bulk"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "bulk"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "bulk"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -137,19 +149,31 @@ main: kit: entity: import_status: {
           }
           method: "GET"
           orig: "/public/database/{id}/permission/bulk/status"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "bulk"
-            "status"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "bulk"
+            }
+            {
+              lit: "status"
+            }
+          ]
           select: {
             exist: [
               "api_key"

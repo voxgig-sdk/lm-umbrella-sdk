@@ -10,6 +10,7 @@
 
 ---@class DatabaseRemoveMatch
 ---@field database_id number
+---@field api_key? string
 
 ---@class FlatPermission
 ---@field empty? boolean
@@ -19,6 +20,7 @@
 ---@class FlatPermissionLoadMatch
 ---@field database_id number
 ---@field id string
+---@field api_key? string
 
 ---@class FlattenedPermission
 ---@field active? boolean
@@ -32,10 +34,12 @@
 
 ---@class FlattenedPermissionListMatch
 ---@field database_id number
+---@field api_key? string
 
 ---@class FlattenedPermissionCreateData
 ---@field database_id number
 ---@field id string
+---@field api_key? string
 ---@field active? boolean
 ---@field empty? boolean
 ---@field msisdn? string
@@ -51,9 +55,13 @@
 
 ---@class ImportStatusListMatch
 ---@field database_id number
+---@field api_key? string
+---@field import_id? string
 
 ---@class ImportStatusCreateData
 ---@field database_id number
+---@field api_key? string
+---@field skip_import_on_error? boolean
 ---@field errors? table
 ---@field importId? string
 ---@field msisdn? string
@@ -79,13 +87,16 @@
 ---@class MetadataLoadMatch
 ---@field database_id number
 ---@field id string
+---@field api_key? string
 
 ---@class MetadataListMatch
 ---@field database_id number
+---@field api_key? string
 
 ---@class MetadataCreateData
 ---@field database_id number
 ---@field id? string
+---@field api_key? string
 ---@field contents? table
 ---@field created? string
 ---@field databaseId? number
@@ -102,6 +113,7 @@
 ---@class MetadataUpdateData
 ---@field database_id number
 ---@field id string
+---@field api_key? string
 ---@field contents? table
 ---@field created? string
 ---@field databaseId? number
@@ -135,6 +147,7 @@
 
 ---@class PaginatedPermissionListCreateData
 ---@field database_id number
+---@field api_key? string
 ---@field ascending? boolean
 ---@field columns? table
 ---@field endRow? number
@@ -160,12 +173,14 @@
 ---@class PermissionUpdateData
 ---@field database_id number
 ---@field id string
+---@field api_key? string
 ---@field empty? boolean
 ---@field msisdn? string
 
 ---@class PermissionRemoveMatch
 ---@field database_id number
 ---@field id? string
+---@field api_key? string
 ---@field msisdn? string
 
 ---@class PermissionDatabase
@@ -181,20 +196,14 @@
 
 ---@class PermissionDatabaseLoadMatch
 ---@field database_id number
+---@field api_key? string
 
 ---@class PermissionDatabaseListMatch
----@field customerId? number
----@field deleteOnOptout? boolean
----@field description? string
----@field hooks? table
----@field id? number
----@field name? string
----@field routes? table
----@field senderAlias? string
----@field serviceId? number
+---@field api_key? string
 
 ---@class PermissionDatabaseUpdateData
 ---@field database_id number
+---@field api_key? string
 ---@field customerId? number
 ---@field deleteOnOptout? boolean
 ---@field description? string

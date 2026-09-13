@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -120,10 +131,16 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/public/database/{id}",
-              "parts": [
-                "public",
-                "database",
-                "{id}"
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "id"
+                }
               ],
               "select": {
                 "exist": [
@@ -134,7 +151,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{id}"
+              ]
             }
           ]
         }
@@ -158,6 +180,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "flat_permission",
       "op": {
         "load": {
@@ -194,19 +220,29 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id",
                   "msisdn": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -217,7 +253,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "{id}"
+              ]
             }
           ]
         }
@@ -256,6 +299,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "flattened_permission",
       "op": {
         "create": {
@@ -292,19 +339,29 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id",
                   "msisdn": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -315,7 +372,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "{id}"
+              ]
             }
           ]
         },
@@ -346,18 +410,28 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/list",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "list"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "lit": "list"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -367,7 +441,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "list"
+              ]
             }
           ]
         },
@@ -390,18 +471,28 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/query",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "query"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "lit": "query"
+                }
+              ],
               "select": {
                 "exist": [
                   "database_id"
@@ -410,7 +501,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "query"
+              ]
             }
           ]
         }
@@ -440,11 +538,13 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "int32",
           "name": "permissionsInserted",
           "short": "Number of permissions inserted into database",
           "type": "`$INTEGER`"
         },
         {
+          "format": "int32",
           "name": "permissionsUpdated",
           "short": "Number of permissions updated in database",
           "type": "`$INTEGER`"
@@ -491,18 +591,28 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/permission/bulk",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "bulk"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "lit": "bulk"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -513,7 +623,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "bulk"
+              ]
             }
           ]
         },
@@ -550,19 +667,31 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/bulk/status",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "bulk",
-                "status"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "lit": "bulk"
+                },
+                {
+                  "lit": "status"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -573,7 +702,15 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.errors`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "bulk",
+                "status"
+              ]
             }
           ]
         }
@@ -594,11 +731,14 @@ class Config {
           "type": "`$OBJECT`"
         },
         {
+          "format": "date-time",
           "name": "created",
+          "readOnly": true,
           "short": "created date of the field",
           "type": "`$STRING`"
         },
         {
+          "format": "int32",
           "name": "databaseId",
           "short": "id of the database",
           "type": "`$INTEGER`"
@@ -619,15 +759,18 @@ class Config {
         },
         {
           "name": "multiValue",
+          "readOnly": true,
           "short": "if the field is a multi value field",
           "type": "`$BOOLEAN`"
         },
         {
+          "format": "int32",
           "name": "rangeEnd",
           "short": "end on range for validation on INTEGER field",
           "type": "`$INTEGER`"
         },
         {
+          "format": "int32",
           "name": "rangeStart",
           "short": "start on range for validation on INTEGER field",
           "type": "`$INTEGER`"
@@ -638,7 +781,9 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "updated",
+          "readOnly": true,
           "short": "deletion date of the field",
           "type": "`$STRING`"
         },
@@ -653,6 +798,10 @@ class Config {
           "type": "`$ARRAY`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "metadata",
       "op": {
         "create": {
@@ -689,19 +838,29 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/metadata/{key}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "metadata",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id",
                   "key": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "metadata"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -712,7 +871,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "metadata",
+                "{id}"
+              ]
             },
             {
               "args": {
@@ -737,17 +903,25 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/metadata",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "metadata"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "metadata"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -757,7 +931,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.contents`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "metadata"
+              ]
             }
           ]
         },
@@ -788,17 +968,25 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/metadata",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "metadata"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "metadata"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -808,7 +996,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "metadata"
+              ]
             }
           ]
         },
@@ -846,19 +1040,29 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/metadata/{key}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "metadata",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id",
                   "key": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "metadata"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -869,7 +1073,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.contents`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "metadata",
+                "{id}"
+              ]
             }
           ]
         },
@@ -907,19 +1118,29 @@ class Config {
               "kind": "http",
               "method": "PUT",
               "orig": "/public/database/{id}/metadata/{key}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "metadata",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id",
                   "key": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "metadata"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -930,7 +1151,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.contents`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "metadata",
+                "{id}"
+              ]
             }
           ]
         }
@@ -955,6 +1183,7 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "int32",
           "name": "endRow",
           "type": "`$INTEGER`"
         },
@@ -975,6 +1204,7 @@ class Config {
           "type": "`$BOOLEAN`"
         },
         {
+          "format": "int32",
           "name": "page",
           "short": "page number",
           "type": "`$INTEGER`"
@@ -998,20 +1228,24 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "int32",
           "name": "startRow",
           "type": "`$INTEGER`"
         },
         {
+          "format": "int32",
           "name": "totalActive",
           "short": "total number of active permissions",
           "type": "`$INTEGER`"
         },
         {
+          "format": "int32",
           "name": "totalElements",
           "short": "total number of permissions",
           "type": "`$INTEGER`"
         },
         {
+          "format": "int32",
           "name": "totalPages",
           "short": "total number of pages",
           "type": "`$INTEGER`"
@@ -1046,19 +1280,31 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/permission/paged/list",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "paged",
-                "list"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "lit": "paged"
+                },
+                {
+                  "lit": "list"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -1068,7 +1314,15 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "paged",
+                "list"
+              ]
             }
           ]
         }
@@ -1096,6 +1350,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "permission",
       "op": {
         "remove": {
@@ -1132,19 +1390,29 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id",
                   "msisdn": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -1155,7 +1423,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "{id}"
+              ]
             },
             {
               "args": {
@@ -1187,19 +1462,31 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/public/database/{id}/permission/permanent/{msisdn}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "permanent",
-                "{msisdn}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "lit": "permanent"
+                },
+                {
+                  "var": "msisdn"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -1210,7 +1497,15 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "permanent",
+                "{msisdn}"
+              ]
             }
           ]
         },
@@ -1248,19 +1543,29 @@ class Config {
               "kind": "http",
               "method": "PUT",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "id": "database_id",
                   "msisdn": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "permission"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "api_key",
@@ -1271,7 +1576,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "permission",
+                "{id}"
+              ]
             }
           ]
         }
@@ -1291,6 +1603,7 @@ class Config {
     "permission_database": {
       "fields": [
         {
+          "format": "int32",
           "name": "customerId",
           "type": "`$INTEGER`"
         },
@@ -1307,6 +1620,7 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "int32",
           "name": "id",
           "type": "`$INTEGER`"
         },
@@ -1323,10 +1637,15 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "int32",
           "name": "serviceId",
           "type": "`$INTEGER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "permission_database",
       "op": {
         "list": {
@@ -1347,10 +1666,16 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/list",
-              "parts": [
-                "public",
-                "database",
-                "list"
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "lit": "list"
+                }
               ],
               "select": {
                 "exist": [
@@ -1360,7 +1685,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "list"
+              ]
             }
           ]
         },
@@ -1391,10 +1721,16 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}",
-              "parts": [
-                "public",
-                "database",
-                "{id}"
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "id"
+                }
               ],
               "select": {
                 "exist": [
@@ -1405,7 +1741,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{id}"
+              ]
             }
           ]
         },
@@ -1436,10 +1777,16 @@ class Config {
               "kind": "http",
               "method": "PUT",
               "orig": "/public/database/{id}",
-              "parts": [
-                "public",
-                "database",
-                "{id}"
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "id"
+                }
               ],
               "select": {
                 "exist": [
@@ -1450,7 +1797,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "public",
+                "database",
+                "{id}"
+              ]
             }
           ]
         }
@@ -1466,6 +1818,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

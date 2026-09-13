@@ -20,8 +20,12 @@ class Database(TypedDict):
     pass
 
 
-class DatabaseRemoveMatch(TypedDict):
+class DatabaseRemoveMatchRequired(TypedDict):
     database_id: int
+
+
+class DatabaseRemoveMatch(DatabaseRemoveMatchRequired, total=False):
+    api_key: str
 
 
 class FlatPermission(TypedDict, total=False):
@@ -30,9 +34,13 @@ class FlatPermission(TypedDict, total=False):
     msisdn: str
 
 
-class FlatPermissionLoadMatch(TypedDict):
+class FlatPermissionLoadMatchRequired(TypedDict):
     database_id: int
     id: str
+
+
+class FlatPermissionLoadMatch(FlatPermissionLoadMatchRequired, total=False):
+    api_key: str
 
 
 class FlattenedPermission(TypedDict, total=False):
@@ -47,8 +55,12 @@ class FlattenedPermissionLoadMatch(TypedDict):
     database_id: int
 
 
-class FlattenedPermissionListMatch(TypedDict):
+class FlattenedPermissionListMatchRequired(TypedDict):
     database_id: int
+
+
+class FlattenedPermissionListMatch(FlattenedPermissionListMatchRequired, total=False):
+    api_key: str
 
 
 class FlattenedPermissionCreateDataRequired(TypedDict):
@@ -57,6 +69,7 @@ class FlattenedPermissionCreateDataRequired(TypedDict):
 
 
 class FlattenedPermissionCreateData(FlattenedPermissionCreateDataRequired, total=False):
+    api_key: str
     active: bool
     empty: bool
     msisdn: str
@@ -72,8 +85,13 @@ class ImportStatus(TypedDict, total=False):
     status: str
 
 
-class ImportStatusListMatch(TypedDict):
+class ImportStatusListMatchRequired(TypedDict):
     database_id: int
+
+
+class ImportStatusListMatch(ImportStatusListMatchRequired, total=False):
+    api_key: str
+    import_id: str
 
 
 class ImportStatusCreateDataRequired(TypedDict):
@@ -81,6 +99,8 @@ class ImportStatusCreateDataRequired(TypedDict):
 
 
 class ImportStatusCreateData(ImportStatusCreateDataRequired, total=False):
+    api_key: str
+    skip_import_on_error: bool
     errors: list
     importId: str
     msisdn: str
@@ -105,13 +125,21 @@ class Metadata(TypedDict, total=False):
     values: list
 
 
-class MetadataLoadMatch(TypedDict):
+class MetadataLoadMatchRequired(TypedDict):
     database_id: int
     id: str
 
 
-class MetadataListMatch(TypedDict):
+class MetadataLoadMatch(MetadataLoadMatchRequired, total=False):
+    api_key: str
+
+
+class MetadataListMatchRequired(TypedDict):
     database_id: int
+
+
+class MetadataListMatch(MetadataListMatchRequired, total=False):
+    api_key: str
 
 
 class MetadataCreateDataRequired(TypedDict):
@@ -120,6 +148,7 @@ class MetadataCreateDataRequired(TypedDict):
 
 class MetadataCreateData(MetadataCreateDataRequired, total=False):
     id: str
+    api_key: str
     contents: dict
     created: str
     databaseId: int
@@ -140,6 +169,7 @@ class MetadataUpdateDataRequired(TypedDict):
 
 
 class MetadataUpdateData(MetadataUpdateDataRequired, total=False):
+    api_key: str
     contents: dict
     created: str
     databaseId: int
@@ -178,6 +208,7 @@ class PaginatedPermissionListCreateDataRequired(TypedDict):
 
 
 class PaginatedPermissionListCreateData(PaginatedPermissionListCreateDataRequired, total=False):
+    api_key: str
     ascending: bool
     columns: list
     endRow: int
@@ -208,6 +239,7 @@ class PermissionUpdateDataRequired(TypedDict):
 
 
 class PermissionUpdateData(PermissionUpdateDataRequired, total=False):
+    api_key: str
     empty: bool
     msisdn: str
 
@@ -218,6 +250,7 @@ class PermissionRemoveMatchRequired(TypedDict):
 
 class PermissionRemoveMatch(PermissionRemoveMatchRequired, total=False):
     id: str
+    api_key: str
     msisdn: str
 
 
@@ -233,20 +266,16 @@ class PermissionDatabase(TypedDict, total=False):
     serviceId: int
 
 
-class PermissionDatabaseLoadMatch(TypedDict):
+class PermissionDatabaseLoadMatchRequired(TypedDict):
     database_id: int
 
 
+class PermissionDatabaseLoadMatch(PermissionDatabaseLoadMatchRequired, total=False):
+    api_key: str
+
+
 class PermissionDatabaseListMatch(TypedDict, total=False):
-    customerId: int
-    deleteOnOptout: bool
-    description: str
-    hooks: list
-    id: int
-    name: str
-    routes: list
-    senderAlias: str
-    serviceId: int
+    api_key: str
 
 
 class PermissionDatabaseUpdateDataRequired(TypedDict):
@@ -254,6 +283,7 @@ class PermissionDatabaseUpdateDataRequired(TypedDict):
 
 
 class PermissionDatabaseUpdateData(PermissionDatabaseUpdateDataRequired, total=False):
+    api_key: str
     customerId: int
     deleteOnOptout: bool
     description: str

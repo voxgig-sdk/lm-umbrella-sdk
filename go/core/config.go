@@ -74,10 +74,16 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/public/database/{id}",
-								"parts": []any{
-									"public",
-									"database",
-									"{id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "id",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -88,6 +94,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{id}",
 								},
 							},
 						},
@@ -111,6 +122,10 @@ func MakeConfig() map[string]any {
 						"name": "msisdn",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "flat_permission",
 				"op": map[string]any{
@@ -148,17 +163,27 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/{msisdn}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
 										"msisdn": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -171,6 +196,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"{id}",
 								},
 							},
 						},
@@ -210,6 +242,10 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
 				"name": "flattened_permission",
 				"op": map[string]any{
 					"create": map[string]any{
@@ -246,17 +282,27 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/permission/{msisdn}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
 										"msisdn": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -269,6 +315,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"{id}",
 								},
 							},
 						},
@@ -300,16 +353,26 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/list",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"list",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"lit": "list",
 									},
 								},
 								"select": map[string]any{
@@ -321,6 +384,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"list",
 								},
 							},
 						},
@@ -344,16 +414,26 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/query",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"query",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"lit": "query",
 									},
 								},
 								"select": map[string]any{
@@ -364,6 +444,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"query",
 								},
 							},
 						},
@@ -394,11 +481,13 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "permissionsInserted",
 						"short": "Number of permissions inserted into database",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "permissionsUpdated",
 						"short": "Number of permissions updated in database",
 						"type": "`$INTEGER`",
@@ -445,16 +534,26 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/permission/bulk",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"bulk",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"lit": "bulk",
 									},
 								},
 								"select": map[string]any{
@@ -467,6 +566,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"bulk",
 								},
 							},
 						},
@@ -504,17 +610,29 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/permission/bulk/status",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"bulk",
-									"status",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"lit": "bulk",
+									},
+									map[string]any{
+										"lit": "status",
 									},
 								},
 								"select": map[string]any{
@@ -527,6 +645,14 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.errors`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"bulk",
+									"status",
 								},
 							},
 						},
@@ -548,11 +674,14 @@ func MakeConfig() map[string]any {
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "created",
+						"readOnly": true,
 						"short": "created date of the field",
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "databaseId",
 						"short": "id of the database",
 						"type": "`$INTEGER`",
@@ -573,15 +702,18 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "multiValue",
+						"readOnly": true,
 						"short": "if the field is a multi value field",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "rangeEnd",
 						"short": "end on range for validation on INTEGER field",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "rangeStart",
 						"short": "start on range for validation on INTEGER field",
 						"type": "`$INTEGER`",
@@ -592,7 +724,9 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "updated",
+						"readOnly": true,
 						"short": "deletion date of the field",
 						"type": "`$STRING`",
 					},
@@ -606,6 +740,10 @@ func MakeConfig() map[string]any {
 						"short": "Possible enumeration of values for ENUMERATION field",
 						"type": "`$ARRAY`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "metadata",
 				"op": map[string]any{
@@ -643,17 +781,27 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/metadata/{key}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"metadata",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
 										"key": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "metadata",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -666,6 +814,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"metadata",
+									"{id}",
 								},
 							},
 							map[string]any{
@@ -691,15 +846,23 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/metadata",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"metadata",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "metadata",
 									},
 								},
 								"select": map[string]any{
@@ -711,6 +874,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.contents`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"metadata",
 								},
 							},
 						},
@@ -742,15 +911,23 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/metadata",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"metadata",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "metadata",
 									},
 								},
 								"select": map[string]any{
@@ -762,6 +939,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"metadata",
 								},
 							},
 						},
@@ -800,17 +983,27 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}/metadata/{key}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"metadata",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
 										"key": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "metadata",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -823,6 +1016,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.contents`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"metadata",
+									"{id}",
 								},
 							},
 						},
@@ -861,17 +1061,27 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "PUT",
 								"orig": "/public/database/{id}/metadata/{key}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"metadata",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
 										"key": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "metadata",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -884,6 +1094,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.contents`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"metadata",
+									"{id}",
 								},
 							},
 						},
@@ -909,6 +1126,7 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "endRow",
 						"type": "`$INTEGER`",
 					},
@@ -929,6 +1147,7 @@ func MakeConfig() map[string]any {
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "page",
 						"short": "page number",
 						"type": "`$INTEGER`",
@@ -952,20 +1171,24 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "startRow",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "totalActive",
 						"short": "total number of active permissions",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "totalElements",
 						"short": "total number of permissions",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "totalPages",
 						"short": "total number of pages",
 						"type": "`$INTEGER`",
@@ -1000,17 +1223,29 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/public/database/{id}/permission/paged/list",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"paged",
-									"list",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"lit": "paged",
+									},
+									map[string]any{
+										"lit": "list",
 									},
 								},
 								"select": map[string]any{
@@ -1022,6 +1257,14 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"paged",
+									"list",
 								},
 							},
 						},
@@ -1049,6 +1292,10 @@ func MakeConfig() map[string]any {
 						"name": "msisdn",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "permission",
 				"op": map[string]any{
@@ -1086,17 +1333,27 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/public/database/{id}/permission/{msisdn}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
 										"msisdn": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -1109,6 +1366,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"{id}",
 								},
 							},
 							map[string]any{
@@ -1141,17 +1405,29 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/public/database/{id}/permission/permanent/{msisdn}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"permanent",
-									"{msisdn}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"lit": "permanent",
+									},
+									map[string]any{
+										"var": "msisdn",
 									},
 								},
 								"select": map[string]any{
@@ -1164,6 +1440,14 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"permanent",
+									"{msisdn}",
 								},
 							},
 						},
@@ -1202,17 +1486,27 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "PUT",
 								"orig": "/public/database/{id}/permission/{msisdn}",
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"id": "database_id",
 										"msisdn": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "permission",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -1225,6 +1519,13 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"permission",
+									"{id}",
 								},
 							},
 						},
@@ -1245,6 +1546,7 @@ func MakeConfig() map[string]any {
 			"permission_database": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"format": "int32",
 						"name": "customerId",
 						"type": "`$INTEGER`",
 					},
@@ -1261,6 +1563,7 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "id",
 						"type": "`$INTEGER`",
 					},
@@ -1277,9 +1580,14 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "int32",
 						"name": "serviceId",
 						"type": "`$INTEGER`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "permission_database",
 				"op": map[string]any{
@@ -1301,10 +1609,16 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/list",
-								"parts": []any{
-									"public",
-									"database",
-									"list",
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"lit": "list",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -1314,6 +1628,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"list",
 								},
 							},
 						},
@@ -1345,10 +1664,16 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/public/database/{id}",
-								"parts": []any{
-									"public",
-									"database",
-									"{id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "id",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -1359,6 +1684,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{id}",
 								},
 							},
 						},
@@ -1390,10 +1720,16 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "PUT",
 								"orig": "/public/database/{id}",
-								"parts": []any{
-									"public",
-									"database",
-									"{id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "id",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -1405,6 +1741,11 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"parts": []any{
+									"public",
+									"database",
+									"{id}",
+								},
 							},
 						},
 					},
@@ -1415,6 +1756,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

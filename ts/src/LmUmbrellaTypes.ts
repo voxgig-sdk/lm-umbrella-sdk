@@ -10,6 +10,7 @@ export interface Database {
 
 export interface DatabaseRemoveMatch {
   database_id: number
+  api_key?: string
 }
 
 export interface FlatPermission {
@@ -21,6 +22,7 @@ export interface FlatPermission {
 export interface FlatPermissionLoadMatch {
   database_id: number
   id: string
+  api_key?: string
 }
 
 export interface FlattenedPermission {
@@ -37,11 +39,13 @@ export interface FlattenedPermissionLoadMatch {
 
 export interface FlattenedPermissionListMatch {
   database_id: number
+  api_key?: string
 }
 
 export interface FlattenedPermissionCreateData {
   database_id: number
   id: string
+  api_key?: string
   active?: boolean
   empty?: boolean
   msisdn?: string
@@ -59,10 +63,14 @@ export interface ImportStatus {
 
 export interface ImportStatusListMatch {
   database_id: number
+  api_key?: string
+  import_id?: string
 }
 
 export interface ImportStatusCreateData {
   database_id: number
+  api_key?: string
+  skip_import_on_error?: boolean
   errors?: any[]
   importId?: string
   msisdn?: string
@@ -90,15 +98,18 @@ export interface Metadata {
 export interface MetadataLoadMatch {
   database_id: number
   id: string
+  api_key?: string
 }
 
 export interface MetadataListMatch {
   database_id: number
+  api_key?: string
 }
 
 export interface MetadataCreateData {
   database_id: number
   id?: string
+  api_key?: string
   contents?: Record<string, any>
   created?: string
   databaseId?: number
@@ -116,6 +127,7 @@ export interface MetadataCreateData {
 export interface MetadataUpdateData {
   database_id: number
   id: string
+  api_key?: string
   contents?: Record<string, any>
   created?: string
   databaseId?: number
@@ -151,6 +163,7 @@ export interface PaginatedPermissionList {
 
 export interface PaginatedPermissionListCreateData {
   database_id: number
+  api_key?: string
   ascending?: boolean
   columns?: any[]
   endRow?: number
@@ -178,6 +191,7 @@ export interface Permission {
 export interface PermissionUpdateData {
   database_id: number
   id: string
+  api_key?: string
   empty?: boolean
   msisdn?: string
 }
@@ -185,6 +199,7 @@ export interface PermissionUpdateData {
 export interface PermissionRemoveMatch {
   database_id: number
   id?: string
+  api_key?: string
   msisdn?: string
 }
 
@@ -202,22 +217,16 @@ export interface PermissionDatabase {
 
 export interface PermissionDatabaseLoadMatch {
   database_id: number
+  api_key?: string
 }
 
 export interface PermissionDatabaseListMatch {
-  customerId?: number
-  deleteOnOptout?: boolean
-  description?: string
-  hooks?: any[]
-  id?: number
-  name?: string
-  routes?: any[]
-  senderAlias?: string
-  serviceId?: number
+  api_key?: string
 }
 
 export interface PermissionDatabaseUpdateData {
   database_id: number
+  api_key?: string
   customerId?: number
   deleteOnOptout?: boolean
   description?: string

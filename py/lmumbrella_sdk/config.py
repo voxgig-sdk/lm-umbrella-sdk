@@ -1,6 +1,14 @@
 # LmUmbrella SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -91,10 +99,16 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/public/database/{id}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -106,6 +120,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -129,6 +148,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "flat_permission",
         "op": {
           "load": {
@@ -165,19 +188,29 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/{id}/permission/{msisdn}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                     "msisdn": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -189,6 +222,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -227,6 +267,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "flattened_permission",
         "op": {
           "create": {
@@ -263,19 +307,29 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/public/database/{id}/permission/{msisdn}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                     "msisdn": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -287,6 +341,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -317,18 +378,28 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/{id}/permission/list",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "list",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "lit": "list",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -339,6 +410,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "list",
+                ],
               },
             ],
           },
@@ -361,18 +439,28 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/{id}/permission/query",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "query",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "lit": "query",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "database_id",
@@ -382,6 +470,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "query",
+                ],
               },
             ],
           },
@@ -411,11 +506,13 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "permissionsInserted",
             "short": "Number of permissions inserted into database",
             "type": "`$INTEGER`",
           },
           {
+            "format": "int32",
             "name": "permissionsUpdated",
             "short": "Number of permissions updated in database",
             "type": "`$INTEGER`",
@@ -462,18 +559,28 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/public/database/{id}/permission/bulk",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "bulk",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "lit": "bulk",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -485,6 +592,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "bulk",
+                ],
               },
             ],
           },
@@ -521,19 +635,31 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/{id}/permission/bulk/status",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "bulk",
-                  "status",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "lit": "bulk",
+                  },
+                  {
+                    "lit": "status",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -545,6 +671,14 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.errors`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "bulk",
+                  "status",
+                ],
               },
             ],
           },
@@ -565,11 +699,14 @@ def make_config():
             "type": "`$OBJECT`",
           },
           {
+            "format": "date-time",
             "name": "created",
+            "readOnly": True,
             "short": "created date of the field",
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "databaseId",
             "short": "id of the database",
             "type": "`$INTEGER`",
@@ -590,15 +727,18 @@ def make_config():
           },
           {
             "name": "multiValue",
+            "readOnly": True,
             "short": "if the field is a multi value field",
             "type": "`$BOOLEAN`",
           },
           {
+            "format": "int32",
             "name": "rangeEnd",
             "short": "end on range for validation on INTEGER field",
             "type": "`$INTEGER`",
           },
           {
+            "format": "int32",
             "name": "rangeStart",
             "short": "start on range for validation on INTEGER field",
             "type": "`$INTEGER`",
@@ -609,7 +749,9 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "updated",
+            "readOnly": True,
             "short": "deletion date of the field",
             "type": "`$STRING`",
           },
@@ -624,6 +766,10 @@ def make_config():
             "type": "`$ARRAY`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "metadata",
         "op": {
           "create": {
@@ -660,19 +806,29 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/public/database/{id}/metadata/{key}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "metadata",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                     "key": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "metadata",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -684,6 +840,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "metadata",
+                  "{id}",
+                ],
               },
               {
                 "args": {
@@ -708,17 +871,25 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/public/database/{id}/metadata",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "metadata",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "metadata",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -729,6 +900,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.contents`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "metadata",
+                ],
               },
             ],
           },
@@ -759,17 +936,25 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/{id}/metadata",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "metadata",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "metadata",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -780,6 +965,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "metadata",
+                ],
               },
             ],
           },
@@ -817,19 +1008,29 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/{id}/metadata/{key}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "metadata",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                     "key": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "metadata",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -841,6 +1042,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.contents`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "metadata",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -878,19 +1086,29 @@ def make_config():
                 "kind": "http",
                 "method": "PUT",
                 "orig": "/public/database/{id}/metadata/{key}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "metadata",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                     "key": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "metadata",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -902,6 +1120,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.contents`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "metadata",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -926,6 +1151,7 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "int32",
             "name": "endRow",
             "type": "`$INTEGER`",
           },
@@ -946,6 +1172,7 @@ def make_config():
             "type": "`$BOOLEAN`",
           },
           {
+            "format": "int32",
             "name": "page",
             "short": "page number",
             "type": "`$INTEGER`",
@@ -969,20 +1196,24 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "int32",
             "name": "startRow",
             "type": "`$INTEGER`",
           },
           {
+            "format": "int32",
             "name": "totalActive",
             "short": "total number of active permissions",
             "type": "`$INTEGER`",
           },
           {
+            "format": "int32",
             "name": "totalElements",
             "short": "total number of permissions",
             "type": "`$INTEGER`",
           },
           {
+            "format": "int32",
             "name": "totalPages",
             "short": "total number of pages",
             "type": "`$INTEGER`",
@@ -1017,19 +1248,31 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/public/database/{id}/permission/paged/list",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "paged",
-                  "list",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "lit": "paged",
+                  },
+                  {
+                    "lit": "list",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -1040,6 +1283,14 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "paged",
+                  "list",
+                ],
               },
             ],
           },
@@ -1067,6 +1318,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "permission",
         "op": {
           "remove": {
@@ -1103,19 +1358,29 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/public/database/{id}/permission/{msisdn}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                     "msisdn": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -1127,6 +1392,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "{id}",
+                ],
               },
               {
                 "args": {
@@ -1158,19 +1430,31 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/public/database/{id}/permission/permanent/{msisdn}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "permanent",
-                  "{msisdn}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "lit": "permanent",
+                  },
+                  {
+                    "var": "msisdn",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -1182,6 +1466,14 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "permanent",
+                  "{msisdn}",
+                ],
               },
             ],
           },
@@ -1219,19 +1511,29 @@ def make_config():
                 "kind": "http",
                 "method": "PUT",
                 "orig": "/public/database/{id}/permission/{msisdn}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{database_id}",
-                  "permission",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "id": "database_id",
                     "msisdn": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "database_id",
+                  },
+                  {
+                    "lit": "permission",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "api_key",
@@ -1243,6 +1545,13 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{database_id}",
+                  "permission",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -1262,6 +1571,7 @@ def make_config():
       "permission_database": {
         "fields": [
           {
+            "format": "int32",
             "name": "customerId",
             "type": "`$INTEGER`",
           },
@@ -1278,6 +1588,7 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "int32",
             "name": "id",
             "type": "`$INTEGER`",
           },
@@ -1294,10 +1605,15 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "int32",
             "name": "serviceId",
             "type": "`$INTEGER`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "permission_database",
         "op": {
           "list": {
@@ -1318,10 +1634,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/list",
-                "parts": [
-                  "public",
-                  "database",
-                  "list",
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "lit": "list",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -1332,6 +1654,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "list",
+                ],
               },
             ],
           },
@@ -1362,10 +1689,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/public/database/{id}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -1377,6 +1710,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -1407,10 +1745,16 @@ def make_config():
                 "kind": "http",
                 "method": "PUT",
                 "orig": "/public/database/{id}",
-                "parts": [
-                  "public",
-                  "database",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "public",
+                  },
+                  {
+                    "lit": "database",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -1422,6 +1766,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "public",
+                  "database",
+                  "{id}",
+                ],
               },
             ],
           },

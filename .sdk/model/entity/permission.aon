@@ -62,19 +62,29 @@ main: kit: entity: permission: {
           }
           method: "DELETE"
           orig: "/public/database/{id}/permission/{msisdn}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "{id}"
-          ]
           rename: {
             param: {
               id: "database_id"
               msisdn: "id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -117,19 +127,31 @@ main: kit: entity: permission: {
           }
           method: "DELETE"
           orig: "/public/database/{id}/permission/permanent/{msisdn}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "permanent"
-            "{msisdn}"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "permanent"
+            }
+            {
+              var: "msisdn"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -177,19 +199,29 @@ main: kit: entity: permission: {
           }
           method: "PUT"
           orig: "/public/database/{id}/permission/{msisdn}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "{id}"
-          ]
           rename: {
             param: {
               id: "database_id"
               msisdn: "id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "api_key"

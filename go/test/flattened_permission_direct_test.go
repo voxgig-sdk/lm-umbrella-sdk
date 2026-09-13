@@ -231,14 +231,22 @@ func flattened_permissionDirectSetup(mockres any) *flattened_permissionDirectSet
 	env := envOverride(map[string]any{
 		"LM_UMBRELLA_TEST_FLATTENED_PERMISSION_ENTID": map[string]any{},
 		"LM_UMBRELLA_TEST_LIVE":    "FALSE",
-		"LM_UMBRELLA_APIKEY":       "NONE",
+		"LM_UMBRELLA_APIKEY":       "",
 	})
 
 	live := env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["LM_UMBRELLA_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewLmUmbrellaSDK(mergedOpts)
 

@@ -96,10 +96,16 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/public/database/{id}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{id}',
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -110,6 +116,11 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{id}',
                   ],
                 ],
               ],
@@ -133,6 +144,10 @@ class LmUmbrellaConfig
               'name' => 'msisdn',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'flat_permission',
           'op' => [
@@ -170,17 +185,27 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/{id}/permission/{msisdn}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
                       'msisdn' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -193,6 +218,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    '{id}',
                   ],
                 ],
               ],
@@ -232,6 +264,10 @@ class LmUmbrellaConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'flattened_permission',
           'op' => [
             'create' => [
@@ -268,17 +304,27 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/public/database/{id}/permission/{msisdn}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
                       'msisdn' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -291,6 +337,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    '{id}',
                   ],
                 ],
               ],
@@ -322,16 +375,26 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/{id}/permission/list',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    'list',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'lit' => 'list',
                     ],
                   ],
                   'select' => [
@@ -343,6 +406,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    'list',
                   ],
                 ],
               ],
@@ -366,16 +436,26 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/{id}/permission/query',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    'query',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'lit' => 'query',
                     ],
                   ],
                   'select' => [
@@ -386,6 +466,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    'query',
                   ],
                 ],
               ],
@@ -416,11 +503,13 @@ class LmUmbrellaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'permissionsInserted',
               'short' => 'Number of permissions inserted into database',
               'type' => '`$INTEGER`',
             ],
             [
+              'format' => 'int32',
               'name' => 'permissionsUpdated',
               'short' => 'Number of permissions updated in database',
               'type' => '`$INTEGER`',
@@ -467,16 +556,26 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/public/database/{id}/permission/bulk',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    'bulk',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'lit' => 'bulk',
                     ],
                   ],
                   'select' => [
@@ -489,6 +588,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    'bulk',
                   ],
                 ],
               ],
@@ -526,17 +632,29 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/{id}/permission/bulk/status',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    'bulk',
-                    'status',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'lit' => 'bulk',
+                    ],
+                    [
+                      'lit' => 'status',
                     ],
                   ],
                   'select' => [
@@ -549,6 +667,14 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.errors`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    'bulk',
+                    'status',
                   ],
                 ],
               ],
@@ -570,11 +696,14 @@ class LmUmbrellaConfig
               'type' => '`$OBJECT`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'created',
+              'readOnly' => true,
               'short' => 'created date of the field',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'databaseId',
               'short' => 'id of the database',
               'type' => '`$INTEGER`',
@@ -595,15 +724,18 @@ class LmUmbrellaConfig
             ],
             [
               'name' => 'multiValue',
+              'readOnly' => true,
               'short' => 'if the field is a multi value field',
               'type' => '`$BOOLEAN`',
             ],
             [
+              'format' => 'int32',
               'name' => 'rangeEnd',
               'short' => 'end on range for validation on INTEGER field',
               'type' => '`$INTEGER`',
             ],
             [
+              'format' => 'int32',
               'name' => 'rangeStart',
               'short' => 'start on range for validation on INTEGER field',
               'type' => '`$INTEGER`',
@@ -614,7 +746,9 @@ class LmUmbrellaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'updated',
+              'readOnly' => true,
               'short' => 'deletion date of the field',
               'type' => '`$STRING`',
             ],
@@ -628,6 +762,10 @@ class LmUmbrellaConfig
               'short' => 'Possible enumeration of values for ENUMERATION field',
               'type' => '`$ARRAY`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'metadata',
           'op' => [
@@ -665,17 +803,27 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/public/database/{id}/metadata/{key}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'metadata',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
                       'key' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'metadata',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -688,6 +836,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'metadata',
+                    '{id}',
                   ],
                 ],
                 [
@@ -713,15 +868,23 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/public/database/{id}/metadata',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'metadata',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'metadata',
                     ],
                   ],
                   'select' => [
@@ -733,6 +896,12 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.contents`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'metadata',
                   ],
                 ],
               ],
@@ -764,15 +933,23 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/{id}/metadata',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'metadata',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'metadata',
                     ],
                   ],
                   'select' => [
@@ -784,6 +961,12 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'metadata',
                   ],
                 ],
               ],
@@ -822,17 +1005,27 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/{id}/metadata/{key}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'metadata',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
                       'key' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'metadata',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -845,6 +1038,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.contents`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'metadata',
+                    '{id}',
                   ],
                 ],
               ],
@@ -883,17 +1083,27 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/public/database/{id}/metadata/{key}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'metadata',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
                       'key' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'metadata',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -906,6 +1116,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.contents`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'metadata',
+                    '{id}',
                   ],
                 ],
               ],
@@ -931,6 +1148,7 @@ class LmUmbrellaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'endRow',
               'type' => '`$INTEGER`',
             ],
@@ -951,6 +1169,7 @@ class LmUmbrellaConfig
               'type' => '`$BOOLEAN`',
             ],
             [
+              'format' => 'int32',
               'name' => 'page',
               'short' => 'page number',
               'type' => '`$INTEGER`',
@@ -974,20 +1193,24 @@ class LmUmbrellaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'startRow',
               'type' => '`$INTEGER`',
             ],
             [
+              'format' => 'int32',
               'name' => 'totalActive',
               'short' => 'total number of active permissions',
               'type' => '`$INTEGER`',
             ],
             [
+              'format' => 'int32',
               'name' => 'totalElements',
               'short' => 'total number of permissions',
               'type' => '`$INTEGER`',
             ],
             [
+              'format' => 'int32',
               'name' => 'totalPages',
               'short' => 'total number of pages',
               'type' => '`$INTEGER`',
@@ -1022,17 +1245,29 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/public/database/{id}/permission/paged/list',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    'paged',
-                    'list',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'lit' => 'paged',
+                    ],
+                    [
+                      'lit' => 'list',
                     ],
                   ],
                   'select' => [
@@ -1044,6 +1279,14 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    'paged',
+                    'list',
                   ],
                 ],
               ],
@@ -1071,6 +1314,10 @@ class LmUmbrellaConfig
               'name' => 'msisdn',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'permission',
           'op' => [
@@ -1108,17 +1355,27 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/public/database/{id}/permission/{msisdn}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
                       'msisdn' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -1131,6 +1388,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    '{id}',
                   ],
                 ],
                 [
@@ -1163,17 +1427,29 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/public/database/{id}/permission/permanent/{msisdn}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    'permanent',
-                    '{msisdn}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'lit' => 'permanent',
+                    ],
+                    [
+                      'var' => 'msisdn',
                     ],
                   ],
                   'select' => [
@@ -1186,6 +1462,14 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    'permanent',
+                    '{msisdn}',
                   ],
                 ],
               ],
@@ -1224,17 +1508,27 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/public/database/{id}/permission/{msisdn}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{database_id}',
-                    'permission',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'database_id',
                       'msisdn' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'database_id',
+                    ],
+                    [
+                      'lit' => 'permission',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -1247,6 +1541,13 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{database_id}',
+                    'permission',
+                    '{id}',
                   ],
                 ],
               ],
@@ -1267,6 +1568,7 @@ class LmUmbrellaConfig
         'permission_database' => [
           'fields' => [
             [
+              'format' => 'int32',
               'name' => 'customerId',
               'type' => '`$INTEGER`',
             ],
@@ -1283,6 +1585,7 @@ class LmUmbrellaConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'int32',
               'name' => 'id',
               'type' => '`$INTEGER`',
             ],
@@ -1299,9 +1602,14 @@ class LmUmbrellaConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'int32',
               'name' => 'serviceId',
               'type' => '`$INTEGER`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'permission_database',
           'op' => [
@@ -1323,10 +1631,16 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/list',
-                  'parts' => [
-                    'public',
-                    'database',
-                    'list',
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'lit' => 'list',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -1336,6 +1650,11 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    'list',
                   ],
                 ],
               ],
@@ -1367,10 +1686,16 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/public/database/{id}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{id}',
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -1381,6 +1706,11 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{id}',
                   ],
                 ],
               ],
@@ -1412,10 +1742,16 @@ class LmUmbrellaConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/public/database/{id}',
-                  'parts' => [
-                    'public',
-                    'database',
-                    '{id}',
+                  'segments' => [
+                    [
+                      'lit' => 'public',
+                    ],
+                    [
+                      'lit' => 'database',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -1426,6 +1762,11 @@ class LmUmbrellaConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'public',
+                    'database',
+                    '{id}',
                   ],
                 ],
               ],

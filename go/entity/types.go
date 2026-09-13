@@ -19,6 +19,7 @@ type Database struct {
 // DatabaseRemoveMatch is the typed request payload for Database.RemoveTyped.
 type DatabaseRemoveMatch struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // FlatPermission is the typed data model for the flat_permission entity.
@@ -32,6 +33,7 @@ type FlatPermission struct {
 type FlatPermissionLoadMatch struct {
 	DatabaseId int `json:"database_id"`
 	Id string `json:"id"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // FlattenedPermission is the typed data model for the flattened_permission entity.
@@ -51,12 +53,14 @@ type FlattenedPermissionLoadMatch struct {
 // FlattenedPermissionListMatch is the typed request payload for FlattenedPermission.ListTyped.
 type FlattenedPermissionListMatch struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // FlattenedPermissionCreateData is the typed request payload for FlattenedPermission.CreateTyped.
 type FlattenedPermissionCreateData struct {
 	DatabaseId int `json:"database_id"`
 	Id string `json:"id"`
+	ApiKey *string `json:"api_key,omitempty"`
 	Active *bool `json:"active,omitempty"`
 	Empty *bool `json:"empty,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
@@ -76,11 +80,15 @@ type ImportStatus struct {
 // ImportStatusListMatch is the typed request payload for ImportStatus.ListTyped.
 type ImportStatusListMatch struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
+	ImportId *string `json:"import_id,omitempty"`
 }
 
 // ImportStatusCreateData is the typed request payload for ImportStatus.CreateTyped.
 type ImportStatusCreateData struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
+	SkipImportOnError *bool `json:"skip_import_on_error,omitempty"`
 	Errors *[]any `json:"errors,omitempty"`
 	ImportId *string `json:"importId,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
@@ -110,17 +118,20 @@ type Metadata struct {
 type MetadataLoadMatch struct {
 	DatabaseId int `json:"database_id"`
 	Id string `json:"id"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // MetadataListMatch is the typed request payload for Metadata.ListTyped.
 type MetadataListMatch struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // MetadataCreateData is the typed request payload for Metadata.CreateTyped.
 type MetadataCreateData struct {
 	DatabaseId int `json:"database_id"`
 	Id *string `json:"id,omitempty"`
+	ApiKey *string `json:"api_key,omitempty"`
 	Contents *map[string]any `json:"contents,omitempty"`
 	Created *string `json:"created,omitempty"`
 	DatabaseId2 *int `json:"databaseId,omitempty"`
@@ -139,6 +150,7 @@ type MetadataCreateData struct {
 type MetadataUpdateData struct {
 	DatabaseId int `json:"database_id"`
 	Id string `json:"id"`
+	ApiKey *string `json:"api_key,omitempty"`
 	Contents *map[string]any `json:"contents,omitempty"`
 	Created *string `json:"created,omitempty"`
 	DatabaseId2 *int `json:"databaseId,omitempty"`
@@ -176,6 +188,7 @@ type PaginatedPermissionList struct {
 // PaginatedPermissionListCreateData is the typed request payload for PaginatedPermissionList.CreateTyped.
 type PaginatedPermissionListCreateData struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
 	Ascending *bool `json:"ascending,omitempty"`
 	Columns *[]any `json:"columns,omitempty"`
 	EndRow *int `json:"endRow,omitempty"`
@@ -205,6 +218,7 @@ type Permission struct {
 type PermissionUpdateData struct {
 	DatabaseId int `json:"database_id"`
 	Id string `json:"id"`
+	ApiKey *string `json:"api_key,omitempty"`
 	Empty *bool `json:"empty,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
 }
@@ -213,6 +227,7 @@ type PermissionUpdateData struct {
 type PermissionRemoveMatch struct {
 	DatabaseId int `json:"database_id"`
 	Id *string `json:"id,omitempty"`
+	ApiKey *string `json:"api_key,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
 }
 
@@ -232,24 +247,18 @@ type PermissionDatabase struct {
 // PermissionDatabaseLoadMatch is the typed request payload for PermissionDatabase.LoadTyped.
 type PermissionDatabaseLoadMatch struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // PermissionDatabaseListMatch is the typed request payload for PermissionDatabase.ListTyped.
 type PermissionDatabaseListMatch struct {
-	CustomerId *int `json:"customerId,omitempty"`
-	DeleteOnOptout *bool `json:"deleteOnOptout,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Hooks *[]any `json:"hooks,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Routes *[]any `json:"routes,omitempty"`
-	SenderAlias *string `json:"senderAlias,omitempty"`
-	ServiceId *int `json:"serviceId,omitempty"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // PermissionDatabaseUpdateData is the typed request payload for PermissionDatabase.UpdateTyped.
 type PermissionDatabaseUpdateData struct {
 	DatabaseId int `json:"database_id"`
+	ApiKey *string `json:"api_key,omitempty"`
 	CustomerId *int `json:"customerId,omitempty"`
 	DeleteOnOptout *bool `json:"deleteOnOptout,omitempty"`
 	Description *string `json:"description,omitempty"`

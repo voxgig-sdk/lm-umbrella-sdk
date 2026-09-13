@@ -17,6 +17,7 @@ main: kit: entity: paginated_permission_list: {
       type: "`$ARRAY`"
     }
     {
+      format: "int32"
       name: "endRow"
       req: false
       type: "`$INTEGER`"
@@ -42,6 +43,7 @@ main: kit: entity: paginated_permission_list: {
       type: "`$BOOLEAN`"
     }
     {
+      format: "int32"
       name: "page"
       req: false
       short: "page number"
@@ -70,23 +72,27 @@ main: kit: entity: paginated_permission_list: {
       type: "`$ARRAY`"
     }
     {
+      format: "int32"
       name: "startRow"
       req: false
       type: "`$INTEGER`"
     }
     {
+      format: "int32"
       name: "totalActive"
       req: false
       short: "total number of active permissions"
       type: "`$INTEGER`"
     }
     {
+      format: "int32"
       name: "totalElements"
       req: false
       short: "total number of permissions"
       type: "`$INTEGER`"
     }
     {
+      format: "int32"
       name: "totalPages"
       req: false
       short: "total number of pages"
@@ -122,19 +128,31 @@ main: kit: entity: paginated_permission_list: {
           }
           method: "POST"
           orig: "/public/database/{id}/permission/paged/list"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "paged"
-            "list"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "paged"
+            }
+            {
+              lit: "list"
+            }
+          ]
           select: {
             exist: [
               "api_key"

@@ -12,12 +12,15 @@ main: kit: entity: metadata: {
       type: "`$OBJECT`"
     }
     {
+      format: "date-time"
       name: "created"
+      readOnly: true
       req: false
       short: "created date of the field"
       type: "`$STRING`"
     }
     {
+      format: "int32"
       name: "databaseId"
       req: false
       short: "id of the database"
@@ -42,17 +45,20 @@ main: kit: entity: metadata: {
     }
     {
       name: "multiValue"
+      readOnly: true
       req: false
       short: "if the field is a multi value field"
       type: "`$BOOLEAN`"
     }
     {
+      format: "int32"
       name: "rangeEnd"
       req: false
       short: "end on range for validation on INTEGER field"
       type: "`$INTEGER`"
     }
     {
+      format: "int32"
       name: "rangeStart"
       req: false
       short: "start on range for validation on INTEGER field"
@@ -65,7 +71,9 @@ main: kit: entity: metadata: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "updated"
+      readOnly: true
       req: false
       short: "deletion date of the field"
       type: "`$STRING`"
@@ -124,19 +132,29 @@ main: kit: entity: metadata: {
           }
           method: "POST"
           orig: "/public/database/{id}/metadata/{key}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "metadata"
-            "{id}"
-          ]
           rename: {
             param: {
               id: "database_id"
               key: "id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -172,17 +190,25 @@ main: kit: entity: metadata: {
           }
           method: "POST"
           orig: "/public/database/{id}/metadata"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "metadata"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -222,17 +248,25 @@ main: kit: entity: metadata: {
           }
           method: "GET"
           orig: "/public/database/{id}/metadata"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "metadata"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -279,19 +313,29 @@ main: kit: entity: metadata: {
           }
           method: "GET"
           orig: "/public/database/{id}/metadata/{key}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "metadata"
-            "{id}"
-          ]
           rename: {
             param: {
               id: "database_id"
               key: "id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -339,19 +383,29 @@ main: kit: entity: metadata: {
           }
           method: "PUT"
           orig: "/public/database/{id}/metadata/{key}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "metadata"
-            "{id}"
-          ]
           rename: {
             param: {
               id: "database_id"
               key: "id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "api_key"

@@ -85,7 +85,7 @@ def flat_permission_basic_setup(extra)
     "LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID" => idmap,
     "LM_UMBRELLA_TEST_LIVE" => "FALSE",
     "LM_UMBRELLA_TEST_EXPLAIN" => "FALSE",
-    "LM_UMBRELLA_APIKEY" => "NONE",
+    "LM_UMBRELLA_APIKEY" => "",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -96,6 +96,9 @@ def flat_permission_basic_setup(extra)
 
   if env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
         "apikey" => env["LM_UMBRELLA_APIKEY"],
       },

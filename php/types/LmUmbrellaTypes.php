@@ -21,6 +21,7 @@ class Database
 class DatabaseRemoveMatch
 {
     public int $database_id;
+    public ?string $api_key = null;
 }
 
 /** FlatPermission entity data model. */
@@ -36,6 +37,7 @@ class FlatPermissionLoadMatch
 {
     public int $database_id;
     public string $id;
+    public ?string $api_key = null;
 }
 
 /** FlattenedPermission entity data model. */
@@ -58,6 +60,7 @@ class FlattenedPermissionLoadMatch
 class FlattenedPermissionListMatch
 {
     public int $database_id;
+    public ?string $api_key = null;
 }
 
 /** Request payload for FlattenedPermission#create. */
@@ -65,6 +68,7 @@ class FlattenedPermissionCreateData
 {
     public int $database_id;
     public string $id;
+    public ?string $api_key = null;
     public ?bool $active = null;
     public ?bool $empty = null;
     public ?string $msisdn = null;
@@ -86,12 +90,16 @@ class ImportStatus
 class ImportStatusListMatch
 {
     public int $database_id;
+    public ?string $api_key = null;
+    public ?string $import_id = null;
 }
 
 /** Request payload for ImportStatus#create. */
 class ImportStatusCreateData
 {
     public int $database_id;
+    public ?string $api_key = null;
+    public ?bool $skip_import_on_error = null;
     public ?array $errors = null;
     public ?string $importId = null;
     public ?string $msisdn = null;
@@ -123,12 +131,14 @@ class MetadataLoadMatch
 {
     public int $database_id;
     public string $id;
+    public ?string $api_key = null;
 }
 
 /** Request payload for Metadata#list. */
 class MetadataListMatch
 {
     public int $database_id;
+    public ?string $api_key = null;
 }
 
 /** Request payload for Metadata#create. */
@@ -136,6 +146,7 @@ class MetadataCreateData
 {
     public int $database_id;
     public ?string $id = null;
+    public ?string $api_key = null;
     public ?array $contents = null;
     public ?string $created = null;
     public ?int $databaseId = null;
@@ -155,6 +166,7 @@ class MetadataUpdateData
 {
     public int $database_id;
     public string $id;
+    public ?string $api_key = null;
     public ?array $contents = null;
     public ?string $created = null;
     public ?int $databaseId = null;
@@ -194,6 +206,7 @@ class PaginatedPermissionList
 class PaginatedPermissionListCreateData
 {
     public int $database_id;
+    public ?string $api_key = null;
     public ?bool $ascending = null;
     public ?array $columns = null;
     public ?int $endRow = null;
@@ -225,6 +238,7 @@ class PermissionUpdateData
 {
     public int $database_id;
     public string $id;
+    public ?string $api_key = null;
     public ?bool $empty = null;
     public ?string $msisdn = null;
 }
@@ -234,6 +248,7 @@ class PermissionRemoveMatch
 {
     public int $database_id;
     public ?string $id = null;
+    public ?string $api_key = null;
     public ?string $msisdn = null;
 }
 
@@ -255,26 +270,20 @@ class PermissionDatabase
 class PermissionDatabaseLoadMatch
 {
     public int $database_id;
+    public ?string $api_key = null;
 }
 
 /** Request payload for PermissionDatabase#list. */
 class PermissionDatabaseListMatch
 {
-    public ?int $customerId = null;
-    public ?bool $deleteOnOptout = null;
-    public ?string $description = null;
-    public ?array $hooks = null;
-    public ?int $id = null;
-    public ?string $name = null;
-    public ?array $routes = null;
-    public ?string $senderAlias = null;
-    public ?int $serviceId = null;
+    public ?string $api_key = null;
 }
 
 /** Request payload for PermissionDatabase#update. */
 class PermissionDatabaseUpdateData
 {
     public int $database_id;
+    public ?string $api_key = null;
     public ?int $customerId = null;
     public ?bool $deleteOnOptout = null;
     public ?string $description = null;

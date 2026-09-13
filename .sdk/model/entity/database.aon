@@ -32,10 +32,16 @@ main: kit: entity: database: {
           }
           method: "DELETE"
           orig: "/public/database/{id}"
-          parts: [
-            "public"
-            "database"
-            "{id}"
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [

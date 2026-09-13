@@ -75,19 +75,29 @@ main: kit: entity: flattened_permission: {
           }
           method: "POST"
           orig: "/public/database/{id}/permission/{msisdn}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "{id}"
-          ]
           rename: {
             param: {
               id: "database_id"
               msisdn: "id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -128,18 +138,28 @@ main: kit: entity: flattened_permission: {
           }
           method: "GET"
           orig: "/public/database/{id}/permission/list"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "list"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "list"
+            }
+          ]
           select: {
             exist: [
               "api_key"
@@ -170,18 +190,28 @@ main: kit: entity: flattened_permission: {
           }
           method: "GET"
           orig: "/public/database/{id}/permission/query"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "query"
-          ]
           rename: {
             param: {
               id: "database_id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "query"
+            }
+          ]
           select: {
             exist: [
               "database_id"

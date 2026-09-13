@@ -106,15 +106,17 @@ def permission_database_direct_setup(mockres)
   env = Runner.env_override({
     "LM_UMBRELLA_TEST_PERMISSION_DATABASE_ENTID" => {},
     "LM_UMBRELLA_TEST_LIVE" => "FALSE",
-    "LM_UMBRELLA_APIKEY" => "NONE",
+    "LM_UMBRELLA_APIKEY" => "",
   })
 
   live = env["LM_UMBRELLA_TEST_LIVE"] == "TRUE"
 
   if live
-    merged_opts = {
+    # Merged so the generated fields win: sdk-test-control.json's
+    # test.client.options adds to the live client, it does not redirect it.
+    merged_opts = Runner.live_client_options.merge({
       "apikey" => env["LM_UMBRELLA_APIKEY"],
-    }
+    })
     client = LmUmbrellaSDK.new(merged_opts)
     return {
       client: client,

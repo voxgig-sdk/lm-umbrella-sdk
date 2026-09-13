@@ -1,6 +1,4 @@
 
-const envlocal = __dirname + '/../../../.env.local'
-require('dotenv').config({ quiet: true, path: [envlocal] })
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
@@ -10,10 +8,19 @@ import { LmUmbrellaSDK } from '../../..'
 
 import {
   envOverride,
+  liveClientOptions,
   liveDelay,
+  loadEnvLocal,
   maybeSkipControl,
   skipIfMissingIds,
 } from '../../utility'
+
+
+// AFTER the imports on purpose: TypeScript hoists `import` above any
+// statement in the emitted CommonJS, so a loader placed above them would
+// run only after every imported module had already been evaluated - and
+// anything reading process.env at module scope would miss these values.
+loadEnvLocal(__dirname + '/../../../.env.local')
 
 
 describe('ImportStatusDirect', async () => {
@@ -90,15 +97,18 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID': {},
     'LM_UMBRELLA_TEST_LIVE': 'FALSE',
-    'LM_UMBRELLA_APIKEY': 'NONE',
+    'LM_UMBRELLA_APIKEY': '',
   })
 
   const live = 'TRUE' === env.LM_UMBRELLA_TEST_LIVE
 
   if (live) {
-    const client = new LmUmbrellaSDK({
+    // Merged so the generated fields win: sdk-test-control.json's
+    // test.client.options adds to the live client, it does not redirect it.
+    const client = new LmUmbrellaSDK(
+      Object.assign({}, liveClientOptions(), {
       apikey: env.LM_UMBRELLA_APIKEY,
-    })
+      }))
 
     let idmap: any = env['LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {

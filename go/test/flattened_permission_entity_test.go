@@ -100,7 +100,7 @@ func TestFlattenedPermissionEntity(t *testing.T) {
 		// CREATE
 		flattenedPermissionRef01Ent := client.FlattenedPermission(nil)
 		flattenedPermissionRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "flattened_permission"}, setup.data), "flattened_permission_ref01"))
+			vs.GetPath(setup.data, []any{"new", "flattened_permission"}), "flattened_permission_ref01"))
 		flattenedPermissionRef01Data["database_id"] = setup.idmap["database01"]
 		flattenedPermissionRef01Data["msisdn"] = setup.idmap["msisdn01"]
 
@@ -178,7 +178,7 @@ func flattened_permissionBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"flattened_permission01", "flattened_permission02", "flattened_permission03", "database01", "database02", "database03", "msisdn01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -198,7 +198,7 @@ func flattened_permissionBasicSetup(extra map[string]any) *entityTestSetup {
 		"LM_UMBRELLA_TEST_FLATTENED_PERMISSION_ENTID": idmap,
 		"LM_UMBRELLA_TEST_LIVE":      "FALSE",
 		"LM_UMBRELLA_TEST_EXPLAIN":   "FALSE",
-		"LM_UMBRELLA_APIKEY":         "NONE",
+		"LM_UMBRELLA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LM_UMBRELLA_TEST_FLATTENED_PERMISSION_ENTID"])
@@ -207,11 +207,23 @@ func flattened_permissionBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LM_UMBRELLA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LM_UMBRELLA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewLmUmbrellaSDK(core.ToMapAny(mergedOpts))
 	}

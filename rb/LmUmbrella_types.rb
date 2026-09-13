@@ -16,8 +16,12 @@ end
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 DatabaseRemoveMatch = Struct.new(
   :database_id,
+  :api_key,
   keyword_init: true
 )
 
@@ -45,9 +49,13 @@ FlatPermission = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 FlatPermissionLoadMatch = Struct.new(
   :database_id,
   :id,
+  :api_key,
   keyword_init: true
 )
 
@@ -89,8 +97,12 @@ FlattenedPermissionLoadMatch = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 FlattenedPermissionListMatch = Struct.new(
   :database_id,
+  :api_key,
   keyword_init: true
 )
 
@@ -101,6 +113,9 @@ FlattenedPermissionListMatch = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 #
 # @!attribute [rw] active
 #   @return [Boolean, nil]
@@ -116,6 +131,7 @@ FlattenedPermissionListMatch = Struct.new(
 FlattenedPermissionCreateData = Struct.new(
   :database_id,
   :id,
+  :api_key,
   :active,
   :empty,
   :msisdn,
@@ -156,8 +172,16 @@ ImportStatus = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
+#
+# @!attribute [rw] import_id
+#   @return [String, nil]
 ImportStatusListMatch = Struct.new(
   :database_id,
+  :api_key,
+  :import_id,
   keyword_init: true
 )
 
@@ -165,6 +189,12 @@ ImportStatusListMatch = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
+#
+# @!attribute [rw] skip_import_on_error
+#   @return [Boolean, nil]
 #
 # @!attribute [rw] errors
 #   @return [Array, nil]
@@ -185,6 +215,8 @@ ImportStatusListMatch = Struct.new(
 #   @return [String, nil]
 ImportStatusCreateData = Struct.new(
   :database_id,
+  :api_key,
+  :skip_import_on_error,
   :errors,
   :importId,
   :msisdn,
@@ -258,9 +290,13 @@ Metadata = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 MetadataLoadMatch = Struct.new(
   :database_id,
   :id,
+  :api_key,
   keyword_init: true
 )
 
@@ -268,8 +304,12 @@ MetadataLoadMatch = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 MetadataListMatch = Struct.new(
   :database_id,
+  :api_key,
   keyword_init: true
 )
 
@@ -279,6 +319,9 @@ MetadataListMatch = Struct.new(
 #   @return [Integer]
 #
 # @!attribute [rw] id
+#   @return [String, nil]
+#
+# @!attribute [rw] api_key
 #   @return [String, nil]
 #
 # @!attribute [rw] contents
@@ -319,6 +362,7 @@ MetadataListMatch = Struct.new(
 MetadataCreateData = Struct.new(
   :database_id,
   :id,
+  :api_key,
   :contents,
   :created,
   :databaseId,
@@ -341,6 +385,9 @@ MetadataCreateData = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 #
 # @!attribute [rw] contents
 #   @return [Hash, nil]
@@ -380,6 +427,7 @@ MetadataCreateData = Struct.new(
 MetadataUpdateData = Struct.new(
   :database_id,
   :id,
+  :api_key,
   :contents,
   :created,
   :databaseId,
@@ -469,6 +517,9 @@ PaginatedPermissionList = Struct.new(
 # @!attribute [rw] database_id
 #   @return [Integer]
 #
+# @!attribute [rw] api_key
+#   @return [String, nil]
+#
 # @!attribute [rw] ascending
 #   @return [Boolean, nil]
 #
@@ -518,6 +569,7 @@ PaginatedPermissionList = Struct.new(
 #   @return [Integer, nil]
 PaginatedPermissionListCreateData = Struct.new(
   :database_id,
+  :api_key,
   :ascending,
   :columns,
   :endRow,
@@ -562,6 +614,9 @@ Permission = Struct.new(
 # @!attribute [rw] id
 #   @return [String]
 #
+# @!attribute [rw] api_key
+#   @return [String, nil]
+#
 # @!attribute [rw] empty
 #   @return [Boolean, nil]
 #
@@ -570,6 +625,7 @@ Permission = Struct.new(
 PermissionUpdateData = Struct.new(
   :database_id,
   :id,
+  :api_key,
   :empty,
   :msisdn,
   keyword_init: true
@@ -583,11 +639,15 @@ PermissionUpdateData = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
+# @!attribute [rw] api_key
+#   @return [String, nil]
+#
 # @!attribute [rw] msisdn
 #   @return [String, nil]
 PermissionRemoveMatch = Struct.new(
   :database_id,
   :id,
+  :api_key,
   :msisdn,
   keyword_init: true
 )
@@ -637,49 +697,21 @@ PermissionDatabase = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 PermissionDatabaseLoadMatch = Struct.new(
   :database_id,
+  :api_key,
   keyword_init: true
 )
 
 # Request payload for PermissionDatabase#list.
 #
-# @!attribute [rw] customerId
-#   @return [Integer, nil]
-#
-# @!attribute [rw] deleteOnOptout
-#   @return [Boolean, nil]
-#
-# @!attribute [rw] description
+# @!attribute [rw] api_key
 #   @return [String, nil]
-#
-# @!attribute [rw] hooks
-#   @return [Array, nil]
-#
-# @!attribute [rw] id
-#   @return [Integer, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] routes
-#   @return [Array, nil]
-#
-# @!attribute [rw] senderAlias
-#   @return [String, nil]
-#
-# @!attribute [rw] serviceId
-#   @return [Integer, nil]
 PermissionDatabaseListMatch = Struct.new(
-  :customerId,
-  :deleteOnOptout,
-  :description,
-  :hooks,
-  :id,
-  :name,
-  :routes,
-  :senderAlias,
-  :serviceId,
+  :api_key,
   keyword_init: true
 )
 
@@ -687,6 +719,9 @@ PermissionDatabaseListMatch = Struct.new(
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
 #
 # @!attribute [rw] customerId
 #   @return [Integer, nil]
@@ -716,6 +751,7 @@ PermissionDatabaseListMatch = Struct.new(
 #   @return [Integer, nil]
 PermissionDatabaseUpdateData = Struct.new(
   :database_id,
+  :api_key,
   :customerId,
   :deleteOnOptout,
   :description,

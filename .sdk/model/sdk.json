@@ -65,10 +65,16 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/public/database/{id}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{id}"
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "id"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -158,19 +164,29 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/{msisdn}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id",
                       "msisdn": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -279,19 +295,29 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/permission/{msisdn}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id",
                       "msisdn": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -337,18 +363,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/list",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "list"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "lit": "list"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -383,18 +419,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/query",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "query"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "lit": "query"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "database_id"
@@ -444,6 +490,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "permissionsInserted",
               "req": false,
               "short": "Number of permissions inserted into database",
@@ -451,6 +498,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "permissionsUpdated",
               "req": false,
               "short": "Number of permissions updated in database",
@@ -506,18 +554,28 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/permission/bulk",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "bulk"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "lit": "bulk"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -571,19 +629,31 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/permission/bulk/status",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "bulk",
-                    "status"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "lit": "bulk"
+                    },
+                    {
+                      "lit": "status"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -622,13 +692,16 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created",
+              "readOnly": true,
               "req": false,
               "short": "created date of the field",
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "int32",
               "name": "databaseId",
               "req": false,
               "short": "id of the database",
@@ -657,12 +730,14 @@
             {
               "active": true,
               "name": "multiValue",
+              "readOnly": true,
               "req": false,
               "short": "if the field is a multi value field",
               "type": "`$BOOLEAN`"
             },
             {
               "active": true,
+              "format": "int32",
               "name": "rangeEnd",
               "req": false,
               "short": "end on range for validation on INTEGER field",
@@ -670,6 +745,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "rangeStart",
               "req": false,
               "short": "start on range for validation on INTEGER field",
@@ -684,7 +760,9 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated",
+              "readOnly": true,
               "req": false,
               "short": "deletion date of the field",
               "type": "`$STRING`"
@@ -749,19 +827,29 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/metadata/{key}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "metadata",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id",
                       "key": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "metadata"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -801,17 +889,25 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/metadata",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "metadata"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "metadata"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -856,17 +952,25 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/metadata",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "metadata"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "metadata"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -919,19 +1023,29 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}/metadata/{key}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "metadata",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id",
                       "key": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "metadata"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -985,19 +1099,29 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/public/database/{id}/metadata/{key}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "metadata",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id",
                       "key": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "metadata"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -1042,6 +1166,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "endRow",
               "req": false,
               "type": "`$INTEGER`"
@@ -1072,6 +1197,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "page",
               "req": false,
               "short": "page number",
@@ -1105,12 +1231,14 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "startRow",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
+              "format": "int32",
               "name": "totalActive",
               "req": false,
               "short": "total number of active permissions",
@@ -1118,6 +1246,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "totalElements",
               "req": false,
               "short": "total number of permissions",
@@ -1125,6 +1254,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "totalPages",
               "req": false,
               "short": "total number of pages",
@@ -1164,19 +1294,31 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/public/database/{id}/permission/paged/list",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "paged",
-                    "list"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "lit": "paged"
+                    },
+                    {
+                      "lit": "list"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -1269,19 +1411,29 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/public/database/{id}/permission/{msisdn}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id",
                       "msisdn": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -1329,19 +1481,31 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/public/database/{id}/permission/permanent/{msisdn}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "permanent",
-                    "{msisdn}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "lit": "permanent"
+                    },
+                    {
+                      "var": "msisdn"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -1395,19 +1559,29 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/public/database/{id}/permission/{msisdn}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{database_id}",
-                    "permission",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "id": "database_id",
                       "msisdn": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "permission"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "api_key",
@@ -1443,6 +1617,7 @@
           "fields": [
             {
               "active": true,
+              "format": "int32",
               "name": "customerId",
               "req": false,
               "type": "`$INTEGER`"
@@ -1467,6 +1642,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "id",
               "req": false,
               "type": "`$INTEGER`"
@@ -1491,6 +1667,7 @@
             },
             {
               "active": true,
+              "format": "int32",
               "name": "serviceId",
               "req": false,
               "type": "`$INTEGER`"
@@ -1523,10 +1700,16 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/list",
-                  "parts": [
-                    "public",
-                    "database",
-                    "list"
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "lit": "list"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1571,10 +1754,16 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/public/database/{id}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{id}"
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "id"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1620,10 +1809,16 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/public/database/{id}",
-                  "parts": [
-                    "public",
-                    "database",
-                    "{id}"
+                  "segments": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "id"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1708,8 +1903,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -2163,6 +2361,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2188,6 +2389,10 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -2239,6 +2444,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -2263,6 +2469,7 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -2314,6 +2521,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -2338,6 +2546,7 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "lua": {
@@ -2378,6 +2587,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2403,6 +2615,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -2437,6 +2652,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2462,6 +2680,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -2502,6 +2723,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2527,6 +2751,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -2572,6 +2799,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2597,6 +2827,9 @@
             "version": "0.1.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -2614,11 +2847,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -2647,6 +2875,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -2671,6 +2902,14 @@
             },
             "version": "0.1.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

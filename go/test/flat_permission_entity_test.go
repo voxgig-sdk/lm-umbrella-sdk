@@ -50,7 +50,7 @@ func TestFlatPermissionEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		flatPermissionRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.flat_permission", setup.data)))
+		flatPermissionRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.flat_permission")))
 		var flatPermissionRef01Data map[string]any
 		if len(flatPermissionRef01DataRaw) > 0 {
 			flatPermissionRef01Data = core.ToMapAny(flatPermissionRef01DataRaw[0][1])
@@ -103,7 +103,7 @@ func flat_permissionBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"flat_permission01", "flat_permission02", "flat_permission03", "database01", "database02", "database03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -123,7 +123,7 @@ func flat_permissionBasicSetup(extra map[string]any) *entityTestSetup {
 		"LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID": idmap,
 		"LM_UMBRELLA_TEST_LIVE":      "FALSE",
 		"LM_UMBRELLA_TEST_EXPLAIN":   "FALSE",
-		"LM_UMBRELLA_APIKEY":         "NONE",
+		"LM_UMBRELLA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID"])
@@ -132,11 +132,23 @@ func flat_permissionBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LM_UMBRELLA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LM_UMBRELLA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewLmUmbrellaSDK(core.ToMapAny(mergedOpts))
 	}

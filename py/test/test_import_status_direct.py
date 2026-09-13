@@ -72,15 +72,18 @@ def _import_status_direct_setup(mockres):
     env = runner.env_override({
         "LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID": {},
         "LM_UMBRELLA_TEST_LIVE": "FALSE",
-        "LM_UMBRELLA_APIKEY": "NONE",
+        "LM_UMBRELLA_APIKEY": "",
     })
 
     live = env.get("LM_UMBRELLA_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("LM_UMBRELLA_APIKEY"),
-        }
+        })
         client = LmUmbrellaSDK(merged_opts)
         return {
             "client": client,

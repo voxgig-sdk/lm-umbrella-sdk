@@ -62,19 +62,29 @@ main: kit: entity: flat_permission: {
           }
           method: "GET"
           orig: "/public/database/{id}/permission/{msisdn}"
-          parts: [
-            "public"
-            "database"
-            "{database_id}"
-            "permission"
-            "{id}"
-          ]
           rename: {
             param: {
               id: "database_id"
               msisdn: "id"
             }
           }
+          segments: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "api_key"

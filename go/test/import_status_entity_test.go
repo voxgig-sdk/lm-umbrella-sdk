@@ -100,7 +100,7 @@ func TestImportStatusEntity(t *testing.T) {
 		// CREATE
 		importStatusRef01Ent := client.ImportStatus(nil)
 		importStatusRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "import_status"}, setup.data), "import_status_ref01"))
+			vs.GetPath(setup.data, []any{"new", "import_status"}), "import_status_ref01"))
 		importStatusRef01Data["database_id"] = setup.idmap["database01"]
 
 		importStatusRef01DataResult, err := importStatusRef01Ent.Create(importStatusRef01Data, nil)
@@ -153,7 +153,7 @@ func import_statusBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"import_status01", "import_status02", "import_status03", "database01", "database02", "database03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -173,7 +173,7 @@ func import_statusBasicSetup(extra map[string]any) *entityTestSetup {
 		"LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID": idmap,
 		"LM_UMBRELLA_TEST_LIVE":      "FALSE",
 		"LM_UMBRELLA_TEST_EXPLAIN":   "FALSE",
-		"LM_UMBRELLA_APIKEY":         "NONE",
+		"LM_UMBRELLA_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LM_UMBRELLA_TEST_IMPORT_STATUS_ENTID"])
@@ -182,11 +182,23 @@ func import_statusBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LM_UMBRELLA_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LM_UMBRELLA_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewLmUmbrellaSDK(core.ToMapAny(mergedOpts))
 	}
