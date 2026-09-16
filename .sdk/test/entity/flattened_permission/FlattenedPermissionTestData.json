@@ -36,5 +36,320 @@
         "source": "scc"
       }
     }
+  },
+  "requests": {
+    "POST /public/database/{id}/permission/{msisdn}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "save_1",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "msisdn",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": {
+                  "type": "object"
+                },
+                "properties": {
+                  "empty": {
+                    "type": "boolean"
+                  },
+                  "msisdn": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "This class represents a permission - there are three special fields: msisdn, actice and source. Each metadata field can be added as a field of this object - with its value - so if you e.g. have a metadate field with name as key the flattened permission will look *like*: \n\n```javascript\n{ \"msisdn\": \"4531503823\",\n  \"active\": true,\n  \"source\": \"source1,source2\",\n  \"name\": \"Erik\"\n}\n```",
+                  "properties": {
+                    "active": {
+                      "description": "if permission is active in the database",
+                      "type": "boolean"
+                    },
+                    "msisdn": {
+                      "description": "phone number",
+                      "type": "string"
+                    },
+                    "source": {
+                      "description": "comma separated list of sources",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "result of a validation",
+                  "properties": {
+                    "errors": {
+                      "description": "list of errors after validation",
+                      "items": {
+                        "description": "represents an error",
+                        "properties": {
+                          "code": {
+                            "description": "code for error",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "human friendly error message",
+                            "type": "string"
+                          },
+                          "properties": {
+                            "additionalProperties": {
+                              "description": "relevant properties for error",
+                              "type": "string"
+                            },
+                            "description": "relevant properties for error",
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One or more parameters missing or invalid"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "Permission was not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /public/database/{id}/permission/list": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "permissionList",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "description": "This class represents a permission - there are three special fields: msisdn, actice and source. Each metadata field can be added as a field of this object - with its value - so if you e.g. have a metadate field with name as key the flattened permission will look *like*: \n\n```javascript\n{ \"msisdn\": \"4531503823\",\n  \"active\": true,\n  \"source\": \"source1,source2\",\n  \"name\": \"Erik\"\n}\n```",
+                    "properties": {
+                      "active": {
+                        "description": "if permission is active in the database",
+                        "type": "boolean"
+                      },
+                      "msisdn": {
+                        "description": "phone number",
+                        "type": "string"
+                      },
+                      "source": {
+                        "description": "comma separated list of sources",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "The database could not be found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /public/database/{id}/permission/query": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "saveByParameters",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "This class represents a permission - there are three special fields: msisdn, actice and source. Each metadata field can be added as a field of this object - with its value - so if you e.g. have a metadate field with name as key the flattened permission will look *like*: \n\n```javascript\n{ \"msisdn\": \"4531503823\",\n  \"active\": true,\n  \"source\": \"source1,source2\",\n  \"name\": \"Erik\"\n}\n```",
+                  "properties": {
+                    "active": {
+                      "description": "if permission is active in the database",
+                      "type": "boolean"
+                    },
+                    "msisdn": {
+                      "description": "phone number",
+                      "type": "string"
+                    },
+                    "source": {
+                      "description": "comma separated list of sources",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "result of a validation",
+                  "properties": {
+                    "errors": {
+                      "description": "list of errors after validation",
+                      "items": {
+                        "description": "represents an error",
+                        "properties": {
+                          "code": {
+                            "description": "code for error",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "human friendly error message",
+                            "type": "string"
+                          },
+                          "properties": {
+                            "additionalProperties": {
+                              "description": "relevant properties for error",
+                              "type": "string"
+                            },
+                            "description": "relevant properties for error",
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One or more parameters missing or invalid"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "Permission was not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

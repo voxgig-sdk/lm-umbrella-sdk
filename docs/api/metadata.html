@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Metadata | Permission Public API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Permission Public API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/lm-umbrella-sdk">voxgig-sdk/lm-umbrella-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Permission Public API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/database.html">Database</a>
+<a href="../api/flat_permission.html">FlatPermission</a>
+<a href="../api/flattened_permission.html">FlattenedPermission</a>
+<a href="../api/import_status.html">ImportStatus</a>
+<a aria-current="page" href="../api/metadata.html">Metadata</a><div class="nav-sections"><a class="nav-section" href="#post-publicdatabaseidmetadatakey">POST /public/database/{id}/metadata/{key}</a>
+<a class="nav-section" href="#post-publicdatabaseidmetadata">POST /public/database/{id}/metadata</a>
+<a class="nav-section" href="#get-publicdatabaseidmetadata">GET /public/database/{id}/metadata</a>
+<a class="nav-section" href="#get-publicdatabaseidmetadatakey">GET /public/database/{id}/metadata/{key}</a>
+<a class="nav-section" href="#put-publicdatabaseidmetadatakey">PUT /public/database/{id}/metadata/{key}</a></div>
+<a href="../api/paginated_permission_list.html">PaginatedPermissionList</a>
+<a href="../api/permission.html">Permission</a>
+<a href="../api/permission_database.html">PermissionDatabase</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/rb.html">Ruby</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="metadata">Metadata</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-publicdatabaseidmetadatakey"><code>/public/database/{id}/metadata/{key}</code></a></td>
+<td><code>create</code></td>
+<td>Successful operation</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-publicdatabaseidmetadata"><code>/public/database/{id}/metadata</code></a></td>
+<td><code>create</code></td>
+<td>Successful operation</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-publicdatabaseidmetadata"><code>/public/database/{id}/metadata</code></a></td>
+<td><code>list</code></td>
+<td>Successful operation</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-publicdatabaseidmetadatakey"><code>/public/database/{id}/metadata/{key}</code></a></td>
+<td><code>load</code></td>
+<td>Successful operation</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-publicdatabaseidmetadatakey"><code>/public/database/{id}/metadata/{key}</code></a></td>
+<td><code>update</code></td>
+<td>Successful operation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contents</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Contains extra info for a field</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>created date of the field</td>
+</tr>
+<tr>
+<td><code>databaseId</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>id of the database</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td></td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>key for the field (used for the value internally - cannot be changed after creation)</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>label for the field (used for displaying in the interface)</td>
+</tr>
+<tr>
+<td><code>multiValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>if the field is a multi value field</td>
+</tr>
+<tr>
+<td><code>rangeEnd</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>end on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>rangeStart</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>start on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>the type of field</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>deletion date of the field</td>
+</tr>
+<tr>
+<td><code>validation</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>type of validation on TEXT field</td>
+</tr>
+<tr>
+<td><code>values</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>Possible enumeration of values for ENUMERATION field</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-publicdatabaseidmetadatakey" class="operation" data-method="post"><code>POST</code> /public/database/{id}/metadata/{key}</h3>
+<p>Operation ID: <code>delete_1</code>.</p>
+<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
+| <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |
+| <code>key</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses">Responses</h4>
+<h5 id="200-successful-operation" class="status" data-status="2xx">200: Successful operation</h5>
+<h5 id="401-the-request-is-not-allowed" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found" class="status" data-status="4xx">404: Metadata not found</h5>
+<h3 id="post-publicdatabaseidmetadata" class="operation" data-method="post"><code>POST</code> /public/database/{id}/metadata</h3>
+<p>Operation ID: <code>save</code>.</p>
+<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<h4 id="parameters-1">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
+| <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contents</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Contains extra info for a field</td>
+</tr>
+<tr>
+<td><code>contents.rangeEnd</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>end on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.rangeStart</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>start on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.validation</code></td>
+<td><code>enum: NONE, EMAIL</code></td>
+<td>No</td>
+<td>type of validation on TEXT field</td>
+</tr>
+<tr>
+<td><code>contents.values</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Possible enumeration of values for ENUMERATION field</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>created date of the field</td>
+</tr>
+<tr>
+<td><code>databaseId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>id of the database</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>key for the field (used for the value internally - cannot be changed after creation)</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>label for the field (used for displaying in the interface)</td>
+</tr>
+<tr>
+<td><code>multiValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>if the field is a multi value field</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>enum: INTEGER, TEXT, ENUMERATION, BOOLEAN, DATE, INTEGER,TEXT,ENUMERATION</code></td>
+<td>No</td>
+<td>the type of field</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>deletion date of the field</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-1">Responses</h4>
+<h5 id="200-successful-operation-1" class="status" data-status="2xx">200: Successful operation</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contents</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Contains extra info for a field</td>
+</tr>
+<tr>
+<td><code>contents.rangeEnd</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>end on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.rangeStart</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>start on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.validation</code></td>
+<td><code>enum: NONE, EMAIL</code></td>
+<td>No</td>
+<td>type of validation on TEXT field</td>
+</tr>
+<tr>
+<td><code>contents.values</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Possible enumeration of values for ENUMERATION field</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>created date of the field</td>
+</tr>
+<tr>
+<td><code>databaseId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>id of the database</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>key for the field (used for the value internally - cannot be changed after creation)</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>label for the field (used for displaying in the interface)</td>
+</tr>
+<tr>
+<td><code>multiValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>if the field is a multi value field</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>enum: INTEGER, TEXT, ENUMERATION, BOOLEAN, DATE, INTEGER,TEXT,ENUMERATION</code></td>
+<td>No</td>
+<td>the type of field</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>deletion date of the field</td>
+</tr>
+</tbody>
+</table>
+<h5 id="400-one-or-more-parameters-missing-or-invalid" class="status" data-status="4xx">400: One or more parameters missing or invalid</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>errors</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>list of errors after validation</td>
+</tr>
+<tr>
+<td><code>errors[].code</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>code for error</td>
+</tr>
+<tr>
+<td><code>errors[].message</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>human friendly error message</td>
+</tr>
+<tr>
+<td><code>errors[].properties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>relevant properties for error</td>
+</tr>
+</tbody>
+</table>
+<h5 id="401-the-request-is-not-allowed-1" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found-1" class="status" data-status="4xx">404: Metadata not found</h5>
+<h2 id="list">list</h2>
+<h3 id="get-publicdatabaseidmetadata" class="operation" data-method="get"><code>GET</code> /public/database/{id}/metadata</h3>
+<p>Operation ID: <code>list_1</code>.</p>
+<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<h4 id="parameters-2">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
+| <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |</p>
+<h4 id="responses-2">Responses</h4>
+<h5 id="200-successful-operation-2" class="status" data-status="2xx">200: Successful operation</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[].contents</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Contains extra info for a field</td>
+</tr>
+<tr>
+<td><code>[].contents.rangeEnd</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>end on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>[].contents.rangeStart</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>start on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>[].contents.validation</code></td>
+<td><code>enum: NONE, EMAIL</code></td>
+<td>No</td>
+<td>type of validation on TEXT field</td>
+</tr>
+<tr>
+<td><code>[].contents.values</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Possible enumeration of values for ENUMERATION field</td>
+</tr>
+<tr>
+<td><code>[].created</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>created date of the field</td>
+</tr>
+<tr>
+<td><code>[].databaseId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>id of the database</td>
+</tr>
+<tr>
+<td><code>[].key</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>key for the field (used for the value internally - cannot be changed after creation)</td>
+</tr>
+<tr>
+<td><code>[].label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>label for the field (used for displaying in the interface)</td>
+</tr>
+<tr>
+<td><code>[].multiValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>if the field is a multi value field</td>
+</tr>
+<tr>
+<td><code>[].type</code></td>
+<td><code>enum: INTEGER, TEXT, ENUMERATION, BOOLEAN, DATE, INTEGER,TEXT,ENUMERATION</code></td>
+<td>No</td>
+<td>the type of field</td>
+</tr>
+<tr>
+<td><code>[].updated</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>deletion date of the field</td>
+</tr>
+</tbody>
+</table>
+<h5 id="401-the-request-is-not-allowed-2" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found-2" class="status" data-status="4xx">404: Metadata not found</h5>
+<h2 id="load">load</h2>
+<h3 id="get-publicdatabaseidmetadatakey" class="operation" data-method="get"><code>GET</code> /public/database/{id}/metadata/{key}</h3>
+<p>Operation ID: <code>get_1</code>.</p>
+<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<h4 id="parameters-3">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
+| <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |
+| <code>key</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-3">Responses</h4>
+<h5 id="200-successful-operation-3" class="status" data-status="2xx">200: Successful operation</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contents</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Contains extra info for a field</td>
+</tr>
+<tr>
+<td><code>contents.rangeEnd</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>end on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.rangeStart</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>start on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.validation</code></td>
+<td><code>enum: NONE, EMAIL</code></td>
+<td>No</td>
+<td>type of validation on TEXT field</td>
+</tr>
+<tr>
+<td><code>contents.values</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Possible enumeration of values for ENUMERATION field</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>created date of the field</td>
+</tr>
+<tr>
+<td><code>databaseId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>id of the database</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>key for the field (used for the value internally - cannot be changed after creation)</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>label for the field (used for displaying in the interface)</td>
+</tr>
+<tr>
+<td><code>multiValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>if the field is a multi value field</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>enum: INTEGER, TEXT, ENUMERATION, BOOLEAN, DATE, INTEGER,TEXT,ENUMERATION</code></td>
+<td>No</td>
+<td>the type of field</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>deletion date of the field</td>
+</tr>
+</tbody>
+</table>
+<h5 id="401-the-request-is-not-allowed-3" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found-3" class="status" data-status="4xx">404: Metadata not found</h5>
+<h2 id="update">update</h2>
+<h3 id="put-publicdatabaseidmetadatakey" class="operation" data-method="put"><code>PUT</code> /public/database/{id}/metadata/{key}</h3>
+<p>Operation ID: <code>update_1</code>.</p>
+<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<h4 id="parameters-4">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
+| <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |
+| <code>key</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contents</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Contains extra info for a field</td>
+</tr>
+<tr>
+<td><code>contents.rangeEnd</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>end on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.rangeStart</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>start on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.validation</code></td>
+<td><code>enum: NONE, EMAIL</code></td>
+<td>No</td>
+<td>type of validation on TEXT field</td>
+</tr>
+<tr>
+<td><code>contents.values</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Possible enumeration of values for ENUMERATION field</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>created date of the field</td>
+</tr>
+<tr>
+<td><code>databaseId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>id of the database</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>key for the field (used for the value internally - cannot be changed after creation)</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>label for the field (used for displaying in the interface)</td>
+</tr>
+<tr>
+<td><code>multiValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>if the field is a multi value field</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>enum: INTEGER, TEXT, ENUMERATION, BOOLEAN, DATE, INTEGER,TEXT,ENUMERATION</code></td>
+<td>No</td>
+<td>the type of field</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>deletion date of the field</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-4">Responses</h4>
+<h5 id="200-successful-operation-4" class="status" data-status="2xx">200: Successful operation</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>contents</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Contains extra info for a field</td>
+</tr>
+<tr>
+<td><code>contents.rangeEnd</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>end on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.rangeStart</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>start on range for validation on INTEGER field</td>
+</tr>
+<tr>
+<td><code>contents.validation</code></td>
+<td><code>enum: NONE, EMAIL</code></td>
+<td>No</td>
+<td>type of validation on TEXT field</td>
+</tr>
+<tr>
+<td><code>contents.values</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>Possible enumeration of values for ENUMERATION field</td>
+</tr>
+<tr>
+<td><code>created</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>created date of the field</td>
+</tr>
+<tr>
+<td><code>databaseId</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>id of the database</td>
+</tr>
+<tr>
+<td><code>key</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>key for the field (used for the value internally - cannot be changed after creation)</td>
+</tr>
+<tr>
+<td><code>label</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>label for the field (used for displaying in the interface)</td>
+</tr>
+<tr>
+<td><code>multiValue</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>if the field is a multi value field</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>enum: INTEGER, TEXT, ENUMERATION, BOOLEAN, DATE, INTEGER,TEXT,ENUMERATION</code></td>
+<td>No</td>
+<td>the type of field</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>deletion date of the field</td>
+</tr>
+</tbody>
+</table>
+<h5 id="401-the-request-is-not-allowed-4" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found-4" class="status" data-status="4xx">404: Metadata not found</h5>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

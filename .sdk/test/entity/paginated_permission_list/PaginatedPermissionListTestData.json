@@ -4,60 +4,60 @@
       "PAGINATED_PERMISSION_LIST00": {
         "ascending": true,
         "columns": [],
-        "endRow": "sa2",
+        "endRow": 162,
         "groups": [],
         "metadata": [],
         "msisdnList": [],
         "onlyActive": true,
-        "page": "sa7",
+        "page": 167,
         "permissions": [],
         "quickFilterText": "sa9",
         "sort": "saa",
         "sources": [],
-        "startRow": "sac",
-        "totalActive": "sad",
-        "totalElements": "sae",
-        "totalPages": "saf",
+        "startRow": 172,
+        "totalActive": 173,
+        "totalElements": 174,
+        "totalPages": 175,
         "database_id": "DATABASE01",
         "id": "PAGINATED_PERMISSION_LIST00"
       },
       "PAGINATED_PERMISSION_LIST01": {
         "ascending": true,
         "columns": [],
-        "endRow": "s142",
+        "endRow": 322,
         "groups": [],
         "metadata": [],
         "msisdnList": [],
         "onlyActive": true,
-        "page": "s147",
+        "page": 327,
         "permissions": [],
         "quickFilterText": "s149",
         "sort": "s14a",
         "sources": [],
-        "startRow": "s14c",
-        "totalActive": "s14d",
-        "totalElements": "s14e",
-        "totalPages": "s14f",
+        "startRow": 332,
+        "totalActive": 333,
+        "totalElements": 334,
+        "totalPages": 335,
         "database_id": "DATABASE01",
         "id": "PAGINATED_PERMISSION_LIST01"
       },
       "PAGINATED_PERMISSION_LIST02": {
         "ascending": true,
         "columns": [],
-        "endRow": "s1e2",
+        "endRow": 482,
         "groups": [],
         "metadata": [],
         "msisdnList": [],
         "onlyActive": true,
-        "page": "s1e7",
+        "page": 487,
         "permissions": [],
         "quickFilterText": "s1e9",
         "sort": "s1ea",
         "sources": [],
-        "startRow": "s1ec",
-        "totalActive": "s1ed",
-        "totalElements": "s1ee",
-        "totalPages": "s1ef",
+        "startRow": 492,
+        "totalActive": 493,
+        "totalElements": 494,
+        "totalPages": 495,
         "database_id": "DATABASE01",
         "id": "PAGINATED_PERMISSION_LIST02"
       }
@@ -68,20 +68,348 @@
       "paginated_permission_list_ref01": {
         "ascending": true,
         "columns": [],
-        "endRow": "s282",
+        "endRow": 642,
         "groups": [],
         "metadata": [],
         "msisdnList": [],
         "onlyActive": true,
-        "page": "s287",
+        "page": 647,
         "permissions": [],
         "quickFilterText": "s289",
         "sort": "s28a",
         "sources": [],
-        "startRow": "s28c",
-        "totalActive": "s28d",
-        "totalElements": "s28e",
-        "totalPages": "s28f"
+        "startRow": 652,
+        "totalActive": 653,
+        "totalElements": 654,
+        "totalPages": 655
+      }
+    }
+  },
+  "requests": {
+    "POST /public/database/{id}/permission/paged/list": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "list_2",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "ascending": {
+                    "type": "boolean"
+                  },
+                  "endRow": {
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "groups": {
+                    "items": {
+                      "properties": {
+                        "groups": {
+                          "items": {
+                            "properties": "[Circular *paths./public/database/{id}/permission/paged/list.post.requestBody.content.application/json.schema.properties.groups.items.properties]",
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "metadata": {
+                          "items": {
+                            "properties": {
+                              "key": {
+                                "type": "string"
+                              },
+                              "rules": {
+                                "items": {
+                                  "properties": {
+                                    "op": {
+                                      "enum": [
+                                        "EQUALS",
+                                        "RANGE",
+                                        "NONE",
+                                        "ONE_OF",
+                                        "ALL_OF",
+                                        "NONE_OF",
+                                        "IS_EMPTY",
+                                        "IS_NOT_EMPTY",
+                                        "SETDIFF",
+                                        "AMOUNT",
+                                        "PERCENTAGE",
+                                        "DAY_OF_YEAR_TODAY",
+                                        "DAY_OF_WEEK",
+                                        "DAYS_AGO",
+                                        "DAYS_UNTIL",
+                                        "DAYS_WITHIN"
+                                      ],
+                                      "type": "string"
+                                    },
+                                    "value": {
+                                      "type": "object"
+                                    },
+                                    "value2": {
+                                      "type": "object"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "operation": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "metadata": {
+                    "items": {
+                      "properties": {
+                        "key": {
+                          "type": "string"
+                        },
+                        "rules": {
+                          "items": {
+                            "properties": {
+                              "op": {
+                                "enum": [
+                                  "EQUALS",
+                                  "RANGE",
+                                  "NONE",
+                                  "ONE_OF",
+                                  "ALL_OF",
+                                  "NONE_OF",
+                                  "IS_EMPTY",
+                                  "IS_NOT_EMPTY",
+                                  "SETDIFF",
+                                  "AMOUNT",
+                                  "PERCENTAGE",
+                                  "DAY_OF_YEAR_TODAY",
+                                  "DAY_OF_WEEK",
+                                  "DAYS_AGO",
+                                  "DAYS_UNTIL",
+                                  "DAYS_WITHIN"
+                                ],
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "object"
+                              },
+                              "value2": {
+                                "type": "object"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "msisdnList": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "onlyActive": {
+                    "type": "boolean"
+                  },
+                  "quickFilterText": {
+                    "type": "string"
+                  },
+                  "sort": {
+                    "type": "string"
+                  },
+                  "sources": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "startRow": {
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Container for a page in a list of permissions",
+                  "properties": {
+                    "columns": {
+                      "description": "the column data",
+                      "items": {
+                        "description": "the column data",
+                        "properties": {
+                          "cellRenderer": {
+                            "type": "string"
+                          },
+                          "contents": {
+                            "description": "Contains extra info for a field",
+                            "properties": {
+                              "rangeEnd": {
+                                "description": "end on range for validation on INTEGER field",
+                                "format": "int32",
+                                "type": "integer"
+                              },
+                              "rangeStart": {
+                                "description": "start on range for validation on INTEGER field",
+                                "format": "int32",
+                                "type": "integer"
+                              },
+                              "validation": {
+                                "description": "type of validation on TEXT field",
+                                "enum": [
+                                  "NONE",
+                                  "EMAIL"
+                                ],
+                                "type": "string"
+                              },
+                              "values": {
+                                "description": "Possible enumeration of values for ENUMERATION field",
+                                "items": {
+                                  "description": "Possible enumeration of values for ENUMERATION field",
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "field": {
+                            "type": "string"
+                          },
+                          "headerName": {
+                            "type": "string"
+                          },
+                          "multiValue": {
+                            "type": "boolean"
+                          },
+                          "pinned": {
+                            "type": "boolean"
+                          },
+                          "type": {
+                            "enum": [
+                              "INTEGER",
+                              "TEXT",
+                              "ENUMERATION",
+                              "BOOLEAN",
+                              "DATE"
+                            ],
+                            "type": "string"
+                          },
+                          "visible": {
+                            "type": "boolean"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "page": {
+                      "description": "page number",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "permissions": {
+                      "description": "the permissions for the page",
+                      "items": {
+                        "additionalProperties": {
+                          "type": "object"
+                        },
+                        "properties": {
+                          "empty": {
+                            "type": "boolean"
+                          },
+                          "msisdn": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "sources": {
+                      "description": "the possible sources for the database",
+                      "items": {
+                        "description": "the possible sources for the database",
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "totalActive": {
+                      "description": "total number of active permissions",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "totalElements": {
+                      "description": "total number of permissions",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "totalPages": {
+                      "description": "total number of pages",
+                      "format": "int32",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

@@ -4,13 +4,13 @@
       "METADATA00": {
         "contents": {},
         "created": "s83",
-        "databaseId": "s84",
+        "databaseId": 132,
         "id": "METADATA00",
         "key": "s86",
         "label": "s87",
         "multiValue": true,
-        "rangeEnd": "s89",
-        "rangeStart": "s8a",
+        "rangeEnd": 137,
+        "rangeStart": 138,
         "type": "s8b",
         "updated": "s8c",
         "validation": "s8d",
@@ -20,13 +20,13 @@
       "METADATA01": {
         "contents": {},
         "created": "s105",
-        "databaseId": "s106",
+        "databaseId": 262,
         "id": "METADATA01",
         "key": "s108",
         "label": "s109",
         "multiValue": true,
-        "rangeEnd": "s10b",
-        "rangeStart": "s10c",
+        "rangeEnd": 267,
+        "rangeStart": 268,
         "type": "s10d",
         "updated": "s10e",
         "validation": "s10f",
@@ -36,13 +36,13 @@
       "METADATA02": {
         "contents": {},
         "created": "s187",
-        "databaseId": "s188",
+        "databaseId": 392,
         "id": "METADATA02",
         "key": "s18a",
         "label": "s18b",
         "multiValue": true,
-        "rangeEnd": "s18d",
-        "rangeStart": "s18e",
+        "rangeEnd": 397,
+        "rangeStart": 398,
         "type": "s18f",
         "updated": "s190",
         "validation": "s191",
@@ -56,16 +56,837 @@
       "metadata_ref01": {
         "contents": {},
         "created": "s209",
-        "databaseId": "s20a",
+        "databaseId": 522,
         "key": "s20c",
         "label": "s20d",
         "multiValue": true,
-        "rangeEnd": "s20f",
-        "rangeStart": "s210",
+        "rangeEnd": 527,
+        "rangeStart": 528,
         "type": "s211",
         "updated": "s212",
         "validation": "s213",
         "values": []
+      }
+    }
+  },
+  "requests": {
+    "POST /public/database/{id}/metadata/{key}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "delete_1",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "Metadata not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "POST /public/database/{id}/metadata": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "save",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "This represents a metadata field of a permission database",
+                "properties": {
+                  "contents": {
+                    "description": "Contains extra info for a field",
+                    "properties": {
+                      "rangeEnd": {
+                        "description": "end on range for validation on INTEGER field",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "rangeStart": {
+                        "description": "start on range for validation on INTEGER field",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "validation": {
+                        "description": "type of validation on TEXT field",
+                        "enum": [
+                          "NONE",
+                          "EMAIL"
+                        ],
+                        "type": "string"
+                      },
+                      "values": {
+                        "description": "Possible enumeration of values for ENUMERATION field",
+                        "items": {
+                          "description": "Possible enumeration of values for ENUMERATION field",
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "created": {
+                    "description": "created date of the field",
+                    "format": "date-time",
+                    "readOnly": true,
+                    "type": "string"
+                  },
+                  "databaseId": {
+                    "description": "id of the database",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "key": {
+                    "description": "key for the field (used for the value internally - cannot be changed after creation)",
+                    "type": "string"
+                  },
+                  "label": {
+                    "description": "label for the field (used for displaying in the interface)",
+                    "type": "string"
+                  },
+                  "multiValue": {
+                    "description": "if the field is a multi value field",
+                    "readOnly": true,
+                    "type": "boolean"
+                  },
+                  "type": {
+                    "description": "the type of field",
+                    "enum": [
+                      "INTEGER",
+                      "TEXT",
+                      "ENUMERATION",
+                      "BOOLEAN",
+                      "DATE",
+                      "INTEGER,TEXT,ENUMERATION"
+                    ],
+                    "type": "string"
+                  },
+                  "updated": {
+                    "description": "deletion date of the field",
+                    "format": "date-time",
+                    "readOnly": true,
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "This represents a metadata field of a permission database",
+                  "properties": {
+                    "contents": {
+                      "description": "Contains extra info for a field",
+                      "properties": {
+                        "rangeEnd": {
+                          "description": "end on range for validation on INTEGER field",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "rangeStart": {
+                          "description": "start on range for validation on INTEGER field",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "validation": {
+                          "description": "type of validation on TEXT field",
+                          "enum": [
+                            "NONE",
+                            "EMAIL"
+                          ],
+                          "type": "string"
+                        },
+                        "values": {
+                          "description": "Possible enumeration of values for ENUMERATION field",
+                          "items": {
+                            "description": "Possible enumeration of values for ENUMERATION field",
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "created": {
+                      "description": "created date of the field",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "databaseId": {
+                      "description": "id of the database",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "key": {
+                      "description": "key for the field (used for the value internally - cannot be changed after creation)",
+                      "type": "string"
+                    },
+                    "label": {
+                      "description": "label for the field (used for displaying in the interface)",
+                      "type": "string"
+                    },
+                    "multiValue": {
+                      "description": "if the field is a multi value field",
+                      "readOnly": true,
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "description": "the type of field",
+                      "enum": [
+                        "INTEGER",
+                        "TEXT",
+                        "ENUMERATION",
+                        "BOOLEAN",
+                        "DATE",
+                        "INTEGER,TEXT,ENUMERATION"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "description": "deletion date of the field",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "result of a validation",
+                  "properties": {
+                    "errors": {
+                      "description": "list of errors after validation",
+                      "items": {
+                        "description": "represents an error",
+                        "properties": {
+                          "code": {
+                            "description": "code for error",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "human friendly error message",
+                            "type": "string"
+                          },
+                          "properties": {
+                            "additionalProperties": {
+                              "description": "relevant properties for error",
+                              "type": "string"
+                            },
+                            "description": "relevant properties for error",
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One or more parameters missing or invalid"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "Metadata not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /public/database/{id}/metadata": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "list_1",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "description": "This represents a metadata field of a permission database",
+                    "properties": {
+                      "contents": {
+                        "description": "Contains extra info for a field",
+                        "properties": {
+                          "rangeEnd": {
+                            "description": "end on range for validation on INTEGER field",
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "rangeStart": {
+                            "description": "start on range for validation on INTEGER field",
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "validation": {
+                            "description": "type of validation on TEXT field",
+                            "enum": [
+                              "NONE",
+                              "EMAIL"
+                            ],
+                            "type": "string"
+                          },
+                          "values": {
+                            "description": "Possible enumeration of values for ENUMERATION field",
+                            "items": {
+                              "description": "Possible enumeration of values for ENUMERATION field",
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "created": {
+                        "description": "created date of the field",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      },
+                      "databaseId": {
+                        "description": "id of the database",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "key": {
+                        "description": "key for the field (used for the value internally - cannot be changed after creation)",
+                        "type": "string"
+                      },
+                      "label": {
+                        "description": "label for the field (used for displaying in the interface)",
+                        "type": "string"
+                      },
+                      "multiValue": {
+                        "description": "if the field is a multi value field",
+                        "readOnly": true,
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "description": "the type of field",
+                        "enum": [
+                          "INTEGER",
+                          "TEXT",
+                          "ENUMERATION",
+                          "BOOLEAN",
+                          "DATE",
+                          "INTEGER,TEXT,ENUMERATION"
+                        ],
+                        "type": "string"
+                      },
+                      "updated": {
+                        "description": "deletion date of the field",
+                        "format": "date-time",
+                        "readOnly": true,
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "Metadata not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /public/database/{id}/metadata/{key}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "get_1",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "This represents a metadata field of a permission database",
+                  "properties": {
+                    "contents": {
+                      "description": "Contains extra info for a field",
+                      "properties": {
+                        "rangeEnd": {
+                          "description": "end on range for validation on INTEGER field",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "rangeStart": {
+                          "description": "start on range for validation on INTEGER field",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "validation": {
+                          "description": "type of validation on TEXT field",
+                          "enum": [
+                            "NONE",
+                            "EMAIL"
+                          ],
+                          "type": "string"
+                        },
+                        "values": {
+                          "description": "Possible enumeration of values for ENUMERATION field",
+                          "items": {
+                            "description": "Possible enumeration of values for ENUMERATION field",
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "created": {
+                      "description": "created date of the field",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "databaseId": {
+                      "description": "id of the database",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "key": {
+                      "description": "key for the field (used for the value internally - cannot be changed after creation)",
+                      "type": "string"
+                    },
+                    "label": {
+                      "description": "label for the field (used for displaying in the interface)",
+                      "type": "string"
+                    },
+                    "multiValue": {
+                      "description": "if the field is a multi value field",
+                      "readOnly": true,
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "description": "the type of field",
+                      "enum": [
+                        "INTEGER",
+                        "TEXT",
+                        "ENUMERATION",
+                        "BOOLEAN",
+                        "DATE",
+                        "INTEGER,TEXT,ENUMERATION"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "description": "deletion date of the field",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "Metadata not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "PUT /public/database/{id}/metadata/{key}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "update_1",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "This represents a metadata field of a permission database",
+                "properties": {
+                  "contents": {
+                    "description": "Contains extra info for a field",
+                    "properties": {
+                      "rangeEnd": {
+                        "description": "end on range for validation on INTEGER field",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "rangeStart": {
+                        "description": "start on range for validation on INTEGER field",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "validation": {
+                        "description": "type of validation on TEXT field",
+                        "enum": [
+                          "NONE",
+                          "EMAIL"
+                        ],
+                        "type": "string"
+                      },
+                      "values": {
+                        "description": "Possible enumeration of values for ENUMERATION field",
+                        "items": {
+                          "description": "Possible enumeration of values for ENUMERATION field",
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "created": {
+                    "description": "created date of the field",
+                    "format": "date-time",
+                    "readOnly": true,
+                    "type": "string"
+                  },
+                  "databaseId": {
+                    "description": "id of the database",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "key": {
+                    "description": "key for the field (used for the value internally - cannot be changed after creation)",
+                    "type": "string"
+                  },
+                  "label": {
+                    "description": "label for the field (used for displaying in the interface)",
+                    "type": "string"
+                  },
+                  "multiValue": {
+                    "description": "if the field is a multi value field",
+                    "readOnly": true,
+                    "type": "boolean"
+                  },
+                  "type": {
+                    "description": "the type of field",
+                    "enum": [
+                      "INTEGER",
+                      "TEXT",
+                      "ENUMERATION",
+                      "BOOLEAN",
+                      "DATE",
+                      "INTEGER,TEXT,ENUMERATION"
+                    ],
+                    "type": "string"
+                  },
+                  "updated": {
+                    "description": "deletion date of the field",
+                    "format": "date-time",
+                    "readOnly": true,
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "This represents a metadata field of a permission database",
+                  "properties": {
+                    "contents": {
+                      "description": "Contains extra info for a field",
+                      "properties": {
+                        "rangeEnd": {
+                          "description": "end on range for validation on INTEGER field",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "rangeStart": {
+                          "description": "start on range for validation on INTEGER field",
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "validation": {
+                          "description": "type of validation on TEXT field",
+                          "enum": [
+                            "NONE",
+                            "EMAIL"
+                          ],
+                          "type": "string"
+                        },
+                        "values": {
+                          "description": "Possible enumeration of values for ENUMERATION field",
+                          "items": {
+                            "description": "Possible enumeration of values for ENUMERATION field",
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "created": {
+                      "description": "created date of the field",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    },
+                    "databaseId": {
+                      "description": "id of the database",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "key": {
+                      "description": "key for the field (used for the value internally - cannot be changed after creation)",
+                      "type": "string"
+                    },
+                    "label": {
+                      "description": "label for the field (used for displaying in the interface)",
+                      "type": "string"
+                    },
+                    "multiValue": {
+                      "description": "if the field is a multi value field",
+                      "readOnly": true,
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "description": "the type of field",
+                      "enum": [
+                        "INTEGER",
+                        "TEXT",
+                        "ENUMERATION",
+                        "BOOLEAN",
+                        "DATE",
+                        "INTEGER,TEXT,ENUMERATION"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "description": "deletion date of the field",
+                      "format": "date-time",
+                      "readOnly": true,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "Metadata not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

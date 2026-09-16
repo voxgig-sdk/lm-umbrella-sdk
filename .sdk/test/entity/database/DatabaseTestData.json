@@ -19,5 +19,59 @@
     "database": {
       "database_ref01": {}
     }
+  },
+  "requests": {
+    "DELETE /public/database/{id}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "Database ID",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "One or more parameters missing or invalid"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "The database could not be found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

@@ -30,6 +30,12 @@ main: kit: entity: database: {
               }
             ]
           }
+          contract: {
+            id: "DELETE /public/database/{id}"
+            json: "{\"operationId\":\"delete\",\"parameters\":[{\"in\":\"path\",\"name\":\"Database ID\",\"required\":true,\"schema\":{\"format\":\"int32\",\"type\":\"integer\"}},{\"in\":\"query\",\"name\":\"apiKey\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"description\":\"Successful operation\"},\"400\":{\"description\":\"One or more parameters missing or invalid\"},\"401\":{\"description\":\"The request is not allowed\"},\"404\":{\"description\":\"The database could not be found\"}},\"security\":[{\"apiKey\":[]}],\"securitySchemes\":{\"apiKey\":{\"in\":\"query\",\"name\":\"apiKey\",\"type\":\"apiKey\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "DELETE"
           orig: "/public/database/{id}"
           segments: [

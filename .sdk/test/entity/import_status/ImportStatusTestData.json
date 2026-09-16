@@ -5,8 +5,8 @@
         "errors": [],
         "importId": "s3d",
         "msisdn": "s3e",
-        "permissionsInserted": "s3f",
-        "permissionsUpdated": "s40",
+        "permissionsInserted": 63,
+        "permissionsUpdated": 64,
         "status": "s41",
         "database_id": "DATABASE01",
         "id": "IMPORT_STATUS00"
@@ -15,8 +15,8 @@
         "errors": [],
         "importId": "s79",
         "msisdn": "s7a",
-        "permissionsInserted": "s7b",
-        "permissionsUpdated": "s7c",
+        "permissionsInserted": 123,
+        "permissionsUpdated": 124,
         "status": "s7d",
         "database_id": "DATABASE01",
         "id": "IMPORT_STATUS01"
@@ -25,8 +25,8 @@
         "errors": [],
         "importId": "sb5",
         "msisdn": "sb6",
-        "permissionsInserted": "sb7",
-        "permissionsUpdated": "sb8",
+        "permissionsInserted": 183,
+        "permissionsUpdated": 184,
         "status": "sb9",
         "database_id": "DATABASE01",
         "id": "IMPORT_STATUS02"
@@ -39,9 +39,314 @@
         "errors": [],
         "importId": "sf1",
         "msisdn": "sf2",
-        "permissionsInserted": "sf3",
-        "permissionsUpdated": "sf4",
+        "permissionsInserted": 243,
+        "permissionsUpdated": 244,
         "status": "sf5"
+      }
+    }
+  },
+  "requests": {
+    "POST /public/database/{id}/permission/bulk": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "bulk",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "skipImportOnError",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "additionalProperties": {
+                    "type": "object"
+                  },
+                  "properties": {
+                    "empty": {
+                      "type": "boolean"
+                    },
+                    "msisdn": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Use this model to get the import id and get the status of the import",
+                  "properties": {
+                    "errors": {
+                      "description": "Import errors (List of ImportError)",
+                      "items": {
+                        "description": "Import errors (List of ImportError)",
+                        "properties": {
+                          "errors": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "msisdn": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "importId": {
+                      "description": "Import id",
+                      "type": "string"
+                    },
+                    "permissionsInserted": {
+                      "description": "Number of permissions inserted into database",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "permissionsUpdated": {
+                      "description": "Number of permissions updated in database",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "status": {
+                      "description": "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "result of a validation",
+                  "properties": {
+                    "errors": {
+                      "description": "list of errors after validation",
+                      "items": {
+                        "description": "represents an error",
+                        "properties": {
+                          "code": {
+                            "description": "code for error",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "human friendly error message",
+                            "type": "string"
+                          },
+                          "properties": {
+                            "additionalProperties": {
+                              "description": "relevant properties for error",
+                              "type": "string"
+                            },
+                            "description": "relevant properties for error",
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One or more parameters missing or invalid"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /public/database/{id}/permission/bulk/status": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "status",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "importId",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Use this model to get the import id and get the status of the import",
+                  "properties": {
+                    "errors": {
+                      "description": "Import errors (List of ImportError)",
+                      "items": {
+                        "description": "Import errors (List of ImportError)",
+                        "properties": {
+                          "errors": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "msisdn": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "importId": {
+                      "description": "Import id",
+                      "type": "string"
+                    },
+                    "permissionsInserted": {
+                      "description": "Number of permissions inserted into database",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "permissionsUpdated": {
+                      "description": "Number of permissions updated in database",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "status": {
+                      "description": "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "result of a validation",
+                  "properties": {
+                    "errors": {
+                      "description": "list of errors after validation",
+                      "items": {
+                        "description": "represents an error",
+                        "properties": {
+                          "code": {
+                            "description": "code for error",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "human friendly error message",
+                            "type": "string"
+                          },
+                          "properties": {
+                            "additionalProperties": {
+                              "description": "relevant properties for error",
+                              "type": "string"
+                            },
+                            "description": "relevant properties for error",
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One or more parameters missing or invalid"
+          },
+          "404": {
+            "description": "Import not found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

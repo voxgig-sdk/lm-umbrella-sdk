@@ -2,7 +2,7 @@
   "existing": {
     "permission_database": {
       "PERMISSION_DATABASE00": {
-        "customerId": "s5a",
+        "customerId": 90,
         "deleteOnOptout": false,
         "description": "s5c",
         "hooks": [],
@@ -10,11 +10,11 @@
         "name": "s5f",
         "routes": [],
         "senderAlias": "s61",
-        "serviceId": "s62",
+        "serviceId": 98,
         "database_id": "DATABASE01"
       },
       "PERMISSION_DATABASE01": {
-        "customerId": "sb4",
+        "customerId": 180,
         "deleteOnOptout": false,
         "description": "sb6",
         "hooks": [],
@@ -22,11 +22,11 @@
         "name": "sb9",
         "routes": [],
         "senderAlias": "sbb",
-        "serviceId": "sbc",
+        "serviceId": 188,
         "database_id": "DATABASE01"
       },
       "PERMISSION_DATABASE02": {
-        "customerId": "s10e",
+        "customerId": 270,
         "deleteOnOptout": false,
         "description": "s110",
         "hooks": [],
@@ -34,7 +34,7 @@
         "name": "s113",
         "routes": [],
         "senderAlias": "s115",
-        "serviceId": "s116",
+        "serviceId": 278,
         "database_id": "DATABASE01"
       }
     }
@@ -42,14 +42,697 @@
   "new": {
     "permission_database": {
       "permission_database_ref01": {
-        "customerId": "s168",
+        "customerId": 360,
         "deleteOnOptout": false,
         "description": "s16a",
         "hooks": [],
         "name": "s16d",
         "routes": [],
         "senderAlias": "s16f",
-        "serviceId": "s170"
+        "serviceId": 368
+      }
+    }
+  },
+  "requests": {
+    "GET /public/database/list": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "customerId": {
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "deleteOnOptout": {
+                        "type": "boolean"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "hooks": {
+                        "items": {
+                          "properties": {
+                            "enabled": {
+                              "type": "boolean"
+                            },
+                            "hookId": {
+                              "format": "int32",
+                              "type": "integer"
+                            },
+                            "hookKey": {
+                              "type": "string"
+                            },
+                            "hookName": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "format": "int32",
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "id": {
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "routes": {
+                        "items": {
+                          "properties": {
+                            "channel": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "format": "int32",
+                              "type": "integer"
+                            },
+                            "keywords": {
+                              "items": {
+                                "description": "This represent an unsubscription route for a database",
+                                "properties": {
+                                  "extra": {
+                                    "description": "extra word (second word in the sms) for unsubscribing (empty or null means all)",
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "description": "internal database id of the route",
+                                    "format": "int32",
+                                    "type": "integer"
+                                  },
+                                  "keyword": {
+                                    "description": "keyword for the route",
+                                    "type": "string"
+                                  },
+                                  "permissionDatabaseId": {
+                                    "description": "id of the database it belongs to",
+                                    "format": "int32",
+                                    "type": "integer"
+                                  },
+                                  "routeId": {
+                                    "description": "the route the keyword is configured on",
+                                    "format": "int32",
+                                    "type": "integer"
+                                  }
+                                },
+                                "type": "object"
+                              },
+                              "type": "array"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "optoutFooterEnabled": {
+                              "type": "boolean"
+                            },
+                            "optoutFooterPageButton": {
+                              "type": "string"
+                            },
+                            "optoutFooterPageText": {
+                              "type": "string"
+                            },
+                            "optoutFooterText": {
+                              "type": "string"
+                            },
+                            "unsubscriptionText": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "senderAlias": {
+                        "type": "string"
+                      },
+                      "serviceId": {
+                        "format": "int32",
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful operation"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /public/database/{id}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "Database ID",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "customerId": {
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "deleteOnOptout": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "hooks": {
+                      "items": {
+                        "properties": {
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "hookId": {
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "hookKey": {
+                            "type": "string"
+                          },
+                          "hookName": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "id": {
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "routes": {
+                      "items": {
+                        "properties": {
+                          "channel": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "keywords": {
+                            "items": {
+                              "description": "This represent an unsubscription route for a database",
+                              "properties": {
+                                "extra": {
+                                  "description": "extra word (second word in the sms) for unsubscribing (empty or null means all)",
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "description": "internal database id of the route",
+                                  "format": "int32",
+                                  "type": "integer"
+                                },
+                                "keyword": {
+                                  "description": "keyword for the route",
+                                  "type": "string"
+                                },
+                                "permissionDatabaseId": {
+                                  "description": "id of the database it belongs to",
+                                  "format": "int32",
+                                  "type": "integer"
+                                },
+                                "routeId": {
+                                  "description": "the route the keyword is configured on",
+                                  "format": "int32",
+                                  "type": "integer"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "optoutFooterEnabled": {
+                            "type": "boolean"
+                          },
+                          "optoutFooterPageButton": {
+                            "type": "string"
+                          },
+                          "optoutFooterPageText": {
+                            "type": "string"
+                          },
+                          "optoutFooterText": {
+                            "type": "string"
+                          },
+                          "unsubscriptionText": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "senderAlias": {
+                      "type": "string"
+                    },
+                    "serviceId": {
+                      "format": "int32",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "One or more parameters missing or invalid"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "PUT /public/database/{id}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "Database ID",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "customerId": {
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "deleteOnOptout": {
+                    "type": "boolean"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "hooks": {
+                    "items": {
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "hookId": {
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "hookKey": {
+                          "type": "string"
+                        },
+                        "hookName": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "id": {
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "routes": {
+                    "items": {
+                      "properties": {
+                        "channel": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "format": "int32",
+                          "type": "integer"
+                        },
+                        "keywords": {
+                          "items": {
+                            "description": "This represent an unsubscription route for a database",
+                            "properties": {
+                              "extra": {
+                                "description": "extra word (second word in the sms) for unsubscribing (empty or null means all)",
+                                "type": "string"
+                              },
+                              "id": {
+                                "description": "internal database id of the route",
+                                "format": "int32",
+                                "type": "integer"
+                              },
+                              "keyword": {
+                                "description": "keyword for the route",
+                                "type": "string"
+                              },
+                              "permissionDatabaseId": {
+                                "description": "id of the database it belongs to",
+                                "format": "int32",
+                                "type": "integer"
+                              },
+                              "routeId": {
+                                "description": "the route the keyword is configured on",
+                                "format": "int32",
+                                "type": "integer"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "optoutFooterEnabled": {
+                          "type": "boolean"
+                        },
+                        "optoutFooterPageButton": {
+                          "type": "string"
+                        },
+                        "optoutFooterPageText": {
+                          "type": "string"
+                        },
+                        "optoutFooterText": {
+                          "type": "string"
+                        },
+                        "unsubscriptionText": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "senderAlias": {
+                    "type": "string"
+                  },
+                  "serviceId": {
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "customerId": {
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "deleteOnOptout": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "hooks": {
+                      "items": {
+                        "properties": {
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "hookId": {
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "hookKey": {
+                            "type": "string"
+                          },
+                          "hookName": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "id": {
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "routes": {
+                      "items": {
+                        "properties": {
+                          "channel": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "format": "int32",
+                            "type": "integer"
+                          },
+                          "keywords": {
+                            "items": {
+                              "description": "This represent an unsubscription route for a database",
+                              "properties": {
+                                "extra": {
+                                  "description": "extra word (second word in the sms) for unsubscribing (empty or null means all)",
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "description": "internal database id of the route",
+                                  "format": "int32",
+                                  "type": "integer"
+                                },
+                                "keyword": {
+                                  "description": "keyword for the route",
+                                  "type": "string"
+                                },
+                                "permissionDatabaseId": {
+                                  "description": "id of the database it belongs to",
+                                  "format": "int32",
+                                  "type": "integer"
+                                },
+                                "routeId": {
+                                  "description": "the route the keyword is configured on",
+                                  "format": "int32",
+                                  "type": "integer"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "optoutFooterEnabled": {
+                            "type": "boolean"
+                          },
+                          "optoutFooterPageButton": {
+                            "type": "string"
+                          },
+                          "optoutFooterPageText": {
+                            "type": "string"
+                          },
+                          "optoutFooterText": {
+                            "type": "string"
+                          },
+                          "unsubscriptionText": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "senderAlias": {
+                      "type": "string"
+                    },
+                    "serviceId": {
+                      "format": "int32",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful operation"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "result of a validation",
+                  "properties": {
+                    "errors": {
+                      "description": "list of errors after validation",
+                      "items": {
+                        "description": "represents an error",
+                        "properties": {
+                          "code": {
+                            "description": "code for error",
+                            "type": "string"
+                          },
+                          "message": {
+                            "description": "human friendly error message",
+                            "type": "string"
+                          },
+                          "properties": {
+                            "additionalProperties": {
+                              "description": "relevant properties for error",
+                              "type": "string"
+                            },
+                            "description": "relevant properties for error",
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "One or more parameters missing or invalid"
+          },
+          "401": {
+            "description": "The request is not allowed"
+          },
+          "404": {
+            "description": "The database could not be found"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "securitySchemes": {
+          "apiKey": {
+            "in": "query",
+            "name": "apiKey",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

@@ -4,7 +4,14 @@ declare(strict_types=1);
 // LmUmbrella SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/DebugFeature.php';
+require_once __DIR__ . '/feature/IdempotencyFeature.php';
+require_once __DIR__ . '/feature/MetricsFeature.php';
+require_once __DIR__ . '/feature/PagingFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class LmUmbrellaFeatures
@@ -14,8 +21,22 @@ class LmUmbrellaFeatures
         switch ($name) {
             case "base":
                 return new LmUmbrellaBaseFeature();
+            case "debug":
+                return new LmUmbrellaDebugFeature();
+            case "idempotency":
+                return new LmUmbrellaIdempotencyFeature();
+            case "metrics":
+                return new LmUmbrellaMetricsFeature();
+            case "paging":
+                return new LmUmbrellaPagingFeature();
+            case "ratelimit":
+                return new LmUmbrellaRatelimitFeature();
+            case "retry":
+                return new LmUmbrellaRetryFeature();
             case "test":
                 return new LmUmbrellaTestFeature();
+            case "timeout":
+                return new LmUmbrellaTimeoutFeature();
             default:
                 return new LmUmbrellaBaseFeature();
         }
@@ -31,7 +52,14 @@ class LmUmbrellaFeatures
     {
         switch ($name) {
             case "base":
+            case "debug":
+            case "idempotency":
+            case "metrics":
+            case "paging":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;
