@@ -107,7 +107,7 @@ describe("MetadataEntity", function()
       ["database_id"] = setup.idmap["database_id"],
     }
 
-    local metadata_ref01_markdef_up0_name = "created"
+    local metadata_ref01_markdef_up0_name = "key"
     local metadata_ref01_markdef_up0_value = "Mark01-metadata_ref01_" .. tostring(setup.now)
     metadata_ref01_data_up0_up[metadata_ref01_markdef_up0_name] = metadata_ref01_markdef_up0_value
 

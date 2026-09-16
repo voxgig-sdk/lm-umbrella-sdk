@@ -173,6 +173,8 @@ class LmUmbrellaConfig
                 "base" => "https://permission.m2go.dk/permission/api",
                 "auth" => [
                     "prefix" => "",
+                    "in" => "query",
+                    "name" => "apiKey",
                 ],
                 "headers" => [
           'content-type' => 'application/json',

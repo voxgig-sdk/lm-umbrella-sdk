@@ -201,6 +201,8 @@ class Config {
 
     auth: {
       prefix: '',
+      in: 'query',
+      name: 'apiKey',
     },
 
     headers: {
@@ -209,30 +211,30 @@ class Config {
 
     entity: {
       
-      database: {
-      },
-
-      flat_permission: {
-      },
-
-      flattened_permission: {
-      },
-
-      import_status: {
-      },
-
-      metadata: {
-      },
-
-      paginated_permission_list: {
-      },
-
-      permission: {
-      },
-
-      permission_database: {
-      },
-
+        database: {
+        },
+  
+        flat_permission: {
+        },
+  
+        flattened_permission: {
+        },
+  
+        import_status: {
+        },
+  
+        metadata: {
+        },
+  
+        paginated_permission_list: {
+        },
+  
+        permission: {
+        },
+  
+        permission_database: {
+        },
+  
     }
   }
 

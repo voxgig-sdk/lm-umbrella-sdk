@@ -141,7 +141,7 @@ func TestMetadataEntity(t *testing.T) {
 			"database_id": setup.idmap["database_id"],
 		}
 
-		metadataRef01MarkdefUp0Name := "created"
+		metadataRef01MarkdefUp0Name := "key"
 		metadataRef01MarkdefUp0Value := fmt.Sprintf("Mark01-metadata_ref01_%d", setup.now)
 		metadataRef01DataUp0Up[metadataRef01MarkdefUp0Name] = metadataRef01MarkdefUp0Value
 

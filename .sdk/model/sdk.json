@@ -3076,7 +3076,7 @@
                 "ref": "metadata_ref01",
                 "srcdatavar": "metadata_ref01_data",
                 "suffix": "_up0",
-                "textfield": "created"
+                "textfield": "key"
               },
               "match": {},
               "op": "update",
@@ -3271,6 +3271,8 @@
         "apikey": "",
         "auth": {
           "basic": false,
+          "in": "",
+          "name": "",
           "prefix": ""
         },
         "base": "http://localhost:8000",

@@ -102,7 +102,7 @@ class TestMetadataEntity:
             "database_id": setup["idmap"]["database_id"],
         }
 
-        metadata_ref01_markdef_up0_name = "created"
+        metadata_ref01_markdef_up0_name = "key"
         metadata_ref01_markdef_up0_value = "Mark01-metadata_ref01_" + str(setup["now"])
         metadata_ref01_data_up0_up[metadata_ref01_markdef_up0_name] = metadata_ref01_markdef_up0_value
 

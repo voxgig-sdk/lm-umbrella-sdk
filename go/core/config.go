@@ -151,6 +151,8 @@ func MakeConfig() map[string]any {
 			"base": "https://permission.m2go.dk/permission/api",
 			"auth": map[string]any{
 				"prefix": "",
+				"in": "query",
+				"name": "apiKey",
 			},
 			"headers": map[string]any{
 				"content-type": "application/json",
