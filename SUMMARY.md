@@ -90,6 +90,10 @@ Results: Successful operation.
 
 SDK operations: `list`, `load`, `update`.
 
+Key fields to recognise:
+
+- `id`: internal database id of the route
+
 ### Route map
 
 Use this map to locate a capability. Consult the entity reference before supplying request data; routes for the same operation can require different fields.

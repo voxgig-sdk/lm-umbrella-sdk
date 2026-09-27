@@ -1,0 +1,265 @@
+# Entity: permission
+
+main: kit: entity: permission: {
+
+  alias: field: {}
+
+  fields: {
+    empty: {
+      h: "Empty"
+      n: "empty"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    msisdn: {
+      h: "Msisdn"
+      n: "msisdn"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "permission"
+  op: {
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /public/database/{id}/permission/{msisdn}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "msisdn"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/public/database/{id}/permission/{msisdn}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+              msisdn: "id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "DELETE /public/database/{id}/permission/permanent/{msisdn}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "msisdn"
+                or: "msisdn"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/public/database/{id}/permission/permanent/{msisdn}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "msisdn"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "permanent"
+            }
+            {
+              var: "msisdn"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /public/database/{id}/permission/{msisdn}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "msisdn"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/public/database/{id}/permission/{msisdn}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+              msisdn: "id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.database")]
+    [path("$.main.kit.entity.database")]
+  ]
+
+}

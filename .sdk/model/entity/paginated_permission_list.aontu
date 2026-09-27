@@ -1,0 +1,197 @@
+# Entity: paginated_permission_list
+
+main: kit: entity: paginated_permission_list: {
+
+  alias: field: {}
+
+  fields: {
+    ascending: {
+      h: "Ascending"
+      n: "ascending"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    columns: {
+      h: "Columns"
+      n: "columns"
+      r: false
+      sh: "the column data"
+      t: "`$ARRAY`"
+    }
+    endRow: {
+      fo: "int32"
+      h: "End Row"
+      n: "endRow"
+      r: false
+      t: "`$INTEGER`"
+    }
+    groups: {
+      h: "Groups"
+      n: "groups"
+      r: false
+      t: "`$ARRAY`"
+    }
+    metadata: {
+      h: "Metadata"
+      n: "metadata"
+      r: false
+      t: "`$ARRAY`"
+    }
+    msisdnList: {
+      h: "Msisdn List"
+      n: "msisdnList"
+      r: false
+      t: "`$ARRAY`"
+    }
+    onlyActive: {
+      h: "Only Active"
+      n: "onlyActive"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    page: {
+      fo: "int32"
+      h: "Page"
+      n: "page"
+      r: false
+      sh: "page number"
+      t: "`$INTEGER`"
+    }
+    permissions: {
+      h: "Permissions"
+      n: "permissions"
+      r: false
+      sh: "the permissions for the page"
+      t: "`$ARRAY`"
+    }
+    quickFilterText: {
+      h: "Quick Filter Text"
+      n: "quickFilterText"
+      r: false
+      t: "`$STRING`"
+    }
+    sort: {
+      h: "Sort"
+      n: "sort"
+      r: false
+      t: "`$STRING`"
+    }
+    sources: {
+      h: "Sources"
+      n: "sources"
+      r: false
+      sh: "the possible sources for the database"
+      t: "`$ARRAY`"
+    }
+    startRow: {
+      fo: "int32"
+      h: "Start Row"
+      n: "startRow"
+      r: false
+      t: "`$INTEGER`"
+    }
+    totalActive: {
+      fo: "int32"
+      h: "Total Active"
+      n: "totalActive"
+      r: false
+      sh: "total number of active permissions"
+      t: "`$INTEGER`"
+    }
+    totalElements: {
+      fo: "int32"
+      h: "Total Elements"
+      n: "totalElements"
+      r: false
+      sh: "total number of permissions"
+      t: "`$INTEGER`"
+    }
+    totalPages: {
+      fo: "int32"
+      h: "Total Pages"
+      n: "totalPages"
+      r: false
+      sh: "total number of pages"
+      t: "`$INTEGER`"
+    }
+  }
+
+  name: "paginated_permission_list"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /public/database/{id}/permission/paged/list"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/public/database/{id}/permission/paged/list"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "paged"
+            }
+            {
+              lit: "list"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.database")]
+  ]
+
+}

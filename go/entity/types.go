@@ -1,7 +1,7 @@
 // Typed models for the LmUmbrella SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -24,9 +24,6 @@ type DatabaseRemoveMatch struct {
 
 // FlatPermission is the typed data model for the flat_permission entity.
 type FlatPermission struct {
-	Empty *bool `json:"empty,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Msisdn *string `json:"msisdn,omitempty"`
 }
 
 // FlatPermissionLoadMatch is the typed request payload for FlatPermission.LoadTyped.
@@ -38,11 +35,6 @@ type FlatPermissionLoadMatch struct {
 
 // FlattenedPermission is the typed data model for the flattened_permission entity.
 type FlattenedPermission struct {
-	Active *bool `json:"active,omitempty"`
-	Empty *bool `json:"empty,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Msisdn *string `json:"msisdn,omitempty"`
-	Source *string `json:"source,omitempty"`
 }
 
 // FlattenedPermissionLoadMatch is the typed request payload for FlattenedPermission.LoadTyped.
@@ -69,12 +61,6 @@ type FlattenedPermissionCreateData struct {
 
 // ImportStatus is the typed data model for the import_status entity.
 type ImportStatus struct {
-	Errors *[]any `json:"errors,omitempty"`
-	ImportId *string `json:"importId,omitempty"`
-	Msisdn *string `json:"msisdn,omitempty"`
-	PermissionsInserted *int `json:"permissionsInserted,omitempty"`
-	PermissionsUpdated *int `json:"permissionsUpdated,omitempty"`
-	Status *string `json:"status,omitempty"`
 }
 
 // ImportStatusListMatch is the typed request payload for ImportStatus.ListTyped.
@@ -99,19 +85,6 @@ type ImportStatusCreateData struct {
 
 // Metadata is the typed data model for the metadata entity.
 type Metadata struct {
-	Contents *map[string]any `json:"contents,omitempty"`
-	Created *string `json:"created,omitempty"`
-	DatabaseId *int `json:"databaseId,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Key *string `json:"key,omitempty"`
-	Label *string `json:"label,omitempty"`
-	MultiValue *bool `json:"multiValue,omitempty"`
-	RangeEnd *int `json:"rangeEnd,omitempty"`
-	RangeStart *int `json:"rangeStart,omitempty"`
-	Type *string `json:"type,omitempty"`
-	Updated *string `json:"updated,omitempty"`
-	Validation *string `json:"validation,omitempty"`
-	Values *[]any `json:"values,omitempty"`
 }
 
 // MetadataLoadMatch is the typed request payload for Metadata.LoadTyped.
@@ -167,22 +140,6 @@ type MetadataUpdateData struct {
 
 // PaginatedPermissionList is the typed data model for the paginated_permission_list entity.
 type PaginatedPermissionList struct {
-	Ascending *bool `json:"ascending,omitempty"`
-	Columns *[]any `json:"columns,omitempty"`
-	EndRow *int `json:"endRow,omitempty"`
-	Groups *[]any `json:"groups,omitempty"`
-	Metadata *[]any `json:"metadata,omitempty"`
-	MsisdnList *[]any `json:"msisdnList,omitempty"`
-	OnlyActive *bool `json:"onlyActive,omitempty"`
-	Page *int `json:"page,omitempty"`
-	Permissions *[]any `json:"permissions,omitempty"`
-	QuickFilterText *string `json:"quickFilterText,omitempty"`
-	Sort *string `json:"sort,omitempty"`
-	Sources *[]any `json:"sources,omitempty"`
-	StartRow *int `json:"startRow,omitempty"`
-	TotalActive *int `json:"totalActive,omitempty"`
-	TotalElements *int `json:"totalElements,omitempty"`
-	TotalPages *int `json:"totalPages,omitempty"`
 }
 
 // PaginatedPermissionListCreateData is the typed request payload for PaginatedPermissionList.CreateTyped.
@@ -209,9 +166,6 @@ type PaginatedPermissionListCreateData struct {
 
 // Permission is the typed data model for the permission entity.
 type Permission struct {
-	Empty *bool `json:"empty,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Msisdn *string `json:"msisdn,omitempty"`
 }
 
 // PermissionUpdateData is the typed request payload for Permission.UpdateTyped.
@@ -233,15 +187,6 @@ type PermissionRemoveMatch struct {
 
 // PermissionDatabase is the typed data model for the permission_database entity.
 type PermissionDatabase struct {
-	CustomerId *int `json:"customerId,omitempty"`
-	DeleteOnOptout *bool `json:"deleteOnOptout,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Hooks *[]any `json:"hooks,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Routes *[]any `json:"routes,omitempty"`
-	SenderAlias *string `json:"senderAlias,omitempty"`
-	ServiceId *int `json:"serviceId,omitempty"`
 }
 
 // PermissionDatabaseLoadMatch is the typed request payload for PermissionDatabase.LoadTyped.

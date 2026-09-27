@@ -73,7 +73,7 @@ def permission_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["permission01", "permission02", "permission03", "database01", "database02", "database03", "permanent01", "permanent02", "permanent03"],
+    ["permission01", "permission02", "permission03", "database01", "database02", "database03"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

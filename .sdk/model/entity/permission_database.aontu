@@ -1,0 +1,233 @@
+# Entity: permission_database
+
+main: kit: entity: permission_database: {
+
+  alias: field: {}
+
+  fields: {
+    customerId: {
+      fo: "int32"
+      h: "Customer Id"
+      n: "customerId"
+      r: false
+      t: "`$INTEGER`"
+    }
+    deleteOnOptout: {
+      h: "Delete On Optout"
+      n: "deleteOnOptout"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      t: "`$STRING`"
+    }
+    hooks: {
+      h: "Hooks"
+      n: "hooks"
+      r: false
+      t: "`$ARRAY`"
+    }
+    id: {
+      fo: "int32"
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$INTEGER`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      t: "`$STRING`"
+    }
+    routes: {
+      h: "Routes"
+      n: "routes"
+      r: false
+      t: "`$ARRAY`"
+    }
+    senderAlias: {
+      h: "Sender Alias"
+      n: "senderAlias"
+      r: false
+      t: "`$STRING`"
+    }
+    serviceId: {
+      fo: "int32"
+      h: "Service Id"
+      n: "serviceId"
+      r: false
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "permission_database"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /public/database/list"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/public/database/list"
+          q: {
+            exist: [
+              "api_key"
+            ]
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              lit: "list"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /public/database/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "database_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/public/database/{id}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /public/database/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "database_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/public/database/{id}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

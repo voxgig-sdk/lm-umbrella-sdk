@@ -1,0 +1,61 @@
+# BasicFlattenedPermissionFlow
+
+main: kit: flow: BasicFlattenedPermissionFlow:
+{
+  entity: "flattened_permission",
+  kind: "basic",
+  name: "BasicFlattenedPermissionFlow",
+  step: [
+    {
+      i: {
+        ref: "flattened_permission_ref01"
+      }
+
+      m: {
+        database_id: "database01",
+        msisdn: "msisdn01"
+      }
+
+      o: "create"
+    }
+
+    {
+      m: {
+        database_id: "database01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "flattened_permission_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "flattened_permission_ref01",
+        srcdatavar: "flattened_permission_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "flattened_permission01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-flattened_permission_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicFlattenedPermissionFlow"
+}

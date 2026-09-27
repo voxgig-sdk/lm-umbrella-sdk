@@ -25,10 +25,6 @@ import {
 } from '../../utility'
 
 
-// AFTER the imports on purpose: TypeScript hoists `import` above any
-// statement in the emitted CommonJS, so a loader placed above them would
-// run only after every imported module had already been evaluated - and
-// anything reading process.env at module scope would miss these values.
 loadEnvLocal(__dirname + '/../../../.env.local')
 
 
@@ -55,7 +51,7 @@ describe('DatabaseEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[],"name":"database","op":{"remove":{"input":"data","name":"remove","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"database_id","orig":"database_id","reqd":true,"type":"`$INTEGER`","index$":0}],"query":[{"active":true,"kind":"query","name":"api_key","orig":"api_key","reqd":false,"type":"`$STRING`","index$":0}]},"contract":{"id":"DELETE /public/database/{id}","json":"{\"operationId\":\"delete\",\"parameters\":[{\"in\":\"path\",\"name\":\"Database ID\",\"required\":true,\"schema\":{\"format\":\"int32\",\"type\":\"integer\"}},{\"in\":\"query\",\"name\":\"apiKey\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"description\":\"Successful operation\"},\"400\":{\"description\":\"One or more parameters missing or invalid\"},\"401\":{\"description\":\"The request is not allowed\"},\"404\":{\"description\":\"The database could not be found\"}},\"security\":[{\"apiKey\":[]}],\"securitySchemes\":{\"apiKey\":{\"in\":\"query\",\"name\":\"apiKey\",\"type\":\"apiKey\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"DELETE","orig":"/public/database/{id}","segments":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"select":{"exist":["api_key","database_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"remove"}},"relations":{"ancestors":[]},"key$":"database","name__orig":"database","Name":"Database","name_":"database","name-":"database","NAME":"DATABASE","index$":0}, {"active":true,"entity":"database","key$":"BasicDatabaseFlow","kind":"basic","name":"BasicDatabaseFlow","param":{},"step":[]}, 'Database')
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"database","op":{"remove":{"input":"data","name":"remove","points":[{"a":true,"co":{"id":"DELETE /public/database/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"database_id","r":true,"t":"`$INTEGER`","index$":0}],"query":[{"a":true,"k":"query","n":"api_key","or":"api_key","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"DELETE","o":"/public/database/{id}","q":{"exist":["api_key","database_id"]},"r":{},"s":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"remove"}},"relations":{"ancestors":[]},"key$":"database","name__orig":"database","Name":"Database","name_":"database","name-":"database","NAME":"DATABASE","index$":0}, {"active":true,"entity":"database","key$":"BasicDatabaseFlow","kind":"basic","name":"BasicDatabaseFlow","param":{},"step":[]}, 'Database', {"DELETE /public/database/{id}":{"protocol":"http","parameters":[{"name":"Database ID","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]}})
     }
     const client = setup.client
     const struct = setup.struct

@@ -1,0 +1,214 @@
+# Entity: import_status
+
+main: kit: entity: import_status: {
+
+  alias: field: {}
+
+  fields: {
+    errors: {
+      h: "Errors"
+      n: "errors"
+      r: false
+      sh: "Import errors (List of ImportError)"
+      t: "`$ARRAY`"
+    }
+    importId: {
+      h: "Import Id"
+      n: "importId"
+      r: false
+      sh: "Import id"
+      t: "`$STRING`"
+    }
+    msisdn: {
+      h: "Msisdn"
+      n: "msisdn"
+      r: false
+      t: "`$STRING`"
+    }
+    permissionsInserted: {
+      fo: "int32"
+      h: "Permissions Inserted"
+      n: "permissionsInserted"
+      r: false
+      sh: "Number of permissions inserted into database"
+      t: "`$INTEGER`"
+    }
+    permissionsUpdated: {
+      fo: "int32"
+      h: "Permissions Updated"
+      n: "permissionsUpdated"
+      r: false
+      sh: "Number of permissions updated in database"
+      t: "`$INTEGER`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: false
+      sh: "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "import_status"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /public/database/{id}/permission/bulk"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: false
+                k: "query"
+                n: "skip_import_on_error"
+                or: "skip_import_on_error"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/public/database/{id}/permission/bulk"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "skip_import_on_error"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "bulk"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /public/database/{id}/permission/bulk/status"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "import_id"
+                or: "import_id"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/public/database/{id}/permission/bulk/status"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "import_id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              lit: "bulk"
+            }
+            {
+              lit: "status"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.errors`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.database")]
+  ]
+
+}

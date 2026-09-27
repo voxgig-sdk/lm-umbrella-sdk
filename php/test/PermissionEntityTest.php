@@ -81,7 +81,7 @@ function permission_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["permission01", "permission02", "permission03", "database01", "database02", "database03", "permanent01", "permanent02", "permanent03"] as $k) {
+    foreach (["permission01", "permission02", "permission03", "database01", "database02", "database03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

@@ -24,12 +24,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -40,7 +34,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -249,25 +242,6 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "database_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/public/database/{id}",
@@ -282,21 +256,41 @@ class Config {
                   "var": "id"
                 }
               ],
+              "parts": [
+                "public",
+                "database",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "database_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "api_key",
                   "database_id"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "public",
-                "database",
-                "{id}"
-              ]
+              }
             }
           ]
         }
@@ -309,14 +303,17 @@ class Config {
       "fields": [
         {
           "name": "empty",
+          "title": "Empty",
           "type": "`$BOOLEAN`"
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
           "name": "msisdn",
+          "title": "Msisdn",
           "type": "`$STRING`"
         }
       ],
@@ -331,41 +328,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "msisdn",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "msisdn": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -383,24 +348,56 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "permission",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "msisdn": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "msisdn",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -408,7 +405,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "database"
+            "$.main.kit.entity.database"
           ]
         ]
       }
@@ -417,26 +414,31 @@ class Config {
       "fields": [
         {
           "name": "active",
-          "short": "if permission is active in the database",
-          "type": "`$BOOLEAN`"
+          "title": "Active",
+          "type": "`$BOOLEAN`",
+          "short": "if permission is active in the database"
         },
         {
           "name": "empty",
+          "title": "Empty",
           "type": "`$BOOLEAN`"
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
           "name": "msisdn",
-          "short": "phone number",
-          "type": "`$STRING`"
+          "title": "Msisdn",
+          "type": "`$STRING`",
+          "short": "phone number"
         },
         {
           "name": "source",
-          "short": "comma separated list of sources",
-          "type": "`$STRING`"
+          "title": "Source",
+          "type": "`$STRING`",
+          "short": "comma separated list of sources"
         }
       ],
       "id": {
@@ -450,41 +452,9 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "msisdn",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "msisdn": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -502,24 +472,56 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "permission",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "msisdn": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "msisdn",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
             }
           ]
         },
@@ -528,33 +530,9 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/list",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -572,23 +550,47 @@ class Config {
                   "lit": "list"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "permission",
                 "list"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id"
+                ]
+              }
             }
           ]
         },
@@ -597,25 +599,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/query",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -633,22 +619,38 @@ class Config {
                   "lit": "query"
                 }
               ],
-              "select": {
-                "exist": [
-                  "database_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "permission",
                 "query"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "database_id"
+                ]
+              }
             }
           ]
         }
@@ -656,7 +658,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "database"
+            "$.main.kit.entity.database"
           ]
         ]
       }
@@ -665,34 +667,40 @@ class Config {
       "fields": [
         {
           "name": "errors",
-          "short": "Import errors (List of ImportError)",
-          "type": "`$ARRAY`"
+          "title": "Errors",
+          "type": "`$ARRAY`",
+          "short": "Import errors (List of ImportError)"
         },
         {
           "name": "importId",
-          "short": "Import id",
-          "type": "`$STRING`"
+          "title": "Import Id",
+          "type": "`$STRING`",
+          "short": "Import id"
         },
         {
           "name": "msisdn",
+          "title": "Msisdn",
           "type": "`$STRING`"
         },
         {
-          "format": "int32",
           "name": "permissionsInserted",
+          "title": "Permissions Inserted",
+          "type": "`$INTEGER`",
           "short": "Number of permissions inserted into database",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
-          "format": "int32",
           "name": "permissionsUpdated",
+          "title": "Permissions Updated",
+          "type": "`$INTEGER`",
           "short": "Number of permissions updated in database",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "status",
-          "short": "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)",
-          "type": "`$STRING`"
+          "title": "Status",
+          "type": "`$STRING`",
+          "short": "Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL)"
         }
       ],
       "name": "import_status",
@@ -702,40 +710,9 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": false,
-                    "kind": "query",
-                    "name": "skip_import_on_error",
-                    "orig": "skip_import_on_error",
-                    "type": "`$BOOLEAN`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/permission/bulk",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -753,24 +730,55 @@ class Config {
                   "lit": "bulk"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "skip_import_on_error"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "permission",
                 "bulk"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "skip_import_on_error",
+                    "orig": "skip_import_on_error",
+                    "type": "`$BOOLEAN`",
+                    "kind": "query",
+                    "example": false
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "skip_import_on_error"
+                ]
+              }
             }
           ]
         },
@@ -779,39 +787,9 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "import_id",
-                    "orig": "import_id",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/permission/bulk/status",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -832,17 +810,6 @@ class Config {
                   "lit": "status"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "import_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.errors`"
-              },
               "parts": [
                 "public",
                 "database",
@@ -850,7 +817,48 @@ class Config {
                 "permission",
                 "bulk",
                 "status"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.errors`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "import_id",
+                    "orig": "import_id",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "import_id"
+                ]
+              }
             }
           ]
         }
@@ -858,7 +866,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "database"
+            "$.main.kit.entity.database"
           ]
         ]
       }
@@ -867,75 +875,88 @@ class Config {
       "fields": [
         {
           "name": "contents",
-          "short": "Contains extra info for a field",
-          "type": "`$OBJECT`"
+          "title": "Contents",
+          "type": "`$OBJECT`",
+          "short": "Contains extra info for a field"
         },
         {
-          "format": "date-time",
           "name": "created",
-          "readOnly": true,
+          "title": "Created",
+          "type": "`$STRING`",
           "short": "created date of the field",
-          "type": "`$STRING`"
+          "readOnly": true,
+          "format": "date-time"
         },
         {
-          "format": "int32",
           "name": "databaseId",
+          "title": "Database Id",
+          "type": "`$INTEGER`",
           "short": "id of the database",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
           "name": "key",
-          "short": "key for the field (used for the value internally - cannot be changed after creation)",
-          "type": "`$STRING`"
+          "title": "Key",
+          "type": "`$STRING`",
+          "short": "key for the field (used for the value internally - cannot be changed after creation)"
         },
         {
           "name": "label",
-          "short": "label for the field (used for displaying in the interface)",
-          "type": "`$STRING`"
+          "title": "Label",
+          "type": "`$STRING`",
+          "short": "label for the field (used for displaying in the interface)"
         },
         {
           "name": "multiValue",
-          "readOnly": true,
+          "title": "Multi Value",
+          "type": "`$BOOLEAN`",
           "short": "if the field is a multi value field",
-          "type": "`$BOOLEAN`"
+          "readOnly": true
         },
         {
-          "format": "int32",
           "name": "rangeEnd",
+          "title": "Range End",
+          "type": "`$INTEGER`",
           "short": "end on range for validation on INTEGER field",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
-          "format": "int32",
           "name": "rangeStart",
+          "title": "Range Start",
+          "type": "`$INTEGER`",
           "short": "start on range for validation on INTEGER field",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "type",
-          "short": "the type of field",
-          "type": "`$STRING`"
+          "title": "Type",
+          "type": "`$STRING`",
+          "short": "the type of field"
         },
         {
-          "format": "date-time",
           "name": "updated",
-          "readOnly": true,
+          "title": "Updated",
+          "type": "`$STRING`",
           "short": "deletion date of the field",
-          "type": "`$STRING`"
+          "readOnly": true,
+          "format": "date-time"
         },
         {
           "name": "validation",
-          "short": "type of validation on TEXT field",
-          "type": "`$STRING`"
+          "title": "Validation",
+          "type": "`$STRING`",
+          "short": "type of validation on TEXT field"
         },
         {
           "name": "values",
-          "short": "Possible enumeration of values for ENUMERATION field",
-          "type": "`$ARRAY`"
+          "title": "Values",
+          "type": "`$ARRAY`",
+          "short": "Possible enumeration of values for ENUMERATION field"
         }
       ],
       "id": {
@@ -949,41 +970,9 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "key",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/metadata/{key}",
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "key": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1001,53 +990,61 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "metadata",
                 "{id}"
-              ]
-            },
-            {
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "key": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
               "args": {
                 "params": [
                   {
-                    "kind": "param",
                     "name": "database_id",
                     "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
                   }
                 ],
                 "query": [
                   {
-                    "kind": "query",
                     "name": "api_key",
                     "orig": "api_key",
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "kind": "query"
                   }
                 ]
               },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
+            },
+            {
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/metadata",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1062,22 +1059,46 @@ class Config {
                   "lit": "metadata"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.contents`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "metadata"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.contents`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id"
+                ]
+              }
             }
           ]
         },
@@ -1086,33 +1107,9 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/metadata",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1127,22 +1124,46 @@ class Config {
                   "lit": "metadata"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "metadata"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id"
+                ]
+              }
             }
           ]
         },
@@ -1151,41 +1172,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "key",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}/metadata/{key}",
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "key": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1203,24 +1192,56 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.contents`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "metadata",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "key": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.contents`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
             }
           ]
         },
@@ -1229,41 +1250,9 @@ class Config {
           "name": "update",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "key",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "PUT",
               "orig": "/public/database/{id}/metadata/{key}",
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "key": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1281,24 +1270,56 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.contents`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "metadata",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "key": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.contents`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -1306,7 +1327,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "database"
+            "$.main.kit.entity.database"
           ]
         ]
       }
@@ -1315,80 +1336,96 @@ class Config {
       "fields": [
         {
           "name": "ascending",
+          "title": "Ascending",
           "type": "`$BOOLEAN`"
         },
         {
           "name": "columns",
-          "short": "the column data",
-          "type": "`$ARRAY`"
+          "title": "Columns",
+          "type": "`$ARRAY`",
+          "short": "the column data"
         },
         {
-          "format": "int32",
           "name": "endRow",
-          "type": "`$INTEGER`"
+          "title": "End Row",
+          "type": "`$INTEGER`",
+          "format": "int32"
         },
         {
           "name": "groups",
+          "title": "Groups",
           "type": "`$ARRAY`"
         },
         {
           "name": "metadata",
+          "title": "Metadata",
           "type": "`$ARRAY`"
         },
         {
           "name": "msisdnList",
+          "title": "Msisdn List",
           "type": "`$ARRAY`"
         },
         {
           "name": "onlyActive",
+          "title": "Only Active",
           "type": "`$BOOLEAN`"
         },
         {
-          "format": "int32",
           "name": "page",
+          "title": "Page",
+          "type": "`$INTEGER`",
           "short": "page number",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
           "name": "permissions",
-          "short": "the permissions for the page",
-          "type": "`$ARRAY`"
+          "title": "Permissions",
+          "type": "`$ARRAY`",
+          "short": "the permissions for the page"
         },
         {
           "name": "quickFilterText",
+          "title": "Quick Filter Text",
           "type": "`$STRING`"
         },
         {
           "name": "sort",
+          "title": "Sort",
           "type": "`$STRING`"
         },
         {
           "name": "sources",
-          "short": "the possible sources for the database",
-          "type": "`$ARRAY`"
+          "title": "Sources",
+          "type": "`$ARRAY`",
+          "short": "the possible sources for the database"
         },
         {
-          "format": "int32",
           "name": "startRow",
-          "type": "`$INTEGER`"
+          "title": "Start Row",
+          "type": "`$INTEGER`",
+          "format": "int32"
         },
         {
-          "format": "int32",
           "name": "totalActive",
+          "title": "Total Active",
+          "type": "`$INTEGER`",
           "short": "total number of active permissions",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
-          "format": "int32",
           "name": "totalElements",
+          "title": "Total Elements",
+          "type": "`$INTEGER`",
           "short": "total number of permissions",
-          "type": "`$INTEGER`"
+          "format": "int32"
         },
         {
-          "format": "int32",
           "name": "totalPages",
+          "title": "Total Pages",
+          "type": "`$INTEGER`",
           "short": "total number of pages",
-          "type": "`$INTEGER`"
+          "format": "int32"
         }
       ],
       "name": "paginated_permission_list",
@@ -1398,33 +1435,9 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/public/database/{id}/permission/paged/list",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1445,16 +1458,6 @@ class Config {
                   "lit": "list"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
@@ -1462,7 +1465,41 @@ class Config {
                 "permission",
                 "paged",
                 "list"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id"
+                ]
+              }
             }
           ]
         }
@@ -1470,7 +1507,7 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "database"
+            "$.main.kit.entity.database"
           ]
         ]
       }
@@ -1479,14 +1516,17 @@ class Config {
       "fields": [
         {
           "name": "empty",
+          "title": "Empty",
           "type": "`$BOOLEAN`"
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
           "name": "msisdn",
+          "title": "Msisdn",
           "type": "`$STRING`"
         }
       ],
@@ -1501,41 +1541,9 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "msisdn",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "msisdn": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1553,60 +1561,61 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "permission",
                 "{id}"
-              ]
-            },
-            {
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "msisdn": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
               "args": {
                 "params": [
                   {
-                    "kind": "param",
                     "name": "database_id",
                     "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
                   },
                   {
-                    "kind": "param",
-                    "name": "msisdn",
+                    "name": "id",
                     "orig": "msisdn",
-                    "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
                   }
                 ],
                 "query": [
                   {
-                    "kind": "query",
                     "name": "api_key",
                     "orig": "api_key",
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "kind": "query"
                   }
                 ]
               },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
+            },
+            {
               "kind": "http",
               "method": "DELETE",
               "orig": "/public/database/{id}/permission/permanent/{msisdn}",
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1627,17 +1636,6 @@ class Config {
                   "var": "msisdn"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "msisdn"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
@@ -1645,7 +1643,49 @@ class Config {
                 "permission",
                 "permanent",
                 "{msisdn}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "msisdn",
+                    "orig": "msisdn",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "msisdn"
+                ]
+              }
             }
           ]
         },
@@ -1654,41 +1694,9 @@ class Config {
           "name": "update",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "msisdn",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "PUT",
               "orig": "/public/database/{id}/permission/{msisdn}",
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "msisdn": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "public"
@@ -1706,24 +1714,56 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "{database_id}",
                 "permission",
                 "{id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "msisdn": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "msisdn",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -1731,11 +1771,10 @@ class Config {
       "relations": {
         "ancestors": [
           [
-            "database"
+            "$.main.kit.entity.database"
           ],
           [
-            "database",
-            "permanent"
+            "$.main.kit.entity.database"
           ]
         ]
       }
@@ -1743,43 +1782,52 @@ class Config {
     "permission_database": {
       "fields": [
         {
-          "format": "int32",
           "name": "customerId",
-          "type": "`$INTEGER`"
+          "title": "Customer Id",
+          "type": "`$INTEGER`",
+          "format": "int32"
         },
         {
           "name": "deleteOnOptout",
+          "title": "Delete On Optout",
           "type": "`$BOOLEAN`"
         },
         {
           "name": "description",
+          "title": "Description",
           "type": "`$STRING`"
         },
         {
           "name": "hooks",
+          "title": "Hooks",
           "type": "`$ARRAY`"
         },
         {
-          "format": "int32",
           "name": "id",
-          "type": "`$INTEGER`"
+          "title": "Id",
+          "type": "`$INTEGER`",
+          "format": "int32"
         },
         {
           "name": "name",
+          "title": "Name",
           "type": "`$STRING`"
         },
         {
           "name": "routes",
+          "title": "Routes",
           "type": "`$ARRAY`"
         },
         {
           "name": "senderAlias",
+          "title": "Sender Alias",
           "type": "`$STRING`"
         },
         {
-          "format": "int32",
           "name": "serviceId",
-          "type": "`$INTEGER`"
+          "title": "Service Id",
+          "type": "`$INTEGER`",
+          "format": "int32"
         }
       ],
       "id": {
@@ -1793,16 +1841,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/list",
@@ -1817,20 +1855,31 @@ class Config {
                   "lit": "list"
                 }
               ],
-              "select": {
-                "exist": [
-                  "api_key"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "public",
                 "database",
                 "list"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key"
+                ]
+              }
             }
           ]
         },
@@ -1839,25 +1888,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "database_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/public/database/{id}",
@@ -1872,21 +1902,41 @@ class Config {
                   "var": "id"
                 }
               ],
+              "parts": [
+                "public",
+                "database",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "database_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "api_key",
                   "database_id"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "public",
-                "database",
-                "{id}"
-              ]
+              }
             }
           ]
         },
@@ -1895,25 +1945,6 @@ class Config {
           "name": "update",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "database_id",
-                    "orig": "database_id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ],
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "PUT",
               "orig": "/public/database/{id}",
@@ -1928,21 +1959,41 @@ class Config {
                   "var": "id"
                 }
               ],
+              "parts": [
+                "public",
+                "database",
+                "{id}"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "database_id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "api_key",
                   "database_id"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "public",
-                "database",
-                "{id}"
-              ]
+              }
             }
           ]
         }

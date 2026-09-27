@@ -1,0 +1,468 @@
+# Entity: metadata
+
+main: kit: entity: metadata: {
+
+  alias: field: {}
+
+  fields: {
+    contents: {
+      h: "Contents"
+      n: "contents"
+      r: false
+      sh: "Contains extra info for a field"
+      t: "`$OBJECT`"
+    }
+    created: {
+      fo: "date-time"
+      h: "Created"
+      n: "created"
+      r: false
+      ro: true
+      sh: "created date of the field"
+      t: "`$STRING`"
+    }
+    databaseId: {
+      fo: "int32"
+      h: "Database Id"
+      n: "databaseId"
+      r: false
+      sh: "id of the database"
+      t: "`$INTEGER`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    key: {
+      h: "Key"
+      n: "key"
+      r: false
+      sh: "key for the field (used for the value internally - cannot be changed after creation)"
+      t: "`$STRING`"
+    }
+    label: {
+      h: "Label"
+      n: "label"
+      r: false
+      sh: "label for the field (used for displaying in the interface)"
+      t: "`$STRING`"
+    }
+    multiValue: {
+      h: "Multi Value"
+      n: "multiValue"
+      r: false
+      ro: true
+      sh: "if the field is a multi value field"
+      t: "`$BOOLEAN`"
+    }
+    rangeEnd: {
+      fo: "int32"
+      h: "Range End"
+      n: "rangeEnd"
+      r: false
+      sh: "end on range for validation on INTEGER field"
+      t: "`$INTEGER`"
+    }
+    rangeStart: {
+      fo: "int32"
+      h: "Range Start"
+      n: "rangeStart"
+      r: false
+      sh: "start on range for validation on INTEGER field"
+      t: "`$INTEGER`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      sh: "the type of field"
+      t: "`$STRING`"
+    }
+    updated: {
+      fo: "date-time"
+      h: "Updated"
+      n: "updated"
+      r: false
+      ro: true
+      sh: "deletion date of the field"
+      t: "`$STRING`"
+    }
+    validation: {
+      h: "Validation"
+      n: "validation"
+      r: false
+      sh: "type of validation on TEXT field"
+      t: "`$STRING`"
+    }
+    values: {
+      h: "Values"
+      n: "values"
+      r: false
+      sh: "Possible enumeration of values for ENUMERATION field"
+      t: "`$ARRAY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "metadata"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /public/database/{id}/metadata/{key}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "key"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/public/database/{id}/metadata/{key}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+              key: "id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "POST /public/database/{id}/metadata"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/public/database/{id}/metadata"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.contents`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /public/database/{id}/metadata"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/public/database/{id}/metadata"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /public/database/{id}/metadata/{key}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "key"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/public/database/{id}/metadata/{key}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+              key: "id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.contents`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /public/database/{id}/metadata/{key}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "key"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/public/database/{id}/metadata/{key}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+              key: "id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.contents`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.database")]
+  ]
+
+}

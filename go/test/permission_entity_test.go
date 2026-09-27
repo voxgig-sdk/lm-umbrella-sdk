@@ -114,7 +114,7 @@ func permissionBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"permission01", "permission02", "permission03", "database01", "database02", "database03", "permanent01", "permanent02", "permanent03"},
+		[]any{"permission01", "permission02", "permission03", "database01", "database02", "database03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

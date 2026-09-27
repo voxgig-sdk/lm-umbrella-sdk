@@ -1,0 +1,117 @@
+# Entity: flat_permission
+
+main: kit: entity: flat_permission: {
+
+  alias: field: {}
+
+  fields: {
+    empty: {
+      h: "Empty"
+      n: "empty"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    msisdn: {
+      h: "Msisdn"
+      n: "msisdn"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "flat_permission"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /public/database/{id}/permission/{msisdn}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "msisdn"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/public/database/{id}/permission/{msisdn}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+              msisdn: "id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "permission"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.database")]
+  ]
+
+}
