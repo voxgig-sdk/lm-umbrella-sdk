@@ -169,39 +169,6 @@ const PLAN = [
         "idField": "id"
     },
     {
-        "entity": "flattened_permission",
-        "accessor": "FlattenedPermission",
-        "op": "load",
-        "method": "GET",
-        "path": "/public/database/{id}/permission/query",
-        "args": [
-            {
-                "name": "database_id",
-                "wire": "id",
-                "value": "p1"
-            }
-        ],
-        "select": {},
-        "headers": [],
-        "query": [],
-        "auth": [
-            [
-                {
-                    "in": "header",
-                    "name": "authorization",
-                    "scheme": "bearer"
-                }
-            ]
-        ],
-        "status": 200,
-        "sample": {
-            "msisdn": "x",
-            "active": true,
-            "source": "x"
-        },
-        "idField": "id"
-    },
-    {
         "entity": "import_status",
         "accessor": "ImportStatus",
         "op": "create",
@@ -295,44 +262,6 @@ const PLAN = [
                 }
             ]
         },
-        "idField": "id"
-    },
-    {
-        "entity": "metadata",
-        "accessor": "Metadata",
-        "op": "create",
-        "method": "POST",
-        "path": "/public/database/{id}/metadata/{key}",
-        "args": [
-            {
-                "name": "database_id",
-                "wire": "id",
-                "value": "p1"
-            },
-            {
-                "name": "id",
-                "wire": "key",
-                "value": "p2"
-            }
-        ],
-        "select": {
-            "api_key": "v1"
-        },
-        "headers": [],
-        "query": [
-            "apiKey"
-        ],
-        "auth": [
-            [
-                {
-                    "in": "header",
-                    "name": "authorization",
-                    "scheme": "bearer"
-                }
-            ]
-        ],
-        "status": 200,
-        "sample": null,
         "idField": "id"
     },
     {
@@ -487,6 +416,44 @@ const PLAN = [
             "updated": "2026-01-01T00:00:00Z",
             "multiValue": true
         },
+        "idField": "id"
+    },
+    {
+        "entity": "metadata",
+        "accessor": "Metadata",
+        "op": "remove",
+        "method": "POST",
+        "path": "/public/database/{id}/metadata/{key}",
+        "args": [
+            {
+                "name": "database_id",
+                "wire": "id",
+                "value": "p1"
+            },
+            {
+                "name": "id",
+                "wire": "key",
+                "value": "p2"
+            }
+        ],
+        "select": {
+            "api_key": "v1"
+        },
+        "headers": [],
+        "query": [
+            "apiKey"
+        ],
+        "auth": [
+            [
+                {
+                    "in": "header",
+                    "name": "authorization",
+                    "scheme": "bearer"
+                }
+            ]
+        ],
+        "status": 200,
+        "sample": null,
         "idField": "id"
     },
     {

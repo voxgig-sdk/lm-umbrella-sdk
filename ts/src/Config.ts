@@ -609,66 +609,6 @@ class Config {
               }
             }
           ]
-        },
-        "load": {
-          "input": "data",
-          "name": "load",
-          "points": [
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/public/database/{id}/permission/query",
-              "segments": [
-                {
-                  "lit": "public"
-                },
-                {
-                  "lit": "database"
-                },
-                {
-                  "var": "database_id"
-                },
-                {
-                  "lit": "permission"
-                },
-                {
-                  "lit": "query"
-                }
-              ],
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "permission",
-                "query"
-              ],
-              "rename": {
-                "param": {
-                  "id": "database_id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "database_id",
-                    "orig": "id",
-                    "type": "`$INTEGER`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "database_id"
-                ]
-              }
-            }
-          ]
         }
       },
       "relations": {
@@ -962,78 +902,6 @@ class Config {
             {
               "kind": "http",
               "method": "POST",
-              "orig": "/public/database/{id}/metadata/{key}",
-              "segments": [
-                {
-                  "lit": "public"
-                },
-                {
-                  "lit": "database"
-                },
-                {
-                  "var": "database_id"
-                },
-                {
-                  "lit": "metadata"
-                },
-                {
-                  "var": "id"
-                }
-              ],
-              "parts": [
-                "public",
-                "database",
-                "{database_id}",
-                "metadata",
-                "{id}"
-              ],
-              "rename": {
-                "param": {
-                  "id": "database_id",
-                  "key": "id"
-                }
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "database_id",
-                    "orig": "id",
-                    "type": "`$INTEGER`",
-                    "kind": "param",
-                    "reqd": true
-                  },
-                  {
-                    "name": "id",
-                    "orig": "key",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "api_key",
-                    "orig": "apiKey",
-                    "type": "`$STRING`",
-                    "kind": "query"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "api_key",
-                  "database_id",
-                  "id"
-                ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "POST",
               "orig": "/public/database/{id}/metadata",
               "segments": [
                 {
@@ -1164,6 +1032,84 @@ class Config {
             {
               "kind": "http",
               "method": "GET",
+              "orig": "/public/database/{id}/metadata/{key}",
+              "segments": [
+                {
+                  "lit": "public"
+                },
+                {
+                  "lit": "database"
+                },
+                {
+                  "var": "database_id"
+                },
+                {
+                  "lit": "metadata"
+                },
+                {
+                  "var": "id"
+                }
+              ],
+              "parts": [
+                "public",
+                "database",
+                "{database_id}",
+                "metadata",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "id": "database_id",
+                  "key": "id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "database_id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "id",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "apiKey",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "api_key",
+                  "database_id",
+                  "id"
+                ]
+              }
+            }
+          ]
+        },
+        "remove": {
+          "input": "data",
+          "name": "remove",
+          "points": [
+            {
+              "kind": "http",
+              "method": "POST",
               "orig": "/public/database/{id}/metadata/{key}",
               "segments": [
                 {

@@ -278,7 +278,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | `msisdn` | phone number |
 | `source` | comma separated list of sources |
 
-Operations: Create, List, Load.
+Operations: Create, List.
 
 API path: `/public/database/{id}/permission/{msisdn}`
 
@@ -311,9 +311,9 @@ API path: `/public/database/{id}/permission/bulk`
 | `type` | the type of field |
 | `updated` | deletion date of the field |
 
-Operations: Create, List, Load, Update.
+Operations: Create, List, Load, Remove, Update.
 
-API path: `/public/database/{id}/metadata/{key}`
+API path: `/public/database/{id}/metadata`
 
 #### PaginatedPermissionList
 
@@ -427,7 +427,6 @@ Create an instance: `local flattened_permission = client:FlattenedPermission(nil
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
 | `list(match)` | List entities matching the criteria. |
-| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
@@ -438,12 +437,6 @@ Create an instance: `local flattened_permission = client:FlattenedPermission(nil
 | `id` | `string` |  |
 | `msisdn` | `string` | phone number |
 | `source` | `string` | comma separated list of sources |
-
-#### Example: Load
-
-```lua
-local flattened_permission, err = client:FlattenedPermission():load({ database_id = 1 })
-```
 
 #### Example: List
 
@@ -509,6 +502,7 @@ Create an instance: `local metadata = client:Metadata(nil)`
 | `create(data)` | Create a new entity with the given data. |
 | `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
 | `update(data)` | Update an existing entity. |
 
 #### Fields

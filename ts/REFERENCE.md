@@ -330,14 +330,6 @@ List entities matching the given criteria. Returns an array.
 const results = await client.FlattenedPermission().list({ database_id: 1 })
 ```
 
-#### `load(match: object, ctrl?: object)`
-
-Load a single entity matching the given criteria.
-
-```ts
-const result = await client.FlattenedPermission().load({ database_id: 1 })
-```
-
 ### Common Methods
 
 #### `data(data?: object)`
@@ -477,6 +469,14 @@ Load a single entity matching the given criteria.
 
 ```ts
 const result = await client.Metadata().load({ id: 'metadata_id', database_id: 1 })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria.
+
+```ts
+const result = await client.Metadata().remove({ id: 'metadata_id', database_id: 1 })
 ```
 
 #### `update(data: object, ctrl?: object)`

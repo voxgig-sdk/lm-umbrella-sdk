@@ -81,7 +81,7 @@ func TestMetadataEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "update", "load"} {
+		for _, _op := range []string{"create", "list", "update", "load", "remove"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "metadata." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -174,6 +174,34 @@ func TestMetadataEntity(t *testing.T) {
 		}
 		if metadataRef01DataDt0LoadResult["id"] != metadataRef01Data["id"] {
 			t.Fatal("expected load result id to match")
+		}
+
+		// REMOVE
+		metadataRef01MatchRm0 := map[string]any{
+			"id": metadataRef01Data["id"],
+		}
+		_, err = metadataRef01Ent.Remove(metadataRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
+
+		// LIST
+		metadataRef01MatchRt0 := map[string]any{
+			"database_id": setup.idmap["database01"],
+		}
+
+		metadataRef01ListRt0Result, err := metadataRef01Ent.List(metadataRef01MatchRt0, nil)
+		if err != nil {
+			t.Fatalf("list failed: %v", err)
+		}
+		metadataRef01ListRt0, metadataRef01ListRt0Ok := metadataRef01ListRt0Result.([]any)
+		if !metadataRef01ListRt0Ok {
+			t.Fatalf("expected list result to be an array, got %T", metadataRef01ListRt0Result)
+		}
+
+		notFoundItem := vs.Select(entityListToData(metadataRef01ListRt0), map[string]any{"id": metadataRef01Data["id"]})
+		if !vs.IsEmpty(notFoundItem) {
+			t.Fatal("expected removed entity to not be in list")
 		}
 
 	})

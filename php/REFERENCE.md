@@ -254,14 +254,6 @@ List entities matching the given criteria (call with no argument to list all). R
 $results = $client->FlattenedPermission()->list();
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): mixed`
-
-Load a single entity matching the given criteria. Throws on error.
-
-```php
-$result = $client->FlattenedPermission()->load(["database_id" => 1]);
-```
-
 ### Common Methods
 
 #### `data_get(): array`
@@ -405,6 +397,14 @@ Load a single entity matching the given criteria. Throws on error.
 
 ```php
 $result = $client->Metadata()->load(["id" => "metadata_id", "database_id" => 1]);
+```
+
+#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
+
+Remove the entity matching the given criteria. Throws on error.
+
+```php
+$result = $client->Metadata()->remove(["id" => "metadata_id", "database_id" => 1]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`

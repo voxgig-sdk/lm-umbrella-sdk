@@ -62,7 +62,7 @@ class MetadataEntityTest extends TestCase
         $setup = metadata_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["create", "list", "update", "load"] as $_op) {
+        foreach (["create", "list", "update", "load", "remove"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "metadata." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
@@ -125,6 +125,25 @@ class MetadataEntityTest extends TestCase
         $metadata_ref01_data_dt0_load_result = Helpers::to_map(is_object($metadata_ref01_data_dt0_loaded) && method_exists($metadata_ref01_data_dt0_loaded, 'data_get') ? $metadata_ref01_data_dt0_loaded->data_get() : $metadata_ref01_data_dt0_loaded);
         $this->assertNotNull($metadata_ref01_data_dt0_load_result);
         $this->assertEquals($metadata_ref01_data_dt0_load_result["id"], $metadata_ref01_data["id"]);
+
+        // REMOVE
+        $metadata_ref01_match_rm0 = [
+            "id" => $metadata_ref01_data["id"],
+        ];
+        $metadata_ref01_ent->remove($metadata_ref01_match_rm0, null);
+
+        // LIST
+        $metadata_ref01_match_rt0 = [
+            "database_id" => $setup["idmap"]["database01"],
+        ];
+
+        $metadata_ref01_list_rt0_result = $metadata_ref01_ent->list($metadata_ref01_match_rt0, null);
+        $this->assertIsArray($metadata_ref01_list_rt0_result);
+
+        $not_found_item = sdk_select(
+            Runner::entity_list_to_data($metadata_ref01_list_rt0_result),
+            ["id" => $metadata_ref01_data["id"]]);
+        $this->assertEmpty($not_found_item);
 
     }
 }

@@ -80,7 +80,7 @@ func TestFlattenedPermissionEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"create", "list", "load"} {
+		for _, _op := range []string{"create", "list"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "flattened_permission." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -133,22 +133,6 @@ func TestFlattenedPermissionEntity(t *testing.T) {
 		foundItem := vs.Select(entityListToData(flattenedPermissionRef01List), map[string]any{"id": flattenedPermissionRef01Data["id"]})
 		if vs.IsEmpty(foundItem) {
 			t.Fatal("expected to find created entity in list")
-		}
-
-		// LOAD
-		flattenedPermissionRef01MatchDt0 := map[string]any{
-			"id": flattenedPermissionRef01Data["id"],
-		}
-		flattenedPermissionRef01DataDt0Loaded, err := flattenedPermissionRef01Ent.Load(flattenedPermissionRef01MatchDt0, nil)
-		if err != nil {
-			t.Fatalf("load failed: %v", err)
-		}
-		flattenedPermissionRef01DataDt0LoadResult := core.ToMapAny(entityData(flattenedPermissionRef01DataDt0Loaded))
-		if flattenedPermissionRef01DataDt0LoadResult == nil {
-			t.Fatal("expected load result to be a map")
-		}
-		if flattenedPermissionRef01DataDt0LoadResult["id"] != flattenedPermissionRef01Data["id"] {
-			t.Fatal("expected load result id to match")
 		}
 
 	})

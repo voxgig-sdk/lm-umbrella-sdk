@@ -188,62 +188,6 @@ main: kit: entity: flattened_permission: {
         }
       ]
     }
-    load: {
-      name: "load"
-      points: [
-        {
-          co: {
-            id: "GET /public/database/{id}/permission/query"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "database_id"
-                or: "id"
-                r: true
-                t: "`$INTEGER`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/public/database/{id}/permission/query"
-          q: {
-            exist: [
-              "database_id"
-            ]
-          }
-          r: {
-            param: {
-              id: "database_id"
-            }
-          }
-          s: [
-            {
-              lit: "public"
-            }
-            {
-              lit: "database"
-            }
-            {
-              var: "database_id"
-            }
-            {
-              lit: "permission"
-            }
-            {
-              lit: "query"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-      ]
-    }
   }
 
 

@@ -14,15 +14,21 @@
 # apidef derives), so TypeScript callers cast.
 guide: entity: import_status: path: "/public/database/{id}/permission/bulk": op: create: transform: req: "`reqdata.permissions`"
 
-# NOT EXPRESSIBLE HERE, recorded instead (see the README's Honest state):
-# - POST /public/database/{id}/metadata/{key} is "Delete metadata by key"
-#   (operationId delete_1) in the definition, and apidef maps it to
-#   metadata.create beside the real create, POST .../metadata. The guide
-#   cannot drop or deactivate a path or op (path- and op-level `active` are
-#   not consumed by apidef 8.22.1), and point selection falls back to the
-#   path-param route, so create() reaches the delete.
-# - GET /public/database/{id}/permission/query writes ("Add/update permission
-#   using query parameters"), and maps to flattened_permission.load.
+# POST /public/database/{id}/metadata/{key} is "Delete metadata by key"
+# (operationId delete_1) in the definition, but apidef maps it to
+# metadata.create beside the real create, POST .../metadata, and point
+# selection could send create() to the delete. Op-level `active` IS consumed
+# by apidef 8.22.1 (collectOps, transform/operation.js), so switch that create
+# off and expose the route as what it is: remove, sent as POST.
+guide: entity: metadata: path: "/public/database/{id}/metadata/{key}": op: create: active: false
+guide: entity: metadata: path: "/public/database/{id}/metadata/{key}": op: remove: method: POST
+
+# GET /public/database/{id}/permission/query writes ("Add/update permission
+# using query parameters"), yet apidef maps it to flattened_permission.load,
+# which the MCP load tool can reach. Switch it off: a read must not write.
+guide: entity: flattened_permission: path: "/public/database/{id}/permission/query": op: load: active: false
+
+# NOT EXPRESSIBLE HERE, recorded instead:
 # - Every operation declares the deprecated apiKey query parameter, which
 #   joins each point's select.exist list, so a caller who authenticates with
 #   the bearer header never matches a point by its keys.

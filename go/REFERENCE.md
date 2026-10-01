@@ -251,18 +251,6 @@ if err != nil {
 fmt.Println(results)
 ```
 
-#### `Load(reqmatch, ctrl map[string]any) (any, error)`
-
-Load a single entity matching the given criteria.
-
-```go
-result, err := client.FlattenedPermission(nil).Load(map[string]any{"database_id": 1}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result)
-```
-
 #### `Create(reqdata, ctrl map[string]any) (any, error)`
 
 Create a new entity with the given data.
@@ -443,6 +431,18 @@ result, err := client.Metadata(nil).Update(map[string]any{
     "database_id": 1,
     // Fields to update
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+#### `Remove(reqmatch, ctrl map[string]any) (any, error)`
+
+Remove the entity matching the given criteria.
+
+```go
+result, err := client.Metadata(nil).Remove(map[string]any{"id": "metadata_id", "database_id": 1}, nil)
 if err != nil {
     panic(err)
 }

@@ -362,44 +362,6 @@ declare class Config {
                         };
                     }[];
                 };
-                load: {
-                    input: string;
-                    name: string;
-                    points: {
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        segments: ({
-                            lit: string;
-                            var?: undefined;
-                        } | {
-                            var: string;
-                            lit?: undefined;
-                        })[];
-                        parts: string[];
-                        rename: {
-                            param: {
-                                id: string;
-                            };
-                        };
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        args: {
-                            params: {
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                                reqd: boolean;
-                            }[];
-                        };
-                        select: {
-                            exist: string[];
-                        };
-                    }[];
-                };
             };
             relations: {
                 ancestors: string[][];
@@ -573,7 +535,7 @@ declare class Config {
                 create: {
                     input: string;
                     name: string;
-                    points: ({
+                    points: {
                         kind: string;
                         method: string;
                         orig: string;
@@ -588,7 +550,6 @@ declare class Config {
                         rename: {
                             param: {
                                 id: string;
-                                key: string;
                             };
                         };
                         transform: {
@@ -613,47 +574,7 @@ declare class Config {
                         select: {
                             exist: string[];
                         };
-                    } | {
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        segments: ({
-                            lit: string;
-                            var?: undefined;
-                        } | {
-                            var: string;
-                            lit?: undefined;
-                        })[];
-                        parts: string[];
-                        rename: {
-                            param: {
-                                id: string;
-                                key?: undefined;
-                            };
-                        };
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        args: {
-                            params: {
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                                reqd: boolean;
-                            }[];
-                            query: {
-                                name: string;
-                                orig: string;
-                                type: string;
-                                kind: string;
-                            }[];
-                        };
-                        select: {
-                            exist: string[];
-                        };
-                    })[];
+                    }[];
                 };
                 list: {
                     input: string;
@@ -700,6 +621,51 @@ declare class Config {
                     }[];
                 };
                 load: {
+                    input: string;
+                    name: string;
+                    points: {
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        parts: string[];
+                        rename: {
+                            param: {
+                                id: string;
+                                key: string;
+                            };
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        args: {
+                            params: {
+                                name: string;
+                                orig: string;
+                                type: string;
+                                kind: string;
+                                reqd: boolean;
+                            }[];
+                            query: {
+                                name: string;
+                                orig: string;
+                                type: string;
+                                kind: string;
+                            }[];
+                        };
+                        select: {
+                            exist: string[];
+                        };
+                    }[];
+                };
+                remove: {
                     input: string;
                     name: string;
                     points: {

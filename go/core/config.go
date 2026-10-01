@@ -546,66 +546,6 @@ func MakeConfig() map[string]any {
 							},
 						},
 					},
-					"load": map[string]any{
-						"input": "data",
-						"name": "load",
-						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/public/database/{id}/permission/query",
-								"segments": []any{
-									map[string]any{
-										"lit": "public",
-									},
-									map[string]any{
-										"lit": "database",
-									},
-									map[string]any{
-										"var": "database_id",
-									},
-									map[string]any{
-										"lit": "permission",
-									},
-									map[string]any{
-										"lit": "query",
-									},
-								},
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"permission",
-									"query",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"id": "database_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "database_id",
-											"orig": "id",
-											"type": "`$INTEGER`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"database_id",
-									},
-								},
-							},
-						},
-					},
 				},
 				"relations": map[string]any{
 					"ancestors": []any{
@@ -898,78 +838,6 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"kind": "http",
 								"method": "POST",
-								"orig": "/public/database/{id}/metadata/{key}",
-								"segments": []any{
-									map[string]any{
-										"lit": "public",
-									},
-									map[string]any{
-										"lit": "database",
-									},
-									map[string]any{
-										"var": "database_id",
-									},
-									map[string]any{
-										"lit": "metadata",
-									},
-									map[string]any{
-										"var": "id",
-									},
-								},
-								"parts": []any{
-									"public",
-									"database",
-									"{database_id}",
-									"metadata",
-									"{id}",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"id": "database_id",
-										"key": "id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "database_id",
-											"orig": "id",
-											"type": "`$INTEGER`",
-											"kind": "param",
-											"reqd": true,
-										},
-										map[string]any{
-											"name": "id",
-											"orig": "key",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"name": "api_key",
-											"orig": "apiKey",
-											"type": "`$STRING`",
-											"kind": "query",
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"api_key",
-										"database_id",
-										"id",
-									},
-								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "POST",
 								"orig": "/public/database/{id}/metadata",
 								"segments": []any{
 									map[string]any{
@@ -1100,6 +968,84 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"kind": "http",
 								"method": "GET",
+								"orig": "/public/database/{id}/metadata/{key}",
+								"segments": []any{
+									map[string]any{
+										"lit": "public",
+									},
+									map[string]any{
+										"lit": "database",
+									},
+									map[string]any{
+										"var": "database_id",
+									},
+									map[string]any{
+										"lit": "metadata",
+									},
+									map[string]any{
+										"var": "id",
+									},
+								},
+								"parts": []any{
+									"public",
+									"database",
+									"{database_id}",
+									"metadata",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"id": "database_id",
+										"key": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "database_id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "key",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "api_key",
+											"orig": "apiKey",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"api_key",
+										"database_id",
+										"id",
+									},
+								},
+							},
+						},
+					},
+					"remove": map[string]any{
+						"input": "data",
+						"name": "remove",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "POST",
 								"orig": "/public/database/{id}/metadata/{key}",
 								"segments": []any{
 									map[string]any{

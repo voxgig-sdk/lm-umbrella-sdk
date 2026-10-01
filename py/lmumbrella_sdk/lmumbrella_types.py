@@ -52,10 +52,6 @@ class FlattenedPermission(TypedDict, total=False):
     source: str
 
 
-class FlattenedPermissionLoadMatch(TypedDict):
-    database_id: int
-
-
 class FlattenedPermissionListMatchRequired(TypedDict):
     database_id: int
 
@@ -144,11 +140,11 @@ class MetadataCreateDataRequired(TypedDict):
 
 
 class MetadataCreateData(MetadataCreateDataRequired, total=False):
-    id: str
     api_key: str
     contents: dict
     created: str
     databaseId: int
+    id: str
     key: str
     label: str
     multiValue: bool
@@ -171,6 +167,15 @@ class MetadataUpdateData(MetadataUpdateDataRequired, total=False):
     multiValue: bool
     type: str
     updated: str
+
+
+class MetadataRemoveMatchRequired(TypedDict):
+    database_id: int
+    id: str
+
+
+class MetadataRemoveMatch(MetadataRemoveMatchRequired, total=False):
+    api_key: str
 
 
 class PaginatedPermissionList(TypedDict, total=False):

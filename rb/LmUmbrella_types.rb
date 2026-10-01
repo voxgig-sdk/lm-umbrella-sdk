@@ -93,15 +93,6 @@ FlattenedPermission = Struct.new(
   keyword_init: true
 )
 
-# Request payload for FlattenedPermission#load.
-#
-# @!attribute [rw] database_id
-#   @return [Integer]
-FlattenedPermissionLoadMatch = Struct.new(
-  :database_id,
-  keyword_init: true
-)
-
 # Request payload for FlattenedPermission#list.
 #
 # @!attribute [rw] database_id
@@ -311,9 +302,6 @@ MetadataListMatch = Struct.new(
 # @!attribute [rw] database_id
 #   @return [Integer]
 #
-# @!attribute [rw] id
-#   @return [String, nil]
-#
 # @!attribute [rw] api_key
 #   @return [String, nil]
 #
@@ -325,6 +313,9 @@ MetadataListMatch = Struct.new(
 #
 # @!attribute [rw] databaseId
 #   @return [Integer, nil]
+#
+# @!attribute [rw] id
+#   @return [String, nil]
 #
 # @!attribute [rw] key
 #   @return [String, nil]
@@ -342,11 +333,11 @@ MetadataListMatch = Struct.new(
 #   @return [String, nil]
 MetadataCreateData = Struct.new(
   :database_id,
-  :id,
   :api_key,
   :contents,
   :created,
   :databaseId,
+  :id,
   :key,
   :label,
   :multiValue,
@@ -401,6 +392,23 @@ MetadataUpdateData = Struct.new(
   :multiValue,
   :type,
   :updated,
+  keyword_init: true
+)
+
+# Request payload for Metadata#remove.
+#
+# @!attribute [rw] database_id
+#   @return [Integer]
+#
+# @!attribute [rw] id
+#   @return [String]
+#
+# @!attribute [rw] api_key
+#   @return [String, nil]
+MetadataRemoveMatch = Struct.new(
+  :database_id,
+  :id,
+  :api_key,
   keyword_init: true
 )
 

@@ -62,7 +62,7 @@ class FlattenedPermissionEntityTest extends TestCase
         $setup = flattened_permission_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["create", "list", "load"] as $_op) {
+        foreach (["create", "list"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "flattened_permission." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
@@ -101,15 +101,6 @@ class FlattenedPermissionEntityTest extends TestCase
             Runner::entity_list_to_data($flattened_permission_ref01_list_result),
             ["id" => $flattened_permission_ref01_data["id"]]);
         $this->assertNotEmpty($found_item);
-
-        // LOAD
-        $flattened_permission_ref01_match_dt0 = [
-            "id" => $flattened_permission_ref01_data["id"],
-        ];
-        $flattened_permission_ref01_data_dt0_loaded = $flattened_permission_ref01_ent->load($flattened_permission_ref01_match_dt0, null);
-        $flattened_permission_ref01_data_dt0_load_result = Helpers::to_map(is_object($flattened_permission_ref01_data_dt0_loaded) && method_exists($flattened_permission_ref01_data_dt0_loaded, 'data_get') ? $flattened_permission_ref01_data_dt0_loaded->data_get() : $flattened_permission_ref01_data_dt0_loaded);
-        $this->assertNotNull($flattened_permission_ref01_data_dt0_load_result);
-        $this->assertEquals($flattened_permission_ref01_data_dt0_load_result["id"], $flattened_permission_ref01_data["id"]);
 
     }
 }

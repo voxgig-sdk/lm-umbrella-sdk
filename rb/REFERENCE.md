@@ -255,14 +255,6 @@ List entities matching the given criteria (call with no argument to list all). R
 results = client.FlattenedPermission.list
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result`
-
-Load a single entity matching the given criteria. Raises on error.
-
-```ruby
-result = client.FlattenedPermission.load({ "database_id" => 1 })
-```
-
 ### Common Methods
 
 #### `data_get -> Hash`
@@ -406,6 +398,14 @@ Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
 result = client.Metadata.load({ "id" => "metadata_id", "database_id" => 1 })
+```
+
+#### `remove(reqmatch, ctrl = nil) -> result`
+
+Remove the entity matching the given criteria. Raises on error.
+
+```ruby
+result = client.Metadata.remove({ "id" => "metadata_id", "database_id" => 1 })
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`

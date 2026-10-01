@@ -35,10 +35,6 @@ export interface FlattenedPermission {
   source?: string
 }
 
-export interface FlattenedPermissionLoadMatch {
-  database_id: number
-}
-
 export interface FlattenedPermissionListMatch {
   database_id: number
   api_key?: string
@@ -106,11 +102,11 @@ export interface MetadataListMatch {
 
 export interface MetadataCreateData {
   database_id: number
-  id?: string
   api_key?: string
   contents?: Record<string, any>
   created?: string
   databaseId?: number
+  id?: string
   key?: string
   label?: string
   multiValue?: boolean
@@ -130,6 +126,12 @@ export interface MetadataUpdateData {
   multiValue?: boolean
   type?: string
   updated?: string
+}
+
+export interface MetadataRemoveMatch {
+  database_id: number
+  id: string
+  api_key?: string
 }
 
 export interface PaginatedPermissionList {

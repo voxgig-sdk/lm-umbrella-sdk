@@ -38,11 +38,6 @@ type FlatPermissionLoadMatch struct {
 type FlattenedPermission struct {
 }
 
-// FlattenedPermissionLoadMatch is the typed request payload for FlattenedPermission.LoadTyped.
-type FlattenedPermissionLoadMatch struct {
-	DatabaseId int `json:"database_id"`
-}
-
 // FlattenedPermissionListMatch is the typed request payload for FlattenedPermission.ListTyped.
 type FlattenedPermissionListMatch struct {
 	DatabaseId int `json:"database_id"`
@@ -104,11 +99,11 @@ type MetadataListMatch struct {
 // MetadataCreateData is the typed request payload for Metadata.CreateTyped.
 type MetadataCreateData struct {
 	DatabaseId int `json:"database_id"`
-	Id *string `json:"id,omitempty"`
 	ApiKey *string `json:"api_key,omitempty"`
 	Contents *map[string]any `json:"contents,omitempty"`
 	Created *string `json:"created,omitempty"`
 	DatabaseId2 *int `json:"databaseId,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Key *string `json:"key,omitempty"`
 	Label *string `json:"label,omitempty"`
 	MultiValue *bool `json:"multiValue,omitempty"`
@@ -129,6 +124,13 @@ type MetadataUpdateData struct {
 	MultiValue *bool `json:"multiValue,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Updated *string `json:"updated,omitempty"`
+}
+
+// MetadataRemoveMatch is the typed request payload for Metadata.RemoveTyped.
+type MetadataRemoveMatch struct {
+	DatabaseId int `json:"database_id"`
+	Id string `json:"id"`
+	ApiKey *string `json:"api_key,omitempty"`
 }
 
 // PaginatedPermissionList is the typed data model for the paginated_permission_list entity.

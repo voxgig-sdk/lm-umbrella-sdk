@@ -75,14 +75,14 @@ export LM_UMBRELLA_APIKEY=<API key>
 claude mcp add --scope user lm-umbrella -- "$PWD/lm-umbrella-mcp" -transport stdio
 \`\`\`
 
-The MCP server has two tools, \`lm-umbrella_list\` and \`lm-umbrella_load\`, for databases, permissions, metadata and bulk-import status. They are meant to read, but one load in this API writes: see below. Do not connect an agent to a live database with it yet.
+The MCP server has two tools, \`lm-umbrella_list\` and \`lm-umbrella_load\`, for databases, permissions, metadata and bulk-import status. Every route they reach is a read in the definition ("Get", "List", "Find").
 
 ### Honest state
 
-Generated from LINK Mobility's public OpenAPI definition of the Permission Public API (2.0, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. Two rough edges matter before you use it on live data, and both come from routes the definition describes one way and names another:
+Generated from LINK Mobility's public OpenAPI definition of the Permission Public API (2.0, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. The definition names two routes one way and describes them another. The model corrects both:
 
-- \`Metadata().create()\` does not create. The definition has two POST routes for metadata, and the generated client picks \`POST /metadata/{key}\`, which the definition itself describes as "Delete metadata by key". Do not call it until this is fixed.
-- \`FlattenedPermission().load()\` calls \`GET /permission/query\`, which the definition describes as "Add/update permission using query parameters". It writes, and the MCP server's load tool can reach it.
+- \`POST /metadata/{key}\` is "Delete metadata by key", so it is \`Metadata().remove()\`, not a second create. \`Metadata().create()\` uses \`POST /metadata\` only.
+- \`GET /permission/query\` is "Add/update permission using query parameters". A load must not write, so the SDK does not expose it.
 
 Also: the SDK calls a permission's MSISDN \`id\`, so \`Permission().remove({ database_id, id })\` deactivates one. The permanent delete is not reachable yet. Bulk import takes \`create({ database_id, permissions: [...] })\`; the TypeScript type does not list \`permissions\` yet, so cast. Use it as a starting point or a reference.
 

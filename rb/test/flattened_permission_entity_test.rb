@@ -52,7 +52,7 @@ class FlattenedPermissionEntityTest < Minitest::Test
     setup = flattened_permission_basic_setup(nil)
     # Per-op sdk-test-control.json skip.
     _live = setup[:live] || false
-    ["create", "list", "load"].each do |_op|
+    ["create", "list"].each do |_op|
       _should_skip, _reason = Runner.is_control_skipped("entityOp", "flattened_permission." + _op, _live ? "live" : "unit")
       if _should_skip
         skip(_reason || "skipped via sdk-test-control.json")
@@ -91,15 +91,6 @@ class FlattenedPermissionEntityTest < Minitest::Test
       Runner.entity_list_to_data(flattened_permission_ref01_list_result),
       { "id" => flattened_permission_ref01_data["id"] })
     assert !Vs.isempty(found_item)
-
-    # LOAD
-    flattened_permission_ref01_match_dt0 = {
-      "id" => flattened_permission_ref01_data["id"],
-    }
-    flattened_permission_ref01_data_dt0_loaded = flattened_permission_ref01_ent.load(flattened_permission_ref01_match_dt0, nil)
-    flattened_permission_ref01_data_dt0_load_result = Helpers.to_map(flattened_permission_ref01_data_dt0_loaded.respond_to?(:data_get) ? flattened_permission_ref01_data_dt0_loaded.data_get : flattened_permission_ref01_data_dt0_loaded)
-    assert !flattened_permission_ref01_data_dt0_load_result.nil?
-    assert_equal flattened_permission_ref01_data_dt0_load_result["id"], flattened_permission_ref01_data["id"]
 
   end
 end

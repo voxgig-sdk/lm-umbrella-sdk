@@ -252,14 +252,6 @@ List entities matching the given criteria. Returns an array.
 local results, err = client:FlattenedPermission():list()
 ```
 
-#### `load(reqmatch, ctrl) -> any, err`
-
-Load a single entity matching the given criteria.
-
-```lua
-local result, err = client:FlattenedPermission():load({ database_id = 1 })
-```
-
 ### Common Methods
 
 #### `data_get() -> table`
@@ -403,6 +395,14 @@ Load a single entity matching the given criteria.
 
 ```lua
 local result, err = client:Metadata():load({ id = "metadata_id", database_id = 1 })
+```
+
+#### `remove(reqmatch, ctrl) -> any, err`
+
+Remove the entity matching the given criteria.
+
+```lua
+local result, err = client:Metadata():remove({ id = "metadata_id", database_id = 1 })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`

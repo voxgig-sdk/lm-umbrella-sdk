@@ -87,76 +87,6 @@ main: kit: entity: metadata: {
       points: [
         {
           co: {
-            id: "POST /public/database/{id}/metadata/{key}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "database_id"
-                or: "id"
-                r: true
-                t: "`$INTEGER`"
-              }
-              {
-                k: "param"
-                n: "id"
-                or: "key"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-            query: [
-              {
-                k: "query"
-                n: "api_key"
-                or: "apiKey"
-                r: false
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "POST"
-          o: "/public/database/{id}/metadata/{key}"
-          q: {
-            exist: [
-              "api_key"
-              "database_id"
-              "id"
-            ]
-          }
-          r: {
-            param: {
-              id: "database_id"
-              key: "id"
-            }
-          }
-          s: [
-            {
-              lit: "public"
-            }
-            {
-              lit: "database"
-            }
-            {
-              var: "database_id"
-            }
-            {
-              lit: "metadata"
-            }
-            {
-              var: "id"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body`"
-          }
-        }
-        {
-          co: {
             id: "POST /public/database/{id}/metadata"
             source: "openapi3"
             version: 2
@@ -315,6 +245,81 @@ main: kit: entity: metadata: {
             ]
           }
           m: "GET"
+          o: "/public/database/{id}/metadata/{key}"
+          q: {
+            exist: [
+              "api_key"
+              "database_id"
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              id: "database_id"
+              key: "id"
+            }
+          }
+          s: [
+            {
+              lit: "public"
+            }
+            {
+              lit: "database"
+            }
+            {
+              var: "database_id"
+            }
+            {
+              lit: "metadata"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "POST /public/database/{id}/metadata/{key}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "database_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "key"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "apiKey"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
           o: "/public/database/{id}/metadata/{key}"
           q: {
             exist: [

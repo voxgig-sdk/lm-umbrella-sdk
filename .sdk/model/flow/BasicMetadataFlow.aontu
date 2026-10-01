@@ -79,6 +79,40 @@ main: kit: flow: BasicMetadataFlow:
         }
       ]
     }
+
+    {
+      i: {
+        ref: "metadata_ref01",
+        suffix: "_rm0"
+      }
+
+      m: {
+        database_id: "database01",
+        id: "metadata01"
+      }
+
+      o: "remove"
+    }
+
+    {
+      i: {
+        suffix: "_rt0"
+      }
+
+      m: {
+        database_id: "database01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "metadata_ref01"
+          }
+        }
+      ]
+    }
   ],
   "key$": "BasicMetadataFlow"
 }

@@ -10,10 +10,10 @@
 <a href="../api/flat_permission.html">FlatPermission</a>
 <a href="../api/flattened_permission.html">FlattenedPermission</a>
 <a href="../api/import_status.html">ImportStatus</a>
-<a aria-current="page" href="../api/metadata.html">Metadata</a><div class="nav-sections"><a class="nav-section" href="#post-publicdatabaseidmetadatakey">POST /public/database/{id}/metadata/{key}</a>
-<a class="nav-section" href="#post-publicdatabaseidmetadata">POST /public/database/{id}/metadata</a>
+<a aria-current="page" href="../api/metadata.html">Metadata</a><div class="nav-sections"><a class="nav-section" href="#post-publicdatabaseidmetadata">POST /public/database/{id}/metadata</a>
 <a class="nav-section" href="#get-publicdatabaseidmetadata">GET /public/database/{id}/metadata</a>
 <a class="nav-section" href="#get-publicdatabaseidmetadatakey">GET /public/database/{id}/metadata/{key}</a>
+<a class="nav-section" href="#post-publicdatabaseidmetadatakey">POST /public/database/{id}/metadata/{key}</a>
 <a class="nav-section" href="#put-publicdatabaseidmetadatakey">PUT /public/database/{id}/metadata/{key}</a></div>
 <a href="../api/paginated_permission_list.html">PaginatedPermissionList</a>
 <a href="../api/permission.html">Permission</a>
@@ -52,12 +52,6 @@
 <tbody>
 <tr>
 <td><code>POST</code></td>
-<td><a href="#post-publicdatabaseidmetadatakey"><code>/public/database/{id}/metadata/{key}</code></a></td>
-<td><code>create</code></td>
-<td>Successful operation</td>
-</tr>
-<tr>
-<td><code>POST</code></td>
 <td><a href="#post-publicdatabaseidmetadata"><code>/public/database/{id}/metadata</code></a></td>
 <td><code>create</code></td>
 <td>Successful operation</td>
@@ -72,6 +66,12 @@
 <td><code>GET</code></td>
 <td><a href="#get-publicdatabaseidmetadatakey"><code>/public/database/{id}/metadata/{key}</code></a></td>
 <td><code>load</code></td>
+<td>Successful operation</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-publicdatabaseidmetadatakey"><code>/public/database/{id}/metadata/{key}</code></a></td>
+<td><code>remove</code></td>
 <td>Successful operation</td>
 </tr>
 <tr>
@@ -106,6 +106,11 @@ if err != nil {
     panic(err)
 }
 fmt.Println(updated)
+removed, err := client.Metadata(nil).Remove(map[string]any{&quot;database_id&quot;: 1, &quot;id&quot;: &quot;example_id&quot;}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(removed)
 </code></pre>
 <h3 id="lua">Lua</h3>
 <p>Construct <code>client</code> as shown in the <a href="../sdks/lua.html#set-up-the-client">Lua setup</a>, then call the operations:</p>
@@ -113,6 +118,7 @@ fmt.Println(updated)
 local metadata, err = client:Metadata():load({ database_id = 1, id = &quot;example_id&quot; })
 local created, err = client:Metadata():create({ database_id = 1 })
 local updated, err = client:Metadata():update({ id = &quot;example_id&quot;, database_id = 1, api_key = &quot;example&quot; })
+local removed, err = client:Metadata():remove({ database_id = 1, id = &quot;example_id&quot; })
 </code></pre>
 <h3 id="php">PHP</h3>
 <p>Construct <code>client</code> as shown in the <a href="../sdks/php.html#set-up-the-client">PHP setup</a>, then call the operations:</p>
@@ -120,6 +126,7 @@ local updated, err = client:Metadata():update({ id = &quot;example_id&quot;, dat
 $metadata = $client-&gt;Metadata()-&gt;load([&quot;database_id&quot; =&gt; 1, &quot;id&quot; =&gt; &quot;example_id&quot;]);
 $created = $client-&gt;Metadata()-&gt;create([&quot;database_id&quot; =&gt; 1]);
 $updated = $client-&gt;Metadata()-&gt;update([&quot;id&quot; =&gt; &quot;example_id&quot;, &quot;database_id&quot; =&gt; 1, &quot;api_key&quot; =&gt; &quot;example&quot;]);
+$client-&gt;Metadata()-&gt;remove([&quot;database_id&quot; =&gt; 1, &quot;id&quot; =&gt; &quot;example_id&quot;]);
 </code></pre>
 <h3 id="python">Python</h3>
 <p>Construct <code>client</code> as shown in the <a href="../sdks/py.html#set-up-the-client">Python setup</a>, then call the operations:</p>
@@ -127,6 +134,7 @@ $updated = $client-&gt;Metadata()-&gt;update([&quot;id&quot; =&gt; &quot;example
 metadata = client.Metadata().load({&quot;database_id&quot;: 1, &quot;id&quot;: &quot;example_id&quot;})
 created = client.Metadata().create({ &quot;database_id&quot;: 1 })
 updated = client.Metadata().update({&quot;id&quot;: &quot;example_id&quot;, &quot;database_id&quot;: 1, &quot;api_key&quot;: &quot;example&quot;})
+client.Metadata().remove({&quot;database_id&quot;: 1, &quot;id&quot;: &quot;example_id&quot;})
 </code></pre>
 <h3 id="ruby">Ruby</h3>
 <p>Construct <code>client</code> as shown in the <a href="../sdks/rb.html#set-up-the-client">Ruby setup</a>, then call the operations:</p>
@@ -134,6 +142,7 @@ updated = client.Metadata().update({&quot;id&quot;: &quot;example_id&quot;, &quo
 metadata = client.Metadata.load({ &quot;database_id&quot; =&gt; 1, &quot;id&quot; =&gt; &quot;example_id&quot; })
 created = client.Metadata.create({ &quot;database_id&quot; =&gt; 1 })
 updated = client.Metadata.update({ &quot;id&quot; =&gt; &quot;example_id&quot;, &quot;database_id&quot; =&gt; 1, &quot;api_key&quot; =&gt; &quot;example&quot; })
+client.Metadata.remove({ &quot;database_id&quot; =&gt; 1, &quot;id&quot; =&gt; &quot;example_id&quot; })
 </code></pre>
 <h3 id="typescript">TypeScript</h3>
 <p>Construct <code>client</code> as shown in the <a href="../sdks/ts.html#set-up-the-client">TypeScript setup</a>, then call the operations:</p>
@@ -141,6 +150,7 @@ updated = client.Metadata.update({ &quot;id&quot; =&gt; &quot;example_id&quot;, 
 const metadata = await client.Metadata().load({ database_id: 1, id: &quot;example_id&quot; })
 const created = await client.Metadata().create({ database_id: 1 })
 const updated = await client.Metadata().update({ id: &quot;example_id&quot;, database_id: 1, api_key: &quot;example&quot; })
+await client.Metadata().remove({ database_id: 1, id: &quot;example_id&quot; })
 </code></pre>
 <h2 id="fields">Fields</h2>
 <table>
@@ -210,23 +220,10 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 </tbody>
 </table>
 <h2 id="create">create</h2>
-<h3 id="post-publicdatabaseidmetadatakey" class="operation" data-method="post"><code>POST</code> /public/database/{id}/metadata/{key}</h3>
-<p>Operation ID: <code>delete_1</code>.</p>
-<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
-<h4 id="parameters">Parameters</h4>
-<p>| Parameter | In | Type | Required | Description |
-| --- | --- | --- | --- |
-| <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
-| <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |
-| <code>key</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
-<h4 id="responses">Responses</h4>
-<h5 id="200-successful-operation" class="status" data-status="2xx">200: Successful operation</h5>
-<h5 id="401-the-request-is-not-allowed" class="status" data-status="4xx">401: The request is not allowed</h5>
-<h5 id="404-metadata-not-found" class="status" data-status="4xx">404: Metadata not found</h5>
 <h3 id="post-publicdatabaseidmetadata" class="operation" data-method="post"><code>POST</code> /public/database/{id}/metadata</h3>
 <p>Operation ID: <code>save</code>.</p>
 <p>Authentication: bearer token (<code>bearerAuth</code>).</p>
-<h4 id="parameters-1">Parameters</h4>
+<h4 id="parameters">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
 | <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
@@ -317,8 +314,8 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 </tr>
 </tbody>
 </table>
-<h4 id="responses-1">Responses</h4>
-<h5 id="200-successful-operation-1" class="status" data-status="2xx">200: Successful operation</h5>
+<h4 id="responses">Responses</h4>
+<h5 id="200-successful-operation" class="status" data-status="2xx">200: Successful operation</h5>
 <p><code>application/json</code></p>
 <table>
 <thead>
@@ -442,19 +439,19 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 </tr>
 </tbody>
 </table>
-<h5 id="401-the-request-is-not-allowed-1" class="status" data-status="4xx">401: The request is not allowed</h5>
-<h5 id="404-metadata-not-found-1" class="status" data-status="4xx">404: Metadata not found</h5>
+<h5 id="401-the-request-is-not-allowed" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found" class="status" data-status="4xx">404: Metadata not found</h5>
 <h2 id="list">list</h2>
 <h3 id="get-publicdatabaseidmetadata" class="operation" data-method="get"><code>GET</code> /public/database/{id}/metadata</h3>
 <p>Operation ID: <code>list_1</code>.</p>
 <p>Authentication: bearer token (<code>bearerAuth</code>).</p>
-<h4 id="parameters-2">Parameters</h4>
+<h4 id="parameters-1">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
 | <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
 | <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |</p>
-<h4 id="responses-2">Responses</h4>
-<h5 id="200-successful-operation-2" class="status" data-status="2xx">200: Successful operation</h5>
+<h4 id="responses-1">Responses</h4>
+<h5 id="200-successful-operation-1" class="status" data-status="2xx">200: Successful operation</h5>
 <p><code>application/json</code></p>
 <table>
 <thead>
@@ -540,20 +537,20 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 </tr>
 </tbody>
 </table>
-<h5 id="401-the-request-is-not-allowed-2" class="status" data-status="4xx">401: The request is not allowed</h5>
-<h5 id="404-metadata-not-found-2" class="status" data-status="4xx">404: Metadata not found</h5>
+<h5 id="401-the-request-is-not-allowed-1" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found-1" class="status" data-status="4xx">404: Metadata not found</h5>
 <h2 id="load">load</h2>
 <h3 id="get-publicdatabaseidmetadatakey" class="operation" data-method="get"><code>GET</code> /public/database/{id}/metadata/{key}</h3>
 <p>Operation ID: <code>get_1</code>.</p>
 <p>Authentication: bearer token (<code>bearerAuth</code>).</p>
-<h4 id="parameters-3">Parameters</h4>
+<h4 id="parameters-2">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
 | <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
 | <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |
 | <code>key</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
-<h4 id="responses-3">Responses</h4>
-<h5 id="200-successful-operation-3" class="status" data-status="2xx">200: Successful operation</h5>
+<h4 id="responses-2">Responses</h4>
+<h5 id="200-successful-operation-2" class="status" data-status="2xx">200: Successful operation</h5>
 <p><code>application/json</code></p>
 <table>
 <thead>
@@ -639,6 +636,20 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 </tr>
 </tbody>
 </table>
+<h5 id="401-the-request-is-not-allowed-2" class="status" data-status="4xx">401: The request is not allowed</h5>
+<h5 id="404-metadata-not-found-2" class="status" data-status="4xx">404: Metadata not found</h5>
+<h2 id="remove">remove</h2>
+<h3 id="post-publicdatabaseidmetadatakey" class="operation" data-method="post"><code>POST</code> /public/database/{id}/metadata/{key}</h3>
+<p>Operation ID: <code>delete_1</code>.</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
+<h4 id="parameters-3">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>apiKey</code> | <code>query</code> | <code>string</code> | No |  |
+| <code>id</code> | <code>path</code> | <code>integer (int32)</code> | Yes |  |
+| <code>key</code> | <code>path</code> | <code>string</code> | Yes |  |</p>
+<h4 id="responses-3">Responses</h4>
+<h5 id="200-successful-operation-3" class="status" data-status="2xx">200: Successful operation</h5>
 <h5 id="401-the-request-is-not-allowed-3" class="status" data-status="4xx">401: The request is not allowed</h5>
 <h5 id="404-metadata-not-found-3" class="status" data-status="4xx">404: Metadata not found</h5>
 <h2 id="update">update</h2>

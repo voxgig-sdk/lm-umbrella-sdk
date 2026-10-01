@@ -61,7 +61,7 @@ class TestFlattenedPermissionEntity:
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["create", "list", "load"]:
+        for _op in ["create", "list"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "flattened_permission." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -96,15 +96,6 @@ class TestFlattenedPermissionEntity:
             runner.entity_list_to_data(flattened_permission_ref01_list_result),
             {"id": flattened_permission_ref01_data["id"]})
         assert not vs.isempty(found_item)
-
-        # LOAD
-        flattened_permission_ref01_match_dt0 = {
-            "id": flattened_permission_ref01_data["id"],
-        }
-        flattened_permission_ref01_data_dt0_loaded = flattened_permission_ref01_ent.load(flattened_permission_ref01_match_dt0, None)
-        flattened_permission_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(flattened_permission_ref01_data_dt0_loaded))
-        assert flattened_permission_ref01_data_dt0_load_result is not None
-        assert flattened_permission_ref01_data_dt0_load_result["id"] == flattened_permission_ref01_data["id"]
 
 
 

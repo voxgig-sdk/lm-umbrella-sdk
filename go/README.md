@@ -303,7 +303,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | `"msisdn"` | phone number |
 | `"source"` | comma separated list of sources |
 
-Operations: Create, List, Load.
+Operations: Create, List.
 
 API path: `/public/database/{id}/permission/{msisdn}`
 
@@ -336,9 +336,9 @@ API path: `/public/database/{id}/permission/bulk`
 | `"type"` | the type of field |
 | `"updated"` | deletion date of the field |
 
-Operations: Create, List, Load, Update.
+Operations: Create, List, Load, Remove, Update.
 
-API path: `/public/database/{id}/metadata/{key}`
+API path: `/public/database/{id}/metadata`
 
 #### PaginatedPermissionList
 
@@ -455,7 +455,6 @@ Create an instance: `flattenedPermission := client.FlattenedPermission(nil)`
 | Method | Description |
 | --- | --- |
 | `List(match, ctrl)` | List entities matching the criteria. |
-| `Load(match, ctrl)` | Load a single entity by match criteria. |
 | `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
@@ -467,16 +466,6 @@ Create an instance: `flattenedPermission := client.FlattenedPermission(nil)`
 | `id` | `string` |  |
 | `msisdn` | `string` | phone number |
 | `source` | `string` | comma separated list of sources |
-
-#### Example: Load
-
-```go
-flattenedPermission, err := client.FlattenedPermission(nil).Load(map[string]any{"database_id": 1}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(flattenedPermission) // the loaded record
-```
 
 #### Example: List
 
@@ -559,6 +548,7 @@ Create an instance: `metadata := client.Metadata(nil)`
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
 | `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Update(data, ctrl)` | Update an existing entity. |
+| `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
 

@@ -34,28 +34,6 @@ main: kit: flow: BasicFlattenedPermissionFlow:
         }
       ]
     }
-
-    {
-      i: {
-        ref: "flattened_permission_ref01",
-        srcdatavar: "flattened_permission_ref01_data",
-        suffix: "_dt0"
-      }
-
-      m: {
-        id: "flattened_permission01"
-      }
-
-      o: "load",
-      v: [
-        {
-          apply: "TextFieldMark",
-          def: {
-            mark: "Mark01-flattened_permission_ref01"
-          }
-        }
-      ]
-    }
   ],
   "key$": "BasicFlattenedPermissionFlow"
 }

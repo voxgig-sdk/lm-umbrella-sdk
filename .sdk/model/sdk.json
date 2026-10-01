@@ -544,66 +544,6 @@
                   }
                 }
               ]
-            },
-            "load": {
-              "input": "data",
-              "name": "load",
-              "points": [
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /public/database/{id}/permission/query",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "params": [
-                      {
-                        "a": true,
-                        "k": "param",
-                        "n": "database_id",
-                        "or": "id",
-                        "r": true,
-                        "t": "`$INTEGER`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/public/database/{id}/permission/query",
-                  "q": {
-                    "exist": [
-                      "database_id"
-                    ]
-                  },
-                  "r": {
-                    "param": {
-                      "id": "database_id"
-                    }
-                  },
-                  "s": [
-                    {
-                      "lit": "public"
-                    },
-                    {
-                      "lit": "database"
-                    },
-                    {
-                      "var": "database_id"
-                    },
-                    {
-                      "lit": "permission"
-                    },
-                    {
-                      "lit": "query"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
             }
           },
           "relations": {
@@ -942,81 +882,6 @@
                 {
                   "a": true,
                   "co": {
-                    "id": "POST /public/database/{id}/metadata/{key}",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "params": [
-                      {
-                        "a": true,
-                        "k": "param",
-                        "n": "database_id",
-                        "or": "id",
-                        "r": true,
-                        "t": "`$INTEGER`"
-                      },
-                      {
-                        "a": true,
-                        "k": "param",
-                        "n": "id",
-                        "or": "key",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ],
-                    "query": [
-                      {
-                        "a": true,
-                        "k": "query",
-                        "n": "api_key",
-                        "or": "apiKey",
-                        "r": false,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "POST",
-                  "o": "/public/database/{id}/metadata/{key}",
-                  "q": {
-                    "exist": [
-                      "api_key",
-                      "database_id",
-                      "id"
-                    ]
-                  },
-                  "r": {
-                    "param": {
-                      "id": "database_id",
-                      "key": "id"
-                    }
-                  },
-                  "s": [
-                    {
-                      "lit": "public"
-                    },
-                    {
-                      "lit": "database"
-                    },
-                    {
-                      "var": "database_id"
-                    },
-                    {
-                      "lit": "metadata"
-                    },
-                    {
-                      "var": "id"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                },
-                {
-                  "a": true,
-                  "co": {
                     "id": "POST /public/database/{id}/metadata",
                     "source": "openapi3",
                     "version": 2
@@ -1189,6 +1054,87 @@
                   },
                   "k": "http",
                   "m": "GET",
+                  "o": "/public/database/{id}/metadata/{key}",
+                  "q": {
+                    "exist": [
+                      "api_key",
+                      "database_id",
+                      "id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "id": "database_id",
+                      "key": "id"
+                    }
+                  },
+                  "s": [
+                    {
+                      "lit": "public"
+                    },
+                    {
+                      "lit": "database"
+                    },
+                    {
+                      "var": "database_id"
+                    },
+                    {
+                      "lit": "metadata"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "POST /public/database/{id}/metadata/{key}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "database_id",
+                        "or": "id",
+                        "r": true,
+                        "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "id",
+                        "or": "key",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "a": true,
+                        "k": "query",
+                        "n": "api_key",
+                        "or": "apiKey",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "POST",
                   "o": "/public/database/{id}/metadata/{key}",
                   "q": {
                     "exist": [
@@ -3016,28 +2962,6 @@
                   }
                 }
               ]
-            },
-            {
-              "a": true,
-              "d": {},
-              "i": {
-                "ref": "flattened_permission_ref01",
-                "srcdatavar": "flattened_permission_ref01_data",
-                "suffix": "_dt0"
-              },
-              "m": {
-                "id": "flattened_permission01"
-              },
-              "o": "load",
-              "s": [],
-              "v": [
-                {
-                  "apply": "TextFieldMark",
-                  "def": {
-                    "mark": "Mark01-flattened_permission_ref01"
-                  }
-                }
-              ]
             }
           ]
         },
@@ -3163,6 +3087,41 @@
                   "apply": "TextFieldMark",
                   "def": {
                     "mark": "Mark01-metadata_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "ref": "metadata_ref01",
+                "suffix": "_rm0"
+              },
+              "m": {
+                "database_id": "database01",
+                "id": "metadata01"
+              },
+              "o": "remove",
+              "s": [],
+              "v": []
+            },
+            {
+              "a": true,
+              "d": {},
+              "i": {
+                "suffix": "_rt0"
+              },
+              "m": {
+                "database_id": "database01"
+              },
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemNotExists",
+                  "def": {
+                    "ref": "metadata_ref01"
                   }
                 }
               ]
@@ -3299,7 +3258,7 @@
         }
       },
       "info": {
-        "about_md": "**Unofficial. Not affiliated with LINK Mobility.** This is an unofficial SDK for the LINK Mobility Umbrella Permission API, built by [Voxgig](https://voxgig.com/sdk). It is not affiliated with, endorsed by, or sponsored by LINK Mobility.\n\n**Why this exists:** LINK Mobility publishes an OpenAPI definition for the Umbrella Permission API, which manages databases of mobile numbers and their consent, but no client libraries for it. Voxgig builds public SDK and MCP examples for APIs we think are interesting, and this is one of them. MIT-licensed, take whatever's useful.\n\nIt is one of five repositories for LINK Mobility's MyLINK and Umbrella APIs: [Multichannel](https://github.com/voxgig-sdk/lm-multichannel-sdk), [SMS](https://github.com/voxgig-sdk/lm-sms-sdk), [Email](https://github.com/voxgig-sdk/lm-email-sdk), [WhatsApp](https://github.com/voxgig-sdk/lm-whatsapp-sdk) and [Permission](https://github.com/voxgig-sdk/lm-umbrella-sdk).\n\n### Try it (TypeScript)\n\n```bash\ngit clone https://github.com/voxgig-sdk/lm-umbrella-sdk\ncd lm-umbrella-sdk/ts\nnpm install\nnpm run build\nnpm test\n```\n\nThe test suite runs fully offline. Every SDK here ships a test mode that swaps the HTTP transport for an in-memory mock, so you can try it without credentials or a network.\n\n### Read your databases\n\n```ts\nimport { LmUmbrellaSDK } from '@voxgig-sdk/lm-umbrella-sdk'\n\n// An API key generated in the Umbrella portal\nconst client = new LmUmbrellaSDK({ apikey: process.env.LM_UMBRELLA_APIKEY })\n\n// Your permission databases\nconst databases = await client.PermissionDatabase().list()\n\n// One permission in database 42. The SDK calls the MSISDN `id`.\nconst permission = await client.FlatPermission().load({ database_id: 42, id: '4512345678' })\nconsole.log(permission.data())\n```\n\n### Authentication\n\nThe API takes an API key generated in the Umbrella portal, sent as `Authorization: Bearer <key>`. Pass the key as `apikey`, and the SDK sends that header. The CLI and the MCP server read it from `LM_UMBRELLA_APIKEY`. The definition still declares the older `apiKey` query parameter, which it says is deprecated; you do not need it.\n\n### Using the MCP server\n\n```bash\ncd go-mcp && go build -o lm-umbrella-mcp .\nexport LM_UMBRELLA_APIKEY=<API key>\nclaude mcp add --scope user lm-umbrella -- \"$PWD/lm-umbrella-mcp\" -transport stdio\n```\n\nThe MCP server has two tools, `lm-umbrella_list` and `lm-umbrella_load`, for databases, permissions, metadata and bulk-import status. They are meant to read, but one load in this API writes: see below. Do not connect an agent to a live database with it yet.\n\n### Honest state\n\nGenerated from LINK Mobility's public OpenAPI definition of the Permission Public API (2.0, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. Two rough edges matter before you use it on live data, and both come from routes the definition describes one way and names another:\n\n- `Metadata().create()` does not create. The definition has two POST routes for metadata, and the generated client picks `POST /metadata/{key}`, which the definition itself describes as \"Delete metadata by key\". Do not call it until this is fixed.\n- `FlattenedPermission().load()` calls `GET /permission/query`, which the definition describes as \"Add/update permission using query parameters\". It writes, and the MCP server's load tool can reach it.\n\nAlso: the SDK calls a permission's MSISDN `id`, so `Permission().remove({ database_id, id })` deactivates one. The permanent delete is not reachable yet. Bulk import takes `create({ database_id, permissions: [...] })`; the TypeScript type does not list `permissions` yet, so cast. Use it as a starting point or a reference.\n\nWhen teams want SDKs like these production-grade, idiomatic per language, tested, documented, and released through a real pipeline, Voxgig does that work as a consulting engagement. The toolkit also generates Java and C# if your customers need them. Questions: richard@voxgig.com.\n\nIf you are from LINK Mobility and would like this repository removed, or transferred to your own GitHub organisation, email richard@voxgig.com and it will be done within two business days, no questions asked.",
+        "about_md": "**Unofficial. Not affiliated with LINK Mobility.** This is an unofficial SDK for the LINK Mobility Umbrella Permission API, built by [Voxgig](https://voxgig.com/sdk). It is not affiliated with, endorsed by, or sponsored by LINK Mobility.\n\n**Why this exists:** LINK Mobility publishes an OpenAPI definition for the Umbrella Permission API, which manages databases of mobile numbers and their consent, but no client libraries for it. Voxgig builds public SDK and MCP examples for APIs we think are interesting, and this is one of them. MIT-licensed, take whatever's useful.\n\nIt is one of five repositories for LINK Mobility's MyLINK and Umbrella APIs: [Multichannel](https://github.com/voxgig-sdk/lm-multichannel-sdk), [SMS](https://github.com/voxgig-sdk/lm-sms-sdk), [Email](https://github.com/voxgig-sdk/lm-email-sdk), [WhatsApp](https://github.com/voxgig-sdk/lm-whatsapp-sdk) and [Permission](https://github.com/voxgig-sdk/lm-umbrella-sdk).\n\n### Try it (TypeScript)\n\n```bash\ngit clone https://github.com/voxgig-sdk/lm-umbrella-sdk\ncd lm-umbrella-sdk/ts\nnpm install\nnpm run build\nnpm test\n```\n\nThe test suite runs fully offline. Every SDK here ships a test mode that swaps the HTTP transport for an in-memory mock, so you can try it without credentials or a network.\n\n### Read your databases\n\n```ts\nimport { LmUmbrellaSDK } from '@voxgig-sdk/lm-umbrella-sdk'\n\n// An API key generated in the Umbrella portal\nconst client = new LmUmbrellaSDK({ apikey: process.env.LM_UMBRELLA_APIKEY })\n\n// Your permission databases\nconst databases = await client.PermissionDatabase().list()\n\n// One permission in database 42. The SDK calls the MSISDN `id`.\nconst permission = await client.FlatPermission().load({ database_id: 42, id: '4512345678' })\nconsole.log(permission.data())\n```\n\n### Authentication\n\nThe API takes an API key generated in the Umbrella portal, sent as `Authorization: Bearer <key>`. Pass the key as `apikey`, and the SDK sends that header. The CLI and the MCP server read it from `LM_UMBRELLA_APIKEY`. The definition still declares the older `apiKey` query parameter, which it says is deprecated; you do not need it.\n\n### Using the MCP server\n\n```bash\ncd go-mcp && go build -o lm-umbrella-mcp .\nexport LM_UMBRELLA_APIKEY=<API key>\nclaude mcp add --scope user lm-umbrella -- \"$PWD/lm-umbrella-mcp\" -transport stdio\n```\n\nThe MCP server has two tools, `lm-umbrella_list` and `lm-umbrella_load`, for databases, permissions, metadata and bulk-import status. Every route they reach is a read in the definition (\"Get\", \"List\", \"Find\").\n\n### Honest state\n\nGenerated from LINK Mobility's public OpenAPI definition of the Permission Public API (2.0, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. The definition names two routes one way and describes them another. The model corrects both:\n\n- `POST /metadata/{key}` is \"Delete metadata by key\", so it is `Metadata().remove()`, not a second create. `Metadata().create()` uses `POST /metadata` only.\n- `GET /permission/query` is \"Add/update permission using query parameters\". A load must not write, so the SDK does not expose it.\n\nAlso: the SDK calls a permission's MSISDN `id`, so `Permission().remove({ database_id, id })` deactivates one. The permanent delete is not reachable yet. Bulk import takes `create({ database_id, permissions: [...] })`; the TypeScript type does not list `permissions` yet, so cast. Use it as a starting point or a reference.\n\nWhen teams want SDKs like these production-grade, idiomatic per language, tested, documented, and released through a real pipeline, Voxgig does that work as a consulting engagement. The toolkit also generates Java and C# if your customers need them. Questions: richard@voxgig.com.\n\nIf you are from LINK Mobility and would like this repository removed, or transferred to your own GitHub organisation, email richard@voxgig.com and it will be done within two business days, no questions asked.",
         "description": "Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.\n\nThe Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.\n\nRequests must be authenticated with an `Authorization: Bearer <key>` header, using an API key generated in the Umbrella portal. The legacy `apiKey` query parameter is still accepted but deprecated and will be removed in a future version.\n\n**Terminology**\n* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. `45XXXXXXXX` for Denmark).\n* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.\n* *Permission* — An MSISDN entry that can be linked to metadata.\n* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.\n* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.\n\n**Internal errors**\n\nA `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.",
         "docs_url": "https://docs.linkmobility.com/api-reference/mylink-umbrella-api",
         "security": {

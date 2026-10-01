@@ -54,11 +54,6 @@
     }
   },
   "requests": {
-    "POST /public/database/{id}/metadata/{key}": {
-      "provenance": "operation-contract",
-      "version": 2,
-      "source": "openapi3"
-    },
     "POST /public/database/{id}/metadata": {
       "provenance": "operation-contract",
       "version": 2,
@@ -70,6 +65,11 @@
       "source": "openapi3"
     },
     "GET /public/database/{id}/metadata/{key}": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "POST /public/database/{id}/metadata/{key}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

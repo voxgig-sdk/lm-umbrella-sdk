@@ -60,7 +60,7 @@ describe("MetadataEntity", function()
     local setup = metadata_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"create", "list", "update", "load"}) do
+    for _, _op in ipairs({"create", "list", "update", "load", "remove"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "metadata." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
@@ -127,6 +127,27 @@ describe("MetadataEntity", function()
     local metadata_ref01_data_dt0_load_result = helpers.to_map(type(metadata_ref01_data_dt0_loaded) == 'table' and metadata_ref01_data_dt0_loaded.data_get and metadata_ref01_data_dt0_loaded:data_get() or metadata_ref01_data_dt0_loaded)
     assert.is_not_nil(metadata_ref01_data_dt0_load_result)
     assert.are.equal(metadata_ref01_data_dt0_load_result["id"], metadata_ref01_data["id"])
+
+    -- REMOVE
+    local metadata_ref01_match_rm0 = {
+      id = metadata_ref01_data["id"],
+    }
+    local _, err = metadata_ref01_ent:remove(metadata_ref01_match_rm0, nil)
+    assert.is_nil(err)
+
+    -- LIST
+    local metadata_ref01_match_rt0 = {
+      ["database_id"] = setup.idmap["database01"],
+    }
+
+    local metadata_ref01_list_rt0_result, err = metadata_ref01_ent:list(metadata_ref01_match_rt0, nil)
+    assert.is_nil(err)
+    assert.is_table(metadata_ref01_list_rt0_result)
+
+    local not_found_item = vs.select(
+      runner.entity_list_to_data(metadata_ref01_list_rt0_result),
+      { id = metadata_ref01_data["id"] })
+    assert.is_true(vs.isempty(not_found_item))
 
   end)
 end)

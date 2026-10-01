@@ -31,9 +31,6 @@
 ---@field msisdn? string
 ---@field source? string
 
----@class FlattenedPermissionLoadMatch
----@field database_id number
-
 ---@class FlattenedPermissionListMatch
 ---@field database_id number
 ---@field api_key? string
@@ -93,11 +90,11 @@
 
 ---@class MetadataCreateData
 ---@field database_id number
----@field id? string
 ---@field api_key? string
 ---@field contents? table
 ---@field created? string
 ---@field databaseId? number
+---@field id? string
 ---@field key? string
 ---@field label? string
 ---@field multiValue? boolean
@@ -116,6 +113,11 @@
 ---@field multiValue? boolean
 ---@field type? string
 ---@field updated? string
+
+---@class MetadataRemoveMatch
+---@field database_id number
+---@field id string
+---@field api_key? string
 
 ---@class PaginatedPermissionList
 ---@field ascending? boolean

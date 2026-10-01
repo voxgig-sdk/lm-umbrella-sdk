@@ -52,12 +52,6 @@ class FlattenedPermission
     public ?string $source = null;
 }
 
-/** Request payload for FlattenedPermission#load. */
-class FlattenedPermissionLoadMatch
-{
-    public int $database_id;
-}
-
 /** Request payload for FlattenedPermission#list. */
 class FlattenedPermissionListMatch
 {
@@ -143,11 +137,11 @@ class MetadataListMatch
 class MetadataCreateData
 {
     public int $database_id;
-    public ?string $id = null;
     public ?string $api_key = null;
     public ?array $contents = null;
     public ?string $created = null;
     public ?int $databaseId = null;
+    public ?string $id = null;
     public ?string $key = null;
     public ?string $label = null;
     public ?bool $multiValue = null;
@@ -169,6 +163,14 @@ class MetadataUpdateData
     public ?bool $multiValue = null;
     public ?string $type = null;
     public ?string $updated = null;
+}
+
+/** Request payload for Metadata#remove. */
+class MetadataRemoveMatch
+{
+    public int $database_id;
+    public string $id;
+    public ?string $api_key = null;
 }
 
 /** PaginatedPermissionList entity data model. */

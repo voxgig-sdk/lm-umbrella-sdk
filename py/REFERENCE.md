@@ -249,14 +249,6 @@ for flattened_permission in results:
     print(flattened_permission)
 ```
 
-#### `load(reqmatch, ctrl=None) -> dict`
-
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
-
-```python
-result = client.FlattenedPermission().load({"database_id": 1})
-```
-
 ### Common Methods
 
 #### `data_get() -> dict`
@@ -402,6 +394,14 @@ Load a single entity matching the given criteria. Returns the entity data and ra
 
 ```python
 result = client.Metadata().load({"id": "metadata_id", "database_id": 1})
+```
+
+#### `remove(reqmatch, ctrl=None) -> dict`
+
+Remove the entity matching the given criteria. Raises on error.
+
+```python
+result = client.Metadata().remove({"id": "metadata_id", "database_id": 1})
 ```
 
 #### `update(reqdata, ctrl=None) -> dict`

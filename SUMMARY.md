@@ -6,7 +6,7 @@ Welcome to the Umbrella Permission API. This API follows REST conventions with r
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 8 entities and 19 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 8 entities and 18 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
@@ -28,7 +28,7 @@ SDK operations: `load`.
 
 Results: Successful operation.
 
-SDK operations: `create`, `list`, `load`.
+SDK operations: `create`, `list`.
 
 Key fields to recognise:
 
@@ -54,7 +54,7 @@ Key fields to recognise:
 
 Results: Successful operation.
 
-SDK operations: `create`, `list`, `load`, `update`.
+SDK operations: `create`, `list`, `load`, `remove`, `update`.
 
 Key fields to recognise:
 
@@ -104,13 +104,12 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | [FlatPermission](docs/api/flat_permission.html) | `load` | `GET /public/database/{id}/permission/{msisdn}` | Required |
 | [FlattenedPermission](docs/api/flattened_permission.html) | `create` | `POST /public/database/{id}/permission/{msisdn}` | Required |
 | [FlattenedPermission](docs/api/flattened_permission.html) | `list` | `GET /public/database/{id}/permission/list` | Required |
-| [FlattenedPermission](docs/api/flattened_permission.html) | `load` | `GET /public/database/{id}/permission/query` | Required |
 | [ImportStatus](docs/api/import_status.html) | `create` | `POST /public/database/{id}/permission/bulk` | Required |
 | [ImportStatus](docs/api/import_status.html) | `list` | `GET /public/database/{id}/permission/bulk/status` | Required |
-| [Metadata](docs/api/metadata.html) | `create` | `POST /public/database/{id}/metadata/{key}` | Required |
 | [Metadata](docs/api/metadata.html) | `create` | `POST /public/database/{id}/metadata` | Required |
 | [Metadata](docs/api/metadata.html) | `list` | `GET /public/database/{id}/metadata` | Required |
 | [Metadata](docs/api/metadata.html) | `load` | `GET /public/database/{id}/metadata/{key}` | Required |
+| [Metadata](docs/api/metadata.html) | `remove` | `POST /public/database/{id}/metadata/{key}` | Required |
 | [Metadata](docs/api/metadata.html) | `update` | `PUT /public/database/{id}/metadata/{key}` | Required |
 | [PaginatedPermissionList](docs/api/paginated_permission_list.html) | `create` | `POST /public/database/{id}/permission/paged/list` | Required |
 | [Permission](docs/api/permission.html) | `remove` | `DELETE /public/database/{id}/permission/{msisdn}` | Required |
@@ -169,7 +168,7 @@ Use the MCP server to expose supported API operations to an MCP client.
 Repository directory: `go-mcp/`. Not published. Build from the go-mcp directory.
 
 - `lm-umbrella_list`: List records for an entity. Supported entities: `flattened_permission`, `import_status`, `metadata`, `permission_database`.
-- `lm-umbrella_load`: Load one record for an entity. Supported entities: `flat_permission`, `flattened_permission`, `metadata`, `permission_database`.
+- `lm-umbrella_load`: Load one record for an entity. Supported entities: `flat_permission`, `metadata`, `permission_database`.
 
 ## Operational features
 

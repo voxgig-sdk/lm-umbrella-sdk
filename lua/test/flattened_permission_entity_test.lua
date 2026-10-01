@@ -60,7 +60,7 @@ describe("FlattenedPermissionEntity", function()
     local setup = flattened_permission_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"create", "list", "load"}) do
+    for _, _op in ipairs({"create", "list"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "flattened_permission." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
@@ -101,16 +101,6 @@ describe("FlattenedPermissionEntity", function()
       runner.entity_list_to_data(flattened_permission_ref01_list_result),
       { id = flattened_permission_ref01_data["id"] })
     assert.is_false(vs.isempty(found_item))
-
-    -- LOAD
-    local flattened_permission_ref01_match_dt0 = {
-      id = flattened_permission_ref01_data["id"],
-    }
-    local flattened_permission_ref01_data_dt0_loaded, err = flattened_permission_ref01_ent:load(flattened_permission_ref01_match_dt0, nil)
-    assert.is_nil(err)
-    local flattened_permission_ref01_data_dt0_load_result = helpers.to_map(type(flattened_permission_ref01_data_dt0_loaded) == 'table' and flattened_permission_ref01_data_dt0_loaded.data_get and flattened_permission_ref01_data_dt0_loaded:data_get() or flattened_permission_ref01_data_dt0_loaded)
-    assert.is_not_nil(flattened_permission_ref01_data_dt0_load_result)
-    assert.are.equal(flattened_permission_ref01_data_dt0_load_result["id"], flattened_permission_ref01_data["id"])
 
   end)
 end)
