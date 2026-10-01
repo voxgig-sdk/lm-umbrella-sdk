@@ -148,11 +148,9 @@ func MakeConfig() map[string]any {
 			},
 		},
 		"options": map[string]any{
-			"base": "https://permission.m2go.dk/permission/api",
+			"base": "https://permission.m2go.dk/api",
 			"auth": map[string]any{
-				"prefix": "",
-				"in": "query",
-				"name": "apiKey",
+				"prefix": "Bearer",
 			},
 			"headers": map[string]any{
 				"content-type": "application/json",
@@ -170,7 +168,17 @@ func MakeConfig() map[string]any {
 		},
 		"entity": map[string]any{
 			"database": map[string]any{
-				"fields": []any{},
+				"fields": []any{
+					map[string]any{
+						"name": "id",
+						"title": "Id",
+						"type": "`$STRING`",
+					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
 				"name": "database",
 				"op": map[string]any{
 					"remove": map[string]any{
@@ -206,8 +214,15 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "database_id",
-											"orig": "database_id",
+											"orig": "Database ID",
 											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
 										},
@@ -215,7 +230,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -225,6 +240,7 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"api_key",
 										"database_id",
+										"id",
 									},
 								},
 							},
@@ -321,7 +337,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -445,7 +461,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -515,7 +531,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -679,7 +695,7 @@ func MakeConfig() map[string]any {
 									},
 								},
 								"transform": map[string]any{
-									"req": "`reqdata`",
+									"req": "`reqdata.permissions`",
 									"res": "`body`",
 								},
 								"args": map[string]any{
@@ -695,13 +711,13 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
 											"name": "skip_import_on_error",
-											"orig": "skip_import_on_error",
+											"orig": "skipImportOnError",
 											"type": "`$BOOLEAN`",
 											"kind": "query",
 											"example": false,
@@ -776,13 +792,13 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
 										map[string]any{
 											"name": "import_id",
-											"orig": "import_id",
+											"orig": "importId",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -855,20 +871,6 @@ func MakeConfig() map[string]any {
 						"readOnly": true,
 					},
 					map[string]any{
-						"name": "rangeEnd",
-						"title": "Range End",
-						"type": "`$INTEGER`",
-						"short": "end on range for validation on INTEGER field",
-						"format": "int32",
-					},
-					map[string]any{
-						"name": "rangeStart",
-						"title": "Range Start",
-						"type": "`$INTEGER`",
-						"short": "start on range for validation on INTEGER field",
-						"format": "int32",
-					},
-					map[string]any{
 						"name": "type",
 						"title": "Type",
 						"type": "`$STRING`",
@@ -881,18 +883,6 @@ func MakeConfig() map[string]any {
 						"short": "deletion date of the field",
 						"readOnly": true,
 						"format": "date-time",
-					},
-					map[string]any{
-						"name": "validation",
-						"title": "Validation",
-						"type": "`$STRING`",
-						"short": "type of validation on TEXT field",
-					},
-					map[string]any{
-						"name": "values",
-						"title": "Values",
-						"type": "`$ARRAY`",
-						"short": "Possible enumeration of values for ENUMERATION field",
 					},
 				},
 				"id": map[string]any{
@@ -963,7 +953,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1008,7 +998,7 @@ func MakeConfig() map[string]any {
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body.contents`",
+									"res": "`body`",
 								},
 								"args": map[string]any{
 									"params": []any{
@@ -1023,7 +1013,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1088,7 +1078,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1143,7 +1133,7 @@ func MakeConfig() map[string]any {
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body.contents`",
+									"res": "`body`",
 								},
 								"args": map[string]any{
 									"params": []any{
@@ -1165,7 +1155,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1221,7 +1211,7 @@ func MakeConfig() map[string]any {
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body.contents`",
+									"res": "`body`",
 								},
 								"args": map[string]any{
 									"params": []any{
@@ -1243,7 +1233,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1424,7 +1414,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1534,7 +1524,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1609,7 +1599,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1687,7 +1677,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1805,7 +1795,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1852,8 +1842,15 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "database_id",
-											"orig": "database_id",
+											"orig": "Database ID",
 											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
 										},
@@ -1861,7 +1858,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1871,6 +1868,7 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"api_key",
 										"database_id",
+										"id",
 									},
 								},
 							},
@@ -1909,8 +1907,15 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "database_id",
-											"orig": "database_id",
+											"orig": "Database ID",
 											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
 										},
@@ -1918,7 +1923,7 @@ func MakeConfig() map[string]any {
 									"query": []any{
 										map[string]any{
 											"name": "api_key",
-											"orig": "api_key",
+											"orig": "apiKey",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1928,6 +1933,7 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"api_key",
 										"database_id",
+										"id",
 									},
 								},
 							},

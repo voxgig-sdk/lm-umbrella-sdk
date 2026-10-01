@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 LmUmbrellaUtility.registrar = ->(u) {
   u.clean = LmUmbrellaUtilities::Clean
+  u.clean_add = LmUmbrellaUtilities::CleanAdd
+  u.clean_explain = LmUmbrellaUtilities::CleanExplain
   u.done = LmUmbrellaUtilities::Done
   u.make_error = LmUmbrellaUtilities::MakeError
   u.feature_add = LmUmbrellaUtilities::FeatureAdd

@@ -1,0 +1,25 @@
+{
+  point: "warning"
+  note: "Path placeholder {id} on entity=database op=remove path=/public/database/{id} has no declared parameter, so it is taken as a required string."
+  entity: "database"
+  path: "/public/database/{id}"
+  op: "remove"
+}
+
+
+{
+  point: "warning"
+  note: "Path placeholder {id} on entity=permission_database op=load path=/public/database/{id} has no declared parameter, so it is taken as a required string."
+  entity: "permission_database"
+  path: "/public/database/{id}"
+  op: "load"
+}
+
+
+{
+  point: "warning"
+  note: "Path placeholder {id} on entity=permission_database op=update path=/public/database/{id} has no declared parameter, so it is taken as a required string."
+  entity: "permission_database"
+  path: "/public/database/{id}"
+  op: "update"
+}

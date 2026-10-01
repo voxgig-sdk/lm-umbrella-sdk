@@ -50,6 +50,7 @@ const utility_1 = require("../../utility");
             params.id = candidateId;
         }
         else {
+            params.id = 'direct01';
         }
         const result = await client.direct({
             path: 'public/database/{id}',
@@ -77,6 +78,7 @@ const utility_1 = require("../../utility");
             (0, node_assert_1.default)(result.data.id === 'direct01');
             (0, node_assert_1.default)(calls.length === 1);
             (0, node_assert_1.default)(calls[0].init.method === 'GET');
+            (0, node_assert_1.default)(calls[0].url.includes('direct01'));
         }
     });
     (0, node_test_1.test)('direct-list-permission_database', async (t) => {

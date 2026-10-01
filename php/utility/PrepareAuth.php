@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 class LmUmbrellaPrepareAuth
 {
-    private const QUERY_AUTH = 'apiKey';
+    private const HEADER_AUTH = 'authorization';
     private const OPTION_APIKEY = 'apikey';
     private const NOT_FOUND = '__NOTFOUND__';
 
@@ -16,12 +16,12 @@ class LmUmbrellaPrepareAuth
             return [null, $ctx->make_error('auth_no_spec', 'Expected context spec property to be defined.')];
         }
 
-        $query = &$spec->query;
+        $headers = &$spec->headers;
         $options = $ctx->client->options_map();
 
         // Public APIs that need no auth omit the options.auth block entirely.
         if (!isset($options['auth']) || $options['auth'] === null) {
-            unset($query[self::QUERY_AUTH]);
+            unset($headers[self::HEADER_AUTH]);
             return [$spec, null];
         }
 
@@ -31,12 +31,13 @@ class LmUmbrellaPrepareAuth
             (is_string($apikey) && ($apikey === self::NOT_FOUND || $apikey === ''))
             || $apikey === null
         ) {
-            unset($query[self::QUERY_AUTH]);
+            unset($headers[self::HEADER_AUTH]);
         } else {
-            // NO PREFIX IN A QUERY STRING. `?token=Bearer%20abc` is not a
-            // thing any API reads; the prefix is a header convention and is
-            // dropped here deliberately rather than silently concatenated.
-            $query[self::QUERY_AUTH] = is_string($apikey) ? $apikey : '';
+            $auth_prefix = \Voxgig\Struct\Struct::getpath($options, 'auth.prefix') ?? '';
+            $apikey_val = is_string($apikey) ? $apikey : '';
+            // Empty prefix (raw apiKey credential) must not add a leading space.
+            $headers[self::HEADER_AUTH] = $auth_prefix === ''
+                ? $apikey_val : "{$auth_prefix} {$apikey_val}";
         }
 
         return [$spec, null];

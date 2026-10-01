@@ -144,11 +144,9 @@ local function make_config()
       },
     },
     options = {
-      base = "https://permission.m2go.dk/permission/api",
+      base = "https://permission.m2go.dk/api",
       auth = {
-        prefix = "",
-        ["in"] = "query",
-        name = "apiKey",
+        prefix = "Bearer",
       },
       headers = {
         ["content-type"] = "application/json",
@@ -166,7 +164,17 @@ local function make_config()
     },
     entity = {
       ["database"] = {
-        ["fields"] = {},
+        ["fields"] = {
+          {
+            ["name"] = "id",
+            ["title"] = "Id",
+            ["type"] = "`$STRING`",
+          },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "database",
         ["op"] = {
           ["remove"] = {
@@ -202,8 +210,15 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "database_id",
-                      ["orig"] = "database_id",
+                      ["orig"] = "Database ID",
                       ["type"] = "`$INTEGER`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                    },
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "id",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,
                     },
@@ -211,7 +226,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -221,6 +236,7 @@ local function make_config()
                   ["exist"] = {
                     "api_key",
                     "database_id",
+                    "id",
                   },
                 },
               },
@@ -317,7 +333,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -441,7 +457,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -511,7 +527,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -675,7 +691,7 @@ local function make_config()
                   },
                 },
                 ["transform"] = {
-                  ["req"] = "`reqdata`",
+                  ["req"] = "`reqdata.permissions`",
                   ["res"] = "`body`",
                 },
                 ["args"] = {
@@ -691,13 +707,13 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
                       ["name"] = "skip_import_on_error",
-                      ["orig"] = "skip_import_on_error",
+                      ["orig"] = "skipImportOnError",
                       ["type"] = "`$BOOLEAN`",
                       ["kind"] = "query",
                       ["example"] = false,
@@ -772,13 +788,13 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
                     {
                       ["name"] = "import_id",
-                      ["orig"] = "import_id",
+                      ["orig"] = "importId",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -851,20 +867,6 @@ local function make_config()
             ["readOnly"] = true,
           },
           {
-            ["name"] = "rangeEnd",
-            ["title"] = "Range End",
-            ["type"] = "`$INTEGER`",
-            ["short"] = "end on range for validation on INTEGER field",
-            ["format"] = "int32",
-          },
-          {
-            ["name"] = "rangeStart",
-            ["title"] = "Range Start",
-            ["type"] = "`$INTEGER`",
-            ["short"] = "start on range for validation on INTEGER field",
-            ["format"] = "int32",
-          },
-          {
             ["name"] = "type",
             ["title"] = "Type",
             ["type"] = "`$STRING`",
@@ -877,18 +879,6 @@ local function make_config()
             ["short"] = "deletion date of the field",
             ["readOnly"] = true,
             ["format"] = "date-time",
-          },
-          {
-            ["name"] = "validation",
-            ["title"] = "Validation",
-            ["type"] = "`$STRING`",
-            ["short"] = "type of validation on TEXT field",
-          },
-          {
-            ["name"] = "values",
-            ["title"] = "Values",
-            ["type"] = "`$ARRAY`",
-            ["short"] = "Possible enumeration of values for ENUMERATION field",
           },
         },
         ["id"] = {
@@ -959,7 +949,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1004,7 +994,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body.contents`",
+                  ["res"] = "`body`",
                 },
                 ["args"] = {
                   ["params"] = {
@@ -1019,7 +1009,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1084,7 +1074,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1139,7 +1129,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body.contents`",
+                  ["res"] = "`body`",
                 },
                 ["args"] = {
                   ["params"] = {
@@ -1161,7 +1151,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1217,7 +1207,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body.contents`",
+                  ["res"] = "`body`",
                 },
                 ["args"] = {
                   ["params"] = {
@@ -1239,7 +1229,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1420,7 +1410,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1530,7 +1520,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1605,7 +1595,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1683,7 +1673,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1801,7 +1791,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1848,8 +1838,15 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "database_id",
-                      ["orig"] = "database_id",
+                      ["orig"] = "Database ID",
                       ["type"] = "`$INTEGER`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                    },
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "id",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,
                     },
@@ -1857,7 +1854,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1867,6 +1864,7 @@ local function make_config()
                   ["exist"] = {
                     "api_key",
                     "database_id",
+                    "id",
                   },
                 },
               },
@@ -1905,8 +1903,15 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "database_id",
-                      ["orig"] = "database_id",
+                      ["orig"] = "Database ID",
                       ["type"] = "`$INTEGER`",
+                      ["kind"] = "param",
+                      ["reqd"] = true,
+                    },
+                    {
+                      ["name"] = "id",
+                      ["orig"] = "id",
+                      ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,
                     },
@@ -1914,7 +1919,7 @@ local function make_config()
                   ["query"] = {
                     {
                       ["name"] = "api_key",
-                      ["orig"] = "api_key",
+                      ["orig"] = "apiKey",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1924,6 +1929,7 @@ local function make_config()
                   ["exist"] = {
                     "api_key",
                     "database_id",
+                    "id",
                   },
                 },
               },

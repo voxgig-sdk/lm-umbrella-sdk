@@ -54,7 +54,6 @@ guide: {
     path: "/public/database/{id}/metadata": {
       rename: param: "id": *"database_id"
       op: create: method: *POST
-      op: create: transform: res: *("`body.contents`")|top
       op: list: method: *GET
     }
     path: "/public/database/{id}/metadata/{key}": {
@@ -62,9 +61,7 @@ guide: {
       rename: param: "key": *"id"
       op: create: method: *POST
       op: load: method: *GET
-      op: load: transform: res: *("`body.contents`")|top
       op: update: method: *PUT
-      op: update: transform: res: *("`body.contents`")|top
     }
   }
 

@@ -92,11 +92,38 @@ func TestPermissionDatabaseDirect(t *testing.T) {
 		}
 		client := setup.client
 
+		params := map[string]any{}
+		query := map[string]any{}
+		if setup.live {
+			listParams := map[string]any{}
+			listResult, listErr := client.Direct(map[string]any{
+				"path":   "public/database/list",
+				"method": "GET",
+				"params": listParams,
+			})
+			if listErr != nil {
+				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", listErr)
+			}
+			if listResult["ok"] != true {
+				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", listResult)
+			}
+
+			// Get first entity ID from list
+			listData, _ := listResult["data"].([]any)
+			if len(listData) == 0 {
+				t.Skip("no entities to load in live mode")
+			}
+			firstEnt := core.ToMapAny(listData[0])
+			params["id"] = firstEnt["id"]
+		} else {
+			params["id"] = "direct01"
+		}
 
 		result, err := client.Direct(map[string]any{
 			"path":   "public/database/{id}",
 			"method": "GET",
-			"params": map[string]any{},
+			"params": params,
+			"query":  query,
 		})
 		if setup.live {
 			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
@@ -144,7 +171,10 @@ func TestPermissionDatabaseDirect(t *testing.T) {
 					t.Fatalf("expected method GET, got %v", initMap["method"])
 				}
 			}
-			if _, ok := call["url"].(string); ok {
+			if url, ok := call["url"].(string); ok {
+				if !strings.Contains(url, "direct01") {
+					t.Fatalf("expected url to contain direct01, got %v", url)
+				}
 			}
 		}
 	})

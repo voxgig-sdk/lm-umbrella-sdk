@@ -1,6 +1,6 @@
 # LmUmbrella PHP SDK
 
-
+LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The PHP SDK for the LmUmbrella API — an entity-oriented client using PHP conventions.
 
@@ -12,9 +12,14 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`):
+GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)), or
+from a clone as a Composer path repository:
 
-- Releases: [https://github.com/voxgig-sdk/lm-umbrella-sdk/releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/lm-umbrella-sdk
+composer config repositories.lm-umbrella-sdk path ./lm-umbrella-sdk/php
+composer require voxgig-sdk/lm-umbrella-sdk:@dev
+```
 
 
 ## Tutorial: your first API call
@@ -51,7 +56,7 @@ try {
 
 ```php
 // Remove
-$client->Database()->remove(["database_id" => 1]);
+$client->Database()->remove(["database_id" => 1, "id" => "example_id"]);
 ```
 
 
@@ -134,13 +139,13 @@ data via the `entity` option so offline calls resolve without a live server:
 
 ```php
 $client = LmUmbrellaSDK::test([
-    "entity" => ["flatpermission" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["permissiondatabase" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// Entity ops return the ENTITY (throws on error);
+// list() returns entity instances (throws on error);
 // call data_get() for the mock record.
-$flatpermission = $client->FlatPermission()->load(["id" => "test01", "database_id" => 1]);
-print_r($flatpermission->data_get());
+$permissiondatabase = $client->PermissionDatabase()->list();
+print_r(array_map(fn($item) => $item->data_get(), $permissiondatabase));
 ```
 
 ### Use a custom fetch function
@@ -272,6 +277,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: Remove.
 
@@ -329,12 +335,8 @@ API path: `/public/database/{id}/permission/bulk`
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
-| `rangeEnd` | end on range for validation on INTEGER field |
-| `rangeStart` | start on range for validation on INTEGER field |
 | `type` | the type of field |
 | `updated` | deletion date of the field |
-| `validation` | type of validation on TEXT field |
-| `values` | Possible enumeration of values for ENUMERATION field |
 
 Operations: Create, List, Load, Update.
 
@@ -409,6 +411,12 @@ Create an instance: `$database = $client->Database();`
 | Method | Description |
 | --- | --- |
 | `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` |  |
 
 
 ### FlatPermission
@@ -545,12 +553,8 @@ Create an instance: `$metadata = $client->Metadata();`
 | `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | if the field is a multi value field |
-| `rangeEnd` | `int` | end on range for validation on INTEGER field |
-| `rangeStart` | `int` | start on range for validation on INTEGER field |
 | `type` | `string` | the type of field |
 | `updated` | `string` | deletion date of the field |
-| `validation` | `string` | type of validation on TEXT field |
-| `values` | `array` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -665,7 +669,7 @@ Create an instance: `$permission_database = $client->PermissionDatabase();`
 
 ```php
 // load() returns the ENTITY — call data_get() for the PermissionDatabase record (throws on error).
-$permission_database = $client->PermissionDatabase()->load(["database_id" => 1]);
+$permission_database = $client->PermissionDatabase()->load(["id" => "permission_database_id", "database_id" => 1]);
 ```
 
 #### Example: List

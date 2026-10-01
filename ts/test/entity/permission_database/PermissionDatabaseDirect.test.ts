@@ -65,7 +65,7 @@ describe('PermissionDatabaseDirect', async () => {
       params.id = candidateId
 
     } else {
-
+      params.id = 'direct01'
     }
 
     const result: any = await client.direct({
@@ -95,6 +95,7 @@ describe('PermissionDatabaseDirect', async () => {
       assert(result.data.id === 'direct01')
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
+      assert(calls[0].url.includes('direct01'))
     }
   })
 

@@ -115,6 +115,12 @@ same parameters as `direct()`.
 local database = client:Database(nil)
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -122,7 +128,7 @@ local database = client:Database(nil)
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Database():remove({ database_id = 1 })
+local result, err = client:Database():remove({ database_id = 1, id = "id" })
 ```
 
 ### Common Methods
@@ -368,12 +374,8 @@ local metadata = client:Metadata(nil)
 | `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | No | if the field is a multi value field |
-| `rangeEnd` | `number` | No | end on range for validation on INTEGER field |
-| `rangeStart` | `number` | No | start on range for validation on INTEGER field |
 | `type` | `string` | No | the type of field |
 | `updated` | `string` | No | deletion date of the field |
-| `validation` | `string` | No | type of validation on TEXT field |
-| `values` | `table` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -615,7 +617,7 @@ local results, err = client:PermissionDatabase():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:PermissionDatabase():load({ database_id = 1 })
+local result, err = client:PermissionDatabase():load({ id = "permission_database_id", database_id = 1 })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -624,6 +626,7 @@ Update an existing entity. The data must include the entity `id`.
 
 ```lua
 local result, err = client:PermissionDatabase():update({
+  id = "permission_database_id",
   database_id = 1,
   -- Fields to update
 })

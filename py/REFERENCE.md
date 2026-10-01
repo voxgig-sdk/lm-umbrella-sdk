@@ -112,6 +112,12 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 database = client.Database()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `str` | No |  |
+
 ### Operations
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -119,7 +125,7 @@ database = client.Database()
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.Database().remove({"database_id": 1})
+result = client.Database().remove({"database_id": 1, "id": "id"})
 ```
 
 ### Common Methods
@@ -365,12 +371,8 @@ metadata = client.Metadata()
 | `key` | `str` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `str` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | No | if the field is a multi value field |
-| `rangeEnd` | `int` | No | end on range for validation on INTEGER field |
-| `rangeStart` | `int` | No | start on range for validation on INTEGER field |
 | `type` | `str` | No | the type of field |
 | `updated` | `str` | No | deletion date of the field |
-| `validation` | `str` | No | type of validation on TEXT field |
-| `values` | `list` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -613,7 +615,7 @@ for permission_database in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.PermissionDatabase().load({"database_id": 1})
+result = client.PermissionDatabase().load({"id": "permission_database_id", "database_id": 1})
 ```
 
 #### `update(reqdata, ctrl=None) -> dict`
@@ -622,6 +624,7 @@ Update an existing entity. The data must include the entity `id`. Returns the up
 
 ```python
 result = client.PermissionDatabase().update({
+    "id": "permission_database_id",
     "database_id": 1,
     # Fields to update
 })

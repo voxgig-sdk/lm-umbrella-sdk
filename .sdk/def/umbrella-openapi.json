@@ -2,14 +2,14 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "Permission Public API",
-    "description" : "Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.\n\nThe Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.\n\nRequests must be authenticated using an `apiKey`, available in the Umbrella portal.\n\n**Terminology**\n* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. `45XXXXXXXX` for Denmark).\n* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.\n* *Permission* — An MSISDN entry that can be linked to metadata.\n* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.\n* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.\n\n**Internal errors**\n\nA `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.",
+    "description" : "Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.\n\nThe Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.\n\nRequests must be authenticated with an `Authorization: Bearer <key>` header, using an API key generated in the Umbrella portal. The legacy `apiKey` query parameter is still accepted but deprecated and will be removed in a future version.\n\n**Terminology**\n* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. `45XXXXXXXX` for Denmark).\n* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.\n* *Permission* — An MSISDN entry that can be linked to metadata.\n* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.\n* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.\n\n**Internal errors**\n\nA `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.",
     "version" : "2.0"
   },
   "servers" : [ {
-    "url" : "https://permission.m2go.dk/permission/api"
+    "url" : "https://permission.m2go.dk/api"
   } ],
   "security" : [ {
-    "apiKey" : [ ]
+    "bearerAuth" : [ ]
   } ],
   "tags" : [ {
     "name" : "Database",
@@ -1461,10 +1461,10 @@
       }
     },
     "securitySchemes" : {
-      "apiKey" : {
-        "type" : "apiKey",
-        "name" : "apiKey",
-        "in" : "query"
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "API key"
       }
     }
   }

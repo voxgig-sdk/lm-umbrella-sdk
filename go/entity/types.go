@@ -19,6 +19,7 @@ type Database struct {
 // DatabaseRemoveMatch is the typed request payload for Database.RemoveTyped.
 type DatabaseRemoveMatch struct {
 	DatabaseId int `json:"database_id"`
+	Id string `json:"id"`
 	ApiKey *string `json:"api_key,omitempty"`
 }
 
@@ -111,12 +112,8 @@ type MetadataCreateData struct {
 	Key *string `json:"key,omitempty"`
 	Label *string `json:"label,omitempty"`
 	MultiValue *bool `json:"multiValue,omitempty"`
-	RangeEnd *int `json:"rangeEnd,omitempty"`
-	RangeStart *int `json:"rangeStart,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Updated *string `json:"updated,omitempty"`
-	Validation *string `json:"validation,omitempty"`
-	Values *[]any `json:"values,omitempty"`
 }
 
 // MetadataUpdateData is the typed request payload for Metadata.UpdateTyped.
@@ -130,12 +127,8 @@ type MetadataUpdateData struct {
 	Key *string `json:"key,omitempty"`
 	Label *string `json:"label,omitempty"`
 	MultiValue *bool `json:"multiValue,omitempty"`
-	RangeEnd *int `json:"rangeEnd,omitempty"`
-	RangeStart *int `json:"rangeStart,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Updated *string `json:"updated,omitempty"`
-	Validation *string `json:"validation,omitempty"`
-	Values *[]any `json:"values,omitempty"`
 }
 
 // PaginatedPermissionList is the typed data model for the paginated_permission_list entity.
@@ -192,6 +185,7 @@ type PermissionDatabase struct {
 // PermissionDatabaseLoadMatch is the typed request payload for PermissionDatabase.LoadTyped.
 type PermissionDatabaseLoadMatch struct {
 	DatabaseId int `json:"database_id"`
+	Id string `json:"id"`
 	ApiKey *string `json:"api_key,omitempty"`
 }
 
@@ -203,12 +197,12 @@ type PermissionDatabaseListMatch struct {
 // PermissionDatabaseUpdateData is the typed request payload for PermissionDatabase.UpdateTyped.
 type PermissionDatabaseUpdateData struct {
 	DatabaseId int `json:"database_id"`
+	Id string `json:"id"`
 	ApiKey *string `json:"api_key,omitempty"`
 	CustomerId *int `json:"customerId,omitempty"`
 	DeleteOnOptout *bool `json:"deleteOnOptout,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Hooks *[]any `json:"hooks,omitempty"`
-	Id *int `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Routes *[]any `json:"routes,omitempty"`
 	SenderAlias *string `json:"senderAlias,omitempty"`

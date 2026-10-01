@@ -123,6 +123,12 @@ database := client.Database(nil)
 fmt.Println(database.GetName()) // "database"
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `Remove(reqmatch, ctrl map[string]any) (any, error)`
@@ -130,7 +136,7 @@ fmt.Println(database.GetName()) // "database"
 Remove the entity matching the given criteria.
 
 ```go
-result, err := client.Database(nil).Remove(map[string]any{"database_id": 1}, nil)
+result, err := client.Database(nil).Remove(map[string]any{"database_id": 1, "id": "id"}, nil)
 if err != nil {
     panic(err)
 }
@@ -384,12 +390,8 @@ fmt.Println(metadata.GetName()) // "metadata"
 | `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | No | if the field is a multi value field |
-| `rangeEnd` | `int` | No | end on range for validation on INTEGER field |
-| `rangeStart` | `int` | No | start on range for validation on INTEGER field |
 | `type` | `string` | No | the type of field |
 | `updated` | `string` | No | deletion date of the field |
-| `validation` | `string` | No | type of validation on TEXT field |
-| `values` | `[]any` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -648,7 +650,7 @@ fmt.Println(results)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.PermissionDatabase(nil).Load(map[string]any{"database_id": 1}, nil)
+result, err := client.PermissionDatabase(nil).Load(map[string]any{"id": "permission_database_id", "database_id": 1}, nil)
 if err != nil {
     panic(err)
 }
@@ -661,6 +663,7 @@ Update an existing entity. The data must include the entity `id`.
 
 ```go
 result, err := client.PermissionDatabase(nil).Update(map[string]any{
+    "id": "permission_database_id",
     "database_id": 1,
     // Fields to update
 }, nil)

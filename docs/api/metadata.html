@@ -196,18 +196,6 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 <td>if the field is a multi value field</td>
 </tr>
 <tr>
-<td><code>rangeEnd</code></td>
-<td><code>integer</code></td>
-<td>No</td>
-<td>end on range for validation on INTEGER field</td>
-</tr>
-<tr>
-<td><code>rangeStart</code></td>
-<td><code>integer</code></td>
-<td>No</td>
-<td>start on range for validation on INTEGER field</td>
-</tr>
-<tr>
 <td><code>type</code></td>
 <td><code>string</code></td>
 <td>No</td>
@@ -219,24 +207,12 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 <td>No</td>
 <td>deletion date of the field</td>
 </tr>
-<tr>
-<td><code>validation</code></td>
-<td><code>string</code></td>
-<td>No</td>
-<td>type of validation on TEXT field</td>
-</tr>
-<tr>
-<td><code>values</code></td>
-<td><code>array</code></td>
-<td>No</td>
-<td>Possible enumeration of values for ENUMERATION field</td>
-</tr>
 </tbody>
 </table>
 <h2 id="create">create</h2>
 <h3 id="post-publicdatabaseidmetadatakey" class="operation" data-method="post"><code>POST</code> /public/database/{id}/metadata/{key}</h3>
 <p>Operation ID: <code>delete_1</code>.</p>
-<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
 <h4 id="parameters">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -249,7 +225,7 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 <h5 id="404-metadata-not-found" class="status" data-status="4xx">404: Metadata not found</h5>
 <h3 id="post-publicdatabaseidmetadata" class="operation" data-method="post"><code>POST</code> /public/database/{id}/metadata</h3>
 <p>Operation ID: <code>save</code>.</p>
-<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
 <h4 id="parameters-1">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -471,7 +447,7 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 <h2 id="list">list</h2>
 <h3 id="get-publicdatabaseidmetadata" class="operation" data-method="get"><code>GET</code> /public/database/{id}/metadata</h3>
 <p>Operation ID: <code>list_1</code>.</p>
-<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
 <h4 id="parameters-2">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -569,7 +545,7 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 <h2 id="load">load</h2>
 <h3 id="get-publicdatabaseidmetadatakey" class="operation" data-method="get"><code>GET</code> /public/database/{id}/metadata/{key}</h3>
 <p>Operation ID: <code>get_1</code>.</p>
-<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
 <h4 id="parameters-3">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |
@@ -668,7 +644,7 @@ const updated = await client.Metadata().update({ id: &quot;example_id&quot;, dat
 <h2 id="update">update</h2>
 <h3 id="put-publicdatabaseidmetadatakey" class="operation" data-method="put"><code>PUT</code> /public/database/{id}/metadata/{key}</h3>
 <p>Operation ID: <code>update_1</code>.</p>
-<p>Authentication: API key in the query (<code>apiKey</code>).</p>
+<p>Authentication: bearer token (<code>bearerAuth</code>).</p>
 <h4 id="parameters-4">Parameters</h4>
 <p>| Parameter | In | Type | Required | Description |
 | --- | --- | --- | --- |

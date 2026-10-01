@@ -8,7 +8,7 @@ main: {
 
 The Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.
 
-Requests must be authenticated using an \`apiKey\`, available in the Umbrella portal.
+Requests must be authenticated with an \`Authorization: Bearer <key>\` header, using an API key generated in the Umbrella portal. The legacy \`apiKey\` query parameter is still accepted but deprecated and will be removed in a future version.
 
 **Terminology**
 * *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. \`45XXXXXXXX\` for Denmark).
@@ -21,15 +21,15 @@ Requests must be authenticated using an \`apiKey\`, available in the Umbrella po
 
 A \`500 Internal Server Error\` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.`
       security: {
-        in: "query"
-        name: "apiKey"
-        prefix: ""
-        scheme: "apiKey"
-        type: "apiKey"
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "bearerAuth"
+        type: "http"
       }
       servers: [
         {
-          url: "https://permission.m2go.dk/permission/api"
+          url: "https://permission.m2go.dk/api"
         }
       ]
       summary: "Welcome to the Umbrella Permission API."

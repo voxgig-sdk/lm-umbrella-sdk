@@ -1,6 +1,6 @@
 # LmUmbrella Golang SDK
 
-
+LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The Golang SDK for the LmUmbrella API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
@@ -54,7 +54,7 @@ func main() {
     })
 
     // Remove a database.
-    removed, err := client.Database(nil).Remove(map[string]any{"database_id": 1}, nil)
+    removed, err := client.Database(nil).Remove(map[string]any{"database_id": 1, "id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -275,6 +275,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
+| `"id"` |  |
 
 Operations: Remove.
 
@@ -332,12 +333,8 @@ API path: `/public/database/{id}/permission/bulk`
 | `"key"` | key for the field (used for the value internally - cannot be changed after creation) |
 | `"label"` | label for the field (used for displaying in the interface) |
 | `"multiValue"` | if the field is a multi value field |
-| `"rangeEnd"` | end on range for validation on INTEGER field |
-| `"rangeStart"` | start on range for validation on INTEGER field |
 | `"type"` | the type of field |
 | `"updated"` | deletion date of the field |
-| `"validation"` | type of validation on TEXT field |
-| `"values"` | Possible enumeration of values for ENUMERATION field |
 
 Operations: Create, List, Load, Update.
 
@@ -412,6 +409,12 @@ Create an instance: `database := client.Database(nil)`
 | Method | Description |
 | --- | --- |
 | `Remove(match, ctrl)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` |  |
 
 
 ### FlatPermission
@@ -568,12 +571,8 @@ Create an instance: `metadata := client.Metadata(nil)`
 | `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | if the field is a multi value field |
-| `rangeEnd` | `int` | end on range for validation on INTEGER field |
-| `rangeStart` | `int` | start on range for validation on INTEGER field |
 | `type` | `string` | the type of field |
 | `updated` | `string` | deletion date of the field |
-| `validation` | `string` | type of validation on TEXT field |
-| `values` | `[]any` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -701,7 +700,7 @@ Create an instance: `permissionDatabase := client.PermissionDatabase(nil)`
 #### Example: Load
 
 ```go
-permissionDatabase, err := client.PermissionDatabase(nil).Load(map[string]any{"database_id": 1}, nil)
+permissionDatabase, err := client.PermissionDatabase(nil).Load(map[string]any{"id": "permission_database_id", "database_id": 1}, nil)
 if err != nil {
     panic(err)
 }

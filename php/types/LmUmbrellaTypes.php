@@ -15,12 +15,14 @@ declare(strict_types=1);
 /** Database entity data model. */
 class Database
 {
+    public ?string $id = null;
 }
 
 /** Request payload for Database#remove. */
 class DatabaseRemoveMatch
 {
     public int $database_id;
+    public string $id;
     public ?string $api_key = null;
 }
 
@@ -118,12 +120,8 @@ class Metadata
     public ?string $key = null;
     public ?string $label = null;
     public ?bool $multiValue = null;
-    public ?int $rangeEnd = null;
-    public ?int $rangeStart = null;
     public ?string $type = null;
     public ?string $updated = null;
-    public ?string $validation = null;
-    public ?array $values = null;
 }
 
 /** Request payload for Metadata#load. */
@@ -153,12 +151,8 @@ class MetadataCreateData
     public ?string $key = null;
     public ?string $label = null;
     public ?bool $multiValue = null;
-    public ?int $rangeEnd = null;
-    public ?int $rangeStart = null;
     public ?string $type = null;
     public ?string $updated = null;
-    public ?string $validation = null;
-    public ?array $values = null;
 }
 
 /** Request payload for Metadata#update. */
@@ -173,12 +167,8 @@ class MetadataUpdateData
     public ?string $key = null;
     public ?string $label = null;
     public ?bool $multiValue = null;
-    public ?int $rangeEnd = null;
-    public ?int $rangeStart = null;
     public ?string $type = null;
     public ?string $updated = null;
-    public ?string $validation = null;
-    public ?array $values = null;
 }
 
 /** PaginatedPermissionList entity data model. */
@@ -270,6 +260,7 @@ class PermissionDatabase
 class PermissionDatabaseLoadMatch
 {
     public int $database_id;
+    public string $id;
     public ?string $api_key = null;
 }
 
@@ -283,12 +274,12 @@ class PermissionDatabaseListMatch
 class PermissionDatabaseUpdateData
 {
     public int $database_id;
+    public string $id;
     public ?string $api_key = null;
     public ?int $customerId = null;
     public ?bool $deleteOnOptout = null;
     public ?string $description = null;
     public ?array $hooks = null;
-    public ?int $id = null;
     public ?string $name = null;
     public ?array $routes = null;
     public ?string $senderAlias = null;

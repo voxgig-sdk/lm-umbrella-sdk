@@ -6,7 +6,7 @@ import (
 	"github.com/voxgig-sdk/lm-umbrella-sdk/go/core"
 )
 
-const credName = "apiKey"
+const credName = "authorization"
 const optionApikey = "apikey"
 const notFound = "__NOTFOUND__"
 
@@ -17,12 +17,12 @@ func prepareAuthUtil(ctx *core.Context) (*core.Spec, error) {
 			"Expected context spec property to be defined.")
 	}
 
-	query := spec.Query
+	headers := spec.Headers
 	options := ctx.Client.OptionsMap()
 
 	// Public APIs that need no auth omit the options.auth block entirely.
 	if options["auth"] == nil {
-		delete(query, credName)
+		delete(headers, credName)
 		return spec, nil
 	}
 
@@ -37,13 +37,22 @@ func prepareAuthUtil(ctx *core.Context) (*core.Spec, error) {
 	}
 
 	if skip {
-		delete(query, credName)
+		delete(headers, credName)
 	} else {
+		authPrefix := ""
+		if ap := vs.GetPath(options, []any{"auth", "prefix"}); ap != nil {
+			authPrefix, _ = ap.(string)
+		}
 		apikeyVal := ""
 		if av, ok := apikey.(string); ok {
 			apikeyVal = av
 		}
-		query[credName] = apikeyVal
+		// Empty prefix (raw apiKey credential) must not add a leading space.
+		if authPrefix == "" {
+			headers[credName] = apikeyVal
+		} else {
+			headers[credName] = authPrefix + " " + apikeyVal
+		}
 	}
 
 	return spec, nil

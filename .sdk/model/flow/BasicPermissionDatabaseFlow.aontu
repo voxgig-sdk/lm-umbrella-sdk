@@ -49,7 +49,8 @@ main: kit: flow: BasicPermissionDatabaseFlow:
       }
 
       m: {
-        database_id: "database01"
+        database_id: "database01",
+        id: "permission_database01"
       }
 
       o: "load",

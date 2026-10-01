@@ -62,7 +62,7 @@ main: kit: entity: flat_permission: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }

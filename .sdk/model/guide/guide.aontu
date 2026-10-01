@@ -4,5 +4,27 @@
 
 @"./base-guide.aontu"
 
+# BULK IMPORT TAKES A BARE JSON ARRAY. The route declares its request body as
+# an array of FlatPermission rows, but the generated create() input is a map,
+# so the map itself was sent, which the API does not accept, and the Go SDK,
+# whose Create takes map[string]any, had no way to send an array at all. Send
+# the `permissions` array as the body: callers pass
+# create({ database_id, permissions: [...] }) and the API receives [...].
+# The typed TypeScript input does not list `permissions` (it is not a field
+# apidef derives), so TypeScript callers cast.
+guide: entity: import_status: path: "/public/database/{id}/permission/bulk": op: create: transform: req: "`reqdata.permissions`"
+
+# NOT EXPRESSIBLE HERE, recorded instead (see the README's Honest state):
+# - POST /public/database/{id}/metadata/{key} is "Delete metadata by key"
+#   (operationId delete_1) in the definition, and apidef maps it to
+#   metadata.create beside the real create, POST .../metadata. The guide
+#   cannot drop or deactivate a path or op (path- and op-level `active` are
+#   not consumed by apidef 8.22.1), and point selection falls back to the
+#   path-param route, so create() reaches the delete.
+# - GET /public/database/{id}/permission/query writes ("Add/update permission
+#   using query parameters"), and maps to flattened_permission.load.
+# - Every operation declares the deprecated apiKey query parameter, which
+#   joins each point's select.exist list, so a caller who authenticates with
+#   the bearer header never matches a point by its keys.
 
 

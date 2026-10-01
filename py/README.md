@@ -1,6 +1,6 @@
 # LmUmbrella Python SDK
 
-
+LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The Python SDK for the LmUmbrella API — an entity-oriented client following Pythonic conventions.
 
@@ -56,7 +56,7 @@ except Exception as err:
 
 ```python
 # Remove
-client.Database().remove({"database_id": 1})
+client.Database().remove({"database_id": 1, "id": "example_id"})
 ```
 
 
@@ -265,6 +265,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: Remove.
 
@@ -322,12 +323,8 @@ API path: `/public/database/{id}/permission/bulk`
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
-| `rangeEnd` | end on range for validation on INTEGER field |
-| `rangeStart` | start on range for validation on INTEGER field |
 | `type` | the type of field |
 | `updated` | deletion date of the field |
-| `validation` | type of validation on TEXT field |
-| `values` | Possible enumeration of values for ENUMERATION field |
 
 Operations: Create, List, Load, Update.
 
@@ -402,6 +399,12 @@ Create an instance: `database = client.Database()`
 | Method | Description |
 | --- | --- |
 | `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `str` |  |
 
 
 ### FlatPermission
@@ -534,12 +537,8 @@ Create an instance: `metadata = client.Metadata()`
 | `key` | `str` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `str` | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | if the field is a multi value field |
-| `rangeEnd` | `int` | end on range for validation on INTEGER field |
-| `rangeStart` | `int` | start on range for validation on INTEGER field |
 | `type` | `str` | the type of field |
 | `updated` | `str` | deletion date of the field |
-| `validation` | `str` | type of validation on TEXT field |
-| `values` | `list` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -651,7 +650,7 @@ Create an instance: `permission_database = client.PermissionDatabase()`
 #### Example: Load
 
 ```python
-permission_database = client.PermissionDatabase().load({"database_id": 1})
+permission_database = client.PermissionDatabase().load({"id": "permission_database_id", "database_id": 1})
 ```
 
 #### Example: List

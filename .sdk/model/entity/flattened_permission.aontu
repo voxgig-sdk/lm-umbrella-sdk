@@ -77,7 +77,7 @@ main: kit: entity: flattened_permission: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -145,7 +145,7 @@ main: kit: entity: flattened_permission: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }

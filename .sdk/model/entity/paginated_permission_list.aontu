@@ -141,7 +141,7 @@ main: kit: entity: paginated_permission_list: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }

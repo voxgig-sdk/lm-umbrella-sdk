@@ -1,6 +1,6 @@
 # LmUmbrella Lua SDK
 
-
+LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The Lua SDK for the LmUmbrella API — an entity-oriented client using Lua conventions.
 
@@ -49,7 +49,7 @@ print(flatpermission)
 
 ```lua
 -- Remove
-client:Database():remove({ database_id = 1 })
+client:Database():remove({ database_id = 1, id = "example_id" })
 ```
 
 
@@ -250,6 +250,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: Remove.
 
@@ -307,12 +308,8 @@ API path: `/public/database/{id}/permission/bulk`
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
-| `rangeEnd` | end on range for validation on INTEGER field |
-| `rangeStart` | start on range for validation on INTEGER field |
 | `type` | the type of field |
 | `updated` | deletion date of the field |
-| `validation` | type of validation on TEXT field |
-| `values` | Possible enumeration of values for ENUMERATION field |
 
 Operations: Create, List, Load, Update.
 
@@ -387,6 +384,12 @@ Create an instance: `local database = client:Database(nil)`
 | Method | Description |
 | --- | --- |
 | `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` |  |
 
 
 ### FlatPermission
@@ -519,12 +522,8 @@ Create an instance: `local metadata = client:Metadata(nil)`
 | `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | if the field is a multi value field |
-| `rangeEnd` | `number` | end on range for validation on INTEGER field |
-| `rangeStart` | `number` | start on range for validation on INTEGER field |
 | `type` | `string` | the type of field |
 | `updated` | `string` | deletion date of the field |
-| `validation` | `string` | type of validation on TEXT field |
-| `values` | `table` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -636,7 +635,7 @@ Create an instance: `local permission_database = client:PermissionDatabase(nil)`
 #### Example: Load
 
 ```lua
-local permission_database, err = client:PermissionDatabase():load({ database_id = 1 })
+local permission_database, err = client:PermissionDatabase():load({ id = "permission_database_id", database_id = 1 })
 ```
 
 #### Example: List

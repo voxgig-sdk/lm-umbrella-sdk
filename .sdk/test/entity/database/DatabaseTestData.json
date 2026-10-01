@@ -2,16 +2,16 @@
   "existing": {
     "database": {
       "DATABASE00": {
-        "database_id": "DATABASE01",
-        "id": "DATABASE00"
+        "id": "DATABASE00",
+        "database_id": "DATABASE01"
       },
       "DATABASE01": {
-        "database_id": "DATABASE01",
-        "id": "DATABASE01"
+        "id": "DATABASE01",
+        "database_id": "DATABASE01"
       },
       "DATABASE02": {
-        "database_id": "DATABASE01",
-        "id": "DATABASE02"
+        "id": "DATABASE02",
+        "database_id": "DATABASE01"
       }
     }
   },

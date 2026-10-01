@@ -16,12 +16,13 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class Database(TypedDict):
-    pass
+class Database(TypedDict, total=False):
+    id: str
 
 
 class DatabaseRemoveMatchRequired(TypedDict):
     database_id: int
+    id: str
 
 
 class DatabaseRemoveMatch(DatabaseRemoveMatchRequired, total=False):
@@ -117,12 +118,8 @@ class Metadata(TypedDict, total=False):
     key: str
     label: str
     multiValue: bool
-    rangeEnd: int
-    rangeStart: int
     type: str
     updated: str
-    validation: str
-    values: list
 
 
 class MetadataLoadMatchRequired(TypedDict):
@@ -155,12 +152,8 @@ class MetadataCreateData(MetadataCreateDataRequired, total=False):
     key: str
     label: str
     multiValue: bool
-    rangeEnd: int
-    rangeStart: int
     type: str
     updated: str
-    validation: str
-    values: list
 
 
 class MetadataUpdateDataRequired(TypedDict):
@@ -176,12 +169,8 @@ class MetadataUpdateData(MetadataUpdateDataRequired, total=False):
     key: str
     label: str
     multiValue: bool
-    rangeEnd: int
-    rangeStart: int
     type: str
     updated: str
-    validation: str
-    values: list
 
 
 class PaginatedPermissionList(TypedDict, total=False):
@@ -268,6 +257,7 @@ class PermissionDatabase(TypedDict, total=False):
 
 class PermissionDatabaseLoadMatchRequired(TypedDict):
     database_id: int
+    id: str
 
 
 class PermissionDatabaseLoadMatch(PermissionDatabaseLoadMatchRequired, total=False):
@@ -280,6 +270,7 @@ class PermissionDatabaseListMatch(TypedDict, total=False):
 
 class PermissionDatabaseUpdateDataRequired(TypedDict):
     database_id: int
+    id: str
 
 
 class PermissionDatabaseUpdateData(PermissionDatabaseUpdateDataRequired, total=False):
@@ -288,7 +279,6 @@ class PermissionDatabaseUpdateData(PermissionDatabaseUpdateDataRequired, total=F
     deleteOnOptout: bool
     description: str
     hooks: list
-    id: int
     name: str
     routes: list
     senderAlias: str

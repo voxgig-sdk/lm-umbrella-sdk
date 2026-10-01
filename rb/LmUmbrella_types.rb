@@ -9,18 +9,27 @@
 # annotations document the shapes. Do not edit by hand.
 
 # Database entity data model.
-class Database
-end
+#
+# @!attribute [rw] id
+#   @return [String, nil]
+Database = Struct.new(
+  :id,
+  keyword_init: true
+)
 
 # Request payload for Database#remove.
 #
 # @!attribute [rw] database_id
 #   @return [Integer]
 #
+# @!attribute [rw] id
+#   @return [String]
+#
 # @!attribute [rw] api_key
 #   @return [String, nil]
 DatabaseRemoveMatch = Struct.new(
   :database_id,
+  :id,
   :api_key,
   keyword_init: true
 )
@@ -249,23 +258,11 @@ ImportStatusCreateData = Struct.new(
 # @!attribute [rw] multiValue
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] rangeEnd
-#   @return [Integer, nil]
-#
-# @!attribute [rw] rangeStart
-#   @return [Integer, nil]
-#
 # @!attribute [rw] type
 #   @return [String, nil]
 #
 # @!attribute [rw] updated
 #   @return [String, nil]
-#
-# @!attribute [rw] validation
-#   @return [String, nil]
-#
-# @!attribute [rw] values
-#   @return [Array, nil]
 Metadata = Struct.new(
   :contents,
   :created,
@@ -274,12 +271,8 @@ Metadata = Struct.new(
   :key,
   :label,
   :multiValue,
-  :rangeEnd,
-  :rangeStart,
   :type,
   :updated,
-  :validation,
-  :values,
   keyword_init: true
 )
 
@@ -342,23 +335,11 @@ MetadataListMatch = Struct.new(
 # @!attribute [rw] multiValue
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] rangeEnd
-#   @return [Integer, nil]
-#
-# @!attribute [rw] rangeStart
-#   @return [Integer, nil]
-#
 # @!attribute [rw] type
 #   @return [String, nil]
 #
 # @!attribute [rw] updated
 #   @return [String, nil]
-#
-# @!attribute [rw] validation
-#   @return [String, nil]
-#
-# @!attribute [rw] values
-#   @return [Array, nil]
 MetadataCreateData = Struct.new(
   :database_id,
   :id,
@@ -369,12 +350,8 @@ MetadataCreateData = Struct.new(
   :key,
   :label,
   :multiValue,
-  :rangeEnd,
-  :rangeStart,
   :type,
   :updated,
-  :validation,
-  :values,
   keyword_init: true
 )
 
@@ -407,23 +384,11 @@ MetadataCreateData = Struct.new(
 # @!attribute [rw] multiValue
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] rangeEnd
-#   @return [Integer, nil]
-#
-# @!attribute [rw] rangeStart
-#   @return [Integer, nil]
-#
 # @!attribute [rw] type
 #   @return [String, nil]
 #
 # @!attribute [rw] updated
 #   @return [String, nil]
-#
-# @!attribute [rw] validation
-#   @return [String, nil]
-#
-# @!attribute [rw] values
-#   @return [Array, nil]
 MetadataUpdateData = Struct.new(
   :database_id,
   :id,
@@ -434,12 +399,8 @@ MetadataUpdateData = Struct.new(
   :key,
   :label,
   :multiValue,
-  :rangeEnd,
-  :rangeStart,
   :type,
   :updated,
-  :validation,
-  :values,
   keyword_init: true
 )
 
@@ -698,10 +659,14 @@ PermissionDatabase = Struct.new(
 # @!attribute [rw] database_id
 #   @return [Integer]
 #
+# @!attribute [rw] id
+#   @return [String]
+#
 # @!attribute [rw] api_key
 #   @return [String, nil]
 PermissionDatabaseLoadMatch = Struct.new(
   :database_id,
+  :id,
   :api_key,
   keyword_init: true
 )
@@ -720,6 +685,9 @@ PermissionDatabaseListMatch = Struct.new(
 # @!attribute [rw] database_id
 #   @return [Integer]
 #
+# @!attribute [rw] id
+#   @return [String]
+#
 # @!attribute [rw] api_key
 #   @return [String, nil]
 #
@@ -735,9 +703,6 @@ PermissionDatabaseListMatch = Struct.new(
 # @!attribute [rw] hooks
 #   @return [Array, nil]
 #
-# @!attribute [rw] id
-#   @return [Integer, nil]
-#
 # @!attribute [rw] name
 #   @return [String, nil]
 #
@@ -751,12 +716,12 @@ PermissionDatabaseListMatch = Struct.new(
 #   @return [Integer, nil]
 PermissionDatabaseUpdateData = Struct.new(
   :database_id,
+  :id,
   :api_key,
   :customerId,
   :deleteOnOptout,
   :description,
   :hooks,
-  :id,
   :name,
   :routes,
   :senderAlias,

@@ -1,7 +1,9 @@
 export interface Database {
+    id?: string;
 }
 export interface DatabaseRemoveMatch {
     database_id: number;
+    id: string;
     api_key?: string;
 }
 export interface FlatPermission {
@@ -69,12 +71,8 @@ export interface Metadata {
     key?: string;
     label?: string;
     multiValue?: boolean;
-    rangeEnd?: number;
-    rangeStart?: number;
     type?: string;
     updated?: string;
-    validation?: string;
-    values?: any[];
 }
 export interface MetadataLoadMatch {
     database_id: number;
@@ -95,12 +93,8 @@ export interface MetadataCreateData {
     key?: string;
     label?: string;
     multiValue?: boolean;
-    rangeEnd?: number;
-    rangeStart?: number;
     type?: string;
     updated?: string;
-    validation?: string;
-    values?: any[];
 }
 export interface MetadataUpdateData {
     database_id: number;
@@ -112,12 +106,8 @@ export interface MetadataUpdateData {
     key?: string;
     label?: string;
     multiValue?: boolean;
-    rangeEnd?: number;
-    rangeStart?: number;
     type?: string;
     updated?: string;
-    validation?: string;
-    values?: any[];
 }
 export interface PaginatedPermissionList {
     ascending?: boolean;
@@ -188,6 +178,7 @@ export interface PermissionDatabase {
 }
 export interface PermissionDatabaseLoadMatch {
     database_id: number;
+    id: string;
     api_key?: string;
 }
 export interface PermissionDatabaseListMatch {
@@ -195,12 +186,12 @@ export interface PermissionDatabaseListMatch {
 }
 export interface PermissionDatabaseUpdateData {
     database_id: number;
+    id: string;
     api_key?: string;
     customerId?: number;
     deleteOnOptout?: boolean;
     description?: string;
     hooks?: any[];
-    id?: number;
     name?: string;
     routes?: any[];
     senderAlias?: string;

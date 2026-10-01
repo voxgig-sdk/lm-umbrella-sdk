@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 LmUmbrellaUtility::setRegistrar(function (LmUmbrellaUtility $u): void {
     $u->clean = [LmUmbrellaClean::class, 'call'];
+    $u->clean_add = [LmUmbrellaClean::class, 'add'];
+    $u->clean_explain = [LmUmbrellaDone::class, 'clean_explain'];
     $u->done = [LmUmbrellaDone::class, 'call'];
     $u->make_error = [LmUmbrellaMakeError::class, 'call'];
     $u->feature_add = [LmUmbrellaFeatureAdd::class, 'call'];

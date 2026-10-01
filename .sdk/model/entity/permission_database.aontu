@@ -85,7 +85,7 @@ main: kit: entity: permission_database: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -130,16 +130,23 @@ main: kit: entity: permission_database: {
               {
                 k: "param"
                 n: "database_id"
-                or: "database_id"
+                or: "Database ID"
                 r: true
                 t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
               }
             ]
             query: [
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -151,6 +158,7 @@ main: kit: entity: permission_database: {
             exist: [
               "api_key"
               "database_id"
+              "id"
             ]
           }
           s: [
@@ -185,16 +193,23 @@ main: kit: entity: permission_database: {
               {
                 k: "param"
                 n: "database_id"
-                or: "database_id"
+                or: "Database ID"
                 r: true
                 t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
               }
             ]
             query: [
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -206,6 +221,7 @@ main: kit: entity: permission_database: {
             exist: [
               "api_key"
               "database_id"
+              "id"
             ]
           }
           s: [

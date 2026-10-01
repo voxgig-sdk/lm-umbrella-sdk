@@ -75,7 +75,7 @@ main: kit: entity: import_status: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -83,7 +83,7 @@ main: kit: entity: import_status: {
                 ex: false
                 k: "query"
                 n: "skip_import_on_error"
-                or: "skip_import_on_error"
+                or: "skipImportOnError"
                 r: false
                 t: "`$BOOLEAN`"
               }
@@ -121,7 +121,7 @@ main: kit: entity: import_status: {
             }
           ]
           t: {
-            req: "`reqdata`"
+            req: "`reqdata.permissions`"
             res: "`body`"
           }
         }
@@ -150,14 +150,14 @@ main: kit: entity: import_status: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
               {
                 k: "query"
                 n: "import_id"
-                or: "import_id"
+                or: "importId"
                 r: false
                 t: "`$STRING`"
               }

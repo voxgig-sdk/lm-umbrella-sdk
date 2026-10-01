@@ -22,6 +22,86 @@
 # A published package name that does not follow the derivation:
 #
 #   main: kit: target: ts: publish: registry: package: '@scope/name'
+
+# README prose. ReadmeTop reads these slots; README.md itself is generated and
+# must never be edited by hand. `summary`, `title`, `version` and `website`
+# come from the definition (api/api-info.aontu) and cannot be restated here.
+main: kit: info: {
+  tagline: `LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.`
+
+  about_md: `**Unofficial. Not affiliated with LINK Mobility.** This is an unofficial SDK for the LINK Mobility Umbrella Permission API, built by [Voxgig](https://voxgig.com/sdk). It is not affiliated with, endorsed by, or sponsored by LINK Mobility.
+
+**Why this exists:** LINK Mobility publishes an OpenAPI definition for the Umbrella Permission API, which manages databases of mobile numbers and their consent, but no client libraries for it. Voxgig builds public SDK and MCP examples for APIs we think are interesting, and this is one of them. MIT-licensed, take whatever's useful.
+
+It is one of five repositories for LINK Mobility's MyLINK and Umbrella APIs: [Multichannel](https://github.com/voxgig-sdk/lm-multichannel-sdk), [SMS](https://github.com/voxgig-sdk/lm-sms-sdk), [Email](https://github.com/voxgig-sdk/lm-email-sdk), [WhatsApp](https://github.com/voxgig-sdk/lm-whatsapp-sdk) and [Permission](https://github.com/voxgig-sdk/lm-umbrella-sdk).
+
+### Try it (TypeScript)
+
+\`\`\`bash
+git clone https://github.com/voxgig-sdk/lm-umbrella-sdk
+cd lm-umbrella-sdk/ts
+npm install
+npm run build
+npm test
+\`\`\`
+
+The test suite runs fully offline. Every SDK here ships a test mode that swaps the HTTP transport for an in-memory mock, so you can try it without credentials or a network.
+
+### Read your databases
+
+\`\`\`ts
+import { LmUmbrellaSDK } from '@voxgig-sdk/lm-umbrella-sdk'
+
+// An API key generated in the Umbrella portal
+const client = new LmUmbrellaSDK({ apikey: process.env.LM_UMBRELLA_APIKEY })
+
+// Your permission databases
+const databases = await client.PermissionDatabase().list()
+
+// One permission in database 42. The SDK calls the MSISDN \`id\`.
+const permission = await client.FlatPermission().load({ database_id: 42, id: '4512345678' })
+console.log(permission.data())
+\`\`\`
+
+### Authentication
+
+The API takes an API key generated in the Umbrella portal, sent as \`Authorization: Bearer <key>\`. Pass the key as \`apikey\`, and the SDK sends that header. The CLI and the MCP server read it from \`LM_UMBRELLA_APIKEY\`. The definition still declares the older \`apiKey\` query parameter, which it says is deprecated; you do not need it.
+
+### Using the MCP server
+
+\`\`\`bash
+cd go-mcp && go build -o lm-umbrella-mcp .
+export LM_UMBRELLA_APIKEY=<API key>
+claude mcp add --scope user lm-umbrella -- "$PWD/lm-umbrella-mcp" -transport stdio
+\`\`\`
+
+The MCP server has two tools, \`lm-umbrella_list\` and \`lm-umbrella_load\`, for databases, permissions, metadata and bulk-import status. They are meant to read, but one load in this API writes: see below. Do not connect an agent to a live database with it yet.
+
+### Honest state
+
+Generated from LINK Mobility's public OpenAPI definition of the Permission Public API (2.0, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. Two rough edges matter before you use it on live data, and both come from routes the definition describes one way and names another:
+
+- \`Metadata().create()\` does not create. The definition has two POST routes for metadata, and the generated client picks \`POST /metadata/{key}\`, which the definition itself describes as "Delete metadata by key". Do not call it until this is fixed.
+- \`FlattenedPermission().load()\` calls \`GET /permission/query\`, which the definition describes as "Add/update permission using query parameters". It writes, and the MCP server's load tool can reach it.
+
+Also: the SDK calls a permission's MSISDN \`id\`, so \`Permission().remove({ database_id, id })\` deactivates one. The permanent delete is not reachable yet. Bulk import takes \`create({ database_id, permissions: [...] })\`; the TypeScript type does not list \`permissions\` yet, so cast. Use it as a starting point or a reference.
+
+When teams want SDKs like these production-grade, idiomatic per language, tested, documented, and released through a real pipeline, Voxgig does that work as a consulting engagement. The toolkit also generates Java and C# if your customers need them. Questions: richard@voxgig.com.
+
+If you are from LINK Mobility and would like this repository removed, or transferred to your own GitHub organisation, email richard@voxgig.com and it will be done within two business days, no questions asked.`
+
+  docs_url: 'https://docs.linkmobility.com/api-reference/mylink-umbrella-api'
+}
+
+# Published package names, declared so the names this SDK already carries stay
+# fixed whatever the generator's naming rule does next. pub-validate takes a
+# declared name over the one it derives.
+main: kit: target: ts: publish: registry: package: '@voxgig-sdk/lm-umbrella-sdk'
+main: kit: target: py: publish: registry: package: 'voxgig-sdk-lm-umbrella-sdk'
+main: kit: target: rb: publish: registry: package: 'voxgig-sdk-lm-umbrella-sdk'
+main: kit: target: lua: publish: registry: package: 'voxgig-sdk-lm-umbrella-sdk'
+main: kit: target: php: publish: registry: package: 'voxgig-sdk/lm-umbrella-sdk'
+
 # --- cedar: release version (written by cedar-regen.sh, do not hand-edit)
 # Per target, because sdkgen keys the version per target; identical across
 # them because cedar tags a repo at one version.

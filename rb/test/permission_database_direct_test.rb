@@ -58,13 +58,23 @@ class PermissionDatabaseDirectTest < Minitest::Test
       skip(_reason || "skipped via sdk-test-control.json")
       return
     end
+    if setup[:live]
+      skip "live direct-load needs real ID — set *_ENTID env var with real IDs to run"
+      return
+    end
     client = setup[:client]
 
+    params = {}
+    query = {}
+    unless setup[:live]
+      params["id"] = "direct01"
+    end
 
     result = client.direct({
       "path" => "public/database/{id}",
       "method" => "GET",
-      "params" => {},
+      "params" => params,
+      "query" => query,
     })
     if setup[:live]
       # Live mode is lenient: synthetic IDs frequently 4xx. Skip rather

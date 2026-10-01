@@ -64,13 +64,23 @@ class PermissionDatabaseDirectTest extends TestCase
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
         }
+        if ($setup["live"]) {
+            $this->markTestSkipped("live direct-load needs real ID — set *_ENTID env var with real IDs to run");
+            return;
+        }
         $client = $setup["client"];
 
+        $params = [];
+        $query = [];
+        if (!$setup["live"]) {
+            $params["id"] = "direct01";
+        }
 
         $result = $client->direct([
             "path" => "public/database/{id}",
             "method" => "GET",
-            "params" => [],
+            "params" => $params,
+            "query" => $query,
         ]);
         if ($setup["live"]) {
             // Live mode is lenient: synthetic IDs frequently 4xx. Skip

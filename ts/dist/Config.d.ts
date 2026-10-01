@@ -120,8 +120,6 @@ declare class Config {
         base: string;
         auth: {
             prefix: string;
-            in: string;
-            name: string;
         };
         headers: {
             "content-type": string;
@@ -139,7 +137,15 @@ declare class Config {
     };
     entity: {
         database: {
-            fields: never[];
+            fields: {
+                name: string;
+                title: string;
+                type: string;
+            }[];
+            id: {
+                field: string;
+                name: string;
+            };
             name: string;
             op: {
                 remove: {

@@ -1,6 +1,6 @@
 # LmUmbrella Ruby SDK
 
-
+LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The Ruby SDK for the LmUmbrella API — an entity-oriented client using idiomatic Ruby conventions.
 
@@ -12,9 +12,18 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`):
+GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)), or
+from a clone:
 
-- Releases: [https://github.com/voxgig-sdk/lm-umbrella-sdk/releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/lm-umbrella-sdk
+```
+
+Then add it to your `Gemfile` by path, and run `bundle install`:
+
+```ruby
+gem "voxgig-sdk-lm-umbrella-sdk", path: "./lm-umbrella-sdk/rb"
+```
 
 
 ## Tutorial: your first API call
@@ -50,7 +59,7 @@ end
 
 ```ruby
 # Remove
-client.Database.remove({ "database_id" => 1 })
+client.Database.remove({ "database_id" => 1, "id" => "example_id" })
 ```
 
 
@@ -259,6 +268,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: Remove.
 
@@ -316,12 +326,8 @@ API path: `/public/database/{id}/permission/bulk`
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
-| `rangeEnd` | end on range for validation on INTEGER field |
-| `rangeStart` | start on range for validation on INTEGER field |
 | `type` | the type of field |
 | `updated` | deletion date of the field |
-| `validation` | type of validation on TEXT field |
-| `values` | Possible enumeration of values for ENUMERATION field |
 
 Operations: Create, List, Load, Update.
 
@@ -396,6 +402,12 @@ Create an instance: `database = client.Database`
 | Method | Description |
 | --- | --- |
 | `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `String` |  |
 
 
 ### FlatPermission
@@ -532,12 +544,8 @@ Create an instance: `metadata = client.Metadata`
 | `key` | `String` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `String` | label for the field (used for displaying in the interface) |
 | `multiValue` | `Boolean` | if the field is a multi value field |
-| `rangeEnd` | `Integer` | end on range for validation on INTEGER field |
-| `rangeStart` | `Integer` | start on range for validation on INTEGER field |
 | `type` | `String` | the type of field |
 | `updated` | `String` | deletion date of the field |
-| `validation` | `String` | type of validation on TEXT field |
-| `values` | `Array` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -652,7 +660,7 @@ Create an instance: `permission_database = client.PermissionDatabase`
 
 ```ruby
 # load returns the ENTITY — call data_get for the PermissionDatabase record (raises on error).
-permission_database = client.PermissionDatabase.load({ "database_id" => 1 })
+permission_database = client.PermissionDatabase.load({ "id" => "permission_database_id", "database_id" => 1 })
 ```
 
 #### Example: List

@@ -7,9 +7,11 @@
 -- edit by hand.
 
 ---@class Database
+---@field id? string
 
 ---@class DatabaseRemoveMatch
 ---@field database_id number
+---@field id string
 ---@field api_key? string
 
 ---@class FlatPermission
@@ -77,12 +79,8 @@
 ---@field key? string
 ---@field label? string
 ---@field multiValue? boolean
----@field rangeEnd? number
----@field rangeStart? number
 ---@field type? string
 ---@field updated? string
----@field validation? string
----@field values? table
 
 ---@class MetadataLoadMatch
 ---@field database_id number
@@ -103,12 +101,8 @@
 ---@field key? string
 ---@field label? string
 ---@field multiValue? boolean
----@field rangeEnd? number
----@field rangeStart? number
 ---@field type? string
 ---@field updated? string
----@field validation? string
----@field values? table
 
 ---@class MetadataUpdateData
 ---@field database_id number
@@ -120,12 +114,8 @@
 ---@field key? string
 ---@field label? string
 ---@field multiValue? boolean
----@field rangeEnd? number
----@field rangeStart? number
 ---@field type? string
 ---@field updated? string
----@field validation? string
----@field values? table
 
 ---@class PaginatedPermissionList
 ---@field ascending? boolean
@@ -196,6 +186,7 @@
 
 ---@class PermissionDatabaseLoadMatch
 ---@field database_id number
+---@field id string
 ---@field api_key? string
 
 ---@class PermissionDatabaseListMatch
@@ -203,12 +194,12 @@
 
 ---@class PermissionDatabaseUpdateData
 ---@field database_id number
+---@field id string
 ---@field api_key? string
 ---@field customerId? number
 ---@field deleteOnOptout? boolean
 ---@field description? string
 ---@field hooks? table
----@field id? number
 ---@field name? string
 ---@field routes? table
 ---@field senderAlias? string

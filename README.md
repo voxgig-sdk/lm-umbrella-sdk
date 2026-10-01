@@ -1,6 +1,6 @@
 # LmUmbrella SDK
 
-Permission Public API client, generated from the OpenAPI spec.
+LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 Welcome to the Umbrella Permission API.
 
@@ -12,9 +12,72 @@ Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
+> **Features:** `debug`, `idempotency`, `metrics`, `paging`, `ratelimit`, `retry`, `test`, `timeout` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
+
+## About Permission Public API
+
+**Unofficial. Not affiliated with LINK Mobility.** This is an unofficial SDK for the LINK Mobility Umbrella Permission API, built by [Voxgig](https://voxgig.com/sdk). It is not affiliated with, endorsed by, or sponsored by LINK Mobility.
+
+**Why this exists:** LINK Mobility publishes an OpenAPI definition for the Umbrella Permission API, which manages databases of mobile numbers and their consent, but no client libraries for it. Voxgig builds public SDK and MCP examples for APIs we think are interesting, and this is one of them. MIT-licensed, take whatever's useful.
+
+It is one of five repositories for LINK Mobility's MyLINK and Umbrella APIs: [Multichannel](https://github.com/voxgig-sdk/lm-multichannel-sdk), [SMS](https://github.com/voxgig-sdk/lm-sms-sdk), [Email](https://github.com/voxgig-sdk/lm-email-sdk), [WhatsApp](https://github.com/voxgig-sdk/lm-whatsapp-sdk) and [Permission](https://github.com/voxgig-sdk/lm-umbrella-sdk).
+
+### Try it (TypeScript)
+
+```bash
+git clone https://github.com/voxgig-sdk/lm-umbrella-sdk
+cd lm-umbrella-sdk/ts
+npm install
+npm run build
+npm test
+```
+
+The test suite runs fully offline. Every SDK here ships a test mode that swaps the HTTP transport for an in-memory mock, so you can try it without credentials or a network.
+
+### Read your databases
+
+```ts
+import { LmUmbrellaSDK } from '@voxgig-sdk/lm-umbrella-sdk'
+
+// An API key generated in the Umbrella portal
+const client = new LmUmbrellaSDK({ apikey: process.env.LM_UMBRELLA_APIKEY })
+
+// Your permission databases
+const databases = await client.PermissionDatabase().list()
+
+// One permission in database 42. The SDK calls the MSISDN `id`.
+const permission = await client.FlatPermission().load({ database_id: 42, id: '4512345678' })
+console.log(permission.data())
+```
+
+### Authentication
+
+The API takes an API key generated in the Umbrella portal, sent as `Authorization: Bearer <key>`. Pass the key as `apikey`, and the SDK sends that header. The CLI and the MCP server read it from `LM_UMBRELLA_APIKEY`. The definition still declares the older `apiKey` query parameter, which it says is deprecated; you do not need it.
+
+### Using the MCP server
+
+```bash
+cd go-mcp && go build -o lm-umbrella-mcp .
+export LM_UMBRELLA_APIKEY=<API key>
+claude mcp add --scope user lm-umbrella -- "$PWD/lm-umbrella-mcp" -transport stdio
+```
+
+The MCP server has two tools, `lm-umbrella_list` and `lm-umbrella_load`, for databases, permissions, metadata and bulk-import status. They are meant to read, but one load in this API writes: see below. Do not connect an agent to a live database with it yet.
+
+### Honest state
+
+Generated from LINK Mobility's public OpenAPI definition of the Permission Public API (2.0, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. Two rough edges matter before you use it on live data, and both come from routes the definition describes one way and names another:
+
+- `Metadata().create()` does not create. The definition has two POST routes for metadata, and the generated client picks `POST /metadata/{key}`, which the definition itself describes as "Delete metadata by key". Do not call it until this is fixed.
+- `FlattenedPermission().load()` calls `GET /permission/query`, which the definition describes as "Add/update permission using query parameters". It writes, and the MCP server's load tool can reach it.
+
+Also: the SDK calls a permission's MSISDN `id`, so `Permission().remove({ database_id, id })` deactivates one. The permanent delete is not reachable yet. Bulk import takes `create({ database_id, permissions: [...] })`; the TypeScript type does not list `permissions` yet, so cast. Use it as a starting point or a reference.
+
+When teams want SDKs like these production-grade, idiomatic per language, tested, documented, and released through a real pipeline, Voxgig does that work as a consulting engagement. The toolkit also generates Java and C# if your customers need them. Questions: richard@voxgig.com.
+
+If you are from LINK Mobility and would like this repository removed, or transferred to your own GitHub organisation, email richard@voxgig.com and it will be done within two business days, no questions asked.
 
 ## Entities, not endpoints
 
@@ -102,12 +165,12 @@ local results, err = client:ImportStatus():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/lm-umbrella-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags) |
-| Python | `voxgig-sdk-lm-umbrella-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags) |
-| PHP | `voxgig-sdk/lm-umbrella-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags) |
+| TypeScript | `@voxgig-sdk/lm-umbrella-sdk` | publish pending — [install from source](ts/README.md#install) |
+| Python | `voxgig-sdk-lm-umbrella-sdk` | publish pending — [install from source](py/README.md#install) |
+| PHP | `voxgig-sdk/lm-umbrella-sdk` | publish pending — [install from source](php/README.md#install) |
 | Golang | `github.com/voxgig-sdk/lm-umbrella-sdk/go` | `go get github.com/voxgig-sdk/lm-umbrella-sdk/go@latest` |
-| Ruby | `voxgig-sdk-lm-umbrella-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags) |
-| Lua | `voxgig-sdk-lm-umbrella-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags) |
+| Ruby | `voxgig-sdk-lm-umbrella-sdk` | publish pending — [install from source](rb/README.md#install) |
+| Lua | `voxgig-sdk-lm-umbrella-sdk` | publish pending — [install from source](lua/README.md#install) |
 | Go CLI | `github.com/voxgig-sdk/lm-umbrella-sdk/go-cli` | `go install github.com/voxgig-sdk/lm-umbrella-sdk/go-cli/cmd/lm-umbrella@latest` |
 | Go MCP server | `github.com/voxgig-sdk/lm-umbrella-sdk/go-mcp` | `go get github.com/voxgig-sdk/lm-umbrella-sdk/go-mcp@latest` |
 
@@ -402,7 +465,8 @@ unofficial client and is not affiliated with the API provider.
 The OpenAPI spec(s) this SDK was generated from are kept in the
 [`.sdk/def/`](.sdk/def/) folder.
 
-- Upstream API: [https://permission.m2go.dk/permission/api](https://permission.m2go.dk/permission/api)
+- Upstream API: [https://permission.m2go.dk/api](https://permission.m2go.dk/api)
+- Documentation: [https://docs.linkmobility.com/api-reference/mylink-umbrella-api](https://docs.linkmobility.com/api-reference/mylink-umbrella-api)
 
 ## Security
 

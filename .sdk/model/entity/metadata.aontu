@@ -57,22 +57,6 @@ main: kit: entity: metadata: {
       sh: "if the field is a multi value field"
       t: "`$BOOLEAN`"
     }
-    rangeEnd: {
-      fo: "int32"
-      h: "Range End"
-      n: "rangeEnd"
-      r: false
-      sh: "end on range for validation on INTEGER field"
-      t: "`$INTEGER`"
-    }
-    rangeStart: {
-      fo: "int32"
-      h: "Range Start"
-      n: "rangeStart"
-      r: false
-      sh: "start on range for validation on INTEGER field"
-      t: "`$INTEGER`"
-    }
     type: {
       h: "Type"
       n: "type"
@@ -88,20 +72,6 @@ main: kit: entity: metadata: {
       ro: true
       sh: "deletion date of the field"
       t: "`$STRING`"
-    }
-    validation: {
-      h: "Validation"
-      n: "validation"
-      r: false
-      sh: "type of validation on TEXT field"
-      t: "`$STRING`"
-    }
-    values: {
-      h: "Values"
-      n: "values"
-      r: false
-      sh: "Possible enumeration of values for ENUMERATION field"
-      t: "`$ARRAY`"
     }
   }
 
@@ -142,7 +112,7 @@ main: kit: entity: metadata: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -205,7 +175,7 @@ main: kit: entity: metadata: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -240,7 +210,7 @@ main: kit: entity: metadata: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.contents`"
+            res: "`body`"
           }
         }
       ]
@@ -268,7 +238,7 @@ main: kit: entity: metadata: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -338,7 +308,7 @@ main: kit: entity: metadata: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -378,7 +348,7 @@ main: kit: entity: metadata: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.contents`"
+            res: "`body`"
           }
         }
       ]
@@ -413,7 +383,7 @@ main: kit: entity: metadata: {
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -453,7 +423,7 @@ main: kit: entity: metadata: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.contents`"
+            res: "`body`"
           }
         }
       ]

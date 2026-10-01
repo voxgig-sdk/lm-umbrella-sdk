@@ -128,7 +128,19 @@
           "alias": {
             "field": {}
           },
-          "fields": {},
+          "fields": {
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
+            }
+          },
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
           "name": "database",
           "op": {
             "remove": {
@@ -148,9 +160,17 @@
                         "a": true,
                         "k": "param",
                         "n": "database_id",
-                        "or": "database_id",
+                        "or": "Database ID",
                         "r": true,
                         "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "id",
+                        "or": "id",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ],
                     "query": [
@@ -158,7 +178,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -170,7 +190,8 @@
                   "q": {
                     "exist": [
                       "api_key",
-                      "database_id"
+                      "database_id",
+                      "id"
                     ]
                   },
                   "r": {},
@@ -266,7 +287,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -407,7 +428,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -480,7 +501,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -678,7 +699,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -687,7 +708,7 @@
                         "ex": false,
                         "k": "query",
                         "n": "skip_import_on_error",
-                        "or": "skip_import_on_error",
+                        "or": "skipImportOnError",
                         "r": false,
                         "t": "`$BOOLEAN`"
                       }
@@ -726,7 +747,7 @@
                     }
                   ],
                   "t": {
-                    "req": "`reqdata`",
+                    "req": "`reqdata.permissions`",
                     "res": "`body`"
                   }
                 }
@@ -759,7 +780,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -767,7 +788,7 @@
                         "a": true,
                         "k": "query",
                         "n": "import_id",
-                        "or": "import_id",
+                        "or": "importId",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -889,24 +910,6 @@
               "sh": "if the field is a multi value field",
               "t": "`$BOOLEAN`"
             },
-            "rangeEnd": {
-              "a": true,
-              "fo": "int32",
-              "h": "Range End",
-              "n": "rangeEnd",
-              "r": false,
-              "sh": "end on range for validation on INTEGER field",
-              "t": "`$INTEGER`"
-            },
-            "rangeStart": {
-              "a": true,
-              "fo": "int32",
-              "h": "Range Start",
-              "n": "rangeStart",
-              "r": false,
-              "sh": "start on range for validation on INTEGER field",
-              "t": "`$INTEGER`"
-            },
             "type": {
               "a": true,
               "h": "Type",
@@ -924,22 +927,6 @@
               "ro": true,
               "sh": "deletion date of the field",
               "t": "`$STRING`"
-            },
-            "validation": {
-              "a": true,
-              "h": "Validation",
-              "n": "validation",
-              "r": false,
-              "sh": "type of validation on TEXT field",
-              "t": "`$STRING`"
-            },
-            "values": {
-              "a": true,
-              "h": "Values",
-              "n": "values",
-              "r": false,
-              "sh": "Possible enumeration of values for ENUMERATION field",
-              "t": "`$ARRAY`"
             }
           },
           "id": {
@@ -983,7 +970,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1050,7 +1037,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1086,7 +1073,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.contents`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -1118,7 +1105,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1194,7 +1181,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1235,7 +1222,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.contents`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -1275,7 +1262,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1316,7 +1303,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.contents`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -1491,7 +1478,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1616,7 +1603,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1691,7 +1678,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1774,7 +1761,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1928,7 +1915,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -1978,9 +1965,17 @@
                         "a": true,
                         "k": "param",
                         "n": "database_id",
-                        "or": "database_id",
+                        "or": "Database ID",
                         "r": true,
                         "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "id",
+                        "or": "id",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ],
                     "query": [
@@ -1988,7 +1983,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2000,7 +1995,8 @@
                   "q": {
                     "exist": [
                       "api_key",
-                      "database_id"
+                      "database_id",
+                      "id"
                     ]
                   },
                   "r": {},
@@ -2039,9 +2035,17 @@
                         "a": true,
                         "k": "param",
                         "n": "database_id",
-                        "or": "database_id",
+                        "or": "Database ID",
                         "r": true,
                         "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "id",
+                        "or": "id",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ],
                     "query": [
@@ -2049,7 +2053,7 @@
                         "a": true,
                         "k": "query",
                         "n": "api_key",
-                        "or": "api_key",
+                        "or": "apiKey",
                         "r": false,
                         "t": "`$STRING`"
                       }
@@ -2061,7 +2065,8 @@
                   "q": {
                     "exist": [
                       "api_key",
-                      "database_id"
+                      "database_id",
+                      "id"
                     ]
                   },
                   "r": {},
@@ -3243,7 +3248,8 @@
                 "suffix": "_dt0"
               },
               "m": {
-                "database_id": "database01"
+                "database_id": "database01",
+                "id": "permission_database01"
               },
               "o": "load",
               "s": [],
@@ -3293,20 +3299,23 @@
         }
       },
       "info": {
-        "description": "Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.\n\nThe Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.\n\nRequests must be authenticated using an `apiKey`, available in the Umbrella portal.\n\n**Terminology**\n* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. `45XXXXXXXX` for Denmark).\n* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.\n* *Permission* — An MSISDN entry that can be linked to metadata.\n* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.\n* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.\n\n**Internal errors**\n\nA `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.",
+        "about_md": "**Unofficial. Not affiliated with LINK Mobility.** This is an unofficial SDK for the LINK Mobility Umbrella Permission API, built by [Voxgig](https://voxgig.com/sdk). It is not affiliated with, endorsed by, or sponsored by LINK Mobility.\n\n**Why this exists:** LINK Mobility publishes an OpenAPI definition for the Umbrella Permission API, which manages databases of mobile numbers and their consent, but no client libraries for it. Voxgig builds public SDK and MCP examples for APIs we think are interesting, and this is one of them. MIT-licensed, take whatever's useful.\n\nIt is one of five repositories for LINK Mobility's MyLINK and Umbrella APIs: [Multichannel](https://github.com/voxgig-sdk/lm-multichannel-sdk), [SMS](https://github.com/voxgig-sdk/lm-sms-sdk), [Email](https://github.com/voxgig-sdk/lm-email-sdk), [WhatsApp](https://github.com/voxgig-sdk/lm-whatsapp-sdk) and [Permission](https://github.com/voxgig-sdk/lm-umbrella-sdk).\n\n### Try it (TypeScript)\n\n```bash\ngit clone https://github.com/voxgig-sdk/lm-umbrella-sdk\ncd lm-umbrella-sdk/ts\nnpm install\nnpm run build\nnpm test\n```\n\nThe test suite runs fully offline. Every SDK here ships a test mode that swaps the HTTP transport for an in-memory mock, so you can try it without credentials or a network.\n\n### Read your databases\n\n```ts\nimport { LmUmbrellaSDK } from '@voxgig-sdk/lm-umbrella-sdk'\n\n// An API key generated in the Umbrella portal\nconst client = new LmUmbrellaSDK({ apikey: process.env.LM_UMBRELLA_APIKEY })\n\n// Your permission databases\nconst databases = await client.PermissionDatabase().list()\n\n// One permission in database 42. The SDK calls the MSISDN `id`.\nconst permission = await client.FlatPermission().load({ database_id: 42, id: '4512345678' })\nconsole.log(permission.data())\n```\n\n### Authentication\n\nThe API takes an API key generated in the Umbrella portal, sent as `Authorization: Bearer <key>`. Pass the key as `apikey`, and the SDK sends that header. The CLI and the MCP server read it from `LM_UMBRELLA_APIKEY`. The definition still declares the older `apiKey` query parameter, which it says is deprecated; you do not need it.\n\n### Using the MCP server\n\n```bash\ncd go-mcp && go build -o lm-umbrella-mcp .\nexport LM_UMBRELLA_APIKEY=<API key>\nclaude mcp add --scope user lm-umbrella -- \"$PWD/lm-umbrella-mcp\" -transport stdio\n```\n\nThe MCP server has two tools, `lm-umbrella_list` and `lm-umbrella_load`, for databases, permissions, metadata and bulk-import status. They are meant to read, but one load in this API writes: see below. Do not connect an agent to a live database with it yet.\n\n### Honest state\n\nGenerated from LINK Mobility's public OpenAPI definition of the Permission Public API (2.0, from docs.linkmobility.com) on 2026-10-01. Not production-tuned. Two rough edges matter before you use it on live data, and both come from routes the definition describes one way and names another:\n\n- `Metadata().create()` does not create. The definition has two POST routes for metadata, and the generated client picks `POST /metadata/{key}`, which the definition itself describes as \"Delete metadata by key\". Do not call it until this is fixed.\n- `FlattenedPermission().load()` calls `GET /permission/query`, which the definition describes as \"Add/update permission using query parameters\". It writes, and the MCP server's load tool can reach it.\n\nAlso: the SDK calls a permission's MSISDN `id`, so `Permission().remove({ database_id, id })` deactivates one. The permanent delete is not reachable yet. Bulk import takes `create({ database_id, permissions: [...] })`; the TypeScript type does not list `permissions` yet, so cast. Use it as a starting point or a reference.\n\nWhen teams want SDKs like these production-grade, idiomatic per language, tested, documented, and released through a real pipeline, Voxgig does that work as a consulting engagement. The toolkit also generates Java and C# if your customers need them. Questions: richard@voxgig.com.\n\nIf you are from LINK Mobility and would like this repository removed, or transferred to your own GitHub organisation, email richard@voxgig.com and it will be done within two business days, no questions asked.",
+        "description": "Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling.\n\nThe Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database.\n\nRequests must be authenticated with an `Authorization: Bearer <key>` header, using an API key generated in the Umbrella portal. The legacy `apiKey` query parameter is still accepted but deprecated and will be removed in a future version.\n\n**Terminology**\n* *MSISDN* — A number uniquely identifying a mobile subscription (country code + local number, e.g. `45XXXXXXXX` for Denmark).\n* *Database* — A collection of permissions. Each database has at least one SMS-based unsubscribe method.\n* *Permission* — An MSISDN entry that can be linked to metadata.\n* *Metadata* — Additional information associated with a permission (e.g. name, zip code). Several data types are supported.\n* *Source* — A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels.\n\n**Internal errors**\n\nA `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.",
+        "docs_url": "https://docs.linkmobility.com/api-reference/mylink-umbrella-api",
         "security": {
-          "in": "query",
-          "name": "apiKey",
-          "prefix": "",
-          "scheme": "apiKey",
-          "type": "apiKey"
+          "in": "header",
+          "name": "Authorization",
+          "prefix": "Bearer",
+          "scheme": "bearerAuth",
+          "type": "http"
         },
         "servers": [
           {
-            "url": "https://permission.m2go.dk/permission/api"
+            "url": "https://permission.m2go.dk/api"
           }
         ],
         "summary": "Welcome to the Umbrella Permission API.",
+        "tagline": "LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.",
         "title": "Permission Public API",
         "version": "2.0",
         "website": "https://permission.m2go.dk"
@@ -3326,7 +3335,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {
@@ -3642,7 +3656,7 @@
             "registry": {
               "active": false,
               "name": "luarocks",
-              "package": "",
+              "package": "voxgig-sdk-lm-umbrella-sdk",
               "state": "pending",
               "url": "https://luarocks.org",
               "vault": {
@@ -3709,7 +3723,7 @@
             "registry": {
               "active": false,
               "name": "packagist",
-              "package": "",
+              "package": "voxgig-sdk/lm-umbrella-sdk",
               "state": "pending",
               "url": "https://packagist.org",
               "vault": {
@@ -3782,7 +3796,7 @@
             "registry": {
               "active": false,
               "name": "pypi",
-              "package": "",
+              "package": "voxgig-sdk-lm-umbrella-sdk",
               "state": "pending",
               "url": "https://pypi.org",
               "vault": {
@@ -3855,7 +3869,7 @@
             "registry": {
               "active": false,
               "name": "rubygems",
-              "package": "",
+              "package": "voxgig-sdk-lm-umbrella-sdk",
               "state": "pending",
               "url": "https://rubygems.org",
               "vault": {
@@ -3933,7 +3947,7 @@
             "registry": {
               "active": false,
               "name": "npm",
-              "package": "",
+              "package": "@voxgig-sdk/lm-umbrella-sdk",
               "state": "pending",
               "url": "https://registry.npmjs.org",
               "vault": {

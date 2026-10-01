@@ -4,6 +4,20 @@ main: kit: entity: database: {
 
   alias: field: {}
 
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
   name: "database"
   op: {
     remove: {
@@ -20,16 +34,23 @@ main: kit: entity: database: {
               {
                 k: "param"
                 n: "database_id"
-                or: "database_id"
+                or: "Database ID"
                 r: true
                 t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$STRING`"
               }
             ]
             query: [
               {
                 k: "query"
                 n: "api_key"
-                or: "api_key"
+                or: "apiKey"
                 r: false
                 t: "`$STRING`"
               }
@@ -41,6 +62,7 @@ main: kit: entity: database: {
             exist: [
               "api_key"
               "database_id"
+              "id"
             ]
           }
           s: [
@@ -61,9 +83,6 @@ main: kit: entity: database: {
         }
       ]
     }
-  }
-
-  fields: {
   }
 
 

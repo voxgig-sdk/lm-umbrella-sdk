@@ -197,6 +197,12 @@ Alias for `LmUmbrellaSDK.test()`.
 const database = client.Database()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `remove(match: object, ctrl?: object)`
@@ -204,7 +210,7 @@ const database = client.Database()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Database().remove({ database_id: 1 })
+const result = await client.Database().remove({ database_id: 1, id: 'id' })
 ```
 
 ### Common Methods
@@ -442,12 +448,8 @@ const metadata = client.Metadata()
 | `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | No | if the field is a multi value field |
-| `rangeEnd` | `number` | No | end on range for validation on INTEGER field |
-| `rangeStart` | `number` | No | start on range for validation on INTEGER field |
 | `type` | `string` | No | the type of field |
 | `updated` | `string` | No | deletion date of the field |
-| `validation` | `string` | No | type of validation on TEXT field |
-| `values` | `any[]` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -683,7 +685,7 @@ const results = await client.PermissionDatabase().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.PermissionDatabase().load({ database_id: 1 })
+const result = await client.PermissionDatabase().load({ id: 'permission_database_id', database_id: 1 })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -692,6 +694,7 @@ Update an existing entity. The data must include the entity `id`.
 
 ```ts
 const result = await client.PermissionDatabase().update({
+  id: 'permission_database_id',
   database_id: 1,
   // Fields to update
 })

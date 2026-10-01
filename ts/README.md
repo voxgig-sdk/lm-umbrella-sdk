@@ -1,6 +1,6 @@
 # LmUmbrella TypeScript SDK
 
-
+LINK Mobility Umbrella Permission API clients in TypeScript, Python, PHP, Go, Ruby and Lua, plus a CLI and an MCP server for AI agents. All generated from LINK Mobility's public OpenAPI definition, so every surface stays in sync with the API.
 
 The TypeScript SDK for the LmUmbrella API — a type-safe, entity-oriented client with full async/await support.
 
@@ -15,9 +15,13 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`):
+release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)), or from a
+clone, which carries the compiled `dist/`:
 
-- Releases: [https://github.com/voxgig-sdk/lm-umbrella-sdk/releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/lm-umbrella-sdk
+npm install ./lm-umbrella-sdk/ts
+```
 
 
 ## Tutorial: your first API call
@@ -58,6 +62,7 @@ try {
 // Remove
 await client.Database().remove({
   database_id: 1,
+  id: 'example_id',
 })
 ```
 
@@ -323,6 +328,7 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: remove.
 
@@ -380,12 +386,8 @@ API path: `/public/database/{id}/permission/bulk`
 | `key` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | label for the field (used for displaying in the interface) |
 | `multiValue` | if the field is a multi value field |
-| `rangeEnd` | end on range for validation on INTEGER field |
-| `rangeStart` | start on range for validation on INTEGER field |
 | `type` | the type of field |
 | `updated` | deletion date of the field |
-| `validation` | type of validation on TEXT field |
-| `values` | Possible enumeration of values for ENUMERATION field |
 
 Operations: create, list, load, update.
 
@@ -460,6 +462,12 @@ Create an instance: `const database = client.Database()`
 | Method | Description |
 | --- | --- |
 | `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` |  |
 
 
 ### FlatPermission
@@ -592,12 +600,8 @@ Create an instance: `const metadata = client.Metadata()`
 | `key` | `string` | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | label for the field (used for displaying in the interface) |
 | `multiValue` | `boolean` | if the field is a multi value field |
-| `rangeEnd` | `number` | end on range for validation on INTEGER field |
-| `rangeStart` | `number` | start on range for validation on INTEGER field |
 | `type` | `string` | the type of field |
 | `updated` | `string` | deletion date of the field |
-| `validation` | `string` | type of validation on TEXT field |
-| `values` | `any[]` | Possible enumeration of values for ENUMERATION field |
 
 #### Example: Load
 
@@ -709,7 +713,7 @@ Create an instance: `const permission_database = client.PermissionDatabase()`
 #### Example: Load
 
 ```ts
-const permission_database = await client.PermissionDatabase().load({ database_id: 1 })
+const permission_database = await client.PermissionDatabase().load({ id: 'permission_database_id', database_id: 1 })
 ```
 
 #### Example: List

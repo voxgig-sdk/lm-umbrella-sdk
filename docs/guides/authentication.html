@@ -36,11 +36,11 @@
 <a href="../features/timeout.html">Timeout</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>Guides</div><h1 id="authentication">Authentication</h1>
 <p>Configure credentials for the scheme described by the API model. Keep credentials outside source control.</p>
 <pre><code class="language-json">{
-  &quot;in&quot;: &quot;query&quot;,
-  &quot;name&quot;: &quot;apiKey&quot;,
-  &quot;prefix&quot;: &quot;&quot;,
-  &quot;scheme&quot;: &quot;apiKey&quot;,
-  &quot;type&quot;: &quot;apiKey&quot;
+  &quot;in&quot;: &quot;header&quot;,
+  &quot;name&quot;: &quot;Authorization&quot;,
+  &quot;prefix&quot;: &quot;Bearer&quot;,
+  &quot;scheme&quot;: &quot;bearerAuth&quot;,
+  &quot;type&quot;: &quot;http&quot;
 }
 </code></pre>
 </main></div>

@@ -59,13 +59,23 @@ describe("PermissionDatabaseDirect", function()
       pending(_reason or "skipped via sdk-test-control.json")
       return
     end
+    if setup.live then
+      pending("live direct-load needs real ID — set *_ENTID env var with real IDs to run")
+      return
+    end
     local client = setup.client
 
+    local params = {}
+    local query = {}
+    if not setup.live then
+      params["id"] = "direct01"
+    end
 
     local result, err = client:direct({
       path = "public/database/{id}",
       method = "GET",
-      params = {},
+      params = params,
+      query = query,
     })
     if setup.live then
       -- Live mode is lenient: synthetic IDs frequently 4xx. Skip rather

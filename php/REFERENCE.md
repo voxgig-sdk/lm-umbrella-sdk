@@ -117,6 +117,12 @@ Prepare a fetch definition without sending the request. Returns the
 $database = $client->Database();
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -124,7 +130,7 @@ $database = $client->Database();
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Database()->remove(["database_id" => 1]);
+$result = $client->Database()->remove(["database_id" => 1, "id" => "id"]);
 ```
 
 ### Common Methods
@@ -370,12 +376,8 @@ $metadata = $client->Metadata();
 | `key` | `string` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `string` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `bool` | No | if the field is a multi value field |
-| `rangeEnd` | `int` | No | end on range for validation on INTEGER field |
-| `rangeStart` | `int` | No | start on range for validation on INTEGER field |
 | `type` | `string` | No | the type of field |
 | `updated` | `string` | No | deletion date of the field |
-| `validation` | `string` | No | type of validation on TEXT field |
-| `values` | `array` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -617,7 +619,7 @@ $results = $client->PermissionDatabase()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->PermissionDatabase()->load(["database_id" => 1]);
+$result = $client->PermissionDatabase()->load(["id" => "permission_database_id", "database_id" => 1]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
@@ -626,6 +628,7 @@ Update an existing entity. The data must include the entity `id`. Throws on erro
 
 ```php
 $result = $client->PermissionDatabase()->update([
+  "id" => "permission_database_id",
   "database_id" => 1,
   // Fields to update
 ]);

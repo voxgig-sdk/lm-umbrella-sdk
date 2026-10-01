@@ -1,6 +1,6 @@
 # Permission Public API
 
-Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling. The Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database. Requests must be authenticated using an `apiKey`, available in the Umbrella portal. **Terminology** * *MSISDN*, A number uniquely identifying a mobile subscription (country code + local number, for example `45XXXXXXXX` for Denmark). * *Database*, A collection of permissions. Each database has at least one SMS-based unsubscribe method. * *Permission*, An MSISDN entry that can be linked to metadata. * *Metadata*, Additional information associated with a permission (for example name, zip code). Several data types are supported. * *Source*, A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels. **Internal errors** A `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.
+Welcome to the Umbrella Permission API. This API follows REST conventions with resource-oriented URLs and standard HTTP status codes for error handling. The Permission system stores collections (*databases*) of mobile numbers (*permissions*) enriched with additional attributes (*metadata*) such as name, zip code, age, etc. It integrates with the broader Umbrella platform, making it straightforward to communicate via SMS with all or part of a database. Requests must be authenticated with an `Authorization: Bearer &lt;key&gt;` header, using an API key generated in the Umbrella portal. The legacy `apiKey` query parameter is still accepted but deprecated and will be removed in a future version. **Terminology** * *MSISDN*, A number uniquely identifying a mobile subscription (country code + local number, for example `45XXXXXXXX` for Denmark). * *Database*, A collection of permissions. Each database has at least one SMS-based unsubscribe method. * *Permission*, An MSISDN entry that can be linked to metadata. * *Metadata*, Additional information associated with a permission (for example name, zip code). Several data types are supported. * *Source*, A tag identifying how a permission entered or interacted with the database, useful when data originates from multiple channels. **Internal errors** A `500 Internal Server Error` indicates an internal system issue that cannot be resolved by modifying the request. These errors are typically transient, but if they persist please contact support.
 
 ## Start here
 
@@ -122,9 +122,9 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 ## Connect to the API
 
-- API server: `https://permission.m2go.dk/permission/api`
+- API server: `https://permission.m2go.dk/api`
 
-The default credential is sent in the `apiKey` query.
+The default credential is sent in the `Authorization` header with the `Bearer` prefix.
 
 Check authentication for the route you plan to call. A route that declares no authentication can be used without credentials; this does not change the requirements of other routes. Keep credentials in environment variables or a configured secret provider, and keep them out of source control and logs.
 

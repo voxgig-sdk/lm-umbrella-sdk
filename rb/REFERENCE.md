@@ -118,6 +118,12 @@ same parameters as `direct()`. Raises on error.
 database = client.Database
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `String` | No |  |
+
 ### Operations
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -125,7 +131,7 @@ database = client.Database
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Database.remove({ "database_id" => 1 })
+result = client.Database.remove({ "database_id" => 1, "id" => "id" })
 ```
 
 ### Common Methods
@@ -371,12 +377,8 @@ metadata = client.Metadata
 | `key` | `String` | No | key for the field (used for the value internally - cannot be changed after creation) |
 | `label` | `String` | No | label for the field (used for displaying in the interface) |
 | `multiValue` | `Boolean` | No | if the field is a multi value field |
-| `rangeEnd` | `Integer` | No | end on range for validation on INTEGER field |
-| `rangeStart` | `Integer` | No | start on range for validation on INTEGER field |
 | `type` | `String` | No | the type of field |
 | `updated` | `String` | No | deletion date of the field |
-| `validation` | `String` | No | type of validation on TEXT field |
-| `values` | `Array` | No | Possible enumeration of values for ENUMERATION field |
 
 ### Operations
 
@@ -618,7 +620,7 @@ results = client.PermissionDatabase.list
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.PermissionDatabase.load({ "database_id" => 1 })
+result = client.PermissionDatabase.load({ "id" => "permission_database_id", "database_id" => 1 })
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`
@@ -627,6 +629,7 @@ Update an existing entity. The data must include the entity `id`. Raises on erro
 
 ```ruby
 result = client.PermissionDatabase.update({
+  "id" => "permission_database_id",
   "database_id" => 1,
   # Fields to update
 })

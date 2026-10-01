@@ -6,10 +6,12 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Database {
+  id?: string
 }
 
 export interface DatabaseRemoveMatch {
   database_id: number
+  id: string
   api_key?: string
 }
 
@@ -87,12 +89,8 @@ export interface Metadata {
   key?: string
   label?: string
   multiValue?: boolean
-  rangeEnd?: number
-  rangeStart?: number
   type?: string
   updated?: string
-  validation?: string
-  values?: any[]
 }
 
 export interface MetadataLoadMatch {
@@ -116,12 +114,8 @@ export interface MetadataCreateData {
   key?: string
   label?: string
   multiValue?: boolean
-  rangeEnd?: number
-  rangeStart?: number
   type?: string
   updated?: string
-  validation?: string
-  values?: any[]
 }
 
 export interface MetadataUpdateData {
@@ -134,12 +128,8 @@ export interface MetadataUpdateData {
   key?: string
   label?: string
   multiValue?: boolean
-  rangeEnd?: number
-  rangeStart?: number
   type?: string
   updated?: string
-  validation?: string
-  values?: any[]
 }
 
 export interface PaginatedPermissionList {
@@ -217,6 +207,7 @@ export interface PermissionDatabase {
 
 export interface PermissionDatabaseLoadMatch {
   database_id: number
+  id: string
   api_key?: string
 }
 
@@ -226,12 +217,12 @@ export interface PermissionDatabaseListMatch {
 
 export interface PermissionDatabaseUpdateData {
   database_id: number
+  id: string
   api_key?: string
   customerId?: number
   deleteOnOptout?: boolean
   description?: string
   hooks?: any[]
-  id?: number
   name?: string
   routes?: any[]
   senderAlias?: string
