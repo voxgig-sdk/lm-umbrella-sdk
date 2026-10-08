@@ -60,7 +60,6 @@ main: kit: entity: database: {
           o: "/public/database/{id}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]

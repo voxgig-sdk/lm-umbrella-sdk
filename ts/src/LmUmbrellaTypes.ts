@@ -54,6 +54,7 @@ export interface ImportStatus {
   errors?: any[]
   importId?: string
   msisdn?: string
+  permissions?: any[]
   permissionsInserted?: number
   permissionsUpdated?: number
   status?: string
@@ -72,6 +73,7 @@ export interface ImportStatusCreateData {
   errors?: any[]
   importId?: string
   msisdn?: string
+  permissions?: any[]
   permissionsInserted?: number
   permissionsUpdated?: number
   status?: string

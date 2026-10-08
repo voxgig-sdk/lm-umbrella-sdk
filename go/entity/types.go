@@ -74,6 +74,7 @@ type ImportStatusCreateData struct {
 	Errors *[]any `json:"errors,omitempty"`
 	ImportId *string `json:"importId,omitempty"`
 	Msisdn *string `json:"msisdn,omitempty"`
+	Permissions *[]any `json:"permissions,omitempty"`
 	PermissionsInserted *int `json:"permissionsInserted,omitempty"`
 	PermissionsUpdated *int `json:"permissionsUpdated,omitempty"`
 	Status *string `json:"status,omitempty"`

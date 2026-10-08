@@ -189,7 +189,6 @@
                   "o": "/public/database/{id}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -298,7 +297,6 @@
                   "o": "/public/database/{id}/permission/{msisdn}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -308,6 +306,10 @@
                       "id": "database_id",
                       "msisdn": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -399,6 +401,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "empty",
+                    "msisdn"
+                  ],
                   "co": {
                     "id": "POST /public/database/{id}/permission/{msisdn}",
                     "source": "openapi3",
@@ -439,7 +445,6 @@
                   "o": "/public/database/{id}/permission/{msisdn}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -449,6 +454,10 @@
                       "id": "database_id",
                       "msisdn": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -512,7 +521,6 @@
                   "o": "/public/database/{id}/permission/list",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id"
                     ]
                   },
@@ -520,6 +528,10 @@
                     "param": {
                       "id": "database_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -583,6 +595,13 @@
               "r": false,
               "t": "`$STRING`"
             },
+            "permissions": {
+              "a": true,
+              "h": "Permissions",
+              "n": "permissions",
+              "r": false,
+              "t": "`$ARRAY`"
+            },
             "permissionsInserted": {
               "a": true,
               "fo": "int32",
@@ -618,6 +637,9 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "permissions"
+                  ],
                   "co": {
                     "id": "POST /public/database/{id}/permission/bulk",
                     "source": "openapi3",
@@ -659,15 +681,18 @@
                   "o": "/public/database/{id}/permission/bulk",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
-                      "skip_import_on_error"
+                      "permissions"
                     ]
                   },
                   "r": {
                     "param": {
                       "id": "database_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -739,15 +764,17 @@
                   "o": "/public/database/{id}/permission/bulk/status",
                   "q": {
                     "exist": [
-                      "api_key",
-                      "database_id",
-                      "import_id"
+                      "database_id"
                     ]
                   },
                   "r": {
                     "param": {
                       "id": "database_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -881,6 +908,16 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "contents",
+                    "created",
+                    "databaseId",
+                    "key",
+                    "label",
+                    "multiValue",
+                    "type",
+                    "updated"
+                  ],
                   "co": {
                     "id": "POST /public/database/{id}/metadata",
                     "source": "openapi3",
@@ -913,7 +950,6 @@
                   "o": "/public/database/{id}/metadata",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id"
                     ]
                   },
@@ -921,6 +957,10 @@
                     "param": {
                       "id": "database_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -981,7 +1021,6 @@
                   "o": "/public/database/{id}/metadata",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id"
                     ]
                   },
@@ -989,6 +1028,10 @@
                     "param": {
                       "id": "database_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1057,7 +1100,6 @@
                   "o": "/public/database/{id}/metadata/{key}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -1067,6 +1109,10 @@
                       "id": "database_id",
                       "key": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1138,7 +1184,6 @@
                   "o": "/public/database/{id}/metadata/{key}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -1179,6 +1224,16 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "contents",
+                    "created",
+                    "databaseId",
+                    "key",
+                    "label",
+                    "multiValue",
+                    "type",
+                    "updated"
+                  ],
                   "co": {
                     "id": "PUT /public/database/{id}/metadata/{key}",
                     "source": "openapi3",
@@ -1219,7 +1274,6 @@
                   "o": "/public/database/{id}/metadata/{key}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -1229,6 +1283,10 @@
                       "id": "database_id",
                       "key": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1403,6 +1461,18 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "ascending",
+                    "endRow",
+                    "groups",
+                    "metadata",
+                    "msisdnList",
+                    "onlyActive",
+                    "quickFilterText",
+                    "sort",
+                    "sources",
+                    "startRow"
+                  ],
                   "co": {
                     "id": "POST /public/database/{id}/permission/paged/list",
                     "source": "openapi3",
@@ -1435,7 +1505,6 @@
                   "o": "/public/database/{id}/permission/paged/list",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id"
                     ]
                   },
@@ -1443,6 +1512,10 @@
                     "param": {
                       "id": "database_id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1560,7 +1633,6 @@
                   "o": "/public/database/{id}/permission/{msisdn}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -1635,7 +1707,6 @@
                   "o": "/public/database/{id}/permission/permanent/{msisdn}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "msisdn"
                     ]
@@ -1678,6 +1749,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "empty",
+                    "msisdn"
+                  ],
                   "co": {
                     "id": "PUT /public/database/{id}/permission/{msisdn}",
                     "source": "openapi3",
@@ -1718,7 +1793,6 @@
                   "o": "/public/database/{id}/permission/{msisdn}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
@@ -1870,12 +1944,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/public/database/list",
-                  "q": {
-                    "exist": [
-                      "api_key"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "public"
@@ -1940,12 +2014,15 @@
                   "o": "/public/database/{id}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "public"
@@ -1970,6 +2047,17 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "customerId",
+                    "deleteOnOptout",
+                    "description",
+                    "hooks",
+                    "id",
+                    "name",
+                    "routes",
+                    "senderAlias",
+                    "serviceId"
+                  ],
                   "co": {
                     "id": "PUT /public/database/{id}",
                     "source": "openapi3",
@@ -2010,12 +2098,15 @@
                   "o": "/public/database/{id}",
                   "q": {
                     "exist": [
-                      "api_key",
                       "database_id",
                       "id"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "public"
@@ -2792,6 +2883,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -3283,7 +3375,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -3336,6 +3428,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -3403,7 +3500,7 @@
               },
               "via": "port"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "srcfeature": false,
           "superseded": [
@@ -3485,7 +3582,7 @@
               },
               "via": "root"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "superseded": [],
           "title": "Go CLI"
@@ -3563,10 +3660,13 @@
               },
               "via": "root"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -3633,7 +3733,7 @@
               },
               "via": "port"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "srcfeature": false,
           "superseded": [
@@ -3700,7 +3800,7 @@
               },
               "via": "port"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "srcfeature": false,
           "superseded": [
@@ -3773,7 +3873,7 @@
               },
               "via": "port"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "srcfeature": false,
           "superseded": [
@@ -3846,7 +3946,7 @@
               },
               "via": "port"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "srcfeature": false,
           "superseded": [
@@ -3924,7 +4024,7 @@
               },
               "via": "port"
             },
-            "version": "0.1.1"
+            "version": "0.1.2"
           },
           "superseded": [
             "test/runner.ts",
@@ -3943,6 +4043,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

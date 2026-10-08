@@ -15,7 +15,7 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)), or from a
+release tag (`ts/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags)), or from a
 clone, which carries the compiled `dist/`:
 
 ```bash
@@ -42,7 +42,7 @@ const client = new LmUmbrellaSDK({
 ### 3. Load a flatpermission
 
 FlatPermission is nested under database, so provide the `database_id`.
-`load()` returns the entity directly and throws on failure:
+`load()` returns the entity and throws on failure; `.data()` reads its record:
 
 ```ts
 try {
@@ -50,7 +50,7 @@ try {
     database_id: 1,
     id: 'example_id',
   })
-  console.log(flatpermission)
+  console.log(flatpermission.data())
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -73,15 +73,16 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const importstatuss = await client.ImportStatus().list()
-  console.log(importstatuss)
+  const flatpermission = await client.FlatPermission().load({ database_id: 1, id: "example_id" })
+  console.log(flatpermission.data())
 } catch (err) {
-  console.error('list failed:', err)
+  console.error('load failed:', err)
 }
 ```
 
 The low-level `direct()` method does **not** throw — it returns the
-value or an `Error`, so check the result before using it:
+result envelope. Branch on `ok`; on failure `status` holds the HTTP status
+(for error responses) and `err` holds the error:
 
 ```ts
 const result = await client.direct({
@@ -90,8 +91,8 @@ const result = await client.direct({
   params: { id: 'example_id' },
 })
 
-if (result instanceof Error) {
-  throw result
+if (!result.ok) {
+  console.error('request failed:', result.status, result.err)
 }
 ```
 
@@ -109,9 +110,6 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
-if (result instanceof Error) {
-  throw result
-}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -140,10 +138,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = LmUmbrellaSDK.test()
 
-const importstatus = await client.ImportStatus().list()
-// importstatus is the entity, populated with mock response data
-// — call importstatus.data() for the record itself
-console.log(importstatus)
+const flatpermission = await client.FlatPermission().load({ id: 'test01', database_id: 1 })
+// flatpermission is the FlatPermission entity; .data() reads its mock record
+console.log(flatpermission.data())
 ```
 
 You can also use the instance method:
@@ -158,14 +155,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.ImportStatus()
+const entity = client.FlatPermission()
 
 // First call runs the operation and stores its result
-await entity.list()
+await entity.load({ id: 'example', database_id: 1 })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -269,11 +266,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria, and return it. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria, one per record. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity, and return it. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity, and return it. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<Entity>` | Remove an entity, and return it marked as deleted. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -282,13 +279,13 @@ All entities share the same interface.
 
 #### Return values
 
-Entity operations resolve to the entity data directly — there is no
-result envelope:
+Entity operations resolve to the entity itself — there is no result
+envelope, and an entity's `data()` reads its record:
 
 - `load`, `create` and `update` resolve to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `void`.
+- `remove` resolves to the entity, marked as deleted.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -367,6 +364,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | `errors` | Import errors (List of ImportError) |
 | `importId` | Import id |
 | `msisdn` |  |
+| `permissions` |  |
 | `permissionsInserted` | Number of permissions inserted into database |
 | `permissionsUpdated` | Number of permissions updated in database |
 | `status` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -550,6 +548,7 @@ Create an instance: `const import_status = client.ImportStatus()`
 | `errors` | `any[]` | Import errors (List of ImportError) |
 | `importId` | `string` | Import id |
 | `msisdn` | `string` |  |
+| `permissions` | `any[]` |  |
 | `permissionsInserted` | `number` | Number of permissions inserted into database |
 | `permissionsUpdated` | `number` | Number of permissions updated in database |
 | `status` | `string` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -924,16 +923,16 @@ import { LmUmbrellaSDK } from '@voxgig-sdk/lm-umbrella-sdk'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const importstatus = client.ImportStatus()
-await importstatus.list()
+const flatpermission = client.FlatPermission()
+await flatpermission.load({ database_id: 1, id: "example_id" })
 
-// importstatus.data() now returns the importstatus data from the last `list`
-// importstatus.match() returns the last match criteria
+// flatpermission.data() now returns the flatpermission data from the last `load`
+// flatpermission.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

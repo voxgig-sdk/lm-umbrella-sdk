@@ -98,7 +98,7 @@ class MetadataEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<Metadata> return stays clean under strict null checks.
+                // Promise<MetadataEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }
@@ -185,7 +185,7 @@ class MetadataEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<Metadata[]> return stays clean under strict null checks.
+                // Promise<MetadataEntity[]> return stays clean under strict null checks.
                 return undefined;
             }
         }
@@ -273,7 +273,7 @@ class MetadataEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<Metadata> return stays clean under strict null checks.
+                // Promise<MetadataEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }
@@ -364,7 +364,7 @@ class MetadataEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<Metadata> return stays clean under strict null checks.
+                // Promise<MetadataEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }

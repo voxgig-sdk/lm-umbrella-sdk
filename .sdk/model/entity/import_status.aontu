@@ -25,6 +25,12 @@ main: kit: entity: import_status: {
       r: false
       t: "`$STRING`"
     }
+    permissions: {
+      h: "Permissions"
+      n: "permissions"
+      r: false
+      t: "`$ARRAY`"
+    }
     permissionsInserted: {
       fo: "int32"
       h: "Permissions Inserted"
@@ -56,6 +62,9 @@ main: kit: entity: import_status: {
       name: "create"
       points: [
         {
+          bf: [
+            "permissions"
+          ]
           co: {
             id: "POST /public/database/{id}/permission/bulk"
             source: "openapi3"
@@ -93,15 +102,18 @@ main: kit: entity: import_status: {
           o: "/public/database/{id}/permission/bulk"
           q: {
             exist: [
-              "api_key"
               "database_id"
-              "skip_import_on_error"
+              "permissions"
             ]
           }
           r: {
             param: {
               id: "database_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -167,15 +179,17 @@ main: kit: entity: import_status: {
           o: "/public/database/{id}/permission/bulk/status"
           q: {
             exist: [
-              "api_key"
               "database_id"
-              "import_id"
             ]
           }
           r: {
             param: {
               id: "database_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

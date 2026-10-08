@@ -72,7 +72,6 @@ main: kit: entity: permission: {
           o: "/public/database/{id}/permission/{msisdn}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]
@@ -142,7 +141,6 @@ main: kit: entity: permission: {
           o: "/public/database/{id}/permission/permanent/{msisdn}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "msisdn"
             ]
@@ -183,6 +181,10 @@ main: kit: entity: permission: {
       name: "update"
       points: [
         {
+          bf: [
+            "empty"
+            "msisdn"
+          ]
           co: {
             id: "PUT /public/database/{id}/permission/{msisdn}"
             source: "openapi3"
@@ -219,7 +221,6 @@ main: kit: entity: permission: {
           o: "/public/database/{id}/permission/{msisdn}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]

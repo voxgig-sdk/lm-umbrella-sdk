@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "voxgig-sdk-lm-umbrella-sdk"
-  spec.version       = "0.1.1"
+  spec.version       = "0.1.2"
   spec.authors       = ["Voxgig"]
   spec.summary       = "Unofficial generated Ruby SDK for the Permission Public public API. Not affiliated with or endorsed by the upstream API provider."
   spec.description   = "Unofficial generated Ruby SDK for the Permission Public public API. Not affiliated with or endorsed by the upstream API provider."

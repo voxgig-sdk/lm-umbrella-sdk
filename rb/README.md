@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -49,7 +49,7 @@ FlatPermission is nested under database, so provide the `database_id`.
 begin
   # load returns the ENTITY — call data_get for the FlatPermission record (raises on error).
   flatpermission = client.FlatPermission.load({ "database_id" => 1, "id" => "example_id" })
-  puts flatpermission
+  puts flatpermission.data_get
 rescue => err
   warn "load failed: #{err}"
 end
@@ -69,9 +69,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  importstatuss = client.ImportStatus.list()
+  flatpermission = client.FlatPermission.load({ "database_id" => 1, "id" => "example_id" })
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -132,15 +132,18 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = LmUmbrellaSDK.test
+client = LmUmbrellaSDK.test({
+  "entity" => { "flat_permission" => { "test01" => { "id" => "test01" } } },
+})
 
 # Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-importstatus = client.ImportStatus.list()
-puts importstatus
+# data_get reads its mock record.
+flatpermission = client.FlatPermission.load({ "id" => "test01", "database_id" => 1 })
+puts flatpermission.data_get
 ```
 
 ### Use a custom fetch function
@@ -233,11 +236,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity, and return it. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity, and return it marked as deleted. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -247,9 +250,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `LmUmbrellaError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`LmUmbrellaError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -307,6 +311,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | `errors` | Import errors (List of ImportError) |
 | `importId` | Import id |
 | `msisdn` |  |
+| `permissions` |  |
 | `permissionsInserted` | Number of permissions inserted into database |
 | `permissionsUpdated` | Number of permissions updated in database |
 | `status` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -460,8 +465,9 @@ Create an instance: `flattened_permission = client.FlattenedPermission`
 #### Example: List
 
 ```ruby
-# list returns an Array of FlattenedPermission records (raises on error).
-flattened_permissions = client.FlattenedPermission.list
+# list returns an Array of FlattenedPermission entities, one per record (raises on error).
+flattened_permissions = client.FlattenedPermission.list({ "database_id" => 1 })
+flattened_permissions.each { |item| puts item.data_get }
 ```
 
 #### Example: Create
@@ -492,6 +498,7 @@ Create an instance: `import_status = client.ImportStatus`
 | `errors` | `Array` | Import errors (List of ImportError) |
 | `importId` | `String` | Import id |
 | `msisdn` | `String` |  |
+| `permissions` | `Array` |  |
 | `permissionsInserted` | `Integer` | Number of permissions inserted into database |
 | `permissionsUpdated` | `Integer` | Number of permissions updated in database |
 | `status` | `String` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -499,8 +506,9 @@ Create an instance: `import_status = client.ImportStatus`
 #### Example: List
 
 ```ruby
-# list returns an Array of ImportStatus records (raises on error).
-import_statuss = client.ImportStatus.list
+# list returns an Array of ImportStatus entities, one per record (raises on error).
+import_statuss = client.ImportStatus.list({ "database_id" => 1 })
+import_statuss.each { |item| puts item.data_get }
 ```
 
 #### Example: Create
@@ -550,8 +558,9 @@ metadata = client.Metadata.load({ "id" => "metadata_id", "database_id" => 1 })
 #### Example: List
 
 ```ruby
-# list returns an Array of Metadata records (raises on error).
-metadatas = client.Metadata.list
+# list returns an Array of Metadata entities, one per record (raises on error).
+metadatas = client.Metadata.list({ "database_id" => 1 })
+metadatas.each { |item| puts item.data_get }
 ```
 
 #### Example: Create
@@ -659,8 +668,9 @@ permission_database = client.PermissionDatabase.load({ "id" => "permission_datab
 #### Example: List
 
 ```ruby
-# list returns an Array of PermissionDatabase records (raises on error).
+# list returns an Array of PermissionDatabase entities, one per record (raises on error).
 permission_databases = client.PermissionDatabase.list
+permission_databases.each { |item| puts item.data_get }
 ```
 
 ## Features
@@ -880,15 +890,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-importstatus = client.ImportStatus
-importstatus.list()
+flatpermission = client.FlatPermission
+flatpermission.load({ "database_id" => 1, "id" => "example_id" })
 
-# importstatus.data_get now returns the importstatus data from the last list
-# importstatus.match_get returns the last match criteria
+# flatpermission.data_get now returns the flatpermission data from the last load
+# flatpermission.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

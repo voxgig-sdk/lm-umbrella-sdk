@@ -154,11 +154,12 @@ class PermissionEntity extends LmUmbrellaEntityBase<Permission> {
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<Permission> return stays clean under strict null checks.
+        // Promise<PermissionEntity> return stays clean under strict null checks.
         return undefined as any
       }
     }
   }
+
 
 
 

@@ -122,6 +122,18 @@ main: kit: entity: paginated_permission_list: {
       name: "create"
       points: [
         {
+          bf: [
+            "ascending"
+            "endRow"
+            "groups"
+            "metadata"
+            "msisdnList"
+            "onlyActive"
+            "quickFilterText"
+            "sort"
+            "sources"
+            "startRow"
+          ]
           co: {
             id: "POST /public/database/{id}/permission/paged/list"
             source: "openapi3"
@@ -151,7 +163,6 @@ main: kit: entity: paginated_permission_list: {
           o: "/public/database/{id}/permission/paged/list"
           q: {
             exist: [
-              "api_key"
               "database_id"
             ]
           }
@@ -159,6 +170,10 @@ main: kit: entity: paginated_permission_list: {
             param: {
               id: "database_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

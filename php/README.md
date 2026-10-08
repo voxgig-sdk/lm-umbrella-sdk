@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -67,7 +67,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $importstatuss = $client->ImportStatus()->list();
+    $flatpermission = $client->FlatPermission()->load(["database_id" => 1, "id" => "example_id"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -139,7 +139,7 @@ data via the `entity` option so offline calls resolve without a live server:
 
 ```php
 $client = LmUmbrellaSDK::test([
-    "entity" => ["permissiondatabase" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["permission_database" => ["test01" => ["id" => "test01"]]],
 ]);
 
 // list() returns entity instances (throws on error);
@@ -241,11 +241,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
-| `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
-| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
+| `create` | `($reqdata, $ctrl): mixed` | Create a new entity, and return it. |
+| `update` | `($reqdata, $ctrl): mixed` | Update an existing entity, and return it. |
+| `remove` | `($reqmatch, $ctrl): mixed` | Remove an entity, and return it marked as deleted. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -255,9 +255,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -316,6 +316,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | `errors` | Import errors (List of ImportError) |
 | `importId` | Import id |
 | `msisdn` |  |
+| `permissions` |  |
 | `permissionsInserted` | Number of permissions inserted into database |
 | `permissionsUpdated` | Number of permissions updated in database |
 | `status` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -469,8 +470,8 @@ Create an instance: `$flattened_permission = $client->FlattenedPermission();`
 #### Example: List
 
 ```php
-// list() returns an array of FlattenedPermission records (throws on error).
-$flattened_permissions = $client->FlattenedPermission()->list();
+// list() returns an array of FlattenedPermission entities, one per record (throws on error).
+$flattened_permissions = $client->FlattenedPermission()->list(["database_id" => 1]);
 ```
 
 #### Example: Create
@@ -501,6 +502,7 @@ Create an instance: `$import_status = $client->ImportStatus();`
 | `errors` | `array` | Import errors (List of ImportError) |
 | `importId` | `string` | Import id |
 | `msisdn` | `string` |  |
+| `permissions` | `array` |  |
 | `permissionsInserted` | `int` | Number of permissions inserted into database |
 | `permissionsUpdated` | `int` | Number of permissions updated in database |
 | `status` | `string` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -508,8 +510,8 @@ Create an instance: `$import_status = $client->ImportStatus();`
 #### Example: List
 
 ```php
-// list() returns an array of ImportStatus records (throws on error).
-$import_statuss = $client->ImportStatus()->list();
+// list() returns an array of ImportStatus entities, one per record (throws on error).
+$import_statuss = $client->ImportStatus()->list(["database_id" => 1]);
 ```
 
 #### Example: Create
@@ -559,8 +561,8 @@ $metadata = $client->Metadata()->load(["id" => "metadata_id", "database_id" => 1
 #### Example: List
 
 ```php
-// list() returns an array of Metadata records (throws on error).
-$metadatas = $client->Metadata()->list();
+// list() returns an array of Metadata entities, one per record (throws on error).
+$metadatas = $client->Metadata()->list(["database_id" => 1]);
 ```
 
 #### Example: Create
@@ -668,7 +670,7 @@ $permission_database = $client->PermissionDatabase()->load(["id" => "permission_
 #### Example: List
 
 ```php
-// list() returns an array of PermissionDatabase records (throws on error).
+// list() returns an array of PermissionDatabase entities, one per record (throws on error).
 $permission_databases = $client->PermissionDatabase()->list();
 ```
 
@@ -889,15 +891,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$importstatus = $client->ImportStatus();
-$importstatus->list();
+$flatpermission = $client->FlatPermission();
+$flatpermission->load(["database_id" => 1, "id" => "example_id"]);
 
-// $importstatus->data_get() now returns the importstatus data from the last list
-// $importstatus->match_get() returns the last match criteria
+// $flatpermission->data_get() now returns the flatpermission data from the last load
+// $flatpermission->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

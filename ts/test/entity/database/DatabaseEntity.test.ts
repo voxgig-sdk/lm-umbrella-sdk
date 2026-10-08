@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { LmUmbrellaSDK, BaseFeature, stdutil } from '../../..'
+import { LmUmbrellaSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('DatabaseEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = LmUmbrellaSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Database().remove({"database_id":"x","id":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.LM_UMBRELLA_TEST_LIVE
@@ -51,7 +63,7 @@ describe('DatabaseEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":0}},"id":{"field":"id","name":"id"},"name":"database","op":{"remove":{"input":"data","name":"remove","points":[{"a":true,"co":{"id":"DELETE /public/database/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"Database ID","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"DELETE","o":"/public/database/{id}","q":{"exist":["api_key","database_id","id"]},"r":{},"s":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"remove"}},"relations":{"ancestors":[]},"key$":"database","name__orig":"database","Name":"Database","name_":"database","name-":"database","NAME":"DATABASE","index$":0}, {"active":true,"entity":"database","key$":"BasicDatabaseFlow","kind":"basic","name":"BasicDatabaseFlow","param":{},"step":[]}, 'Database', {"DELETE /public/database/{id}":{"protocol":"http","parameters":[{"name":"Database ID","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":0}},"id":{"field":"id","name":"id"},"name":"database","op":{"remove":{"input":"data","name":"remove","points":[{"a":true,"co":{"id":"DELETE /public/database/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"Database ID","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"DELETE","o":"/public/database/{id}","q":{"exist":["database_id","id"]},"r":{},"s":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"remove"}},"relations":{"ancestors":[]},"key$":"database","name__orig":"database","Name":"Database","name_":"database","name-":"database","NAME":"DATABASE","index$":0}, {"active":true,"entity":"database","key$":"BasicDatabaseFlow","kind":"basic","name":"BasicDatabaseFlow","param":{},"step":[]}, 'Database', {"DELETE /public/database/{id}":{"protocol":"http","parameters":[{"name":"Database ID","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -65,6 +77,12 @@ describe('DatabaseEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

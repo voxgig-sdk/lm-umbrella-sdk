@@ -146,11 +146,12 @@ class PaginatedPermissionListEntity extends LmUmbrellaEntityBase<PaginatedPermis
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<PaginatedPermissionList> return stays clean under strict null checks.
+        // Promise<PaginatedPermissionListEntity> return stays clean under strict null checks.
         return undefined as any
       }
     }
   }
+
 
 
 

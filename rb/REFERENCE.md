@@ -128,7 +128,7 @@ database = client.Database
 
 #### `remove(reqmatch, ctrl = nil) -> result`
 
-Remove the entity matching the given criteria. Raises on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and raises on error.
 
 ```ruby
 result = client.Database.remove({ "database_id" => 1, "id" => "id" })
@@ -182,7 +182,7 @@ flat_permission = client.FlatPermission
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.FlatPermission.load({ "id" => "flat_permission_id", "database_id" => 1 })
@@ -238,7 +238,7 @@ flattened_permission = client.FlattenedPermission
 
 #### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data. Raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```ruby
 result = client.FlattenedPermission.create({
@@ -249,10 +249,11 @@ result = client.FlattenedPermission.create({
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.FlattenedPermission.list
+results = client.FlattenedPermission.list({ "database_id" => 1 })
+results.each { |item| puts item.data_get }
 ```
 
 ### Common Methods
@@ -298,6 +299,7 @@ import_status = client.ImportStatus
 | `errors` | `Array` | No | Import errors (List of ImportError) |
 | `importId` | `String` | No | Import id |
 | `msisdn` | `String` | No |  |
+| `permissions` | `Array` | No |  |
 | `permissionsInserted` | `Integer` | No | Number of permissions inserted into database |
 | `permissionsUpdated` | `Integer` | No | Number of permissions updated in database |
 | `status` | `String` | No | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -306,7 +308,7 @@ import_status = client.ImportStatus
 
 #### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data. Raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```ruby
 result = client.ImportStatus.create({
@@ -316,10 +318,11 @@ result = client.ImportStatus.create({
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.ImportStatus.list
+results = client.ImportStatus.list({ "database_id" => 1 })
+results.each { |item| puts item.data_get }
 ```
 
 ### Common Methods
@@ -376,7 +379,7 @@ metadata = client.Metadata
 
 #### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data. Raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```ruby
 result = client.Metadata.create({
@@ -386,15 +389,16 @@ result = client.Metadata.create({
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.Metadata.list
+results = client.Metadata.list({ "database_id" => 1 })
+results.each { |item| puts item.data_get }
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.Metadata.load({ "id" => "metadata_id", "database_id" => 1 })
@@ -402,7 +406,7 @@ result = client.Metadata.load({ "id" => "metadata_id", "database_id" => 1 })
 
 #### `remove(reqmatch, ctrl = nil) -> result`
 
-Remove the entity matching the given criteria. Raises on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and raises on error.
 
 ```ruby
 result = client.Metadata.remove({ "id" => "metadata_id", "database_id" => 1 })
@@ -410,7 +414,7 @@ result = client.Metadata.remove({ "id" => "metadata_id", "database_id" => 1 })
 
 #### `update(reqdata, ctrl = nil) -> result`
 
-Update an existing entity. The data must include the entity `id`. Raises on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and raises on error.
 
 ```ruby
 result = client.Metadata.update({
@@ -481,7 +485,7 @@ paginated_permission_list = client.PaginatedPermissionList
 
 #### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data. Raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```ruby
 result = client.PaginatedPermissionList.create({
@@ -537,7 +541,7 @@ permission = client.Permission
 
 #### `remove(reqmatch, ctrl = nil) -> result`
 
-Remove the entity matching the given criteria. Raises on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and raises on error.
 
 ```ruby
 result = client.Permission.remove({ "database_id" => 1 })
@@ -545,7 +549,7 @@ result = client.Permission.remove({ "database_id" => 1 })
 
 #### `update(reqdata, ctrl = nil) -> result`
 
-Update an existing entity. The data must include the entity `id`. Raises on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and raises on error.
 
 ```ruby
 result = client.Permission.update({
@@ -609,15 +613,16 @@ permission_database = client.PermissionDatabase
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
 results = client.PermissionDatabase.list
+results.each { |item| puts item.data_get }
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.PermissionDatabase.load({ "id" => "permission_database_id", "database_id" => 1 })
@@ -625,7 +630,7 @@ result = client.PermissionDatabase.load({ "id" => "permission_database_id", "dat
 
 #### `update(reqdata, ctrl = nil) -> result`
 
-Update an existing entity. The data must include the entity `id`. Raises on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and raises on error.
 
 ```ruby
 result = client.PermissionDatabase.update({
@@ -955,6 +960,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

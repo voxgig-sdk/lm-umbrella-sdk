@@ -150,6 +150,9 @@ FlattenedPermissionCreateData = Struct.new(
 # @!attribute [rw] msisdn
 #   @return [String, nil]
 #
+# @!attribute [rw] permissions
+#   @return [Array, nil]
+#
 # @!attribute [rw] permissionsInserted
 #   @return [Integer, nil]
 #
@@ -162,6 +165,7 @@ ImportStatus = Struct.new(
   :errors,
   :importId,
   :msisdn,
+  :permissions,
   :permissionsInserted,
   :permissionsUpdated,
   :status,
@@ -205,6 +209,9 @@ ImportStatusListMatch = Struct.new(
 # @!attribute [rw] msisdn
 #   @return [String, nil]
 #
+# @!attribute [rw] permissions
+#   @return [Array, nil]
+#
 # @!attribute [rw] permissionsInserted
 #   @return [Integer, nil]
 #
@@ -220,6 +227,7 @@ ImportStatusCreateData = Struct.new(
   :errors,
   :importId,
   :msisdn,
+  :permissions,
   :permissionsInserted,
   :permissionsUpdated,
   :status,

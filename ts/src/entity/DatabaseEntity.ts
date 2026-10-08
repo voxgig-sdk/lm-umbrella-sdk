@@ -39,6 +39,7 @@ class DatabaseEntity extends LmUmbrellaEntityBase<Database> {
 
 
 
+
   async remove(
     this: any, reqmatch?: DatabaseRemoveMatch, ctrl?: Control,
   ): Promise<DatabaseEntity> {

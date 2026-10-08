@@ -127,7 +127,7 @@ $database = $client->Database();
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria. Throws on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
 $result = $client->Database()->remove(["database_id" => 1, "id" => "id"]);
@@ -181,7 +181,7 @@ $flat_permission = $client->FlatPermission();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->FlatPermission()->load(["id" => "flat_permission_id", "database_id" => 1]);
@@ -237,7 +237,7 @@ $flattened_permission = $client->FlattenedPermission();
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->FlattenedPermission()->create([
@@ -248,10 +248,10 @@ $result = $client->FlattenedPermission()->create([
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->FlattenedPermission()->list();
+$results = $client->FlattenedPermission()->list(["database_id" => 1]);
 ```
 
 ### Common Methods
@@ -297,6 +297,7 @@ $import_status = $client->ImportStatus();
 | `errors` | `array` | No | Import errors (List of ImportError) |
 | `importId` | `string` | No | Import id |
 | `msisdn` | `string` | No |  |
+| `permissions` | `array` | No |  |
 | `permissionsInserted` | `int` | No | Number of permissions inserted into database |
 | `permissionsUpdated` | `int` | No | Number of permissions updated in database |
 | `status` | `string` | No | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -305,7 +306,7 @@ $import_status = $client->ImportStatus();
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->ImportStatus()->create([
@@ -315,10 +316,10 @@ $result = $client->ImportStatus()->create([
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->ImportStatus()->list();
+$results = $client->ImportStatus()->list(["database_id" => 1]);
 ```
 
 ### Common Methods
@@ -375,7 +376,7 @@ $metadata = $client->Metadata();
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Metadata()->create([
@@ -385,15 +386,15 @@ $result = $client->Metadata()->create([
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->Metadata()->list();
+$results = $client->Metadata()->list(["database_id" => 1]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Metadata()->load(["id" => "metadata_id", "database_id" => 1]);
@@ -401,7 +402,7 @@ $result = $client->Metadata()->load(["id" => "metadata_id", "database_id" => 1])
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria. Throws on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
 $result = $client->Metadata()->remove(["id" => "metadata_id", "database_id" => 1]);
@@ -409,7 +410,7 @@ $result = $client->Metadata()->remove(["id" => "metadata_id", "database_id" => 1
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->Metadata()->update([
@@ -480,7 +481,7 @@ $paginated_permission_list = $client->PaginatedPermissionList();
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->PaginatedPermissionList()->create([
@@ -536,7 +537,7 @@ $permission = $client->Permission();
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria. Throws on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
 $result = $client->Permission()->remove(["database_id" => 1]);
@@ -544,7 +545,7 @@ $result = $client->Permission()->remove(["database_id" => 1]);
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->Permission()->update([
@@ -608,7 +609,7 @@ $permission_database = $client->PermissionDatabase();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
 $results = $client->PermissionDatabase()->list();
@@ -616,7 +617,7 @@ $results = $client->PermissionDatabase()->list();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->PermissionDatabase()->load(["id" => "permission_database_id", "database_id" => 1]);
@@ -624,7 +625,7 @@ $result = $client->PermissionDatabase()->load(["id" => "permission_database_id",
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`. Throws on error.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity and throws on error.
 
 ```php
 $result = $client->PermissionDatabase()->update([
@@ -954,6 +955,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

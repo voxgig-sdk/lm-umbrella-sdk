@@ -16,7 +16,7 @@ go get github.com/voxgig-sdk/lm-umbrella-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases) for the available versions.
+release tag — see [Tags](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
@@ -35,9 +35,10 @@ loading a specific record.
 ### Quickstart
 
 A complete program: create a client, then call the entity operations.
-Each operation returns `(value, error)` — the value is the data itself
-(there is no `{ok, data}` wrapper), so check `err` and use the value
-directly.
+Each operation returns `(value, error)` — the value is the entity, and for
+`List` a `[]any` of entities, one per record (there is no `{ok, data}`
+wrapper), so check `err` and read a record through the entity's
+`Data()`.
 
 ```go
 package main
@@ -58,7 +59,7 @@ func main() {
     if err != nil {
         panic(err)
     }
-    fmt.Println(removed)
+    fmt.Println(removed.(sdk.Entity).Data())
 }
 ```
 
@@ -69,12 +70,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-importstatuss, err := client.ImportStatus(nil).List(nil, nil)
+flatpermission, err := client.FlatPermission(nil).Load(map[string]any{"database_id": 1, "id": "example_id"}, nil)
 if err != nil {
     // handle err
     return
 }
-_ = importstatuss
+_ = flatpermission
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -138,13 +139,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-importStatus, err := client.ImportStatus(nil).List(
-    nil, nil,
+flatPermission, err := client.FlatPermission(nil).Load(
+    map[string]any{"id": "test01", "database_id": 1}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(importStatus) // the returned mock data
+fmt.Println(flatPermission.(sdk.Entity).Data()) // the entity's mock record
 ```
 
 ### Use a custom fetch function
@@ -238,11 +239,11 @@ All entities implement the `LmUmbrellaEntity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
-| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
-| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
+| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria, and return it. |
+| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria, one per record. |
+| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity, and return it. |
+| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity, and return it. |
+| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity, and return it marked as deleted. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -250,13 +251,13 @@ All entities implement the `LmUmbrellaEntity` interface.
 
 ### Result shape
 
-Entity operations return `(value, error)`. The `value` is the
-operation's data **directly** — there is no wrapper:
+Entity operations return `(value, error)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
-| `List` | a `[]any` of entity records |
+| `Load` / `Create` / `Update` / `Remove` | the entity, whose `Data()` reads its record (`map[string]any`) |
+| `List` | a `[]any` of entities, one per record |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
@@ -264,7 +265,7 @@ slice):
 
     database, err := client.Database(nil).Remove(nil, nil)
     if err != nil { /* handle */ }
-    // database is the returned record
+    // database is the entity; database.(sdk.Entity).Data() reads its record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -314,6 +315,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | `"errors"` | Import errors (List of ImportError) |
 | `"importId"` | Import id |
 | `"msisdn"` |  |
+| `"permissions"` |  |
 | `"permissionsInserted"` | Number of permissions inserted into database |
 | `"permissionsUpdated"` | Number of permissions updated in database |
 | `"status"` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -442,7 +444,7 @@ flatPermission, err := client.FlatPermission(nil).Load(map[string]any{"id": "fla
 if err != nil {
     panic(err)
 }
-fmt.Println(flatPermission) // the loaded record
+fmt.Println(flatPermission.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -470,11 +472,14 @@ Create an instance: `flattenedPermission := client.FlattenedPermission(nil)`
 #### Example: List
 
 ```go
-flattenedPermissions, err := client.FlattenedPermission(nil).List(nil, nil)
+flattenedPermissions, err := client.FlattenedPermission(nil).List(map[string]any{"database_id": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(flattenedPermissions) // the array of records
+// A []any of entities, one per record.
+for _, item := range flattenedPermissions.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -487,7 +492,7 @@ result, err := client.FlattenedPermission(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -509,6 +514,7 @@ Create an instance: `importStatus := client.ImportStatus(nil)`
 | `errors` | `[]any` | Import errors (List of ImportError) |
 | `importId` | `string` | Import id |
 | `msisdn` | `string` |  |
+| `permissions` | `[]any` |  |
 | `permissionsInserted` | `int` | Number of permissions inserted into database |
 | `permissionsUpdated` | `int` | Number of permissions updated in database |
 | `status` | `string` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -516,11 +522,14 @@ Create an instance: `importStatus := client.ImportStatus(nil)`
 #### Example: List
 
 ```go
-importStatuss, err := client.ImportStatus(nil).List(nil, nil)
+importStatuss, err := client.ImportStatus(nil).List(map[string]any{"database_id": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(importStatuss) // the array of records
+// A []any of entities, one per record.
+for _, item := range importStatuss.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -532,7 +541,7 @@ result, err := client.ImportStatus(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -571,17 +580,20 @@ metadata, err := client.Metadata(nil).Load(map[string]any{"id": "metadata_id", "
 if err != nil {
     panic(err)
 }
-fmt.Println(metadata) // the loaded record
+fmt.Println(metadata.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
 
 ```go
-metadatas, err := client.Metadata(nil).List(nil, nil)
+metadatas, err := client.Metadata(nil).List(map[string]any{"database_id": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(metadatas) // the array of records
+// A []any of entities, one per record.
+for _, item := range metadatas.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -593,7 +605,7 @@ result, err := client.Metadata(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -637,7 +649,7 @@ result, err := client.PaginatedPermissionList(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -694,7 +706,7 @@ permissionDatabase, err := client.PermissionDatabase(nil).Load(map[string]any{"i
 if err != nil {
     panic(err)
 }
-fmt.Println(permissionDatabase) // the loaded record
+fmt.Println(permissionDatabase.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
@@ -704,7 +716,10 @@ permissionDatabases, err := client.PermissionDatabase(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(permissionDatabases) // the array of records
+// A []any of entities, one per record.
+for _, item := range permissionDatabases.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ## Features
@@ -900,7 +915,9 @@ The Go SDK uses `map[string]any` throughout rather than typed structs.
 This mirrors the dynamic nature of the API and keeps the SDK
 flexible — no code generation is needed when the API schema changes.
 
-Use `core.ToMapAny()` to safely cast results and nested data.
+An operation returns the entity, and its `Data()` returns the record. Use
+`core.ToMapAny()` to safely cast that record, or data nested in it, to
+`map[string]any`: it returns `nil` for anything else, an entity included.
 
 ### Package structure
 
@@ -920,15 +937,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `List`, the entity
+Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-importstatus := client.ImportStatus(nil)
-importstatus.List(nil, nil)
+flatpermission := client.FlatPermission(nil)
+flatpermission.Load(map[string]any{"database_id": 1, "id": "example_id"}, nil)
 
-// importstatus.Data() now returns the importstatus data from the last list
-// importstatus.Match() returns the last match criteria
+// flatpermission.Data() now returns the flatpermission data from the last load
+// flatpermission.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

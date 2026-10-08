@@ -77,6 +77,7 @@ class ImportStatus(TypedDict, total=False):
     errors: list
     importId: str
     msisdn: str
+    permissions: list
     permissionsInserted: int
     permissionsUpdated: int
     status: str
@@ -101,6 +102,7 @@ class ImportStatusCreateData(ImportStatusCreateDataRequired, total=False):
     errors: list
     importId: str
     msisdn: str
+    permissions: list
     permissionsInserted: int
     permissionsUpdated: int
     status: str

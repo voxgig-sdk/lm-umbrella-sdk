@@ -86,6 +86,16 @@ main: kit: entity: metadata: {
       name: "create"
       points: [
         {
+          bf: [
+            "contents"
+            "created"
+            "databaseId"
+            "key"
+            "label"
+            "multiValue"
+            "type"
+            "updated"
+          ]
           co: {
             id: "POST /public/database/{id}/metadata"
             source: "openapi3"
@@ -115,7 +125,6 @@ main: kit: entity: metadata: {
           o: "/public/database/{id}/metadata"
           q: {
             exist: [
-              "api_key"
               "database_id"
             ]
           }
@@ -123,6 +132,10 @@ main: kit: entity: metadata: {
             param: {
               id: "database_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -178,7 +191,6 @@ main: kit: entity: metadata: {
           o: "/public/database/{id}/metadata"
           q: {
             exist: [
-              "api_key"
               "database_id"
             ]
           }
@@ -186,6 +198,10 @@ main: kit: entity: metadata: {
             param: {
               id: "database_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -248,7 +264,6 @@ main: kit: entity: metadata: {
           o: "/public/database/{id}/metadata/{key}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]
@@ -258,6 +273,10 @@ main: kit: entity: metadata: {
               id: "database_id"
               key: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -323,7 +342,6 @@ main: kit: entity: metadata: {
           o: "/public/database/{id}/metadata/{key}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]
@@ -362,6 +380,16 @@ main: kit: entity: metadata: {
       name: "update"
       points: [
         {
+          bf: [
+            "contents"
+            "created"
+            "databaseId"
+            "key"
+            "label"
+            "multiValue"
+            "type"
+            "updated"
+          ]
           co: {
             id: "PUT /public/database/{id}/metadata/{key}"
             source: "openapi3"
@@ -398,7 +426,6 @@ main: kit: entity: metadata: {
           o: "/public/database/{id}/metadata/{key}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]
@@ -408,6 +435,10 @@ main: kit: entity: metadata: {
               id: "database_id"
               key: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -48,6 +48,7 @@
 ---@field errors? table
 ---@field importId? string
 ---@field msisdn? string
+---@field permissions? table
 ---@field permissionsInserted? number
 ---@field permissionsUpdated? number
 ---@field status? string
@@ -64,6 +65,7 @@
 ---@field errors? table
 ---@field importId? string
 ---@field msisdn? string
+---@field permissions? table
 ---@field permissionsInserted? number
 ---@field permissionsUpdated? number
 ---@field status? string

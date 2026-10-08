@@ -125,7 +125,7 @@ local database = client:Database(nil)
 
 #### `remove(reqmatch, ctrl) -> any, err`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Database():remove({ database_id = 1, id = "id" })
@@ -179,7 +179,7 @@ local flat_permission = client:FlatPermission(nil)
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:FlatPermission():load({ id = "flat_permission_id", database_id = 1 })
@@ -235,7 +235,7 @@ local flattened_permission = client:FlattenedPermission(nil)
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:FlattenedPermission():create({
@@ -246,10 +246,10 @@ local result, err = client:FlattenedPermission():create({
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:FlattenedPermission():list()
+local results, err = client:FlattenedPermission():list({ database_id = 1 })
 ```
 
 ### Common Methods
@@ -295,6 +295,7 @@ local import_status = client:ImportStatus(nil)
 | `errors` | `table` | No | Import errors (List of ImportError) |
 | `importId` | `string` | No | Import id |
 | `msisdn` | `string` | No |  |
+| `permissions` | `table` | No |  |
 | `permissionsInserted` | `number` | No | Number of permissions inserted into database |
 | `permissionsUpdated` | `number` | No | Number of permissions updated in database |
 | `status` | `string` | No | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -303,7 +304,7 @@ local import_status = client:ImportStatus(nil)
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:ImportStatus():create({
@@ -313,10 +314,10 @@ local result, err = client:ImportStatus():create({
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:ImportStatus():list()
+local results, err = client:ImportStatus():list({ database_id = 1 })
 ```
 
 ### Common Methods
@@ -373,7 +374,7 @@ local metadata = client:Metadata(nil)
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Metadata():create({
@@ -383,15 +384,15 @@ local result, err = client:Metadata():create({
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
-local results, err = client:Metadata():list()
+local results, err = client:Metadata():list({ database_id = 1 })
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Metadata():load({ id = "metadata_id", database_id = 1 })
@@ -399,7 +400,7 @@ local result, err = client:Metadata():load({ id = "metadata_id", database_id = 1
 
 #### `remove(reqmatch, ctrl) -> any, err`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Metadata():remove({ id = "metadata_id", database_id = 1 })
@@ -407,7 +408,7 @@ local result, err = client:Metadata():remove({ id = "metadata_id", database_id =
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Metadata():update({
@@ -478,7 +479,7 @@ local paginated_permission_list = client:PaginatedPermissionList(nil)
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:PaginatedPermissionList():create({
@@ -534,7 +535,7 @@ local permission = client:Permission(nil)
 
 #### `remove(reqmatch, ctrl) -> any, err`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Permission():remove({ database_id = 1 })
@@ -542,7 +543,7 @@ local result, err = client:Permission():remove({ database_id = 1 })
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:Permission():update({
@@ -606,7 +607,7 @@ local permission_database = client:PermissionDatabase(nil)
 
 #### `list(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array of entities, one per record, or `nil` and an error on failure.
 
 ```lua
 local results, err = client:PermissionDatabase():list()
@@ -614,7 +615,7 @@ local results, err = client:PermissionDatabase():list()
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:PermissionDatabase():load({ id = "permission_database_id", database_id = 1 })
@@ -622,7 +623,7 @@ local result, err = client:PermissionDatabase():load({ id = "permission_database
 
 #### `update(reqdata, ctrl) -> any, err`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:PermissionDatabase():update({
@@ -952,6 +953,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

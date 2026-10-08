@@ -146,38 +146,12 @@ class DatabaseEntity
       end
       begin
         catch(:stream_stop) do
-          utility.feature_hook.call(ctx, "PrePoint")
-          point, err = utility.make_point.call(ctx)
-          ctx.out["point"] = point
-          throw :stream_stop if err
-
-          utility.feature_hook.call(ctx, "PreSpec")
-          spec, err = utility.make_spec.call(ctx)
-          ctx.out["spec"] = spec
-          throw :stream_stop if err
-
-          utility.feature_hook.call(ctx, "PreRequest")
-          resp, err = utility.make_request.call(ctx)
-          ctx.out["request"] = resp
-          throw :stream_stop if err
-
-          utility.feature_hook.call(ctx, "PreResponse")
-          resp2, err = utility.make_response.call(ctx)
-          ctx.out["response"] = resp2
-          throw :stream_stop if err
-
-          utility.feature_hook.call(ctx, "PreResult")
-          result, err = utility.make_result.call(ctx)
-          ctx.out["result"] = result
-          throw :stream_stop if err
-
-          utility.feature_hook.call(ctx, "PreDone")
-
+          failed = _stream_steps(ctx)
           result = ctx.result
 
           # Inbound: prefer the streaming feature's incremental Enumerator;
           # else fall back to the materialised items so stream always yields.
-          stream_enum = result ? result.stream : nil
+          stream_enum = failed.nil? && result ? result.stream : nil
           if stream_enum
             # done does not run on this path, so its record is cleaned here.
             utility.clean_explain.call(ctx)
@@ -186,7 +160,8 @@ class DatabaseEntity
               give.call(item)
             end
           else
-            data = utility.done.call(ctx)
+            # A failed step leaves through make_error, as an operation's does.
+            data = failed.nil? ? utility.done.call(ctx) : utility.make_error.call(ctx, failed)
             items = data.is_a?(Array) ? data : (data.nil? ? [] : [data])
             items.each do |item|
               throw :stream_stop if aborted.call
@@ -197,11 +172,56 @@ class DatabaseEntity
       rescue StandardError => operr
         raise if inblock
         ctx.ctrl.err = operr
+
+        # What a hook raises here must not escape the cleaning below.
+        begin
+          utility.feature_hook.call(ctx, "PreUnexpected")
+        rescue StandardError => hookerr
+          operr = hookerr
+          ctx.ctrl.err = operr
+        end
+
         e = _unexpected(ctx, operr)
         raise e, cause: nil unless e.nil?
       end
     end
   end
+
+  # The steps an operation runs, with their hooks; the first that fails hands
+  # back its error.
+  private def _stream_steps(ctx)
+    utility = @_utility
+
+    utility.feature_hook.call(ctx, "PrePoint")
+    point, err = utility.make_point.call(ctx)
+    ctx.out["point"] = point
+    return err if err
+
+    utility.feature_hook.call(ctx, "PreSpec")
+    spec, err = utility.make_spec.call(ctx)
+    ctx.out["spec"] = spec
+    return err if err
+
+    utility.feature_hook.call(ctx, "PreRequest")
+    resp, err = utility.make_request.call(ctx)
+    ctx.out["request"] = resp
+    return err if err
+
+    utility.feature_hook.call(ctx, "PreResponse")
+    resp2, err = utility.make_response.call(ctx)
+    ctx.out["response"] = resp2
+    return err if err
+
+    utility.feature_hook.call(ctx, "PreResult")
+    result, err = utility.make_result.call(ctx)
+    ctx.out["result"] = result
+    return err if err
+
+    utility.feature_hook.call(ctx, "PreDone")
+    nil
+  end
+
+  
 
   
 
@@ -216,7 +236,8 @@ class DatabaseEntity
   #
   # @param reqmatch [DatabaseRemoveMatch, Hash, nil] match criteria (id/query fields)
   # @param ctrl [Object, nil] optional per-call control
-  # @return [Database, Hash] the removed Database; raises LmUmbrellaError on failure
+  # @return [DatabaseEntity] the removed Database entity, marked as deleted; raises
+  #   LmUmbrellaError on failure
   def remove(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

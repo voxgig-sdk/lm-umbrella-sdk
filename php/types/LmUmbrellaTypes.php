@@ -77,6 +77,7 @@ class ImportStatus
     public ?array $errors = null;
     public ?string $importId = null;
     public ?string $msisdn = null;
+    public ?array $permissions = null;
     public ?int $permissionsInserted = null;
     public ?int $permissionsUpdated = null;
     public ?string $status = null;
@@ -99,6 +100,7 @@ class ImportStatusCreateData
     public ?array $errors = null;
     public ?string $importId = null;
     public ?string $msisdn = null;
+    public ?array $permissions = null;
     public ?int $permissionsInserted = null;
     public ?int $permissionsUpdated = null;
     public ?string $status = null;

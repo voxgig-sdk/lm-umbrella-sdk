@@ -98,7 +98,7 @@ class PermissionDatabaseEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBa
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<PermissionDatabase> return stays clean under strict null checks.
+                // Promise<PermissionDatabaseEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }
@@ -185,7 +185,7 @@ class PermissionDatabaseEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBa
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<PermissionDatabase[]> return stays clean under strict null checks.
+                // Promise<PermissionDatabaseEntity[]> return stays clean under strict null checks.
                 return undefined;
             }
         }
@@ -276,7 +276,7 @@ class PermissionDatabaseEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBa
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<PermissionDatabase> return stays clean under strict null checks.
+                // Promise<PermissionDatabaseEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }

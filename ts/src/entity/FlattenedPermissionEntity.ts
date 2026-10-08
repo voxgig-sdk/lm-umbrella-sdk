@@ -145,7 +145,7 @@ class FlattenedPermissionEntity extends LmUmbrellaEntityBase<FlattenedPermission
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<FlattenedPermission[]> return stays clean under strict null checks.
+        // Promise<FlattenedPermissionEntity[]> return stays clean under strict null checks.
         return undefined as any
       }
     }
@@ -262,11 +262,12 @@ class FlattenedPermissionEntity extends LmUmbrellaEntityBase<FlattenedPermission
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<FlattenedPermission> return stays clean under strict null checks.
+        // Promise<FlattenedPermissionEntity> return stays clean under strict null checks.
         return undefined as any
       }
     }
   }
+
 
 
 

@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { LmUmbrellaSDK, BaseFeature, stdutil } from '../../..'
+import { LmUmbrellaSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,29 @@ describe('FlattenedPermissionEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = LmUmbrellaSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.FlattenedPermission().list({"database_id":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.LM_UMBRELLA_TEST_LIVE
-    for (const op of ['create', 'list']) {
+    for (const op of ['list']) {
       if (!live && maybeSkipControl(t, 'entityOp', 'flattened_permission.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"active":{"a":true,"h":"Active","n":"active","r":false,"sh":"if permission is active in the database","t":"`$BOOLEAN`","key$":"active","index$":0},"empty":{"a":true,"h":"Empty","n":"empty","r":false,"t":"`$BOOLEAN`","key$":"empty","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":2},"msisdn":{"a":true,"h":"Msisdn","n":"msisdn","r":false,"sh":"phone number","t":"`$STRING`","key$":"msisdn","index$":3},"source":{"a":true,"h":"Source","n":"source","r":false,"sh":"comma separated list of sources","t":"`$STRING`","key$":"source","index$":4}},"id":{"field":"id","name":"id"},"name":"flattened_permission","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /public/database/{id}/permission/{msisdn}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"id","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"msisdn","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"POST","o":"/public/database/{id}/permission/{msisdn}","q":{"exist":["api_key","database_id","id"]},"r":{"param":{"id":"database_id","msisdn":"id"}},"s":[{"lit":"public"},{"lit":"database"},{"var":"database_id"},{"lit":"permission"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /public/database/{id}/permission/list","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"id","r":true,"t":"`$INTEGER`","index$":0}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/public/database/{id}/permission/list","q":{"exist":["api_key","database_id"]},"r":{"param":{"id":"database_id"}},"s":[{"lit":"public"},{"lit":"database"},{"var":"database_id"},{"lit":"permission"},{"lit":"list"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[["$.main.kit.entity.database"]]},"key$":"flattened_permission","name__orig":"flattened_permission","Name":"FlattenedPermission","name_":"flattened_permission","name-":"flattened-permission","NAME":"FLATTENED_PERMISSION","index$":2}, {"active":true,"entity":"flattened_permission","key$":"BasicFlattenedPermissionFlow","kind":"basic","name":"BasicFlattenedPermissionFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"flattened_permission_ref01"},"m":{"database_id":"database01","msisdn":"msisdn01"},"o":"create","s":[],"v":[],"index$":0},{"a":true,"d":{},"i":{},"m":{"database_id":"database01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"flattened_permission_ref01"}}],"index$":1}]}, 'FlattenedPermission', {"POST /public/database/{id}/permission/{msisdn}":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"type":"object","properties":{"msisdn":{"type":"string","key$":"msisdn"},"empty":{"type":"boolean","key$":"empty"}},"additionalProperties":{"type":"object"},"index$":1}}},"required":true},"parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"msisdn","in":"path","required":true,"schema":{"type":"string"},"index$":1},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":2}]},"GET /public/database/{id}/permission/list":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"active":{"a":true,"h":"Active","n":"active","r":false,"sh":"if permission is active in the database","t":"`$BOOLEAN`","key$":"active","index$":0},"empty":{"a":true,"h":"Empty","n":"empty","r":false,"t":"`$BOOLEAN`","key$":"empty","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":2},"msisdn":{"a":true,"h":"Msisdn","n":"msisdn","r":false,"sh":"phone number","t":"`$STRING`","key$":"msisdn","index$":3},"source":{"a":true,"h":"Source","n":"source","r":false,"sh":"comma separated list of sources","t":"`$STRING`","key$":"source","index$":4}},"id":{"field":"id","name":"id"},"name":"flattened_permission","op":{"create":{"input":"data","name":"create","points":[{"a":true,"bf":["empty","msisdn"],"co":{"id":"POST /public/database/{id}/permission/{msisdn}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"id","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"msisdn","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"POST","o":"/public/database/{id}/permission/{msisdn}","q":{"exist":["database_id","id"]},"r":{"param":{"id":"database_id","msisdn":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"public"},{"lit":"database"},{"var":"database_id"},{"lit":"permission"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /public/database/{id}/permission/list","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"id","r":true,"t":"`$INTEGER`","index$":0}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/public/database/{id}/permission/list","q":{"exist":["database_id"]},"r":{"param":{"id":"database_id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"public"},{"lit":"database"},{"var":"database_id"},{"lit":"permission"},{"lit":"list"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[["$.main.kit.entity.database"]]},"key$":"flattened_permission","name__orig":"flattened_permission","Name":"FlattenedPermission","name_":"flattened_permission","name-":"flattened-permission","NAME":"FLATTENED_PERMISSION","index$":2}, {"active":true,"entity":"flattened_permission","key$":"BasicFlattenedPermissionFlow","kind":"basic","name":"BasicFlattenedPermissionFlow","param":{},"step":[{"a":false,"d":{},"i":{"ref":"flattened_permission_ref01"},"m":{"database_id":"database01","msisdn":"msisdn01"},"o":"create","s":[],"v":[],"unreachable":true},{"a":true,"d":{},"i":{},"m":{"database_id":"database01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"flattened_permission_ref01"}}],"index$":0}]}, 'FlattenedPermission', {"POST /public/database/{id}/permission/{msisdn}":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"type":"object","properties":{"msisdn":{"type":"string","key$":"msisdn"},"empty":{"type":"boolean","key$":"empty"}},"additionalProperties":{"type":"object"},"index$":1}}},"required":true},"parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"msisdn","in":"path","required":true,"schema":{"type":"string"},"index$":1},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":2}]},"GET /public/database/{id}/permission/list":{"protocol":"http","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -59,30 +71,26 @@ describe('FlattenedPermissionEntity', async () => {
     const isempty = struct.isempty
     const select = struct.select
 
-
-    // CREATE
-    const flattened_permission_ref01_ent = client.FlattenedPermission()
-    let flattened_permission_ref01_data = setup.data.new.flattened_permission['flattened_permission_ref01']
-    flattened_permission_ref01_data['database_id'] = setup.idmap['database01']
-    flattened_permission_ref01_data['msisdn'] = setup.idmap['msisdn01']
-
-    flattened_permission_ref01_data = (await flattened_permission_ref01_ent.create(flattened_permission_ref01_data)).data()
-    assert(null != flattened_permission_ref01_data.id)
-
+    let flattened_permission_ref01_data = Object.values(setup.data.existing.flattened_permission)[0] as any
 
     // LIST
+    const flattened_permission_ref01_ent = client.FlattenedPermission()
     const flattened_permission_ref01_match: any = {}
     flattened_permission_ref01_match['database_id'] = setup.idmap['database01']
 
     const flattened_permission_ref01_list = (await flattened_permission_ref01_ent.list(flattened_permission_ref01_match)).map((e: any) => e.data())
-
-    assert(!isempty(select(flattened_permission_ref01_list, { id: flattened_permission_ref01_data.id })))
 
 
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options
@@ -107,7 +115,7 @@ function basicSetup(extra?: any) {
   const transform = struct.transform
 
   let idmap = transform(
-    ['flattened_permission01','flattened_permission02','flattened_permission03','database01','database02','database03','msisdn01'],
+    ['flattened_permission01','flattened_permission02','flattened_permission03','database01','database02','database03'],
     {
       '`$PACK`': ['', {
         '`$KEY`': '`$COPY`',

@@ -149,11 +149,12 @@ class FlatPermissionEntity extends LmUmbrellaEntityBase<FlatPermission> {
       }
       else {
         // Off-happy-path (throw disabled): typed as any so the method's
-        // Promise<FlatPermission> return stays clean under strict null checks.
+        // Promise<FlatPermissionEntity> return stays clean under strict null checks.
         return undefined as any
       }
     }
   }
+
 
 
 

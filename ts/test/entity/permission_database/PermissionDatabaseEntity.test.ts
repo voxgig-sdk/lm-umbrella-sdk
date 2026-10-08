@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { LmUmbrellaSDK, BaseFeature, stdutil } from '../../..'
+import { LmUmbrellaSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('PermissionDatabaseEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('permission_database hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of LmUmbrellaSDK.test(offline).PermissionDatabase().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of LmUmbrellaSDK.test(offline).PermissionDatabase()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = LmUmbrellaSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.PermissionDatabase().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of LmUmbrellaSDK.test().PermissionDatabase().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new LmUmbrellaSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.PermissionDatabase().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.PermissionDatabase().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = LmUmbrellaSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.PermissionDatabase().list({"api_key":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.LM_UMBRELLA_TEST_LIVE
@@ -51,7 +109,7 @@ describe('PermissionDatabaseEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"customerId":{"a":true,"fo":"int32","h":"Customer Id","n":"customerId","r":false,"t":"`$INTEGER`","key$":"customerId","index$":0},"deleteOnOptout":{"a":true,"h":"Delete On Optout","n":"deleteOnOptout","r":false,"t":"`$BOOLEAN`","key$":"deleteOnOptout","index$":1},"description":{"a":true,"h":"Description","n":"description","r":false,"t":"`$STRING`","key$":"description","index$":2},"hooks":{"a":true,"h":"Hooks","n":"hooks","r":false,"t":"`$ARRAY`","key$":"hooks","index$":3},"id":{"a":true,"fo":"int32","h":"Id","n":"id","r":false,"t":"`$INTEGER`","key$":"id","index$":4},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":5},"routes":{"a":true,"h":"Routes","n":"routes","r":false,"t":"`$ARRAY`","key$":"routes","index$":6},"senderAlias":{"a":true,"h":"Sender Alias","n":"senderAlias","r":false,"t":"`$STRING`","key$":"senderAlias","index$":7},"serviceId":{"a":true,"fo":"int32","h":"Service Id","n":"serviceId","r":false,"t":"`$INTEGER`","key$":"serviceId","index$":8}},"id":{"field":"id","name":"id"},"name":"permission_database","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /public/database/list","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/public/database/list","q":{"exist":["api_key"]},"r":{},"s":[{"lit":"public"},{"lit":"database"},{"lit":"list"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /public/database/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"Database ID","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/public/database/{id}","q":{"exist":["api_key","database_id","id"]},"r":{},"s":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"},"update":{"input":"data","name":"update","points":[{"a":true,"co":{"id":"PUT /public/database/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"Database ID","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"PUT","o":"/public/database/{id}","q":{"exist":["api_key","database_id","id"]},"r":{},"s":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"update"}},"relations":{"ancestors":[]},"key$":"permission_database","name__orig":"permission_database","Name":"PermissionDatabase","name_":"permission_database","name-":"permission-database","NAME":"PERMISSION_DATABASE","index$":7}, {"active":true,"entity":"permission_database","key$":"BasicPermissionDatabaseFlow","kind":"basic","name":"BasicPermissionDatabaseFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"permission_database_ref01"}}],"index$":0},{"a":true,"d":{"database_id":"database01"},"i":{"ref":"permission_database_ref01","srcdatavar":"permission_database_ref01_data","suffix":"_up0","textfield":"description"},"m":{},"o":"update","s":[{"apply":"TextFieldMark","def":{"mark":"Mark01-permission_database_ref01"}}],"v":[],"index$":1},{"a":true,"d":{},"i":{"ref":"permission_database_ref01","srcdatavar":"permission_database_ref01_data","suffix":"_dt0"},"m":{"database_id":"database01","id":"permission_database01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-permission_database_ref01"}}],"index$":2}]}, 'PermissionDatabase', {"GET /public/database/list":{"protocol":"http","parameters":[{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":0}]},"GET /public/database/{id}":{"protocol":"http","parameters":[{"name":"Database ID","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]},"PUT /public/database/{id}":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer","format":"int32","key$":"id"},"serviceId":{"type":"integer","format":"int32","key$":"serviceId"},"customerId":{"type":"integer","format":"int32","key$":"customerId"},"name":{"type":"string","key$":"name"},"description":{"type":"string","key$":"description"},"senderAlias":{"type":"string","key$":"senderAlias"},"deleteOnOptout":{"type":"boolean","key$":"deleteOnOptout"},"routes":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int32"},"name":{"type":"string"},"channel":{"type":"string"},"keywords":{"type":"array","items":{}},"unsubscriptionText":{"type":"string"},"optoutFooterEnabled":{"type":"boolean"},"optoutFooterText":{"type":"string"},"optoutFooterPageText":{"type":"string"},"optoutFooterPageButton":{"type":"string"}},"x-ref":"#/components/schemas/UnsubscribeRouteDto"},"key$":"routes"},"hooks":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int32"},"hookId":{"type":"integer","format":"int32"},"hookName":{"type":"string"},"hookKey":{"type":"string"},"name":{"type":"string"},"enabled":{"type":"boolean"}},"x-ref":"#/components/schemas/SimpleWebhookDto"},"key$":"hooks"}},"x-ref":"#/components/schemas/PermissionDatabase","index$":1}}},"required":true},"parameters":[{"name":"Database ID","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"customerId":{"a":true,"fo":"int32","h":"Customer Id","n":"customerId","r":false,"t":"`$INTEGER`","key$":"customerId","index$":0},"deleteOnOptout":{"a":true,"h":"Delete On Optout","n":"deleteOnOptout","r":false,"t":"`$BOOLEAN`","key$":"deleteOnOptout","index$":1},"description":{"a":true,"h":"Description","n":"description","r":false,"t":"`$STRING`","key$":"description","index$":2},"hooks":{"a":true,"h":"Hooks","n":"hooks","r":false,"t":"`$ARRAY`","key$":"hooks","index$":3},"id":{"a":true,"fo":"int32","h":"Id","n":"id","r":false,"t":"`$INTEGER`","key$":"id","index$":4},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":5},"routes":{"a":true,"h":"Routes","n":"routes","r":false,"t":"`$ARRAY`","key$":"routes","index$":6},"senderAlias":{"a":true,"h":"Sender Alias","n":"senderAlias","r":false,"t":"`$STRING`","key$":"senderAlias","index$":7},"serviceId":{"a":true,"fo":"int32","h":"Service Id","n":"serviceId","r":false,"t":"`$INTEGER`","key$":"serviceId","index$":8}},"id":{"field":"id","name":"id"},"name":"permission_database","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /public/database/list","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/public/database/list","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"public"},{"lit":"database"},{"lit":"list"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /public/database/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"Database ID","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/public/database/{id}","q":{"exist":["database_id","id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"},"update":{"input":"data","name":"update","points":[{"a":true,"bf":["customerId","deleteOnOptout","description","hooks","id","name","routes","senderAlias","serviceId"],"co":{"id":"PUT /public/database/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"database_id","or":"Database ID","r":true,"t":"`$INTEGER`","index$":0},{"a":true,"k":"param","n":"id","or":"id","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"k":"query","n":"api_key","or":"apiKey","r":false,"t":"`$STRING`","index$":0}]},"k":"http","m":"PUT","o":"/public/database/{id}","q":{"exist":["database_id","id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"public"},{"lit":"database"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"update"}},"relations":{"ancestors":[]},"key$":"permission_database","name__orig":"permission_database","Name":"PermissionDatabase","name_":"permission_database","name-":"permission-database","NAME":"PERMISSION_DATABASE","index$":7}, {"active":true,"entity":"permission_database","key$":"BasicPermissionDatabaseFlow","kind":"basic","name":"BasicPermissionDatabaseFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"permission_database_ref01"}}],"index$":0},{"a":true,"d":{"database_id":"database01"},"i":{"ref":"permission_database_ref01","srcdatavar":"permission_database_ref01_data","suffix":"_up0","textfield":"description"},"m":{},"o":"update","s":[{"apply":"TextFieldMark","def":{"mark":"Mark01-permission_database_ref01"}}],"v":[],"index$":1},{"a":true,"d":{},"i":{"ref":"permission_database_ref01","srcdatavar":"permission_database_ref01_data","suffix":"_dt0"},"m":{"database_id":"database01","id":"permission_database01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-permission_database_ref01"}}],"index$":2}]}, 'PermissionDatabase', {"GET /public/database/list":{"protocol":"http","parameters":[{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":0}]},"GET /public/database/{id}":{"protocol":"http","parameters":[{"name":"Database ID","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]},"PUT /public/database/{id}":{"protocol":"http","requestBody":{"content":{"application/json":{"schema":{"type":"object","properties":{"id":{"type":"integer","format":"int32","key$":"id"},"serviceId":{"type":"integer","format":"int32","key$":"serviceId"},"customerId":{"type":"integer","format":"int32","key$":"customerId"},"name":{"type":"string","key$":"name"},"description":{"type":"string","key$":"description"},"senderAlias":{"type":"string","key$":"senderAlias"},"deleteOnOptout":{"type":"boolean","key$":"deleteOnOptout"},"routes":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int32"},"name":{"type":"string"},"channel":{"type":"string"},"keywords":{"type":"array","items":{}},"unsubscriptionText":{"type":"string"},"optoutFooterEnabled":{"type":"boolean"},"optoutFooterText":{"type":"string"},"optoutFooterPageText":{"type":"string"},"optoutFooterPageButton":{"type":"string"}},"x-ref":"#/components/schemas/UnsubscribeRouteDto"},"key$":"routes"},"hooks":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","format":"int32"},"hookId":{"type":"integer","format":"int32"},"hookName":{"type":"string"},"hookKey":{"type":"string"},"name":{"type":"string"},"enabled":{"type":"boolean"}},"x-ref":"#/components/schemas/SimpleWebhookDto"},"key$":"hooks"}},"x-ref":"#/components/schemas/PermissionDatabase","index$":1}}},"required":true},"parameters":[{"name":"Database ID","in":"path","required":true,"schema":{"type":"integer","format":"int32"},"index$":0},{"name":"apiKey","in":"query","schema":{"type":"string"},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -93,6 +151,12 @@ describe('PermissionDatabaseEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

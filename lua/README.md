@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Databa
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/lm-umbrella-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/lm-umbrella-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -39,10 +39,13 @@ local client = sdk.new({
 
 FlatPermission is nested under database, so provide the `database_id`.
 
+`load` returns the entity; `data_get()` reads its record.
+
 ```lua
 local flatpermission, err = client:FlatPermission():load({ database_id = 1, id = "example_id" })
 if err then error(err) end
-print(flatpermission)
+local rec = flatpermission:data_get()
+print(rec["id"])
 ```
 
 ### 4. Create, update, and remove
@@ -59,7 +62,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local importstatuss, err = client:ImportStatus():list()
+local flatpermission, err = client:FlatPermission():load({ database_id = 1, id = "example_id" })
 if err then error(err) end
 ```
 
@@ -117,8 +120,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ImportStatus():list()
--- result is the returned data; err is set on failure
+local result, err = client:FlatPermission():load({ id = "test01", database_id = 1 })
+-- result is the entity; data_get() reads its mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -213,11 +216,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria, and return it. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
+| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity, and return it. |
+| `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity, and return it. |
+| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity, and return it marked as deleted. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -227,19 +230,19 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `load` / `create` / `update` / `remove` | the entity, whose `data_get()` reads its record (a `table`) |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
     local flat_permission, err = client:FlatPermission():load({ id = "example_id" })
     if err then error(err) end
-    -- flat_permission is the loaded record
+    -- flat_permission is the loaded entity
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -289,6 +292,7 @@ API path: `/public/database/{id}/permission/{msisdn}`
 | `errors` | Import errors (List of ImportError) |
 | `importId` | Import id |
 | `msisdn` |  |
+| `permissions` |  |
 | `permissionsInserted` | Number of permissions inserted into database |
 | `permissionsUpdated` | Number of permissions updated in database |
 | `status` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -441,7 +445,7 @@ Create an instance: `local flattened_permission = client:FlattenedPermission(nil
 #### Example: List
 
 ```lua
-local flattened_permissions, err = client:FlattenedPermission():list()
+local flattened_permissions, err = client:FlattenedPermission():list({ database_id = 1 })
 ```
 
 #### Example: Create
@@ -472,6 +476,7 @@ Create an instance: `local import_status = client:ImportStatus(nil)`
 | `errors` | `table` | Import errors (List of ImportError) |
 | `importId` | `string` | Import id |
 | `msisdn` | `string` |  |
+| `permissions` | `table` |  |
 | `permissionsInserted` | `number` | Number of permissions inserted into database |
 | `permissionsUpdated` | `number` | Number of permissions updated in database |
 | `status` | `string` | Import status: CREATED, VALIDATING, SAVING, DONE (FINAL), ERROR (FINAL) |
@@ -479,7 +484,7 @@ Create an instance: `local import_status = client:ImportStatus(nil)`
 #### Example: List
 
 ```lua
-local import_statuss, err = client:ImportStatus():list()
+local import_statuss, err = client:ImportStatus():list({ database_id = 1 })
 ```
 
 #### Example: Create
@@ -528,7 +533,7 @@ local metadata, err = client:Metadata():load({ id = "metadata_id", database_id =
 #### Example: List
 
 ```lua
-local metadatas, err = client:Metadata():list()
+local metadatas, err = client:Metadata():list({ database_id = 1 })
 ```
 
 #### Example: Create
@@ -855,15 +860,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local importstatus = client:ImportStatus()
-importstatus:list()
+local flatpermission = client:FlatPermission()
+flatpermission:load({ database_id = 1, id = "example_id" })
 
--- importstatus:data_get() now returns the importstatus data from the last list
--- importstatus:match_get() returns the last match criteria
+-- flatpermission:data_get() now returns the flatpermission data from the last load
+-- flatpermission:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

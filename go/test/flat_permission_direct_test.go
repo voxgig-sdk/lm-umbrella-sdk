@@ -10,6 +10,12 @@ import (
 	"github.com/voxgig-sdk/lm-umbrella-sdk/go/core"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const flat_permissionDirectLiveStrict = true
+
 func TestFlatPermissionDirect(t *testing.T) {
 	t.Run("direct-load-flat_permission", func(t *testing.T) {
 		setup := flat_permissionDirectSetup(map[string]any{"id": "direct01"})
@@ -25,9 +31,9 @@ func TestFlatPermissionDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"database_id01", "id01"} {
+			for _, _liveKey := range []string{"database01", "flat_permission01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					liveMiss(t, flat_permissionDirectLiveStrict, "Live test blocked: needs %s via LM_UMBRELLA_TEST_FLAT_PERMISSION_ENTID", _liveKey)
 					return
 				}
 			}
@@ -37,6 +43,8 @@ func TestFlatPermissionDirect(t *testing.T) {
 		params := map[string]any{}
 		query := map[string]any{}
 		if setup.live {
+			params["database_id"] = setup.idmap["database01"]
+			params["id"] = setup.idmap["flat_permission01"]
 		} else {
 			params["database_id"] = "direct01"
 			params["id"] = "direct02"
@@ -49,19 +57,14 @@ func TestFlatPermissionDirect(t *testing.T) {
 			"query":  query,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
-			// rather than fail when the load endpoint isn't reachable with
-			// the IDs we can construct from setup.idmap — unless the model
-			// sets main.kit.test.live.strict.
 			if err != nil {
-				t.Fatalf("load call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, flat_permissionDirectLiveStrict, "Live load failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("load call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, flat_permissionDirectLiveStrict, "Live load failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if result["data"] == nil {
+				liveMiss(t, flat_permissionDirectLiveStrict, "Live load returned no data: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {

@@ -94,7 +94,7 @@ class ImportStatusEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<ImportStatus[]> return stays clean under strict null checks.
+                // Promise<ImportStatusEntity[]> return stays clean under strict null checks.
                 return undefined;
             }
         }
@@ -182,7 +182,7 @@ class ImportStatusEntity extends LmUmbrellaEntityBase_1.LmUmbrellaEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<ImportStatus> return stays clean under strict null checks.
+                // Promise<ImportStatusEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }

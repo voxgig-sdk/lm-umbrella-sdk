@@ -51,6 +51,10 @@ main: kit: entity: flattened_permission: {
       name: "create"
       points: [
         {
+          bf: [
+            "empty"
+            "msisdn"
+          ]
           co: {
             id: "POST /public/database/{id}/permission/{msisdn}"
             source: "openapi3"
@@ -87,7 +91,6 @@ main: kit: entity: flattened_permission: {
           o: "/public/database/{id}/permission/{msisdn}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]
@@ -97,6 +100,10 @@ main: kit: entity: flattened_permission: {
               id: "database_id"
               msisdn: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -155,7 +162,6 @@ main: kit: entity: flattened_permission: {
           o: "/public/database/{id}/permission/list"
           q: {
             exist: [
-              "api_key"
               "database_id"
             ]
           }
@@ -163,6 +169,10 @@ main: kit: entity: flattened_permission: {
             param: {
               id: "database_id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

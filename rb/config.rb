@@ -20,7 +20,7 @@ module LmUmbrellaConfig
       "main" => {
         "name" => "LmUmbrella",
         "slug" => "lm-umbrella",
-        "version" => "0.1.1",
+        "version" => "0.1.2",
         "target" => "rb",
       },
       "feature" => {
@@ -149,6 +149,7 @@ module LmUmbrellaConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -246,7 +247,6 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
@@ -353,10 +353,13 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -477,10 +480,13 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -547,9 +553,12 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -581,6 +590,11 @@ module LmUmbrellaConfig
               "name" => "msisdn",
               "title" => "Msisdn",
               "type" => "`$STRING`",
+            },
+            {
+              "name" => "permissions",
+              "title" => "Permissions",
+              "type" => "`$ARRAY`",
             },
             {
               "name" => "permissionsInserted",
@@ -674,10 +688,13 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
-                      "skip_import_on_error",
+                      "permissions",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -754,10 +771,12 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
-                      "import_id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -897,9 +916,12 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -962,9 +984,12 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -1039,10 +1064,13 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -1117,7 +1145,6 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
@@ -1195,10 +1222,13 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -1376,9 +1406,12 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -1486,7 +1519,6 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
@@ -1561,7 +1593,6 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "msisdn",
                     ],
@@ -1639,7 +1670,6 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
@@ -1755,10 +1785,10 @@ module LmUmbrellaConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "api_key",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -1820,10 +1850,13 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -1885,10 +1918,13 @@ module LmUmbrellaConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
                       "database_id",
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],

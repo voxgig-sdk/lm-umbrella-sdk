@@ -34,7 +34,7 @@ class LmUmbrellaConfig
             "main" => [
                 "name" => "LmUmbrella",
                 "slug" => "lm-umbrella",
-                "version" => "0.1.1",
+                "version" => "0.1.2",
                 "target" => "php",
             ],
             "feature" => [
@@ -163,6 +163,7 @@ class LmUmbrellaConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -260,7 +261,6 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
@@ -367,10 +367,13 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -491,10 +494,13 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -561,9 +567,12 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -595,6 +604,11 @@ class LmUmbrellaConfig
               'name' => 'msisdn',
               'title' => 'Msisdn',
               'type' => '`$STRING`',
+            ],
+            [
+              'name' => 'permissions',
+              'title' => 'Permissions',
+              'type' => '`$ARRAY`',
             ],
             [
               'name' => 'permissionsInserted',
@@ -688,10 +702,13 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
-                      'skip_import_on_error',
+                      'permissions',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -768,10 +785,12 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
-                      'import_id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -911,9 +930,12 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -976,9 +998,12 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -1053,10 +1078,13 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -1131,7 +1159,6 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
@@ -1209,10 +1236,13 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -1390,9 +1420,12 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -1500,7 +1533,6 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
@@ -1575,7 +1607,6 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'msisdn',
                     ],
@@ -1653,7 +1684,6 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
@@ -1769,10 +1799,10 @@ class LmUmbrellaConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'api_key',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -1834,10 +1864,13 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -1899,10 +1932,13 @@ class LmUmbrellaConfig
                   ],
                   'select' => [
                     'exist' => [
-                      'api_key',
                       'database_id',
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],

@@ -93,10 +93,9 @@ main: kit: entity: permission_database: {
           }
           m: "GET"
           o: "/public/database/list"
-          q: {
-            exist: [
-              "api_key"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -156,10 +155,13 @@ main: kit: entity: permission_database: {
           o: "/public/database/{id}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -183,6 +185,17 @@ main: kit: entity: permission_database: {
       name: "update"
       points: [
         {
+          bf: [
+            "customerId"
+            "deleteOnOptout"
+            "description"
+            "hooks"
+            "id"
+            "name"
+            "routes"
+            "senderAlias"
+            "serviceId"
+          ]
           co: {
             id: "PUT /public/database/{id}"
             source: "openapi3"
@@ -219,10 +232,13 @@ main: kit: entity: permission_database: {
           o: "/public/database/{id}"
           q: {
             exist: [
-              "api_key"
               "database_id"
               "id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

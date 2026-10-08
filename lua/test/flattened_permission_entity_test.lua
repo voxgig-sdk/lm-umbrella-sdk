@@ -8,6 +8,13 @@ local runner = require("test.runner")
 
 local _test_dir = debug.getinfo(1, "S").source:match("^@(.+/)")  or "./"
 
+-- main.kit.test.live.strict is true (the default is true): a live
+-- request that fails, or a live test missing an input it needs,
+-- fails the test.
+-- An account with no record for a test to read skips it either way.
+local LIVE_STRICT = true
+
+
 describe("FlattenedPermissionEntity", function()
   it("should create instance", function()
     local testsdk = sdk.test(nil, nil)
@@ -15,80 +22,47 @@ describe("FlattenedPermissionEntity", function()
     assert.is_not_nil(ent)
   end)
 
-  -- Feature #4: the entity stream(action, ...) method runs the op pipeline and
-  -- returns an iterator over result items. With the streaming feature active it
-  -- yields the feature's incremental output; otherwise it falls back to the
-  -- materialised list so stream always yields.
-  it("should stream", function()
-    local seed = {
-      entity = {
-        ["flattened_permission"] = {
-          s1 = { id = "s1" },
-          s2 = { id = "s2" },
-          s3 = { id = "s3" },
-        },
-      },
-    }
-
-    -- Fallback: streaming inactive -> yields the materialised list items.
-    local base = sdk.test(seed, nil)
-    local seen = {}
-    for item in base:FlattenedPermission(nil):stream("list", nil, nil) do
-      table.insert(seen, item)
-    end
-    assert.are.equal(3, #seen)
-
-    -- Inbound: streaming active -> yields each item from the feature.
+  it("should refuse an invalid request", function()
     local config = require("config_shared")()
-    if type(config.feature) == "table" and config.feature.streaming ~= nil then
-      local streamsdk = sdk.test(seed, { feature = { streaming = { active = true } } })
-      local got = {}
-      for item in streamsdk:FlattenedPermission(nil):stream("list", nil, nil) do
-        if vs.islist(item) then
-          for _, sub in ipairs(item) do
-            table.insert(got, sub)
-          end
-        else
-          table.insert(got, item)
-        end
-      end
-      assert.are.equal(3, #got)
+    if type(config.feature) ~= "table" or config.feature.validate == nil then
+      pending("feature not present in this SDK: validate")
+      return
     end
+    local client = sdk.test(nil, { feature = { validate = { active = true } } })
+    local _, err = client:FlattenedPermission(nil):list({ ["database_id"] = "x" }, nil)
+    assert.are.equal("validate_failed", type(err) == "table" and err.code or nil)
   end)
 
   it("should run basic flow", function()
     local setup = flattened_permission_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"create", "list"}) do
+    for _, _op in ipairs({"list"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "flattened_permission." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
         return
       end
     end
-    -- The basic flow consumes synthetic IDs from the fixture. In live mode
-    -- without an *_ENTID env override, those IDs hit the live API and 4xx.
-    if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set LM_UMBRELLA_TEST_FLATTENED_PERMISSION_ENTID JSON to run live")
-      return
+    if setup.live then
+      for _, _live_key in ipairs({"database01"}) do
+        if setup.synthetic_only or setup.idmap[_live_key] == nil then
+          runner.live_miss(pending, LIVE_STRICT, "Live entity test blocked: needs " .. _live_key .. " via LM_UMBRELLA_TEST_FLATTENED_PERMISSION_ENTID")
+        end
+      end
     end
     local client = setup.client
 
-    -- CREATE
-    local flattened_permission_ref01_ent = client:FlattenedPermission(nil)
-    local flattened_permission_ref01_data = helpers.to_map(vs.getprop(
-      vs.getpath(setup.data, "new.flattened_permission"), "flattened_permission_ref01"))
-    flattened_permission_ref01_data["database_id"] = setup.idmap["database01"]
-    flattened_permission_ref01_data["msisdn"] = setup.idmap["msisdn01"]
-
-    local flattened_permission_ref01_data_result, err = flattened_permission_ref01_ent:create(flattened_permission_ref01_data, nil)
-    assert.is_nil(err)
-    flattened_permission_ref01_data = helpers.to_map(type(flattened_permission_ref01_data_result) == 'table' and flattened_permission_ref01_data_result.data_get and flattened_permission_ref01_data_result:data_get() or flattened_permission_ref01_data_result)
-    assert.is_not_nil(flattened_permission_ref01_data)
-    assert.is_not_nil(flattened_permission_ref01_data["id"])
+    -- Bootstrap entity data from existing test data.
+    local flattened_permission_ref01_data_raw = vs.items(helpers.to_map(
+      vs.getpath(setup.data, "existing.flattened_permission")))
+    local flattened_permission_ref01_data = nil
+    if #flattened_permission_ref01_data_raw > 0 then
+      flattened_permission_ref01_data = helpers.to_map(flattened_permission_ref01_data_raw[1][2])
+    end
 
     -- LIST
+    local flattened_permission_ref01_ent = client:FlattenedPermission(nil)
     local flattened_permission_ref01_match = {
       ["database_id"] = setup.idmap["database01"],
     }
@@ -96,11 +70,6 @@ describe("FlattenedPermissionEntity", function()
     local flattened_permission_ref01_list_result, err = flattened_permission_ref01_ent:list(flattened_permission_ref01_match, nil)
     assert.is_nil(err)
     assert.is_table(flattened_permission_ref01_list_result)
-
-    local found_item = vs.select(
-      runner.entity_list_to_data(flattened_permission_ref01_list_result),
-      { id = flattened_permission_ref01_data["id"] })
-    assert.is_false(vs.isempty(found_item))
 
   end)
 end)
@@ -125,7 +94,7 @@ function flattened_permission_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "flattened_permission01", "flattened_permission02", "flattened_permission03", "database01", "database02", "database03", "msisdn01" },
+    { "flattened_permission01", "flattened_permission02", "flattened_permission03", "database01", "database02", "database03" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",
@@ -134,9 +103,8 @@ function flattened_permission_basic_setup(extra)
     }
   )
 
-  -- Detect ENTID env override before envOverride consumes it. When live
-  -- mode is on without a real override, the basic test runs against synthetic
-  -- IDs from the fixture and 4xx's. Surface this so the test can skip.
+  -- Whether *_ENTID supplied the idmap, read before env_override consumes
+  -- it: without it, the ids a live flow binds are the fixture's synthetic ones.
   local entid_env_raw = os.getenv("LM_UMBRELLA_TEST_FLATTENED_PERMISSION_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 

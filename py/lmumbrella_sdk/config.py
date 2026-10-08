@@ -37,7 +37,7 @@ def make_config():
         "main": {
             "name": "LmUmbrella",
             "slug": "lm-umbrella",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "target": "py",
         },
         "feature": {
@@ -166,6 +166,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -263,7 +264,6 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
@@ -370,10 +370,13 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -494,10 +497,13 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -564,9 +570,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -598,6 +607,11 @@ def make_config():
             "name": "msisdn",
             "title": "Msisdn",
             "type": "`$STRING`",
+          },
+          {
+            "name": "permissions",
+            "title": "Permissions",
+            "type": "`$ARRAY`",
           },
           {
             "name": "permissionsInserted",
@@ -691,10 +705,13 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
-                    "skip_import_on_error",
+                    "permissions",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -771,10 +788,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
-                    "import_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -914,9 +933,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -979,9 +1001,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1056,10 +1081,13 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1134,7 +1162,6 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
@@ -1212,10 +1239,13 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1393,9 +1423,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1503,7 +1536,6 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
@@ -1578,7 +1610,6 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "msisdn",
                   ],
@@ -1656,7 +1687,6 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
@@ -1772,10 +1802,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "api_key",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1837,10 +1867,13 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1902,10 +1935,13 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "api_key",
                     "database_id",
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],

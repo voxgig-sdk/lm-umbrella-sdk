@@ -36,7 +36,7 @@ class Config {
     main = {
         name: 'LmUmbrella',
         slug: "lm-umbrella",
-        version: "0.1.1",
+        version: "0.1.2",
         target: "ts",
     };
     feature = {
@@ -165,6 +165,7 @@ class Config {
             },
             "optspec": {
                 "clearTimer": "`$FUNCTION`",
+                "now": "`$FUNCTION`",
                 "setTimer": "`$FUNCTION`"
             },
             "strict": false,
@@ -262,7 +263,6 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
@@ -369,10 +369,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -493,10 +496,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -563,9 +569,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -597,6 +606,11 @@ class Config {
                     "name": "msisdn",
                     "title": "Msisdn",
                     "type": "`$STRING`"
+                },
+                {
+                    "name": "permissions",
+                    "title": "Permissions",
+                    "type": "`$ARRAY`"
                 },
                 {
                     "name": "permissionsInserted",
@@ -690,10 +704,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
-                                    "skip_import_on_error"
+                                    "permissions"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -770,10 +787,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
-                                    "database_id",
-                                    "import_id"
+                                    "database_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -913,9 +932,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -978,9 +1000,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1055,10 +1080,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1133,7 +1161,6 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
@@ -1211,10 +1238,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1392,9 +1422,12 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1502,7 +1535,6 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
@@ -1577,7 +1609,6 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "msisdn"
                                 ]
@@ -1655,7 +1686,6 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
@@ -1771,10 +1801,10 @@ class Config {
                                     }
                                 ]
                             },
-                            "select": {
-                                "exist": [
-                                    "api_key"
-                                ]
+                            "select": {},
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1836,10 +1866,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]
@@ -1901,10 +1934,13 @@ class Config {
                             },
                             "select": {
                                 "exist": [
-                                    "api_key",
                                     "database_id",
                                     "id"
                                 ]
+                            },
+                            "response": {
+                                "kind": "json",
+                                "media": "application/json"
                             }
                         }
                     ]

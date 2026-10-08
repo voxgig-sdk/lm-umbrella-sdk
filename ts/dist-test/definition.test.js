@@ -30,8 +30,15 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -68,8 +75,18 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -109,9 +126,14 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -146,8 +168,18 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -182,14 +214,20 @@ const PLAN = [
             }
         ],
         "select": {
+            "permissions": "v1",
             "api_key": "v1",
             "skip_import_on_error": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey",
             "skipImportOnError"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -207,10 +245,10 @@ const PLAN = [
             "permissionsUpdated": 1,
             "errors": [
                 {
+                    "msisdn": "x",
                     "errors": [
                         "x"
-                    ],
-                    "msisdn": "x"
+                    ]
                 }
             ]
         },
@@ -234,9 +272,23 @@ const PLAN = [
             "import_id": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "importId",
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            },
+            {
+                "name": "import_id",
+                "wire": "importId"
+            }
         ],
         "auth": [
             [
@@ -255,10 +307,10 @@ const PLAN = [
             "permissionsUpdated": 1,
             "errors": [
                 {
+                    "msisdn": "x",
                     "errors": [
                         "x"
-                    ],
-                    "msisdn": "x"
+                    ]
                 }
             ]
         },
@@ -281,9 +333,14 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -330,8 +387,18 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -386,8 +453,18 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -440,8 +517,15 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -478,9 +562,14 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -527,9 +616,14 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -598,8 +692,15 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -636,8 +737,15 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -674,9 +782,11 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
         "query": [
             "apiKey"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -701,8 +811,18 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -780,8 +900,18 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "apiKey"
+            }
         ],
         "auth": [
             [
@@ -857,9 +987,14 @@ const PLAN = [
             "api_key": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "apiKey"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
