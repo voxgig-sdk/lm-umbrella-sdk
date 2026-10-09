@@ -221,7 +221,7 @@ const database = client.Database()
 Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
 
 ```ts
-const result = await client.Database().remove({ database_id: 1, id: 'id' })
+const result = await client.Database().remove({ id: 'database_id', database_id: 1 })
 ```
 
 ### Common Methods
@@ -619,7 +619,7 @@ const permission = client.Permission()
 Remove the entity matching the given criteria. Resolves to the entity, marked as deleted.
 
 ```ts
-const result = await client.Permission().remove({ database_id: 1 })
+const result = await client.Permission().remove({ id: 'permission_id', database_id: 1 })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -628,8 +628,8 @@ Update an existing entity. The data must include the entity `id`. Resolves to th
 
 ```ts
 const result = await client.Permission().update({
+  id: 'permission_id',
   database_id: 1,
-  id: 'id',
   // Fields to update
 })
 ```

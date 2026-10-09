@@ -100,6 +100,7 @@ describe("MetadataEntity", function()
     local metadata_ref01_match_dt0 = {
       id = metadata_ref01_data["id"],
     }
+    metadata_ref01_match_dt0["database_id"] = setup.idmap["database_id"] or setup.idmap["database01"]
     local metadata_ref01_data_dt0_loaded, err = metadata_ref01_ent:load(metadata_ref01_match_dt0, nil)
     assert.is_nil(err)
     local metadata_ref01_data_dt0_load_result = helpers.to_map(type(metadata_ref01_data_dt0_loaded) == 'table' and metadata_ref01_data_dt0_loaded.data_get and metadata_ref01_data_dt0_loaded:data_get() or metadata_ref01_data_dt0_loaded)
@@ -110,6 +111,7 @@ describe("MetadataEntity", function()
     local metadata_ref01_match_rm0 = {
       id = metadata_ref01_data["id"],
     }
+    metadata_ref01_match_rm0["database_id"] = setup.idmap["database_id"] or setup.idmap["database01"]
     local _, err = metadata_ref01_ent:remove(metadata_ref01_match_rm0, nil)
     assert.is_nil(err)
 

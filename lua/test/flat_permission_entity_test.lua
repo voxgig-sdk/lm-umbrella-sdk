@@ -62,6 +62,7 @@ describe("FlatPermissionEntity", function()
     local flat_permission_ref01_match_dt0 = {
       id = flat_permission_ref01_data["id"],
     }
+    flat_permission_ref01_match_dt0["database_id"] = setup.idmap["database_id"] or setup.idmap["database01"]
     local flat_permission_ref01_data_dt0_loaded, err = flat_permission_ref01_ent:load(flat_permission_ref01_match_dt0, nil)
     assert.is_nil(err)
     local flat_permission_ref01_data_dt0_load_result = helpers.to_map(type(flat_permission_ref01_data_dt0_loaded) == 'table' and flat_permission_ref01_data_dt0_loaded.data_get and flat_permission_ref01_data_dt0_loaded:data_get() or flat_permission_ref01_data_dt0_loaded)

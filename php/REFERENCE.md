@@ -130,7 +130,7 @@ $database = $client->Database();
 Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
-$result = $client->Database()->remove(["database_id" => 1, "id" => "id"]);
+$result = $client->Database()->remove(["id" => "database_id", "database_id" => 1]);
 ```
 
 ### Common Methods
@@ -540,7 +540,7 @@ $permission = $client->Permission();
 Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
-$result = $client->Permission()->remove(["database_id" => 1]);
+$result = $client->Permission()->remove(["id" => "permission_id", "database_id" => 1]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
@@ -549,8 +549,8 @@ Update an existing entity. The data must include the entity `id`. Returns the up
 
 ```php
 $result = $client->Permission()->update([
+  "id" => "permission_id",
   "database_id" => 1,
-  "id" => "id",
   // Fields to update
 ]);
 ```

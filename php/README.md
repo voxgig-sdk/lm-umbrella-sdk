@@ -56,7 +56,7 @@ try {
 
 ```php
 // Remove
-$client->Database()->remove(["database_id" => 1, "id" => "example_id"]);
+$client->Database()->remove(["id" => "example_id", "database_id" => 1]);
 ```
 
 

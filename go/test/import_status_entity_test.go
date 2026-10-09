@@ -70,6 +70,7 @@ func TestImportStatusEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		importStatusRef01Ent := client.ImportStatus(nil)

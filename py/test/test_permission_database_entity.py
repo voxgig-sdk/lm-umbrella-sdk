@@ -175,6 +175,7 @@ class TestPermissionDatabaseEntity:
         permission_database_ref01_match_dt0 = {
             "id": permission_database_ref01_data["id"],
         }
+        permission_database_ref01_match_dt0["database_id"] = setup["idmap"].get("database_id") or setup["idmap"].get("database01")
         permission_database_ref01_data_dt0_loaded = permission_database_ref01_ent.load(permission_database_ref01_match_dt0, None)
         permission_database_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(permission_database_ref01_data_dt0_loaded))
         assert permission_database_ref01_data_dt0_load_result is not None

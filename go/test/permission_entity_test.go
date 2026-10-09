@@ -74,6 +74,7 @@ func TestPermissionEntity(t *testing.T) {
 			liveMiss(t, permissionEntityLiveStrict, "Live entity test blocked: %s", "the flow updates a permission record it did not create")
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		permissionRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.permission")))

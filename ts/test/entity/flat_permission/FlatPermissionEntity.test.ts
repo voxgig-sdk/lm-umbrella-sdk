@@ -77,6 +77,7 @@ describe('FlatPermissionEntity', async () => {
     const flat_permission_ref01_ent = client.FlatPermission()
     const flat_permission_ref01_match_dt0: any = {}
     flat_permission_ref01_match_dt0.id = flat_permission_ref01_data.id
+    flat_permission_ref01_match_dt0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01']
     const flat_permission_ref01_data_dt0 = (await flat_permission_ref01_ent.load(flat_permission_ref01_match_dt0)).data()
     assert(flat_permission_ref01_data_dt0.id === flat_permission_ref01_data.id)
 

@@ -211,6 +211,7 @@ func TestPermissionDatabaseEntity(t *testing.T) {
 			liveMiss(t, permission_databaseEntityLiveStrict, "Live entity test blocked: %s", "the flow updates a permission_database record it did not create")
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		permissionDatabaseRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.permission_database")))
@@ -263,6 +264,11 @@ func TestPermissionDatabaseEntity(t *testing.T) {
 		// LOAD
 		permissionDatabaseRef01MatchDt0 := map[string]any{
 			"id": permissionDatabaseRef01Data["id"],
+		}
+		if v := setup.idmap["database_id"]; v != nil {
+			permissionDatabaseRef01MatchDt0["database_id"] = v
+		} else {
+			permissionDatabaseRef01MatchDt0["database_id"] = setup.idmap["database01"]
 		}
 		permissionDatabaseRef01DataDt0Loaded, err := permissionDatabaseRef01Ent.Load(permissionDatabaseRef01MatchDt0, nil)
 		if err != nil {

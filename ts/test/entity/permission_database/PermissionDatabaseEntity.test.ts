@@ -129,7 +129,7 @@ describe('PermissionDatabaseEntity', async () => {
     // UPDATE
     const permission_database_ref01_data_up0: any = {}
     permission_database_ref01_data_up0.id = permission_database_ref01_data.id
-    permission_database_ref01_data_up0 ['database_id'] = setup.idmap['database_id']
+    permission_database_ref01_data_up0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01']
 
     const permission_database_ref01_markdef_up0 = { name: 'description', value: 'Mark01-permission_database_ref01_' + setup.now }
     ;(permission_database_ref01_data_up0 as any)[permission_database_ref01_markdef_up0.name] = permission_database_ref01_markdef_up0.value
@@ -143,6 +143,7 @@ describe('PermissionDatabaseEntity', async () => {
     // LOAD
     const permission_database_ref01_match_dt0: any = {}
     permission_database_ref01_match_dt0.id = permission_database_ref01_data.id
+    permission_database_ref01_match_dt0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01']
     const permission_database_ref01_data_dt0 = (await permission_database_ref01_ent.load(permission_database_ref01_match_dt0)).data()
     assert(permission_database_ref01_data_dt0.id === permission_database_ref01_data.id)
 

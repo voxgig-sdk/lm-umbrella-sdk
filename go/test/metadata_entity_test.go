@@ -71,6 +71,7 @@ func TestMetadataEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		metadataRef01Ent := client.Metadata(nil)
@@ -138,6 +139,11 @@ func TestMetadataEntity(t *testing.T) {
 		metadataRef01MatchDt0 := map[string]any{
 			"id": metadataRef01Data["id"],
 		}
+		if v := setup.idmap["database_id"]; v != nil {
+			metadataRef01MatchDt0["database_id"] = v
+		} else {
+			metadataRef01MatchDt0["database_id"] = setup.idmap["database01"]
+		}
 		metadataRef01DataDt0Loaded, err := metadataRef01Ent.Load(metadataRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
@@ -153,6 +159,11 @@ func TestMetadataEntity(t *testing.T) {
 		// REMOVE
 		metadataRef01MatchRm0 := map[string]any{
 			"id": metadataRef01Data["id"],
+		}
+		if v := setup.idmap["database_id"]; v != nil {
+			metadataRef01MatchRm0["database_id"] = v
+		} else {
+			metadataRef01MatchRm0["database_id"] = setup.idmap["database01"]
 		}
 		_, err = metadataRef01Ent.Remove(metadataRef01MatchRm0, nil)
 		if err != nil {

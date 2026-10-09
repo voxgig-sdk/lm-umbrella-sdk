@@ -204,6 +204,7 @@ class PermissionDatabaseEntityTest < Minitest::Test
     permission_database_ref01_match_dt0 = {
       "id" => permission_database_ref01_data["id"],
     }
+    permission_database_ref01_match_dt0["database_id"] = setup[:idmap]["database_id"] || setup[:idmap]["database01"]
     permission_database_ref01_data_dt0_loaded = permission_database_ref01_ent.load(permission_database_ref01_match_dt0, nil)
     permission_database_ref01_data_dt0_load_result = Helpers.to_map(permission_database_ref01_data_dt0_loaded.respond_to?(:data_get) ? permission_database_ref01_data_dt0_loaded.data_get : permission_database_ref01_data_dt0_loaded)
     assert !permission_database_ref01_data_dt0_load_result.nil?

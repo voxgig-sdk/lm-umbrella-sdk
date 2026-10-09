@@ -55,7 +55,7 @@ func main() {
     })
 
     // Remove a database.
-    removed, err := client.Database(nil).Remove(map[string]any{"database_id": 1, "id": "example_id"}, nil)
+    removed, err := client.Database(nil).Remove(map[string]any{"id": "example_id", "database_id": 1}, nil)
     if err != nil {
         panic(err)
     }
@@ -263,7 +263,7 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    database, err := client.Database(nil).Remove(nil, nil)
+    database, err := client.Database(nil).Remove(map[string]any{"id": "example_id"}, nil)
     if err != nil { /* handle */ }
     // database is the entity; database.(sdk.Entity).Data() reads its record
 

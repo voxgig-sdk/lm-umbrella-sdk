@@ -67,6 +67,7 @@ class TestFlatPermissionEntity:
         flat_permission_ref01_match_dt0 = {
             "id": flat_permission_ref01_data["id"],
         }
+        flat_permission_ref01_match_dt0["database_id"] = setup["idmap"].get("database_id") or setup["idmap"].get("database01")
         flat_permission_ref01_data_dt0_loaded = flat_permission_ref01_ent.load(flat_permission_ref01_match_dt0, None)
         flat_permission_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(flat_permission_ref01_data_dt0_loaded))
         assert flat_permission_ref01_data_dt0_load_result is not None

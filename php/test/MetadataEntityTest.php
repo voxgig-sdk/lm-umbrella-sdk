@@ -105,6 +105,7 @@ class MetadataEntityTest extends TestCase
         $metadata_ref01_match_dt0 = [
             "id" => $metadata_ref01_data["id"],
         ];
+        $metadata_ref01_match_dt0["database_id"] = $setup["idmap"]["database_id"] ?? $setup["idmap"]["database01"] ?? null;
         $metadata_ref01_data_dt0_loaded = $metadata_ref01_ent->load($metadata_ref01_match_dt0, null);
         $metadata_ref01_data_dt0_load_result = Helpers::to_map(is_object($metadata_ref01_data_dt0_loaded) && method_exists($metadata_ref01_data_dt0_loaded, 'data_get') ? $metadata_ref01_data_dt0_loaded->data_get() : $metadata_ref01_data_dt0_loaded);
         $this->assertNotNull($metadata_ref01_data_dt0_load_result);
@@ -114,6 +115,7 @@ class MetadataEntityTest extends TestCase
         $metadata_ref01_match_rm0 = [
             "id" => $metadata_ref01_data["id"],
         ];
+        $metadata_ref01_match_rm0["database_id"] = $setup["idmap"]["database_id"] ?? $setup["idmap"]["database01"] ?? null;
         $metadata_ref01_ent->remove($metadata_ref01_match_rm0, null);
 
         // LIST

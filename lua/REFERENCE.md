@@ -128,7 +128,7 @@ local database = client:Database(nil)
 Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
-local result, err = client:Database():remove({ database_id = 1, id = "id" })
+local result, err = client:Database():remove({ id = "database_id", database_id = 1 })
 ```
 
 ### Common Methods
@@ -538,7 +538,7 @@ local permission = client:Permission(nil)
 Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
-local result, err = client:Permission():remove({ database_id = 1 })
+local result, err = client:Permission():remove({ id = "permission_id", database_id = 1 })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -547,8 +547,8 @@ Update an existing entity. The data must include the entity `id`. Returns the up
 
 ```lua
 local result, err = client:Permission():update({
+  id = "permission_id",
   database_id = 1,
-  id = "id",
   -- Fields to update
 })
 ```

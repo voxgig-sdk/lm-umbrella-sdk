@@ -123,7 +123,7 @@ const utility_1 = require("../../utility");
         // UPDATE
         const permission_database_ref01_data_up0 = {};
         permission_database_ref01_data_up0.id = permission_database_ref01_data.id;
-        permission_database_ref01_data_up0['database_id'] = setup.idmap['database_id'];
+        permission_database_ref01_data_up0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01'];
         const permission_database_ref01_markdef_up0 = { name: 'description', value: 'Mark01-permission_database_ref01_' + setup.now };
         permission_database_ref01_data_up0[permission_database_ref01_markdef_up0.name] = permission_database_ref01_markdef_up0.value;
         const permission_database_ref01_resdata_up0 = (await permission_database_ref01_ent.update(permission_database_ref01_data_up0)).data();
@@ -132,6 +132,7 @@ const utility_1 = require("../../utility");
         // LOAD
         const permission_database_ref01_match_dt0 = {};
         permission_database_ref01_match_dt0.id = permission_database_ref01_data.id;
+        permission_database_ref01_match_dt0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01'];
         const permission_database_ref01_data_dt0 = (await permission_database_ref01_ent.load(permission_database_ref01_match_dt0)).data();
         (0, node_assert_1.default)(permission_database_ref01_data_dt0.id === permission_database_ref01_data.id);
     });

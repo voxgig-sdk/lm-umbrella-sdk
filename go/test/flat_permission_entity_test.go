@@ -66,6 +66,7 @@ func TestFlatPermissionEntity(t *testing.T) {
 			liveMiss(t, flat_permissionEntityLiveStrict, "Live entity test blocked: %s", "the flow loads a flat_permission record it has no list to find")
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		flatPermissionRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.flat_permission")))
@@ -81,6 +82,11 @@ func TestFlatPermissionEntity(t *testing.T) {
 		flatPermissionRef01Ent := client.FlatPermission(nil)
 		flatPermissionRef01MatchDt0 := map[string]any{
 			"id": flatPermissionRef01Data["id"],
+		}
+		if v := setup.idmap["database_id"]; v != nil {
+			flatPermissionRef01MatchDt0["database_id"] = v
+		} else {
+			flatPermissionRef01MatchDt0["database_id"] = setup.idmap["database01"]
 		}
 		flatPermissionRef01DataDt0Loaded, err := flatPermissionRef01Ent.Load(flatPermissionRef01MatchDt0, nil)
 		if err != nil {

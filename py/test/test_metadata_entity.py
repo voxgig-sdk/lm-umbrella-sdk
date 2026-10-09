@@ -99,6 +99,7 @@ class TestMetadataEntity:
         metadata_ref01_match_dt0 = {
             "id": metadata_ref01_data["id"],
         }
+        metadata_ref01_match_dt0["database_id"] = setup["idmap"].get("database_id") or setup["idmap"].get("database01")
         metadata_ref01_data_dt0_loaded = metadata_ref01_ent.load(metadata_ref01_match_dt0, None)
         metadata_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(metadata_ref01_data_dt0_loaded))
         assert metadata_ref01_data_dt0_load_result is not None
@@ -108,6 +109,7 @@ class TestMetadataEntity:
         metadata_ref01_match_rm0 = {
             "id": metadata_ref01_data["id"],
         }
+        metadata_ref01_match_rm0["database_id"] = setup["idmap"].get("database_id") or setup["idmap"].get("database01")
         metadata_ref01_ent.remove(metadata_ref01_match_rm0, None)
 
         # LIST

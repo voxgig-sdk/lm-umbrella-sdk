@@ -81,6 +81,7 @@ const utility_1 = require("../../utility");
         const flat_permission_ref01_ent = client.FlatPermission();
         const flat_permission_ref01_match_dt0 = {};
         flat_permission_ref01_match_dt0.id = flat_permission_ref01_data.id;
+        flat_permission_ref01_match_dt0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01'];
         const flat_permission_ref01_data_dt0 = (await flat_permission_ref01_ent.load(flat_permission_ref01_match_dt0)).data();
         (0, node_assert_1.default)(flat_permission_ref01_data_dt0.id === flat_permission_ref01_data.id);
     });

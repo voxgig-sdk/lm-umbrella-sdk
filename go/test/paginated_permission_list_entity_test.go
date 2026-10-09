@@ -70,6 +70,7 @@ func TestPaginatedPermissionListEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// CREATE
 		paginatedPermissionListRef01Ent := client.PaginatedPermissionList(nil)

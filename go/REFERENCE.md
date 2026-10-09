@@ -136,7 +136,7 @@ fmt.Println(database.GetName()) // "database"
 Remove the entity matching the given criteria. Returns the entity, marked as deleted; `err` is non-nil on failure.
 
 ```go
-result, err := client.Database(nil).Remove(map[string]any{"database_id": 1, "id": "id"}, nil)
+result, err := client.Database(nil).Remove(map[string]any{"id": "database_id", "database_id": 1}, nil)
 if err != nil {
     panic(err)
 }
@@ -619,8 +619,8 @@ Update an existing entity. The data must include the entity `id`. Returns the up
 
 ```go
 result, err := client.Permission(nil).Update(map[string]any{
+    "id": "permission_id",
     "database_id": 1,
-    "id": "id",
     // Fields to update
 }, nil)
 if err != nil {
@@ -634,7 +634,7 @@ fmt.Println(result.(sdk.Entity).Data())
 Remove the entity matching the given criteria. Returns the entity, marked as deleted; `err` is non-nil on failure.
 
 ```go
-result, err := client.Permission(nil).Remove(map[string]any{"database_id": 1}, nil)
+result, err := client.Permission(nil).Remove(map[string]any{"id": "permission_id", "database_id": 1}, nil)
 if err != nil {
     panic(err)
 }

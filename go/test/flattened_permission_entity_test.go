@@ -70,6 +70,7 @@ func TestFlattenedPermissionEntity(t *testing.T) {
 			}
 		}
 		client := setup.client
+		_ = client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
 		flattenedPermissionRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.flattened_permission")))

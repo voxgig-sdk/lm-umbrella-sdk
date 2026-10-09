@@ -203,6 +203,7 @@ describe("PermissionDatabaseEntity", function()
     local permission_database_ref01_match_dt0 = {
       id = permission_database_ref01_data["id"],
     }
+    permission_database_ref01_match_dt0["database_id"] = setup.idmap["database_id"] or setup.idmap["database01"]
     local permission_database_ref01_data_dt0_loaded, err = permission_database_ref01_ent:load(permission_database_ref01_match_dt0, nil)
     assert.is_nil(err)
     local permission_database_ref01_data_dt0_load_result = helpers.to_map(type(permission_database_ref01_data_dt0_loaded) == 'table' and permission_database_ref01_data_dt0_loaded.data_get and permission_database_ref01_data_dt0_loaded:data_get() or permission_database_ref01_data_dt0_loaded)

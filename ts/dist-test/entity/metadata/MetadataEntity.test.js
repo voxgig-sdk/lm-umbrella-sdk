@@ -90,7 +90,7 @@ const utility_1 = require("../../utility");
         // UPDATE
         const metadata_ref01_data_up0 = {};
         metadata_ref01_data_up0.id = metadata_ref01_data.id;
-        metadata_ref01_data_up0['database_id'] = setup.idmap['database_id'];
+        metadata_ref01_data_up0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01'];
         const metadata_ref01_markdef_up0 = { name: 'key', value: 'Mark01-metadata_ref01_' + setup.now };
         metadata_ref01_data_up0[metadata_ref01_markdef_up0.name] = metadata_ref01_markdef_up0.value;
         const metadata_ref01_resdata_up0 = (await metadata_ref01_ent.update(metadata_ref01_data_up0)).data();
@@ -99,10 +99,12 @@ const utility_1 = require("../../utility");
         // LOAD
         const metadata_ref01_match_dt0 = {};
         metadata_ref01_match_dt0.id = metadata_ref01_data.id;
+        metadata_ref01_match_dt0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01'];
         const metadata_ref01_data_dt0 = (await metadata_ref01_ent.load(metadata_ref01_match_dt0)).data();
         (0, node_assert_1.default)(metadata_ref01_data_dt0.id === metadata_ref01_data.id);
         // REMOVE
         const metadata_ref01_match_rm0 = { id: metadata_ref01_data.id };
+        metadata_ref01_match_rm0['database_id'] = setup.idmap['database_id'] ?? setup.idmap['database01'];
         await metadata_ref01_ent.remove(metadata_ref01_match_rm0);
         // LIST
         const metadata_ref01_match_rt0 = {};
